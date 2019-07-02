@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<ui:insert name="metadata" />
+
+<h:head>
+
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputScript library="js" name="scripts.js" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title> Sistema de Compra e Venda DataSales </title>
+		
+</h:head>
+<h:body>
+
+<p:growl id="mensagem"/>
+	<p:layout fullPage="true">
+		
+		 
+				<p:layoutUnit style="text-align:center;" position="north" header="SISTEMA DATASALES"
+				 resizable="false" closable="false" collapsible="false">
+			   </p:layoutUnit>
+		
+
+ 		<p:layoutUnit style="text-align:center;" position="south"
+ 			header="Usuário: #{autenticacaoBean.usuarioLogado.pessoa.nome} " resizable="false" 
+			closable="false" collapsible="false"> 
+	
+		</p:layoutUnit> 
+		<p:layoutUnit position="west" size="200" resizable="false"
+			closable="false" collapsible="false">
+
+			<h:form>
+				<p:panelMenu>
+					<p:submenu label="Arquivo">
+						<p:menuitem value="Principal" outcome="/pages/principal.xhtml"/>
+						<p:menuitem value="Sair" outcome="/pages/autenticacao.xhtml"/>
+					</p:submenu>
+
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Produtos" outcome="/pages/produto.xhtml" />
+						<p:menuitem value="Fornecedores" outcome="/pages/fornecedor.xhtml"/>
+						<p:menuitem value="Funcionarios" outcome="/pages/funcionario.xhtml" />
+						<p:menuitem value="Estados" outcome="/pages/estado.xhtml"/>
+						<p:menuitem value="Cidades" outcome="/pages/cidade.xhtml"/>
+						<p:menuitem value="Pessoas" outcome="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Clientes" outcome="/pages/cliente.xhtml"/>
+						<p:menuitem value="Usuarios" outcome="/pages/usuario.xhtml"/>
+					</p:submenu>
+					<p:submenu label="Compras"  >
+						<p:menuitem value="Pedido de Compras" outcome="/pages/compras.xhtml" />
+					</p:submenu>
+					<p:submenu label="Estoque"  >
+						<p:menuitem value="Avaria de Mercadoria" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Nota Fiscal de Compras" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Vendas"  >
+						<p:menuitem value="Pedido de Venda" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Financeiro"  >
+						<p:menuitem value="Caixa" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Contas a Pagar" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Contas a Receber" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Expedição"  >
+						<p:menuitem value="Expedição de Mercadoria" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Faturamento"  >
+						<p:menuitem value="Faturamento de Venda" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Relatorio"  >
+						<p:menuitem value="Relatorio de Cadastro" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Relatorio de Compra" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Relatorio de Venda" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Relatorio de Avaria" outcome="/pages/vendas.xhtml" />
+					</p:submenu>
+					<p:submenu label="Consultas"  >
+					<p:menuitem value="Produtos" outcome="/pages/produtosconsulta.xhtml" />
+					</p:submenu>
+					
+				</p:panelMenu>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" resizable="false" closable="false"
+			collapsible="false">
+			<ui:insert name="conteudo" />
+		</p:layoutUnit>
+	</p:layout>
+
+</h:body>
+</html>

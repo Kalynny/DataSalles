@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+template="/templates/template.xhtml"
+>
+
+
+<ui:define name="conteudo">
+
+
+
+<h:form id="formulario">
+		<p:panel header="Produtos">
+			<h:panelGrid columns="3">
+				<p:outputLabel for="codigo" value="Código:" />
+				<p:inputText id="codigo" size="20" maxlength="13"
+					required="true" requiredMessage="O campo Código é 
+
+obrigatório"
+					value="#{produtoPesquisaBean.produto.codigo}" />
+				<p:commandButton icon="ui-icon-search" 
+				actionListener="#{produtoPesquisaBean.buscar()}" 
+				update=":mensagem :formulario:painelDados"
+				process="@this :formulario:codigo"
+				/>
+			</h:panelGrid>
+			
+			<h:panelGroup layout="block" id="painelDados">
+			<h:panelGrid columns="2"  rendered="#{produtoPesquisaBean.exibir}">
+				<p:outputLabel value="Descrição:" />
+				<h:outputText value="#{produtoPesquisaBean.produto.descricao}" />
+				
+				<p:outputLabel value="Preço:" />
+				
+				<h:outputText value="#{produtoPesquisaBean.produto.preco}" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				
+				<p:outputLabel value="Quantidade:" />
+				<h:outputText value="#{produtoPesquisaBean.produto.quantidade}" />
+				
+				<p:outputLabel value="Fornecedor:" />
+				<h:outputText value="#{produtoPesquisaBean.produto.fornecedor.descricao}" />
+				
+				<p:outputLabel value="Observações:" />
+				<h:inputTextarea rows="5" cols="50" value="#{produtoPesquisaBean.historico.observacoes}"/>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" rendered="#{produtoPesquisaBean.exibir}">
+			<p:commandButton value="Salvar" actionListener="#{produtoPesquisaBean.salvar}" 
+			update="mensagem"
+			/>
+			
+			</h:panelGrid>
+			
+			</h:panelGroup>
+		</p:panel>
+	</h:form>
+
+
+
+
+</ui:define>
+</ui:composition>
