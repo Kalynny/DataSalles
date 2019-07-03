@@ -44,6 +44,9 @@
 		<mapping class="br.com.datasalles.domain.Usuario" />
 		<mapping class="br.com.datasalles.domain.Venda" />
 		<mapping class="br.com.datasalles.domain.Compra" />
+		<mapping class="br.com.datasalles.domain.Avaria" />
+		<mapping class="br.com.datasalles.domain.ItemOrca" />
+		<mapping class="br.com.datasalles.domain.Orcamento" />
 		
 	</session-factory>
 

@@ -43,7 +43,7 @@
 						<p:menuitem value="Sair" outcome="/pages/autenticacao.xhtml"/>
 					</p:submenu>
 
-					<p:submenu label="Cadastros">
+					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes( ['A','G'])}">
 						<p:menuitem value="Produtos" outcome="/pages/produto.xhtml" />
 						<p:menuitem value="Fornecedores" outcome="/pages/fornecedor.xhtml"/>
 						<p:menuitem value="Funcionarios" outcome="/pages/funcionario.xhtml" />
@@ -57,10 +57,11 @@
 						<p:menuitem value="Pedido de Compras" outcome="/pages/compras.xhtml" />
 					</p:submenu>
 					<p:submenu label="Estoque"  >
-						<p:menuitem value="Avaria de Mercadoria" outcome="/pages/vendas.xhtml" />
+						<p:menuitem value="Avaria de Mercadoria" outcome="/pages/avaria.xhtml" />
 						<p:menuitem value="Nota Fiscal de Compras" outcome="/pages/vendas.xhtml" />
 					</p:submenu>
 					<p:submenu label="Vendas"  >
+						<p:menuitem value="Orçamento de Venda" outcome="/pages/orcamento.xhtml" />
 						<p:menuitem value="Pedido de Venda" outcome="/pages/vendas.xhtml" />
 					</p:submenu>
 					<p:submenu label="Financeiro"  >
