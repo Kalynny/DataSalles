@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.ViewScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.FuncionarioDAO;
@@ -17,6 +17,7 @@ import br.com.datasalles.domain.Pessoa;
 
 @SuppressWarnings("serial")
 @ManagedBean
+@ViewScoped
 
 public class FuncionarioBean implements Serializable {
 	private Funcionario funcionario;
@@ -79,6 +80,7 @@ public class FuncionarioBean implements Serializable {
 			funcionario = new Funcionario();
 			
 			funcionarios = funcionarioDAO.listar("dataAdmissao");
+			System.out.println(funcionarios);
 
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
@@ -90,12 +92,15 @@ public class FuncionarioBean implements Serializable {
 		}
 	}
 	
+	
 	public void excluir(ActionEvent evento) {
 		try {
 			funcionario = (Funcionario) evento.getComponent().getAttributes().get("funcionarioSelecionado");
 
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarioDAO.excluir(funcionario);
+			
+			funcionarios = funcionarioDAO.listar();
 					
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
