@@ -99,6 +99,7 @@ public class ClienteBean implements Serializable {
 			clientes = clienteDAO.listar();
 
 			Messages.addGlobalInfo("Cliente removido com sucesso");
+			
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Fornecedor");
 			erro.printStackTrace();

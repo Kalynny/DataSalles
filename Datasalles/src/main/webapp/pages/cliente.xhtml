@@ -50,8 +50,8 @@ template="/templates/template.xhtml"
 				</p:column>
 
 				<p:column headerText="Opções">
-				<p:commandButton icon="ui-icon-trash"
-						actionListener="#{clienteBean.excluir}"
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{clienteBean.excluir()}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação" message="Deseja excluir o cliente?"
 							icon="ui-icon-alert" />
