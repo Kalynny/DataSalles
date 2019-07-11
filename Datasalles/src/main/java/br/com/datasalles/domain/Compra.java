@@ -18,6 +18,11 @@ public class Compra extends GenericDomain {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
 	
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date vencimento;
+	
+	
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
 	
@@ -34,6 +39,14 @@ public class Compra extends GenericDomain {
 
 	public void setHorario(Date horario) {
 		this.horario = horario;
+	}
+	
+	public Date getVencimento() {
+		return vencimento;
+	}
+	
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
 	}
 
 	public BigDecimal getPrecoTotal() {

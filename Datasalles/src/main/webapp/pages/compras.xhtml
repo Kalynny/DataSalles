@@ -120,7 +120,13 @@ template="/templates/template.xhtml"
 					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-
+				
+				<p:outputLabel value="Vencimento: " />
+				<p:inputText value="#{compraBean.compra.vencimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				
 				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{compraBean.compra.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
