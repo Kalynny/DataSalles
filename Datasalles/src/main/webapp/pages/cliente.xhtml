@@ -51,7 +51,7 @@ template="/templates/template.xhtml"
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{clienteBean.excluir()}"
+						actionListener="#{clienteBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação" message="Deseja excluir o cliente?"
 							icon="ui-icon-alert" />
@@ -66,6 +66,14 @@ template="/templates/template.xhtml"
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
 		</p:panel>
 	</h:form>
 

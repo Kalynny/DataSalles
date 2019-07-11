@@ -16,11 +16,11 @@ template="/templates/template.xhtml"
 
 		<p:panel header="Lista de Notas Fiscais">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{nfiscalBean.nfiscal}" var="nfiscal"
+				paginator="true" value="#{nfiscalBean.compras}" var="compra"
 				rows="6" id="tabela">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{nfiscalBean.novo()}"
+						actionListener="#{nfiscalBean.novo}"
 						update=":formCadastro:pnCadastro" />
 				</f:facet>
 
@@ -28,36 +28,34 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{compra.codigo}" />
 				</p:column>
 
-				<p:column headerText="Horário" sortBy="#{compra.horario}"
-					filterBy="#{compra.horario}">
-					<h:outputText value="#{compra.horario}" />
+				<p:column headerText="Horário" sortBy="#{compras.horario}"
+					filterBy="#{compras.horario}">
+					<h:outputText value="#{compras.horario}" />
 				</p:column>
 				
-				<p:column headerText="Preço Total" sortBy="#{compra.precoTotal}"
-					filterBy="#{compra.precoTotal}">
-					<h:outputText value="#{compra.precoTotal}" />
+				<p:column headerText="Preço Total" sortBy="#{compras.precoTotal}"
+					filterBy="#{compras.precoTotal}">
+					<h:outputText value="#{compras.precoTotal}" />
 				</p:column>
-				<p:column headerText="Fornecedor" filterBy="#{fornecedor.nome}">
-					<h:outputText value="#{fornecedor.nome}" />
+				<p:column headerText="Fornecedor" filterBy="#{compras.fornecedor.descricao}">
+					<h:outputText value="#{compras.fornecedor.descricao}" />
 				</p:column>
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{fornecedorBean.excluir}"
+						actionListener="#{nfiscalBean.excluir}"
 						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o fornecedor?"
+						<p:confirm header="Confirmação" message="Deseja excluir a Nota Fiscal?"
 							icon="ui-icon-alert" />
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						<f:attribute name="nfiscalSelecionado" value="#{nfiscal}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{fornecedorBean.editar}"
+						actionListener="#{nfiscalBean.editar}"
 						update=":formCadastro:pnCadastro"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						<f:attribute name="nfiscalSelecionado" value="#{nfiscal}" />
 					</p:commandButton>
-
-
 
 				</p:column>
 			</p:dataTable>
@@ -76,41 +74,32 @@ template="/templates/template.xhtml"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Nome:" />
+				<p:outputLabel value="Numero da Nota Fiscal:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.descricao}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório" />
+					value="#{nfiscalBean.nfiscal}" required="true"
+					requiredMessage="O campo 'Nota Fiscal' é obrigatório" />
 					
-				<p:outputLabel value="Nome Fantasia:" />
+				<p:outputLabel value="Data de Entrada NF:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.nfantasia}" required="true"
-					requiredMessage="O campo 'Nome Fantasia' é obrigatório" />
+					value="#{nfiscalBean.nfiscal}" required="true"
+					requiredMessage="O campo 'Data de Entrada' é obrigatório" />
 					
-				<p:outputLabel value="CNPJ:" />
-				<p:inputMask id="cnpj" mask="99.999.999/9999-99" maxlength="18" size="30"
-					value="#{fornecedorBean.fornecedor.cnpj}" required="true"
-					requiredMessage="O campo 'CNPJ' é obrigatório" />
-					
-				<p:outputLabel value="Incrição Estadual:" />
+				<p:outputLabel value="Data de Vencimento NF:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.ie}" required="true"
-					requiredMessage="O campo 'Incrição Etadual' é obrigatório" />
+					value="#{nfiscalBean.nfiscal.dataVencimento}" required="true"
+					requiredMessage="O campo 'Data de Vencimento' é obrigatório" />
 					
-				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputMask id="celular" mask="(99)99999-9999" maxlength="16" size="30"
-					value="#{fornecedorBean.fornecedor.fone}" required="true"
-					requiredMessage="O campo 'Celular' é obrigatório" />
-					
-				<p:outputLabel value="E-mail:" />
+				<p:outputLabel value="Total da NF:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.email}" required="true"
-					requiredMessage="O campo 'E-mail' é obrigatório" />
+					value="#{nfiscalBean.nfiscal.totalNota}" required="true"
+					requiredMessage="O campo 'Total da Nota' é obrigatório" />
 					
+				<p:outputLabel value="Fornecedor:" />
+				<p:inputText maxlength="50" size="30"
+					value="#{nfiscalBean.fornecedores}" required="true"
+					requiredMessage="O campo 'Fornecedor' é obrigatório" />
 					
-					
-					
-
-				
+								
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
