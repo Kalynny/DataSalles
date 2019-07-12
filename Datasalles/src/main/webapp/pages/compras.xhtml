@@ -117,16 +117,16 @@ template="/templates/template.xhtml"
 			<h:panelGrid id="painelFinalizar" columns="2">
 				<p:outputLabel value="Horário: " />
 				<h:outputText value="#{compraBean.compra.horario}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 				
 				<p:outputLabel value="Vencimento: " />
-				<p:inputText value="#{compraBean.compra.vencimento}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
-						timeZone="America/Sao_Paulo" />
-				</p:inputText>
-				
+				<p:calendar id="vencimento"
+					value="#{compraBean.compra.vencimento}" required="true"
+					requiredMessage="O campo 'vencimento' é obrigatório"
+					size="10"  locale="pt_BR"/>
+								
 				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{compraBean.compra.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />

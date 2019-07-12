@@ -2,14 +2,11 @@ package br.com.datasalles.Bean;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.domain.Fornecedor;

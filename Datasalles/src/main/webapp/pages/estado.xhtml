@@ -14,9 +14,6 @@ template="/templates/template.xhtml"
 
 	<h:form id="formListagem">
 
-
-
-
 		<p:panel header="Lista de Estados">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 		paginator="true"  value="#{estadoBean.estados}" var="estado"
@@ -39,14 +36,14 @@ template="/templates/template.xhtml"
 
 				<p:column headerText="Opções">
 				<p:commandButton icon="ui-icon-trash"
-actionListener="#{estadoBean.excluir}"
-update=":mensagem :formListagem:tabela">
-<p:confirm header="Confirmação" message="Deseja excluir o estado?"
-icon="ui-icon-alert" />
-<f:attribute name="estadoSelecionado" value="#{estado}" />
-</p:commandButton>
-
-<p:commandButton icon="ui-icon-pencil"
+				actionListener="#{estadoBean.excluir}"
+				update=":mensagem :formListagem:tabela">
+				<p:confirm header="Confirmação" message="Deseja excluir o estado?"
+				icon="ui-icon-alert" />
+				<f:attribute name="estadoSelecionado" value="#{estado}" />
+				</p:commandButton>
+				
+				<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{estadoBean.editar}"
 						update=":formCadastro:pnCadastro"
 						oncomplete="PF('dialogo').show();">

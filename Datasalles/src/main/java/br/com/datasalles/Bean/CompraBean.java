@@ -25,7 +25,6 @@ import br.com.datasalles.domain.Fornecedor;
 @ViewScoped
 public class CompraBean implements Serializable {
 	private Compra compra;
-
 	private List<Produto> produtos;
 	private List<ItemCompra> itensCompra;
 	private List<Fornecedor> fornecedores;
@@ -70,7 +69,7 @@ public class CompraBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-
+	
 	@PostConstruct
 	public void novo() {
 		try {
