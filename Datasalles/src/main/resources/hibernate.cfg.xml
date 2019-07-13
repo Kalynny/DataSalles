@@ -48,6 +48,7 @@
 		<mapping class="br.com.datasalles.domain.ItemOrca" />
 		<mapping class="br.com.datasalles.domain.Orcamento" />
 		<mapping class="br.com.datasalles.domain.Cpagar" />
+		<mapping class="br.com.datasalles.domain.Historico" />
 		
 	</session-factory>
 

@@ -18,9 +18,7 @@ template="/templates/template.xhtml"
 			<h:panelGrid columns="3">
 				<p:outputLabel for="codigo" value="Código:" />
 				<p:inputText id="codigo" size="20" maxlength="13"
-					required="true" requiredMessage="O campo Código é 
-
-obrigatório"
+					required="true" requiredMessage="O campo Código é obrigatório"
 					value="#{produtoPesquisaBean.produto.codigo}" />
 				<p:commandButton icon="ui-icon-search" 
 				actionListener="#{produtoPesquisaBean.buscar()}" 
@@ -34,8 +32,13 @@ obrigatório"
 				<p:outputLabel value="Descrição:" />
 				<h:outputText value="#{produtoPesquisaBean.produto.descricao}" />
 				
+				<p:outputLabel value="Data Atual:" />
+				<p:calendar id="dataAdmissao"
+					value="#{produtoPesquisaBean.historico.horario}" required="true"
+					requiredMessage="O campo 'Data de Cadastro' é obrigatório"
+					size="10"  locale="pt_BR"/>
+										
 				<p:outputLabel value="Preço:" />
-				
 				<h:outputText value="#{produtoPesquisaBean.produto.preco}" >
 				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
@@ -50,19 +53,15 @@ obrigatório"
 				<h:inputTextarea rows="5" cols="50" value="#{produtoPesquisaBean.historico.observacoes}"/>
 			</h:panelGrid>
 			
-			<h:panelGrid columns="1" rendered="#{produtoPesquisaBean.exibir}">
+			<h:panelGrid columns="2" rendered="#{produtoPesquisaBean.exibir}">
 			<p:commandButton value="Salvar" actionListener="#{produtoPesquisaBean.salvar}" 
-			update="mensagem"
-			/>
-			
+			update=":mensagem"/>
+			<p:button value="Fechar" action="/pages/produtosconsulta.xhtml" />
 			</h:panelGrid>
 			
 			</h:panelGroup>
 		</p:panel>
 	</h:form>
-
-
-
 
 </ui:define>
 </ui:composition>

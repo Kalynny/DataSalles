@@ -2,13 +2,10 @@ package br.com.datasalles.Bean;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.HistoricoDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.domain.Historico;
