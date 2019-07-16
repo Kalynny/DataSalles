@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 //import javax.transaction.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -137,11 +138,11 @@ public class AvariaBean implements Serializable {
 			 String quantidade = getQuantidade();
 			 String fornecedor = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("fornecedor");
 			 String tipo = getTipo() ;
-			
-		 	Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			org.hibernate.Transaction tx = null;
+			 
+			 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			 Transaction transacao = null;
 			try {
-				tx = sessao.beginTransaction();
+				transacao= sessao.beginTransaction();
 				
 				String insert = "INSERT INTO datasalles.avaria VALUES (null,'"+descricao+"', '"+quantidade+"', '"+fornecedor+"', '"+tipo+"');";
 				
@@ -149,12 +150,12 @@ public class AvariaBean implements Serializable {
 				
 				int result = query.executeUpdate();
 				
-				tx.commit();
+				transacao.commit();
 				System.out.println(result);
 
 			} catch (HibernateException e) {
-				if (tx != null)
-					tx.rollback();
+				if (transacao != null)
+					transacao.rollback();
 				e.printStackTrace();
 			} finally {
 				sessao.close();

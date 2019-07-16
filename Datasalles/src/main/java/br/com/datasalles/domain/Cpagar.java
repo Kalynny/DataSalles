@@ -1,62 +1,76 @@
 package br.com.datasalles.domain;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
 public class Cpagar extends GenericDomain {
 	
-	@ManyToOne
-	private Fornecedor fornecedor;
+	@Column(length = 50, nullable = false)
+	private String descricao;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date atual;
+	@Column(length=50, nullable=false )
+	private String nfantasia;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date vencimento;
+	@Column(length = 18, nullable = false, unique = true )
+	private String cnpj;
 	
-	@Column(nullable = false, precision = 6, scale = 2)
-	private BigDecimal precoTotal;
+	@Column(length=50, nullable=false )
+	private String ie;
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	@Column(length=50, nullable=false )
+	private String fone;
+
+	@Column(length=50, nullable=false )
+	private String email;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+		
+	public String getNfantasia() {
+		return nfantasia;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setNfantasia(String nfantasia) {
+		this.nfantasia = nfantasia;
 	}
 
-	public Date getAtual() {
-		return atual;
+	public String getCnpj() {
+		return cnpj;
 	}
 
-	public void setAtual(Date atual) {
-		this.atual = atual;
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
-	public Date getVencimento() {
-		return vencimento;
+	public String getIe() {
+		return ie;
 	}
 
-	public void setVencimento(Date vencimento) {
-		this.vencimento = vencimento;
+	public void setIe(String ie) {
+		this.ie = ie;
+	}
+	
+	public String getFone() {
+		return fone;
 	}
 
-	public BigDecimal getPrecoTotal() {
-		return precoTotal;
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
-	public void setPrecoTotal(BigDecimal precoTotal) {
-		this.precoTotal = precoTotal;
+	public String getEmail() {
+		return email;
 	}
 
-			
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }
