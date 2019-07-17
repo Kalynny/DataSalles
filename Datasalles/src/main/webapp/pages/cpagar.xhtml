@@ -5,64 +5,67 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
-
+template="/templates/template.xhtml">
 
 <ui:define name="conteudo">
-
-
 	<h:form id="formListagem">
 
-
-
-
-		<p:panel header="Lista de Fornecedores">
+		<p:panel header="Lista de Contas a Pagar">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{fornecedorBean.fornecedores}" var="fornecedor"
+				paginator="true" value="#{cpagarBean.cpagares}" var="cpagar"
 				rows="6" id="tabela">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{fornecedorBean.novo()}"
+						actionListener="#{cpagarBean.novo()}"
 						update=":formCadastro:pnCadastro" />
 				</f:facet>
 
-				<p:column headerText="Código" sortBy="#{fornecedor.codigo}"	>
-					<h:outputText value="#{fornecedor.codigo}" />
-				</p:column>
-
-				<p:column headerText="Descrição" sortBy="#{fornecedor.descricao}"
-					filterBy="#{fornecedor.descricao}">
-					<h:outputText value="#{fornecedor.descricao}" />
+				<p:column headerText="Fornecedor" sortBy="#{cpagar.fornecedor.descricao}"
+					filterBy="#{cpagar.fornecedor.descricao}">
+					<h:outputText value="#{cpagar.fornecedor.descricao}" />
 				</p:column>
 				
-				<p:column headerText="CNPJ" sortBy="#{fornecedor.cnpj}"
-					filterBy="#{fornecedor.cnpj}">
-					<h:outputText value="#{fornecedor.cnpj}" />
+				<p:column headerText="Data Atual" sortBy="#{cpagar.atual}"
+					filterBy="#{cpagar.atual}">
+					<h:outputText value="#{cpagar.atual}" >
+					<f:convertDateTime locale="pt_BR" />
+					</h:outputText>
 				</p:column>
-				<p:column headerText="Insc. Estadual" filterBy="#{fornecedor.ie}">
-					<h:outputText value="#{fornecedor.ie}" />
+				
+				<p:column headerText="Data de Vencimento" sortBy="#{cpagar.vencimento}"
+					filterBy="#{cpagar.vencimento}">
+					<h:outputText value="#{cpagar.vencimento}" >
+					<f:convertDateTime locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Preço Total" style="text-align:right">
+					<h:outputText value="#{cpagar.precoTotal}" >
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Tipo do Contas a Pagar" style="text-align:center">
+					<h:outputText value="#{cpagar.tipo}" />
 				</p:column>
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{fornecedorBean.excluir}"
+						actionListener="#{cpagarBean.excluir}"
 						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o fornecedor?"
+						<p:confirm header="Confirmação" message="Deseja excluir o contas a pagar?"
 							icon="ui-icon-alert" />
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						<f:attribute name="cpagarSelecionado" value="#{cpagar}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{fornecedorBean.editar}"
+						actionListener="#{cpagarBean.editar}"
 						update=":formCadastro:pnCadastro"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						<f:attribute name="cpagarSelecionado" value="#{cpagar}" />
 					</p:commandButton>
-
-
-
 				</p:column>
+				
 			</p:dataTable>
 
 			<p:confirmDialog global="true">
@@ -75,50 +78,55 @@ template="/templates/template.xhtml"
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Fornecedores - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Contas a Pagar - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formCadastro">
+		
 			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.descricao}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório" />
+				<p:outputLabel value="Fornecedor:" />
+				<p:selectOneMenu value="#{cpagarBean.cpagar.fornecedor}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Fornecedor" />
+					<f:selectItems value="#{cpagarBean.fornecedores}" var="fornecedor"
+						itemValue="#{fornecedor}"
+						itemLabel="#{fornecedor.descricao}" />
+				</p:selectOneMenu>
+			
 					
-				<p:outputLabel value="Nome Fantasia:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.nfantasia}" required="true"
-					requiredMessage="O campo 'Nome Fantasia' é obrigatório" />
-					
-				<p:outputLabel value="CNPJ:" />
-				<p:inputMask id="cnpj" mask="99.999.999/9999-99" maxlength="18" size="30"
-					value="#{fornecedorBean.fornecedor.cnpj}" required="true"
-					requiredMessage="O campo 'CNPJ' é obrigatório" />
-					
-				<p:outputLabel value="Incrição Estadual:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.ie}" required="true"
-					requiredMessage="O campo 'Incrição Etadual' é obrigatório" />
-					
-				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputMask id="celular" mask="(99)99999-9999" maxlength="16" size="30"
-					value="#{fornecedorBean.fornecedor.fone}" required="true"
-					requiredMessage="O campo 'Celular' é obrigatório" />
-					
-				<p:outputLabel value="E-mail:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.email}" required="true"
-					requiredMessage="O campo 'E-mail' é obrigatório" />
-					
-					
-					
-					
-
+				<p:outputLabel value="Data Atual:" />
+				<p:calendar value="#{cpagarBean.cpagar.atual}" required="true"
+					requiredMessage="O campo 'Data Atual' é obrigatório">
+				</p:calendar>
 				
-			</h:panelGrid>
+				<p:outputLabel value="Data de Vencimento:" />
+				<p:calendar value="#{cpagarBean.cpagar.vencimento}" required="true"
+					requiredMessage="O campo 'Data de Vencimento' é obrigatório">
+				</p:calendar>	
 
+				<p:outputLabel value="Preço Total:" />
+				<p:inputText maxlength="7" size="10"
+					value="#{cpagarBean.cpagar.precoTotal}" required="true"
+					requiredMessage="O campo 'Preço' é obrigatório"
+					converterMessage="Informe um valor válido para o campo 'Preço''"
+					validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
+					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</p:inputText>
+				
+				<p:outputLabel value="Tipo de Contas a Pagar:" />
+				<p:selectOneMenu id="tipo" value="#{cpagarBean.tipo}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'tipo' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+					itemLabel="Selecione o Tipo de Contas a Pagar" />
+					<f:selectItem itemValue="Entrada Manual" itemLabel="Entrada Manual" />
+				</p:selectOneMenu>
+			</h:panelGrid>			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{fornecedorBean.salvar()}"
+					actionListener="#{cpagarBean.salvar()}"
 					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

@@ -2,7 +2,6 @@ package br.com.datasalles.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,9 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.datasalles.util.HibernateUtil;
 
 public class GenericDAO<Entidade> {
-	
-
-		
+			
 		private Class<Entidade> classe;
 
 	

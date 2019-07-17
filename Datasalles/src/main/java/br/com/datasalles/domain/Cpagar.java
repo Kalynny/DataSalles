@@ -1,76 +1,74 @@
 package br.com.datasalles.domain;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
 public class Cpagar extends GenericDomain {
 	
-	@Column(length = 50, nullable = false)
-	private String descricao;
+	@ManyToOne
+	private Fornecedor fornecedor;
 	
-	@Column(length=50, nullable=false )
-	private String nfantasia;
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date atual;
 	
-	@Column(length = 18, nullable = false, unique = true )
-	private String cnpj;
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date vencimento;
 	
-	@Column(length=50, nullable=false )
-	private String ie;
-
-	@Column(length=50, nullable=false )
-	private String fone;
-
-	@Column(length=50, nullable=false )
-	private String email;
+	@Column(nullable = false, precision = 6, scale = 2)
+	private BigDecimal precoTotal;
 	
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-		
-	public String getNfantasia() {
-		return nfantasia;
+	@Column(nullable = false)
+	private String tipo;
+
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setNfantasia(String nfantasia) {
-		this.nfantasia = nfantasia;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
-	public String getCnpj() {
-		return cnpj;
+	public Fornecedor getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
-	public String getIe() {
-		return ie;
+	public Date getAtual() {
+		return atual;
 	}
 
-	public void setIe(String ie) {
-		this.ie = ie;
-	}
-	
-	public String getFone() {
-		return fone;
+	public void setAtual(Date atual) {
+		this.atual = atual;
 	}
 
-	public void setFone(String fone) {
-		this.fone = fone;
+	public Date getVencimento() {
+		return vencimento;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public BigDecimal getPrecoTotal() {
+		return precoTotal;
 	}
-	
+
+	public void setPrecoTotal(BigDecimal precoTotal) {
+		this.precoTotal = precoTotal;
+	}
+
+
+			
 }
