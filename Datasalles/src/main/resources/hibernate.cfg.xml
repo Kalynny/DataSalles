@@ -49,6 +49,8 @@
 		<mapping class="br.com.datasalles.domain.Orcamento" />
 		<mapping class="br.com.datasalles.domain.Cpagar" />
 		<mapping class="br.com.datasalles.domain.Historico" />
+		<mapping class="br.com.datasalles.domain.Caixa" />
+		<mapping class="br.com.datasalles.domain.Movimentacao" />
 		
 	</session-factory>
 
