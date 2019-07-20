@@ -38,7 +38,7 @@ template="/templates/template.xhtml"
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{produtoBean.editar}"
-						update=":mensagem :formCadastro:painel"
+						update=":mensagem :formCadastro:painel :formCadastro:painel1 :formCadastro:painel2 :formCadastro:painel3 :formCadastro:painel4"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 						<f:actionListener
@@ -59,49 +59,67 @@ template="/templates/template.xhtml"
 	<p:dialog header="Produtos - Avaria" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formCadastro">
-			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Descrição:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{produtoBean.produto.descricao}" required="true"
-					requiredMessage="O campo 'Descrição' é obrigatório" />
-
-				<p:outputLabel value="Quantidade:" />
-				<p:inputText maxlength="5" size="10"
-					value="#{avariaBean.quantidade}" required="true"
-					requiredMessage="O campo 'Quantidade' é obrigatório"
-					converterMessage="Informe um valor válido para o campo 'Quantidade'"
-					validatorMessage="Informe um valor entre 0 e 1000 para o campo 'Quantidade'">
-					<f:validateLongRange minimum="0" maximum="1000" />
-				</p:inputText>
-				
-				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu filter="true"
-					value="#{produtoBean.produto.fornecedor}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Fornecedor' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um fornecedor" />
-					<f:selectItems value="#{produtoBean.fornecedor}" var="fornecedor"
-						itemValue="#{fornecedor}" itemLabel="#{fornecedor.descricao}" />
-				</p:selectOneMenu>
-								
-				<p:outputLabel for="tipo" value="Tipo de Avarias:" />
-				<p:selectOneMenu id="tipo" value="#{avariaBean.tipo}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Fornecedor' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-					itemLabel="Selecione um Tipo de Avaria" />
-					<f:selectItem itemValue="Quebra do Produto" itemLabel="Quebra do Produto" />
-					<f:selectItem itemValue="Produto Improrpio para Consumo" itemLabel="Produto Improprio para Consumo" />
-					<f:selectItem itemValue="Vecimento Proximo" itemLabel="Vencimento Próximo" />
-				</p:selectOneMenu>				
-
-			</h:panelGrid>
-
+			
+			<p:fieldset legend="Produto/Fornecedor">
+				<h:panelGrid id="painel" columns="4">
+					<h:panelGrid id="painel1" columns="1">					
+						<h:outputLabel value="Cód. Produto:" />
+						<p:inputText size="11" disabled="true" value="#{produtoBean.produto.codigo}"/>					
+					</h:panelGrid>
+					<h:panelGrid id="painel2" columns="1">	
+						<p:outputLabel value="Descrição:" />
+						<p:inputText maxlength="50" size="30" disabled="true"
+							value="#{produtoBean.produto.descricao}"
+							requiredMessage="O campo 'Descrição' é obrigatório" />
+					</h:panelGrid>
+					<h:panelGrid id="painel3" columns="1">
+						<p:outputLabel value="Cód. Fornecedor:" />
+						<p:inputText disabled="true" maxlength="50" size="13" value="#{produtoBean.produto.fornecedor.codigo}"/>
+					</h:panelGrid>
+					<h:panelGrid id="painel4" columns="1">	
+						<p:outputLabel value="Fornecedor:" />
+						<p:inputText disabled="true" maxlength="50" size="30" value="#{produtoBean.produto.fornecedor.descricao}"/>
+					</h:panelGrid>		
+				</h:panelGrid>				
+			</p:fieldset>
+			<br/>
+			<p:fieldset legend="Avaria">
+				<h:panelGrid columns="4">
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Quantidade:" />
+							<p:inputText maxlength="5" size="50"
+								value="#{avariaBean.quantidade}" required="true"
+								requiredMessage="O campo 'Quantidade' é obrigatório"
+								converterMessage="Informe um valor válido para o campo 'Quantidade'"
+								validatorMessage="Informe um valor entre 0 e 1000 para o campo 'Quantidade'">
+								<f:validateLongRange minimum="0" maximum="1000" />
+							</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid columns="1">						
+							<p:outputLabel for="tipo" value="Tipo de Avarias:" />
+							<p:selectOneMenu id="tipo" value="#{avariaBean.tipo}"
+								converter="omnifaces.SelectItemsConverter" required="true"
+								requiredMessage="O campo 'Tipo de Avaria' é obrigatório">
+								<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione um Tipo de Avaria" />
+								<f:selectItem itemValue="Quebra do Produto" itemLabel="Quebra do Produto" />
+								<f:selectItem itemValue="Produto Improrpio para Consumo" itemLabel="Produto Improprio para Consumo" />
+								<f:selectItem itemValue="Vecimento Proximo" itemLabel="Vencimento Próximo" />
+							</p:selectOneMenu>				
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:fieldset>
+			<br/>
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					actionListener="#{avariaBean.parametros}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+					update=":mensagem :formCadastro:painel :formListagem:tabela"> 
+					
+					<f:attribute name="produto" value="#{produtoBean.produto.descricao}" />
+					<f:attribute name="fornecedor" value="#{produtoBean.produto.fornecedor.codigo}" />
+					<!--  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />-->
+				</p:commandButton>
+					
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

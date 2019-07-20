@@ -1,6 +1,7 @@
 package br.com.datasalles.Bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.xml.bind.JAXBElement.GlobalScope;
+import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 //import javax.transaction.Transaction;
@@ -132,11 +136,12 @@ public class AvariaBean implements Serializable {
 		}
 	}
 	
-	public void parametros(){
-		 
-			 String descricao = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("descricao");
+	public void parametros(ActionEvent event){
+
+			 String produtoDesc = (String) event.getComponent().getAttributes().get("produto");
+			 Long fornecedor = (Long) event.getComponent().getAttributes().get("fornecedor");
+		 	 
 			 String quantidade = getQuantidade();
-			 String fornecedor = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("fornecedor");
 			 String tipo = getTipo() ;
 			 
 			 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -144,7 +149,7 @@ public class AvariaBean implements Serializable {
 			try {
 				transacao= sessao.beginTransaction();
 				
-				String insert = "INSERT INTO datasalles.avaria VALUES (null,'"+descricao+"', '"+quantidade+"', '"+fornecedor+"', '"+tipo+"');";
+				String insert = "INSERT INTO datasalles.avaria VALUES (null,'"+produtoDesc+"', "+quantidade+", '"+tipo+"', "+fornecedor+");";
 				
 				SQLQuery query = sessao.createSQLQuery(insert);
 				
@@ -159,7 +164,39 @@ public class AvariaBean implements Serializable {
 				e.printStackTrace();
 			} finally {
 				sessao.close();
+				Messages.addGlobalInfo("Avaria salvo com sucesso");
 			}
 		}
+	
+	public int buscaFornecedor(String nome) {
+		int codFornecedor = 0;
+				
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction transacao = null;
+		
+		try {
+			transacao= sessao.beginTransaction();
+			
+			String select = " select codigo from fornecedor where descricao like '%'"+nome+"'%' ";
+			
+			SQLQuery query = sessao.createSQLQuery(select);
+			
+			int result = query.executeUpdate();
+			
+			transacao.commit();
+			System.out.println(result);
+			codFornecedor = result;
+
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+		}
+		
+		return codFornecedor;
+		
+	}
 	
 }
