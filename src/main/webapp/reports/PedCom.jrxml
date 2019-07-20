@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PedCom" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82be68ce-a28e-48cb-bb25-24287957b04d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="CD_COMPRA" class="java.lang.String"/>
+	<parameter name="Pcompra" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_compras.com_codigo,
+	vendas.tb_compras.com_valor_total,
+	vendas.tb_itenscom.itecom_quantidade,
+	vendas.tb_itenscom.itecom_valor_parcial,
+	vendas.tb_produtos.pro_descricao,
+	vendas.tb_itenscom.itecom_codigo,
+	vendas.tb_funcionarios.fun_nome,
+	vendas.tb_itenscom.itecom_codigo,
+	vendas.tb_produtos.pro_preco
+FROM vendas.tb_itenscom
+	INNER JOIN vendas.tb_compras ON 
+	 vendas.tb_itenscom.tb_compras_com_codigo = vendas.tb_compras.com_codigo 
+	INNER JOIN vendas.tb_funcionarios ON 
+	 vendas.tb_compras.tb_funcionarios_fun_codigo = vendas.tb_funcionarios.fun_codigo 
+	INNER JOIN vendas.tb_produtos ON 
+	 vendas.tb_itenscom.tb_produtos_pro_codigo = vendas.tb_produtos.pro_codigo
+	  AND vendas.tb_compras.com_codigo =  $P{CD_COMPRA}]]>
+	</queryString>
+	<field name="com_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="com_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_compras"/>
+	</field>
+	<field name="com_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="com_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_compras"/>
+	</field>
+	<field name="itecom_quantidade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="itecom_quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_itenscom"/>
+	</field>
+	<field name="itecom_valor_parcial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="itecom_valor_parcial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_itenscom"/>
+	</field>
+	<field name="pro_descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pro_descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_produtos"/>
+	</field>
+	<field name="fun_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<field name="pro_preco" class="java.lang.String"/>
+	<field name="itecom_codigo" class="java.lang.String"/>
+	<variable name="com_valor_total1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{com_valor_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="199" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="180" y="-10" width="200" height="120" uuid="b1a58535-3d6e-4161-a29e-26fdb4f26901"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="110" width="200" height="60" uuid="0045ef8a-b7b1-4f08-8c50-84b733c67ff4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Pedido de Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="148" width="84" height="30" uuid="dd03c1f9-9ec4-46ba-ae32-336ccaee3108"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedido Nº  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="149" width="99" height="30" uuid="5253b47e-40e7-4cb7-b448-53252704c0c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19e67572-9f1e-407a-837e-356fb042d54a"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Funcionário :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="150" width="79" height="29" uuid="31bfcc25-ba60-4073-93fa-0adcfe69e59f"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fun_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="147" width="51" height="30" uuid="61fca7dd-b879-4a1d-8ad0-71990e0a7eac"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{com_codigo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="493" y="41" width="50" height="50" uuid="4eefe8f9-a696-4d7b-9f38-846458ea90bf"/>
+				<imageExpression><![CDATA[$P{Pcompra}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="18" uuid="b6f3947e-41a4-488b-a5e5-f60e2cb21bfc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c619879f-a1ff-458f-b1e5-410bc9a606f0"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Quant. do Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="2" width="113" height="18" uuid="21f45e95-331b-451c-aa95-427c84533c89">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="591e8d42-ad90-4663-ab8b-98f652c28e89"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Valor Total do Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="2" width="120" height="18" uuid="0bd62b48-ea6a-465f-9f3e-1dec2038f5d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a55dcc13-6e3b-4be0-8633-37df9758a45b"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Descrição do Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="99" height="18" uuid="e587f787-698d-4699-afec-a9cde40a6ae3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d1a12ae-f760-417f-8c55-7e9b72bfcbb7"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Valor Parcial do Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="2" width="78" height="18" uuid="c3b1b042-cf99-4eb0-a0c1-19cf0424074b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6021edea-f63a-48f3-bc7a-6ec125510dc4"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Cod. do Item]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="d9535ad5-0fbe-4dd9-8913-43c19668f80f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c619879f-a1ff-458f-b1e5-410bc9a606f0"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{itecom_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="120" height="20" uuid="bb0d6df8-4314-4269-8207-dda6ffea717a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a55dcc13-6e3b-4be0-8633-37df9758a45b"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{pro_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="0" width="87" height="20" uuid="a5796aa3-72f3-4dce-a444-a7899095a127">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d1a12ae-f760-417f-8c55-7e9b72bfcbb7"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{pro_preco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="-1" width="93" height="21" uuid="ef8ee3f2-4936-4d27-90f9-85a732b54753">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="daf1e641-dc83-47ff-97e2-cba4b0719c1f"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{itecom_valor_parcial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="73" height="20" uuid="6dce41fe-8dc0-4b28-ae1e-0c12cfd07b39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38bb90d6-d04b-411f-8917-771b95c59ccb"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{itecom_codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24">
+			<staticText>
+				<reportElement x="330" y="-3" width="90" height="23" uuid="7d0104a4-2205-424f-b889-ec397776ab09"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="-3" width="82" height="23" uuid="190f9b15-2640-40b4-9926-be4e38ffd46a"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{com_valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="3" width="440" height="54" uuid="0a013755-89b2-4c99-9ab0-098e9a99a7a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="70" width="90" height="20" uuid="1cbbdcac-dff4-4389-a793-6b04b3913b92"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="70" width="80" height="20" uuid="de001014-0a7a-456b-b826-f6b3741e49ad"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="482" y="70" width="70" height="20" uuid="384586aa-f1be-4769-a9b4-9606635e8f4f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

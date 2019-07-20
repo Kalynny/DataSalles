@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+template="/templates/template.xhtml"
+>
+
+
+<ui:define name="conteudo">
+
+	<h:form id="formulario">
+		<p:panel header="Orçamento de Vendas">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{orcamentoBean.produtos}" var="produto" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+					sortBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço" sortBy="#{produto.preco}">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fornecedor"
+					filterBy="#{produto.fornecedor.descricao}"
+					sortBy="#{produto.fornecedor.descricao}">
+					<h:outputText value="#{produto.fornecedor.descricao}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{orcamentoBean.adicionar}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{orcamentoBean.subtrair}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					</p:commandButton>
+					
+					
+					
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Carrinho de Compras">
+			<p:dataTable id="tabelaCesta"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{orcamentoBean.itensOrca}" var="itemOrca" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{itemOrca.produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Preço Un.">
+					<h:outputText value="#{itemOrca.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Qtde.">
+					<h:outputText value="#{itemOrca.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<h:outputText value="#{itemOrca.precoParcial}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{orcamentoBean.remover}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+						<f:attribute name="itemSelecionado" value="#{itemOrca}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Finalização">
+			<h:panelGrid id="painelFinalizacao" columns="3">
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{orcamentoBean.orcamento.precoTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				<p:commandButton value="Finalizar"
+					actionListener="#{orcamentoBean.finalizar}"
+					update=":mensagem :formularioFinalizar:painelFinalizar"
+					oncomplete="PF('dialogo').show();">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
+
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="Finalizar orcamento" widgetVar="dialogo"
+		draggable="false" resizable="false" global="true" closable="false">
+		<h:form id="formularioFinalizar">
+			<h:panelGrid id="painelFinalizar" columns="2">
+				<p:outputLabel value="Horário: " />
+				<h:outputText value="#{orcamentoBean.orcamento.horario}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{orcamentoBean.orcamento.precoTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel for="funcionario" value="Funcionário:" />
+				<p:selectOneMenu id="funcionario"
+					value="#{orcamentoBean.orcamento.funcionario}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains" required="true"
+					requiredMessage="O campo Funcionário é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um funcionário" />
+					<f:selectItems value="#{orcamentoBean.funcionarios}" var="funcionario"
+						itemValue="#{funcionario}"
+						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cliente:" />
+				<p:selectOneMenu value="#{orcamentoBean.orcamento.cliente}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um cliente" />
+					<f:selectItems value="#{orcamentoBean.clientes}" var="cliente"
+						itemValue="#{cliente}"
+						itemLabel="#{cliente.pessoa.cpf} - #{cliente.pessoa.nome}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" actionListener="#{orcamentoBean.salvar}"
+					update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
+					oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+
+</ui:define>
+</ui:composition>
