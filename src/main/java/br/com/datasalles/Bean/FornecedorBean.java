@@ -52,10 +52,8 @@ public class FornecedorBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	
 
-@PostConstruct
+	@PostConstruct
 	public void listar(){
 		try{
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();

@@ -149,6 +149,17 @@ template="/templates/template.xhtml"
 						itemValue="#{cliente}"
 						itemLabel="#{cliente.pessoa.cpf} - #{cliente.pessoa.nome}" />
 				</p:selectOneMenu>
+				
+				<p:outputLabel value="Tipo de Pagamento:" />
+				<p:selectOneMenu value="#{vendaBean.venda.tipopag}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Tipo de Pagamento" />
+					<f:selectItems value="#{vendaBean.tiposPag}" var="tipopag"
+						itemValue="#{tipopag}"
+						itemLabel="#{tipopag.descricao}" />
+				</p:selectOneMenu>
 
 			</h:panelGrid>
 

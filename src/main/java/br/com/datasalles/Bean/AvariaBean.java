@@ -14,6 +14,7 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
+import br.com.datasalles.dao.TipoavariaDAO;
 import br.com.datasalles.dao.AvariaDAO;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
@@ -179,6 +180,7 @@ public class AvariaBean implements Serializable {
 		try {
 			avaria.setHorario(new Date());
 			avaria.setFornecedor(null);
+			avaria.setTipoavaria(null);
 			avaria.setFuncionario(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -186,6 +188,10 @@ public class AvariaBean implements Serializable {
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedores = fornecedorDAO.listar();
+			
+			TipoavariaDAO tipoavariaDAO = new TipoavariaDAO();
+			tiposAvaria = tipoavariaDAO.listar();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a avaria");
 			erro.printStackTrace();

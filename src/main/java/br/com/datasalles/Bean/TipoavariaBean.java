@@ -32,6 +32,7 @@ public class TipoavariaBean implements Serializable {
 	public void setTipoavarias(List<TipoAvaria> tipoavarias) {
 		this.tipoavarias = tipoavarias;
 	}
+	
 
 	public void novo() {
 		tipoavaria = new TipoAvaria();
@@ -51,8 +52,7 @@ public class TipoavariaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	
+		
 
 	@PostConstruct
 	public void listar(){
@@ -66,25 +66,25 @@ public class TipoavariaBean implements Serializable {
 	}
 
 
-public void excluir(ActionEvent evento) {
-	try {
-		tipoavaria = (TipoAvaria) evento.getComponent().getAttributes().get("tipoavariaSelecionado");
-
-		TipoavariaDAO tavariaDAO = new TipoavariaDAO();
-		tavariaDAO.excluir(tipoavaria);
-		
-		tipoavarias = tavariaDAO.listar();
-
-		Messages.addGlobalInfo("Fornecedor removido com sucesso");
-	} catch (RuntimeException erro) {
-		Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Fornecedor");
-		erro.printStackTrace();
+	public void excluir(ActionEvent evento) {
+		try {
+			tipoavaria = (TipoAvaria) evento.getComponent().getAttributes().get("tipoavariaSelecionado");
+	
+			TipoavariaDAO tavariaDAO = new TipoavariaDAO();
+			tavariaDAO.excluir(tipoavaria);
+			
+			tipoavarias = tavariaDAO.listar();
+	
+			Messages.addGlobalInfo("Tipo de Avaria removido com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Tipo de Avaria");
+			erro.printStackTrace();
+		}
 	}
-}
-
-public void editar(ActionEvent evento){
-	tipoavaria = (TipoAvaria) evento.getComponent().getAttributes().get("tipoavariaSelecionado");
-}
+	
+	public void editar(ActionEvent evento){
+		tipoavaria = (TipoAvaria) evento.getComponent().getAttributes().get("tipoavariaSelecionado");
+	}
 
 
 }

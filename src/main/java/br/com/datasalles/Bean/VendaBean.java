@@ -1,27 +1,25 @@
 package br.com.datasalles.Bean;
 
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
+import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.TipoPag;
 import br.com.datasalles.domain.Venda;
 
 @SuppressWarnings("serial")
@@ -29,8 +27,8 @@ import br.com.datasalles.domain.Venda;
 @ViewScoped
 public class VendaBean implements Serializable {
 	private Venda venda;
-
 	private List<Produto> produtos;
+	private List<TipoPag> tiposPag;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
@@ -74,6 +72,14 @@ public class VendaBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
+	
+	public List<TipoPag> getTiposPag() {
+		return tiposPag;
+	}
+
+	public void setTiposPag(List<TipoPag> tiposPag) {
+		this.tiposPag = tiposPag;
+	}
 
 	@PostConstruct
 	public void novo() {
@@ -85,6 +91,7 @@ public class VendaBean implements Serializable {
 			produtos = produtoDAO.listar("descricao");
 
 			itensVenda = new ArrayList<>();
+			tiposPag = new ArrayList<>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			erro.printStackTrace();
@@ -173,6 +180,7 @@ public class VendaBean implements Serializable {
 		try {
 			venda.setHorario(new Date());
 			venda.setCliente(null);
+			venda.setTipopag(null);
 			venda.setFuncionario(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
@@ -180,6 +188,10 @@ public class VendaBean implements Serializable {
 
 			ClienteDAO clienteDAO = new ClienteDAO();
 			clientes = clienteDAO.listarOrdenado();
+			
+			TipoPagDAO tipopagDAO = new TipoPagDAO();
+			tiposPag = tipopagDAO.listar();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();

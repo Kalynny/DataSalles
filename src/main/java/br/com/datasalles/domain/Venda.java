@@ -3,7 +3,6 @@ package br.com.datasalles.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -27,6 +26,10 @@ public class Venda extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private TipoPag tipopag;
 
 	public Date getHorario() {
 		return horario;
@@ -59,4 +62,14 @@ public class Venda extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public TipoPag getTipopag() {
+		return tipopag;
+	}
+
+	public void setTipopag(TipoPag tipopag) {
+		this.tipopag = tipopag;
+	}
+	
+	
 }
