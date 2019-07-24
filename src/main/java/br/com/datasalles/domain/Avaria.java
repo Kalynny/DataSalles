@@ -1,55 +1,62 @@
 package br.com.datasalles.domain;
 
+
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
 public class Avaria extends GenericDomain {
-	@Column(length = 80, nullable = false)
-	private String descricao;
-	
 	@Column(nullable = false)
-	private Short quantidade;
-			
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date horario;
+	
+	@Column(nullable = false, precision = 7, scale = 2)
+	private BigDecimal precoTotal;
+	
+	@ManyToOne
+	private Cliente cliente;
+	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Fornecedor fornecedor;
-	
-	@Column(nullable = false)
-	private Character tipo;
+	private Funcionario funcionario;
 
-	public String getDescricao() {
-		return descricao;
+	public Date getHorario() {
+		return horario;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setHorario(Date horario) {
+		this.horario = horario;
 	}
 
-	public Short getQuantidade() {
-		return quantidade;
+	public BigDecimal getPrecoTotal() {
+		return precoTotal;
 	}
 
-	public void setQuantidade(Short quantidade) {
-		this.quantidade = quantidade;
+	public void setPrecoTotal(BigDecimal precoTotal) {
+		this.precoTotal = precoTotal;
 	}
 
-		public Fornecedor getFornecedor() {
-		return fornecedor;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	
-	public Character getTipo() {
-		return tipo;
+
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	
-	public void setTipo(Character tipo) {
-		this.tipo = tipo;
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 }
