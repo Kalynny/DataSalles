@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import br.com.datasalles.domain.ItemAvaria;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.Avaria;

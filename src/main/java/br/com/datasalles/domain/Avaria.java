@@ -3,7 +3,6 @@ package br.com.datasalles.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,11 +21,16 @@ public class Avaria extends GenericDomain {
 	private BigDecimal precoTotal;
 	
 	@ManyToOne
-	private Cliente cliente;
+	@JoinColumn(nullable = false)
+	private Fornecedor fornecedor;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private TipoAvaria tipoavaria;
 
 	public Date getHorario() {
 		return horario;
@@ -44,12 +48,12 @@ public class Avaria extends GenericDomain {
 		this.precoTotal = precoTotal;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Fornecedor getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	public Funcionario getFuncionario() {
@@ -59,4 +63,14 @@ public class Avaria extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public TipoAvaria getTipoavaria() {
+		return tipoavaria;
+	}
+
+	public void setTipoavaria(TipoAvaria tipoavaria) {
+		this.tipoavaria = tipoavaria;
+	}
+	
+	
 }

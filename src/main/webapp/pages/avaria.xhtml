@@ -139,16 +139,28 @@ template="/templates/template.xhtml"
 						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Cliente:" />
-				<p:selectOneMenu value="#{avariaBean.avaria.cliente}"
+				<p:outputLabel value="Fornecedor:" />
+				<p:selectOneMenu value="#{avariaBean.avaria.fornecedor}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains">
 					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um cliente" />
-					<f:selectItems value="#{avariaBean.clientes}" var="cliente"
-						itemValue="#{cliente}"
-						itemLabel="#{cliente.pessoa.cpf} - #{cliente.pessoa.nome}" />
+						itemLabel="Selecione um Fornecedor" />
+					<f:selectItems value="#{avariaBean.fornecedores}" var="fornecedor"
+						itemValue="#{fornecedor}"
+						itemLabel="#{fornecedor.descricao}" />
 				</p:selectOneMenu>
+				
+				<p:outputLabel value="Tipo de Avaria:" />
+				<p:selectOneMenu value="#{avariaBean.avaria.tipoavaria}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Tipo de Avaria" />
+					<f:selectItems value="#{avariaBean.tiposAvaria}" var="tipoavaria"
+						itemValue="#{tipoavaria}"
+						itemLabel="#{tipoavaria.descricao}" />
+				</p:selectOneMenu>
+				
 
 			</h:panelGrid>
 

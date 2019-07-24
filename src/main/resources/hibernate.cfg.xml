@@ -52,6 +52,7 @@
 		<mapping class="br.com.datasalles.domain.Caixa" />
 		<mapping class="br.com.datasalles.domain.Movimentacao" />
 		<mapping class="br.com.datasalles.domain.ItemAvaria" />
+		<mapping class="br.com.datasalles.domain.TipoAvaria" />
 		
 	</session-factory>
 

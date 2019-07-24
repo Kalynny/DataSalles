@@ -11,14 +11,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
-import br.com.datasalles.dao.ClienteDAO;
+import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.AvariaDAO;
-import br.com.datasalles.domain.Cliente;
+import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemAvaria;
 import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.TipoAvaria;
 import br.com.datasalles.domain.Avaria;
 
 @SuppressWarnings("serial")
@@ -26,10 +27,10 @@ import br.com.datasalles.domain.Avaria;
 @ViewScoped
 public class AvariaBean implements Serializable {
 	private Avaria avaria;
-
 	private List<Produto> produtos;
 	private List<ItemAvaria> itensAvaria;
-	private List<Cliente> clientes;
+	private List<TipoAvaria> tiposAvaria;
+	private List<Fornecedor> fornecedores;
 	private List<Funcionario> funcionarios;
 
 	public Avaria getAvaria() {
@@ -56,12 +57,12 @@ public class AvariaBean implements Serializable {
 		this.itensAvaria = itensAvaria;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
 	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
 	}
 
 	public List<Funcionario> getFuncionarios() {
@@ -70,6 +71,14 @@ public class AvariaBean implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+	
+	public List<TipoAvaria> getTiposAvaria() {
+		return tiposAvaria;
+	}
+
+	public void setTiposAvaria(List<TipoAvaria> tiposAvaria) {
+		this.tiposAvaria = tiposAvaria;
 	}
 
 	@PostConstruct
@@ -169,14 +178,14 @@ public class AvariaBean implements Serializable {
 	public void finalizar() {
 		try {
 			avaria.setHorario(new Date());
-			avaria.setCliente(null);
+			avaria.setFornecedor(null);
 			avaria.setFuncionario(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 
-			ClienteDAO clienteDAO = new ClienteDAO();
-			clientes = clienteDAO.listarOrdenado();
+			FornecedorDAO fornecedorDAO = new FornecedorDAO();
+			fornecedores = fornecedorDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a avaria");
 			erro.printStackTrace();
