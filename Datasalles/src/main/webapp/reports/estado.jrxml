@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9b26651-4feb-4997-a75a-ec1f7bde997c">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGF0YXNhbGxlcy5lc3RhZG8gQVMgLDExOCwzNCxlZjhkY2M2NS0yOWVjLTQyOGQtODY5YS0zNTQ5
+ODZkNzliNGU7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
+	<parameter name="CD_ESTADO" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT datasalles.estado.nome,
+	datasalles.estado.sigla
+FROM datasalles.estado
+ORDER BY datasalles.estado.nome ASC]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sigla"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="2" y="0" width="118" height="79" uuid="d5c97d0e-a6fe-4c4e-b27b-02a9fe56f6b0"/>
+				<imageExpression><![CDATA["/src/main/webapp/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="130" y="24" width="310" height="30" uuid="c3537aed-bdd6-4962-b4ea-72949fee45eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Justified">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Estados]]></text>
+			</staticText>
+			<image>
+				<reportElement x="482" y="26" width="50" height="50" uuid="ccda52d0-24b8-4edd-9791-12d709786693"/>
+				<imageExpression><![CDATA[$P{CD_ESTADO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="9" width="100" height="30" uuid="1642d8d2-97f9-4840-bade-e78650086d09">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f34316de-3317-4de6-ad64-105ca0071f35"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="8" width="100" height="30" uuid="65b61231-a341-41aa-80a7-1c6fed915a42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3ee28e-a9dd-4aae-b345-818ea160a33f"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Sigla]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="150" height="20" uuid="771c9430-6829-4e9b-95d9-9397de97b5eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f34316de-3317-4de6-ad64-105ca0071f35"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="20" uuid="1cd05867-5922-4a2a-8994-936cce7f783b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3ee28e-a9dd-4aae-b345-818ea160a33f"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="3" width="550" height="54" uuid="5c6e39c1-e2ff-40e4-b44d-5309e921ae13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[                  Rua José Bonifácio, 32 - São José - Recife/PE  Cep: 50070-400                     Fone: (81) 3224-5777  e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="70" width="90" height="20" uuid="1bf1d476-382f-4ac3-89fc-c8ee6db230fc"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="70" width="80" height="20" uuid="5cef8778-4095-433d-92db-0269f9487cdb"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="482" y="70" width="70" height="20" uuid="8359debb-1959-44e1-9d82-b73e46b31c3f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
