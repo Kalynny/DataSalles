@@ -11,7 +11,7 @@ import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 
 public class VendaDAO extends GenericDAO<Venda> {
-	public void salvar(Venda venda, List<ItemVenda> itensVenda){
+	public void salvar(Venda venda, List<ItemVenda> itensVenda ){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -33,21 +33,22 @@ public class VendaDAO extends GenericDAO<Venda> {
 				produto.setQuantidade(new Short((qtde) + ""));
 				
 				sessao.update(produto);
-				
+								
 				}else{
 				throw new RuntimeException("Quantidade insuficiente em estoque");
 				}
 				
-			}
-				transacao.commit();
-			}	catch (RuntimeException erro) {
-				if (transacao != null) {
-					transacao.rollback();
+								
 				}
-				throw erro;
-				} finally {
-				sessao.close();
-			}
+					transacao.commit();
+				}	catch (RuntimeException erro) {
+					if (transacao != null) {
+						transacao.rollback();
+					}
+					throw erro;
+					} finally {
+					sessao.close();
+				}
 	}
 }
 

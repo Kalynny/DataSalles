@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Caixa extends GenericDomain {
+public class Abertura extends GenericDomain {
 	
 	@Column (nullable = false)
 	@Temporal(TemporalType.DATE)

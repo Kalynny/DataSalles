@@ -10,50 +10,46 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 import br.com.datasalles.dao.FuncionarioDAO;
-import br.com.datasalles.domain.Caixa;
+import br.com.datasalles.domain.Abertura;
 import br.com.datasalles.domain.Funcionario;
 
 
 @ManagedBean
 @ViewScoped
-public class CaixaBean {
-	private ScheduleModel caixas;
-	private Caixa caixa;
+public class AberturaBean {
+	private ScheduleModel aberturas;
+	private Abertura abertura;
 	private List<Funcionario> funcionarios;
-
-	public ScheduleModel getCaixas() {
-		return caixas;
-	}
-	public void setCaixas(ScheduleModel caixas) {
-		this.caixas = caixas;
-	}
-	
-	public Caixa getCaixa() {
-		return caixa;
-	}
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-	}
 		
+	public ScheduleModel getAberturas() {
+		return aberturas;
+	}
+	public void setAberturas(ScheduleModel aberturas) {
+		this.aberturas = aberturas;
+	}
+	public Abertura getAbertura() {
+		return abertura;
+	}
+	public void setAbertura(Abertura abertura) {
+		this.abertura = abertura;
+	}
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
-	
+		
 	
 	@PostConstruct
 	public void listar() {
-		caixas = new DefaultScheduleModel();
-	
+		aberturas = new DefaultScheduleModel();
 	}
 	
 	public void novo(SelectEvent evento) {
 		
-		caixa = new Caixa();
-		caixa.setDataAbertura((Date) evento.getObject());
+		abertura = new Abertura();
+		abertura.setDataAbertura((Date) evento.getObject());
 		
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 		funcionarios = funcionarioDAO.listar();
