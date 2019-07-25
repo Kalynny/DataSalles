@@ -11,119 +11,168 @@ template="/templates/template.xhtml"
 
 <ui:define name="conteudo">
 
-	<h:form id="formListagem">
-		<p:panel header="Avarias de Produtos">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{produtoBean.produtos}" var="produto"
-				rows="5">
-				
-				<p:column headerText="Descrição">
+	<h:form id="formulario">
+		<p:panel header="Pedido de Avarias">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{avariaBean.produtos}" var="produto" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+					sortBy="#{produto.descricao}">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade">
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço">
+				<p:column headerText="Preço" sortBy="#{produto.preco}">
 					<h:outputText value="#{produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>	
+					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Fornecedor">
+				<p:column headerText="Fornecedor"
+					filterBy="#{produto.fornecedor.descricao}"
+					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{produtoBean.editar}"
-						update=":mensagem :formCadastro:painel :formCadastro:painel1 :formCadastro:painel2 :formCadastro:painel3 :formCadastro:painel4"
-						oncomplete="PF('dialogo').show();">
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{avariaBean.adicionar}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{avariaBean.subtrair}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					</p:commandButton>
+					
+					
+					
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Carrinho de Compras">
+			<p:dataTable id="tabelaCesta"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{avariaBean.itensAvaria}" var="itemAvaria" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{itemAvaria.produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Preço Un.">
+					<h:outputText value="#{itemAvaria.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Qtde.">
+					<h:outputText value="#{itemAvaria.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<h:outputText value="#{itemAvaria.precoParcial}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{avariaBean.remover}"
+						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+						<f:attribute name="itemSelecionado" value="#{itemAvaria}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+		</p:panel>
 
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
+		<p:panel header="Finalização">
+			<h:panelGrid id="painelFinalizacao" columns="3">
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{avariaBean.avaria.precoTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				<p:commandButton value="Finalizar"
+					actionListener="#{avariaBean.finalizar}"
+					update=":mensagem :formularioFinalizar:painelFinalizar"
+					oncomplete="PF('dialogo').show();">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
+
+			</h:panelGrid>
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Produtos - Avaria" widgetVar="dialogo"
+	<p:dialog header="Finalizar Avaria" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-			
-			<p:fieldset legend="Produto/Fornecedor">
-				<h:panelGrid id="painel" columns="4">
-					<h:panelGrid id="painel1" columns="1">					
-						<h:outputLabel value="Cód. Produto:" />
-						<p:inputText size="11" disabled="true" value="#{produtoBean.produto.codigo}"/>					
-					</h:panelGrid>
-					<h:panelGrid id="painel2" columns="1">	
-						<p:outputLabel value="Descrição:" />
-						<p:inputText maxlength="50" size="30" disabled="true"
-							value="#{produtoBean.produto.descricao}"
-							requiredMessage="O campo 'Descrição' é obrigatório" />
-					</h:panelGrid>
-					<h:panelGrid id="painel3" columns="1">
-						<p:outputLabel value="Cód. Fornecedor:" />
-						<p:inputText disabled="true" maxlength="50" size="13" value="#{produtoBean.produto.fornecedor.codigo}"/>
-					</h:panelGrid>
-					<h:panelGrid id="painel4" columns="1">	
-						<p:outputLabel value="Fornecedor:" />
-						<p:inputText disabled="true" maxlength="50" size="30" value="#{produtoBean.produto.fornecedor.descricao}"/>
-					</h:panelGrid>		
-				</h:panelGrid>				
-			</p:fieldset>
-			<br/>
-			<p:fieldset legend="Avaria">
-				<h:panelGrid columns="4">
-					<h:panelGrid columns="1">
-						<p:outputLabel value="Quantidade:" />
-							<p:inputText maxlength="5" size="50"
-								value="#{avariaBean.quantidade}" required="true"
-								requiredMessage="O campo 'Quantidade' é obrigatório"
-								converterMessage="Informe um valor válido para o campo 'Quantidade'"
-								validatorMessage="Informe um valor entre 0 e 1000 para o campo 'Quantidade'">
-								<f:validateLongRange minimum="0" maximum="1000" />
-							</p:inputText>
-					</h:panelGrid>
-					<h:panelGrid columns="1">						
-							<p:outputLabel for="tipo" value="Tipo de Avarias:" />
-							<p:selectOneMenu id="tipo" value="#{avariaBean.tipo}"
-								converter="omnifaces.SelectItemsConverter" required="true"
-								requiredMessage="O campo 'Tipo de Avaria' é obrigatório">
-								<f:selectItem noSelectionOption="true"
-								itemLabel="Selecione um Tipo de Avaria" />
-								<f:selectItem itemValue="Quebra do Produto" itemLabel="Quebra do Produto" />
-								<f:selectItem itemValue="Produto Improrpio para Consumo" itemLabel="Produto Improprio para Consumo" />
-								<f:selectItem itemValue="Vecimento Proximo" itemLabel="Vencimento Próximo" />
-							</p:selectOneMenu>				
-					</h:panelGrid>
-				</h:panelGrid>
-			</p:fieldset>
-			<br/>
+		<h:form id="formularioFinalizar">
+			<h:panelGrid id="painelFinalizar" columns="2">
+				<p:outputLabel value="Horário: " />
+				<h:outputText value="#{avariaBean.avaria.horario}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{avariaBean.avaria.precoTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel for="funcionario" value="Funcionário:" />
+				<p:selectOneMenu id="funcionario"
+					value="#{avariaBean.avaria.funcionario}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains" required="true"
+					requiredMessage="O campo Funcionário é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um funcionário" />
+					<f:selectItems value="#{avariaBean.funcionarios}" var="funcionario"
+						itemValue="#{funcionario}"
+						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Fornecedor:" />
+				<p:selectOneMenu value="#{avariaBean.avaria.fornecedor}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Fornecedor" />
+					<f:selectItems value="#{avariaBean.fornecedores}" var="fornecedor"
+						itemValue="#{fornecedor}"
+						itemLabel="#{fornecedor.descricao}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Tipo de Avaria:" />
+				<p:selectOneMenu value="#{avariaBean.avaria.tipoavaria}"
+					converter="omnifaces.SelectItemsConverter" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Tipo de Avaria" />
+					<f:selectItems value="#{avariaBean.tiposAvaria}" var="tipoavaria"
+						itemValue="#{tipoavaria}"
+						itemLabel="#{tipoavaria.descricao}" />
+				</p:selectOneMenu>
+				
+
+			</h:panelGrid>
+
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{avariaBean.parametros}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela"> 
-					
-					<f:attribute name="produto" value="#{produtoBean.produto.descricao}" />
-					<f:attribute name="fornecedor" value="#{produtoBean.produto.fornecedor.codigo}" />
-					<!--  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />-->
-				</p:commandButton>
-					
+				<p:commandButton value="Salvar" actionListener="#{avariaBean.salvar}"
+					update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
+					oncomplete="PF('dialogo').hide();" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
+
 
 </ui:define>
 </ui:composition>
