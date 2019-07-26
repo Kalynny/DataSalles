@@ -23,7 +23,7 @@ draggable="false" global="true" closable="true" widgetVar="dialogo">
 	
 				<p:outputLabel value="Data de Abertura do Caixa:" />
 				<p:inputText valeu="#{aberturaBean.abertura.dataAbertura}"> 
-				<f:converterDateTime locale="pt_BR"/>
+				<f:convertDateTime  locale="pt_BR"/>
 				</p:inputText>
 				
 				<p:outputLabel value="Valor de Abertura do Caixa:" />
@@ -43,9 +43,9 @@ draggable="false" global="true" closable="true" widgetVar="dialogo">
 	
 	<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{cpagarBean.salvar()}"
+					actionListener="#{aberturaBean.salvar()}"
 					 />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo')show();" />
 			</h:panelGrid>
 </h:form>
 

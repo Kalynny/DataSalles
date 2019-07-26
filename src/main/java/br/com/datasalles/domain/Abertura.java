@@ -28,7 +28,6 @@ public class Abertura extends GenericDomain {
 	private Funcionario funcionario;
 	
 	
-
 	public Date getDataAbertura() {
 		return dataAbertura;
 	}
