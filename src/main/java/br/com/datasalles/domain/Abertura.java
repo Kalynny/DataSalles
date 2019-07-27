@@ -16,10 +16,6 @@ public class Abertura extends GenericDomain {
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
 	
-	@Column (nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dataFechamento;
-	
 	@Column (nullable = false, precision= 7, scale=2 )
 	private BigDecimal valorAbertura;
 	
@@ -34,14 +30,6 @@ public class Abertura extends GenericDomain {
 
 	public void setDataAbertura(Date dataAbertura) {
 		this.dataAbertura = dataAbertura;
-	}
-
-	public Date getDataFechamento() {
-		return dataFechamento;
-	}
-
-	public void setDataFechamento(Date dataFechamento) {
-		this.dataFechamento = dataFechamento;
 	}
 
 	public BigDecimal getValorAbertura() {

@@ -12,22 +12,21 @@ template="/templates/template.xhtml">
 <h:form>
 	<p:schedule value="#{aberturaBean.aberturas}" timeZone="GMT-3">
 	<p:ajax event="dateSelect" oncomplete="PF('dialogo').show();"
-	listener="#{aberturaBean.novo}"  update=":form:grid"/>	
+	listener="#{aberturaBean.novoAbert}"  update=":form:grid"/>	
 	</p:schedule>
 </h:form>
 
-<p:dialog header="Fluxo de Caixa" resizable="false" 
-draggable="false" global="true" closable="true" widgetVar="dialogo">
-<h:form id="form">
-	<h:panelGrid columns="2" id="grid">
+				<p:dialog header="Fluxo de Caixa" resizable="false" 
+				draggable="false" global="true" closable="true" widgetVar="dialogo">
+				<h:form id="form">
+				<h:panelGrid columns="2" id="grid">
 	
-				<p:outputLabel value="Data de Abertura do Caixa:" />
-				<p:inputText valeu="#{aberturaBean.abertura.dataAbertura}"> 
-				<f:convertDateTime  locale="pt_BR"/>
-				</p:inputText>
-				
-				<p:outputLabel value="Valor de Abertura do Caixa:" />
-				<p:inputText valeu="#{aberturaBean.abertura.valorAbertura}"/>
+				<!--  <p:outputLabel for="dataAbertura" value="Data de Abertura do Caixa:" />
+				<p:calendar id="dataAbertura" value="#{aberturaBean.abertura.dataAbertura}" 
+				requiredMessage="O campo 'Data de Cadastro' é obrigatório" size="10"  locale="pt_BR"/>-->
+					
+				<!--  <p:outputLabel value="Valor de Abertura do Caixa:" />
+				<p:inputText valeu="#{aberturaBean.abertura.valorAbertura}"/>-->
 				
 				<p:outputLabel value="Funcionario:" />
 				<p:selectOneMenu value="#{aberturaBean.abertura.funcionario}"
@@ -43,9 +42,8 @@ draggable="false" global="true" closable="true" widgetVar="dialogo">
 	
 	<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{aberturaBean.salvar()}"
-					 />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo')show();" />
+					actionListener="#{aberturaBean.salvar()}" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').show();" />
 			</h:panelGrid>
 </h:form>
 
