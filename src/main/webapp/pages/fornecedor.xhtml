@@ -5,16 +5,13 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
+template="/templates/template.xhtml">
 
 
 <ui:define name="conteudo">
 
 
 	<h:form id="formListagem">
-
-
 
 
 		<p:panel header="Lista de Fornecedores">
@@ -108,12 +105,7 @@ template="/templates/template.xhtml"
 				<p:inputText maxlength="50" size="30"
 					value="#{fornecedorBean.fornecedor.email}" required="true"
 					requiredMessage="O campo 'E-mail' é obrigatório" />
-					
-					
-					
-					
-
-				
+			
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">

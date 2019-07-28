@@ -95,9 +95,9 @@ public class AberturaBean implements Serializable {
 
 			aberturs = aberturaDAO.listar();
 
-			Messages.addGlobalInfo("Produto salvo com sucesso");
+			Messages.addGlobalInfo("Abertura do Caixa salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o produto");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar a Abertura do Caixa");
 			erro.printStackTrace();
 		}
 	}
