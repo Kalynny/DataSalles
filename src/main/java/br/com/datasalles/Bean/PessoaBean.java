@@ -4,14 +4,11 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.CidadeDAO;
 import br.com.datasalles.dao.EstadoDAO;
 import br.com.datasalles.dao.PessoaDAO;
@@ -28,8 +25,7 @@ public class PessoaBean implements Serializable {
 	private Estado estado;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
-
-	
+		
 	
 	public Estado getEstado() {
 		return estado;
@@ -70,7 +66,8 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
-
+	
+	
 	@PostConstruct
 	public void listar() {
 		try {

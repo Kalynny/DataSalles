@@ -28,7 +28,7 @@ import br.com.datasalles.domain.Venda;
 public class VendaBean implements Serializable {
 	private Venda venda;
 	private List<Produto> produtos;
-	private List<TipoPag> tiposPag;
+	private List<TipoPag> tipopags;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
@@ -73,12 +73,12 @@ public class VendaBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 	
-	public List<TipoPag> getTiposPag() {
-		return tiposPag;
+	public List<TipoPag> getTipopags() {
+		return tipopags;
 	}
 
-	public void setTiposPag(List<TipoPag> tiposPag) {
-		this.tiposPag = tiposPag;
+	public void setTipopags(List<TipoPag> tipopags) {
+		this.tipopags = tipopags;
 	}
 
 	@PostConstruct
@@ -91,7 +91,7 @@ public class VendaBean implements Serializable {
 			produtos = produtoDAO.listar("descricao");
 
 			itensVenda = new ArrayList<>();
-			tiposPag = new ArrayList<>();
+			tipopags = new ArrayList<>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			erro.printStackTrace();
@@ -190,7 +190,7 @@ public class VendaBean implements Serializable {
 			clientes = clienteDAO.listarOrdenado();
 			
 			TipoPagDAO tipopagDAO = new TipoPagDAO();
-			tiposPag = tipopagDAO.listar();
+			tipopags = tipopagDAO.listar();
 			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
@@ -213,6 +213,10 @@ public class VendaBean implements Serializable {
 
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
+			
+			TipoPagDAO tipopagDAO = new TipoPagDAO();
+			tipopags = tipopagDAO.listar();
+			
 
 			itensVenda = new ArrayList<>();
 			

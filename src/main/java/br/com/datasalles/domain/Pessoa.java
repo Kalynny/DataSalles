@@ -39,9 +39,7 @@ public class Pessoa extends GenericDomain {
 	
 	@Column(length = 10, nullable = false)
 	private String complemento;
-	
-	
-	
+		
 	@Column(length = 13, nullable = false)
 	private String telefone;
 
@@ -51,11 +49,6 @@ public class Pessoa extends GenericDomain {
 	@Column(length = 100, nullable = false)
 	private String email;
 
-	
-	
-	
-	
-	
 	public Cidade getCidade() {
 		return cidade;
 	}

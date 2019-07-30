@@ -91,7 +91,7 @@ template="/templates/template.xhtml"
 					<f:selectItems value="#{clienteBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
 				</p:selectOneMenu>
-
+				
 				<p:outputLabel for="dataCadastro" value="Data de Cadastro:" />
 				<p:calendar id="dataCadastro"
 					value="#{clienteBean.cliente.dataCadastro}" required="true"

@@ -43,7 +43,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 						<p:menuitem value="Sair" outcome="/pages/autenticacao.xhtml"/>
 					</p:submenu>
 
-					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A','G'])}">
+					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A','G'])}" >
 						<p:menuitem value="Produtos" outcome="/pages/produto.xhtml" />
 						<p:menuitem value="Fornecedores" outcome="/pages/fornecedor.xhtml"/>
 						<p:menuitem value="Funcionarios" outcome="/pages/funcionario.xhtml" />

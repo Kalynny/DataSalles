@@ -2,7 +2,6 @@ package br.com.datasalles.domain;
 
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,7 +23,7 @@ public class Cliente extends GenericDomain {
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
-
+		
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -48,4 +47,6 @@ public class Cliente extends GenericDomain {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	
 }
