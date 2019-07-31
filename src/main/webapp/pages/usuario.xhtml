@@ -45,6 +45,12 @@ template="/templates/template.xhtml"
 				</p:column>
 
 				<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{usuarioBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -86,7 +92,7 @@ template="/templates/template.xhtml"
 					value="#{usuarioBean.usuario.ativo}" required="true"
 					requiredMessage="O campo 'Ativo' é obrigatório" />
 			</h:panelGrid>
-
+			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					update=":mensagem :formCadastro:painel :formListagem:tabela"

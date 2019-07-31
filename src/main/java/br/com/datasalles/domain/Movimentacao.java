@@ -22,7 +22,7 @@ public class Movimentacao extends GenericDomain {
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Abertura caixa;
+	private Abertura abertura;
 
 	public Date getHorario() {
 		return horario;
@@ -40,12 +40,12 @@ public class Movimentacao extends GenericDomain {
 		this.valor = valor;
 	}
 
-	public Abertura getCaixa() {
-		return caixa;
+	public Abertura getAbertura() {
+		return abertura;
 	}
 
-	public void setCaixa(Abertura caixa) {
-		this.caixa = caixa;
+	public void setAbertura(Abertura abertura) {
+		this.abertura = abertura;
 	}
 	
 	

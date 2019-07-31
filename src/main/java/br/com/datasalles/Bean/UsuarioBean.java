@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.omnifaces.util.Messages;
@@ -93,6 +94,23 @@ public class UsuarioBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+	
+	public void editar(ActionEvent evento){
+		try {
+			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar("nome");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um Usuario");
+			erro.printStackTrace();
+		}	
+		
+		
+	}
+	
+	
+	
 }
 
 
