@@ -11,39 +11,39 @@ template="/templates/template.xhtml">
 
 	<h:form id="formListagem">
 
-		<p:panel header="Lista de Tipos de Pagamento de Vendas">
+		<p:panel header="Lista de Tipos de Pagamento de Compras">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{tipoPagBean.tipopags}" var="tipopag"
+				paginator="true" value="#{tipoPagcBean.tipopagcs}" var="tipopagc"
 				rows="6" id="tabela">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{tipoPagBean.novo()}"
-						update=":formCadastro:pnCadastro" />
+						actionListener="#{tipoPagcBean.novo()}"
+						update=":mensagem :formCadastro:pnCadastro" />
 				</f:facet>
 
-				<p:column headerText="Código" sortBy="#{tipopag.codigo}"	>
-					<h:outputText value="#{tipopag.codigo}" />
+				<p:column headerText="Código" sortBy="#{tipopagc.codigo}"	>
+					<h:outputText value="#{tipopagc.codigo}" />
 				</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{tipopag.descricao}"
-					filterBy="#{tipopag.descricao}">
-					<h:outputText value="#{tipopag.descricao}" />
+				<p:column headerText="Descrição" sortBy="#{tipopagc.descricao}"
+					filterBy="#{tipopagc.descricao}">
+					<h:outputText value="#{tipopagc.descricao}" />
 				</p:column>
 								
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{tipopagBean.excluir}"
+						actionListener="#{tipoPagcBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação" message="Deseja excluir o tipo avaria?"
 							icon="ui-icon-alert" />
-						<f:attribute name="tipopagSelecionado" value="#{tipoapg}" />
+						<f:attribute name="tipopagcSelecionado" value="#{tipoapg}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{tipoPagBean.editar}"
+						actionListener="#{tipoPagcBean.editar}"
 						update=":formCadastro:pnCadastro"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="tipopagSelecionado" value="#{tipopag}" />
+						<f:attribute name="tipopagcSelecionado" value="#{tipopagc}" />
 					</p:commandButton>
 
 				</p:column>
@@ -65,14 +65,14 @@ template="/templates/template.xhtml">
 			<h:panelGrid columns="2" id="pnCadastro">
 				<p:outputLabel value="Nome:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{tipoPagBean.tipopag.descricao}" required="true"
+					value="#{tipoPagcBean.tipopagc.descricao}" required="true"
 					requiredMessage="O campo 'Nome' é obrigatório" />
 											
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{tipoPagBean.salvar()}"
+					actionListener="#{tipoPagcBean.salvar()}"
 					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

@@ -30,6 +30,10 @@ public class Compra extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private TipoPagc tipopagc;
 
 	public Date getHorario() {
 		return horario;
@@ -71,6 +75,14 @@ public class Compra extends GenericDomain {
 		this.funcionario = funcionario;
 	}
 
+	public TipoPagc getTipopagc() {
+		return tipopagc;
+	}
+
+	public void setTipopagc(TipoPagc tipopagc) {
+		this.tipopagc = tipopagc;
+	}
+	
 	
 	
 }

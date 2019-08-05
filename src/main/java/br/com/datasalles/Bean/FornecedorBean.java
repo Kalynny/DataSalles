@@ -37,6 +37,10 @@ public class FornecedorBean implements Serializable {
 	public void novo() {
 		fornecedor = new Fornecedor();
 	}
+	
+	public void fornecedor() {
+		fornecedor = new Fornecedor();
+	}
 
 	public void salvar() {
 		try {

@@ -12,11 +12,13 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
+import br.com.datasalles.dao.TipoPagcDAO;
 import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.TipoPagc;
 import br.com.datasalles.domain.Compra;
 import br.com.datasalles.domain.Fornecedor;
 
@@ -29,6 +31,7 @@ public class CompraBean implements Serializable {
 	private List<ItemCompra> itensCompra;
 	private List<Fornecedor> fornecedores;
 	private List<Funcionario> funcionarios;
+	private List<TipoPagc> tipopagcs;
 
 	public Compra getCompra() {
 		return compra;
@@ -70,6 +73,14 @@ public class CompraBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 	
+	public List<TipoPagc> getTipopagcs() {
+		return tipopagcs;
+	}
+
+	public void setTipopagcs(List<TipoPagc> tipopagcs) {
+		this.tipopagcs = tipopagcs;
+	}
+
 	@PostConstruct
 	public void novo() {
 		try {
@@ -80,6 +91,7 @@ public class CompraBean implements Serializable {
 			produtos = produtoDAO.listar("descricao");
 
 			itensCompra = new ArrayList<>();
+			tipopagcs = new ArrayList<>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de compras");
 			erro.printStackTrace();
@@ -178,6 +190,10 @@ public class CompraBean implements Serializable {
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedores = fornecedorDAO.listar();
+			
+			TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
+			tipopagcs = tipopagcDAO.listar();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a compra");
 			erro.printStackTrace();

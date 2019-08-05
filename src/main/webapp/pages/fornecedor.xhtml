@@ -22,6 +22,7 @@ template="/templates/template.xhtml">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{fornecedorBean.novo()}"
 						update=":formCadastro:pnCadastro" />
+					<p:button value="Voltar" outcome="/pages/produto.xhtml"/>
 				</f:facet>
 
 				<p:column headerText="Código" sortBy="#{fornecedor.codigo}"	>

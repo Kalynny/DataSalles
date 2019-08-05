@@ -191,6 +191,7 @@ public class VendaBean implements Serializable {
 			
 			TipoPagDAO tipopagDAO = new TipoPagDAO();
 			tipopags = tipopagDAO.listar();
+						
 			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
