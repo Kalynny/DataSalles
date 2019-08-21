@@ -12,6 +12,7 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
+import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.TipoPagcDAO;
 import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.dao.FornecedorDAO;
@@ -20,6 +21,7 @@ import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
 import br.com.datasalles.domain.Compra;
+import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.Fornecedor;
 
 @SuppressWarnings("serial")
@@ -27,6 +29,7 @@ import br.com.datasalles.domain.Fornecedor;
 @ViewScoped
 public class CompraBean implements Serializable {
 	private Compra compra;
+	private Cpagar cpagar;
 	private List<Produto> produtos;
 	private List<ItemCompra> itensCompra;
 	private List<Fornecedor> fornecedores;
@@ -80,6 +83,16 @@ public class CompraBean implements Serializable {
 	public void setTipopagcs(List<TipoPagc> tipopagcs) {
 		this.tipopagcs = tipopagcs;
 	}
+			
+	public Cpagar getCpagar() {
+		return cpagar;
+	}
+
+	public void setCpagar(Cpagar cpagar) {
+		this.cpagar = cpagar;
+	}
+	
+	
 
 	@PostConstruct
 	public void novo() {
@@ -184,6 +197,7 @@ public class CompraBean implements Serializable {
 			compra.setHorario(new Date());
 			compra.setFornecedor(null);
 			compra.setFuncionario(null);
+			compra.setTipopagc(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
@@ -200,7 +214,8 @@ public class CompraBean implements Serializable {
 		}
 	}
 
-	public void salvar() {
+
+	public void salvar(ActionEvent event) {
 		try {
 			if(compra.getPrecoTotal().signum() == 0){
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
@@ -216,6 +231,10 @@ public class CompraBean implements Serializable {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
+			@SuppressWarnings("unused")
+			TipoPagDAO tipopagDAO = new TipoPagDAO();
+			tipopagcs = new ArrayList<>();
+			
 			itensCompra = new ArrayList<>();
 			
 			Messages.addGlobalInfo("Compra realizada com sucesso");

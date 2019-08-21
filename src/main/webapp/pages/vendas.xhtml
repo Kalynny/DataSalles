@@ -8,6 +8,11 @@ xmlns:p="http://primefaces.org/ui"
 template="/templates/template.xhtml"
 >
 
+<ui:define name="metadata">
+<f:metadata>
+<f:viewAction action="#{vendaBean.novo}" />
+</f:metadata>
+</ui:define>
 
 <ui:define name="conteudo">
 
@@ -50,40 +55,55 @@ template="/templates/template.xhtml"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
-					
-					
+									
 					
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-
+		
+		<p:remoteCommand name="rc" 
+		actionListener="#{vendaBean.atualizarPrecoParcial}"
+		update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
+		
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{vendaBean.itensVenda}" var="itemVenda" rows="5"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom"
+				editable="true"
+				editMode="cell"	>
+				
+		<p:ajax event="cellEdit" oncomplete="rc()" />		
 
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" style="text-align:center">
 					<h:outputText value="#{itemVenda.produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço Un.">
+				<p:column headerText="Preço Un." style="text-align:center">
 					<h:outputText value="#{itemVenda.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Qtde.">
-					<h:outputText value="#{itemVenda.quantidade}" />
+				<p:column headerText="Qtde." style="text-align:center">
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemVenda.quantidade}" style="width:30px; text-align:center" />
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemVenda.quantidade}" style="width:30px; text-align:center" />
+				</f:facet>
+				</p:cellEditor>
+					
 				</p:column>
 
-				<p:column headerText="Preço Parcial">
+				<p:column headerText="Preço Parcial" style="text-align:center">
 					<h:outputText value="#{itemVenda.precoParcial}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
 						actionListener="#{vendaBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">

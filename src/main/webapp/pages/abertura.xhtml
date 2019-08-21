@@ -46,7 +46,7 @@ template="/templates/template.xhtml">
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{aberturaBean.salvar()}"
+					actionListener="#{aberturaBean.salvar}"
 					update=":mensagem :form:grid" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

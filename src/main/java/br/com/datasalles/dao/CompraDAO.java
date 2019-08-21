@@ -19,8 +19,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 			transacao = sessao.beginTransaction();
 		
 			sessao.save(compra);
-			
-			
+					
 			for(int posicao = 0; posicao < itensCompra.size(); posicao++){
 				ItemCompra itemCompra = itensCompra.get(posicao);
 				itemCompra.setCompra(compra);

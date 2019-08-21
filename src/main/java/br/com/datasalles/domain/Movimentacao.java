@@ -23,6 +23,11 @@ public class Movimentacao extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Abertura abertura;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Funcionario funcionario;
+	
 
 	public Date getHorario() {
 		return horario;
@@ -47,7 +52,15 @@ public class Movimentacao extends GenericDomain {
 	public void setAbertura(Abertura abertura) {
 		this.abertura = abertura;
 	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
 	
-	
+		
 
 }

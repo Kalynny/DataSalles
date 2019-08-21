@@ -86,6 +86,7 @@ public class CpagarBean implements Serializable {
 			novo();
 			cpagares = cpagarDAO.listar();
 			
+			
 			Messages.addGlobalInfo("Contas a Pagar salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Pagar");
