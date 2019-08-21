@@ -64,7 +64,7 @@ template="/templates/template.xhtml"
 		<p:remoteCommand name="rc" 
 		actionListener="#{vendaBean.atualizarPrecoParcial}"
 		update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
-		
+													
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
@@ -74,27 +74,35 @@ template="/templates/template.xhtml"
 				editMode="cell"	>
 				
 		<p:ajax event="cellEdit" oncomplete="rc()" />		
-
+				
 				<p:column headerText="Descrição" style="text-align:center">
 					<h:outputText value="#{itemVenda.produto.descricao}" />
 				</p:column>
 
 				<p:column headerText="Preço Un." style="text-align:center">
-					<h:outputText value="#{itemVenda.produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemVenda.produto.preco}" style="width:40px; text-align:center">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemVenda.produto.preco}" style="width:40px; text-align:center" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
-
+				
 				<p:column headerText="Qtde." style="text-align:center">
 				<p:cellEditor>
 				<f:facet name="output">
-				<h:inputText value="#{itemVenda.quantidade}" style="width:30px; text-align:center" />
+				<h:inputText value="#{itemVenda.quantidade}" style="width:30px; text-align:center" />	
 				</f:facet>
 				<f:facet name="input">
 				<h:inputText value="#{itemVenda.quantidade}" style="width:30px; text-align:center" />
 				</f:facet>
 				</p:cellEditor>
-					
 				</p:column>
 
 				<p:column headerText="Preço Parcial" style="text-align:center">

@@ -250,5 +250,5 @@ public class VendaBean implements Serializable {
 	}
 	
 	
-	
+		
 }
