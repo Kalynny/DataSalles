@@ -15,6 +15,7 @@ import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Cliente;
+import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
@@ -26,6 +27,7 @@ import br.com.datasalles.domain.Venda;
 @ViewScoped
 public class VendaBean implements Serializable {
 	private Venda venda;
+	private Cpagar cpagar;
 	private List<Produto> produtos;
 	private List<TipoPag> tipopags;
 	private List<ItemVenda> itensVenda;
@@ -39,6 +41,14 @@ public class VendaBean implements Serializable {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+	
+	public Cpagar getCpagar() {
+		return cpagar;
+	}
+
+	public void setCpagar(Cpagar cpagar) {
+		this.cpagar = cpagar;
 	}
 
 	public List<Produto> getProdutos() {
@@ -220,7 +230,7 @@ public class VendaBean implements Serializable {
 			}
 			
 			VendaDAO vendaDAO = new VendaDAO();
-			vendaDAO.salvar(venda, itensVenda);
+			vendaDAO.salvar (venda, itensVenda, cpagar);
 			
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
@@ -231,7 +241,6 @@ public class VendaBean implements Serializable {
 			TipoPagDAO tipopagDAO = new TipoPagDAO();
 			tipopags = tipopagDAO.listar();
 			
-
 			itensVenda = new ArrayList<>();
 			
 			Messages.addGlobalInfo("Venda realizada com sucesso");

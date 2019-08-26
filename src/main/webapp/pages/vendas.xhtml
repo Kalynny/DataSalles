@@ -24,15 +24,15 @@ template="/templates/template.xhtml"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
-					sortBy="#{produto.descricao}">
+					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}" style="text-align:center">
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" sortBy="#{produto.preco}">
+				<p:column headerText="Preço" sortBy="#{produto.preco}" style="text-align:center">
 					<h:outputText value="#{produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
@@ -44,7 +44,7 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-plus"
 						actionListener="#{vendaBean.adicionar}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">

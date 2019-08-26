@@ -23,7 +23,7 @@ public class ItemAvaria extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Avaria avaria;
-
+	
 	public Short getQuantidade() {
 		return quantidade;
 	}
@@ -55,6 +55,8 @@ public class ItemAvaria extends GenericDomain {
 	public void setAvaria(Avaria avaria) {
 		this.avaria = avaria;
 	}
+
+	
 }
 
 

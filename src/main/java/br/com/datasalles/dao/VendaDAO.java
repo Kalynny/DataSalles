@@ -5,13 +5,17 @@ package br.com.datasalles.dao;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
+
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 
 public class VendaDAO extends GenericDAO<Venda> {
-	public void salvar(Venda venda, List<ItemVenda> itensVenda ){
+	
+	public void salvar(Venda venda, List<ItemVenda> itensVenda, Cpagar cpagar ){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -38,7 +42,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 				throw new RuntimeException("Quantidade insuficiente em estoque");
 				}
 				
-								
+				
 				}
 					transacao.commit();
 				}	catch (RuntimeException erro) {

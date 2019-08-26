@@ -12,7 +12,7 @@ template="/templates/template.xhtml"
 <ui:define name="conteudo">
 
 	<h:form id="formulario">
-		<p:panel header="Pedido de Avarias">
+		<p:panel header="Avaria de Mercadorias">
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{avariaBean.produtos}" var="produto" rows="5"
@@ -23,11 +23,11 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}" style="text-align:center">
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" sortBy="#{produto.preco}">
+				<p:column headerText="Preço" sortBy="#{produto.preco}" style="text-align:center">
 					<h:outputText value="#{produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
@@ -39,7 +39,7 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-plus"
 						actionListener="#{avariaBean.adicionar}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
@@ -57,7 +57,7 @@ template="/templates/template.xhtml"
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Carrinho de Compras">
+		<p:panel header="Itens Avariados">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{avariaBean.itensAvaria}" var="itemAvaria" rows="5"
@@ -67,23 +67,23 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{itemAvaria.produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço Un.">
+				<p:column headerText="Qtde." style="text-align:center">
+					<h:outputText value="#{itemAvaria.quantidade}" />
+				</p:column>
+				
+				<p:column headerText="Preço Un." style="text-align:center">
 					<h:outputText value="#{itemAvaria.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Qtde.">
-					<h:outputText value="#{itemAvaria.quantidade}" />
-				</p:column>
-
-				<p:column headerText="Preço Parcial">
-					<h:outputText value="#{itemAvaria.precoParcial}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				<p:column headerText="Fornecedor">
+					<h:outputText value="#{itemAvaria.produto.fornecedor.descricao}">
+					
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
 						actionListener="#{avariaBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">

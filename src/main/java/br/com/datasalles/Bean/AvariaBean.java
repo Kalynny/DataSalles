@@ -215,6 +215,7 @@ public class AvariaBean implements Serializable {
 			produtos = produtoDAO.listar("descricao");
 
 			itensAvaria = new ArrayList<>();
+			tiposAvaria = new ArrayList<>();
 			
 			Messages.addGlobalInfo("Avaria realizada com sucesso");
 		} catch (RuntimeException erro) {
