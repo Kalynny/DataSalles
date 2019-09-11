@@ -55,6 +55,7 @@
 		<mapping class="br.com.datasalles.domain.TipoAvaria" />
 		<mapping class="br.com.datasalles.domain.TipoPag" />
 		<mapping class="br.com.datasalles.domain.TipoPagc" />
+		<mapping class="br.com.datasalles.domain.Caixa" />
 		
 	</session-factory>
 
