@@ -14,6 +14,7 @@ import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
+import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.Funcionario;
@@ -28,6 +29,7 @@ import br.com.datasalles.domain.Venda;
 public class VendaBean implements Serializable {
 	private Venda venda;
 	private Cpagar cpagar;
+	private Caixa caixa;
 	private List<Produto> produtos;
 	private List<TipoPag> tipopags;
 	private List<ItemVenda> itensVenda;
@@ -98,8 +100,15 @@ public class VendaBean implements Serializable {
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
+			
+	public Caixa getCaixa() {
+		return caixa;
+	}
 
-	
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+
 	public void novo() {
 		try {
 			venda = new Venda();

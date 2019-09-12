@@ -1,24 +1,17 @@
 package br.com.datasalles.domain;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-
 @Entity
-public class Venda extends GenericDomain {
+public class Caixa extends GenericDomain{
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
@@ -27,19 +20,26 @@ public class Venda extends GenericDomain {
 	private BigDecimal precoTotal;
 	
 	@ManyToOne
+	private Venda venda;
+	
+	@ManyToOne
 	private Cliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Funcionario funcionario;
+	private Funcionario funcionario;	
 	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private TipoPag tipopag;
+	@Column(nullable = false)
+	private BigDecimal caixa;
+
 	
-	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venda")
-	private List<ItemVenda>itensVenda;
+	public BigDecimal getCaixa() {
+		return caixa;
+	}
+
+	public void setCaixa(BigDecimal caixa) {
+		this.caixa = caixa;
+	}
 
 	public Date getHorario() {
 		return horario;
@@ -73,22 +73,14 @@ public class Venda extends GenericDomain {
 		this.funcionario = funcionario;
 	}
 
-	public TipoPag getTipopag() {
-		return tipopag;
+	public Venda getVenda() {
+		return venda;
 	}
 
-	public void setTipopag(TipoPag tipopag) {
-		this.tipopag = tipopag;
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
-
-	public List<ItemVenda> getItensVenda() {
-		return itensVenda;
-	}
-
-	public void setItensVenda(List<ItemVenda> itensVenda) {
-		this.itensVenda = itensVenda;
-	}
-
 	
-	
+		
+
 }
