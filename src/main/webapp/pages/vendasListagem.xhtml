@@ -27,7 +27,11 @@ template="/templates/template.xhtml"
 				<p:rowToggler />
 				</p:column>
 
-
+				<p:column headerText="Cod. Pedido" style="text-align: center;">
+					<h:outputText value="#{venda.codigo}" >
+					</h:outputText>
+				</p:column>
+				
 				<p:column headerText="Data" style="text-align: center;">
 					<h:outputText value="#{venda.horario}" >
 					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm"/>
