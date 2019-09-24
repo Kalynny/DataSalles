@@ -65,18 +65,28 @@ template="/templates/template.xhtml">
 			</p:panel>
 					
 			<p:panel header="Saldo do Caixa">
-			<h:panelGrid id="painelFinalizacao" columns="3">
-				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{aberturaBean.abertura.valorAbertura}">
+			
+			<h:panelGrid id="painelFinalizacao" columns="3" >
+			
+				<p:outputLabel value="Valor inicial Caixa: R$ " />
+				<h:outputText value="#{caixaBean.valorInformado}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
+			
+				<br/>
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{caixaBean.caixa.valorInicialcaixa}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				
+				<br/>
 				<p:commandButton value="Finalizar"
-					actionListener="#{vendaBean.finalizar}"
-					update=":mensagem :formularioFinalizar:painelFinalizar"
-					oncomplete="PF('dialogo').show();">
+								actionListener="#{vendaBean.finalizar}"
+								update=":mensagem :formularioFinalizar:painelFinalizar" 
+								oncomplete="PF('dialogo').show();">
 					<f:actionListener
 						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-				</p:commandButton>
+				</p:commandButton> 
 			</h:panelGrid>
 		</p:panel>
 	</h:form>
