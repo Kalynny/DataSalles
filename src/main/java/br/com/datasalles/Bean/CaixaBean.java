@@ -3,13 +3,23 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
 import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Venda;
+import br.com.datasalles.util.HibernateUtil;
 
 
 @SuppressWarnings("serial")
@@ -63,6 +73,9 @@ public class CaixaBean implements Serializable{
 				caixa = null;
 				CaixaDAO caixaDAO = new CaixaDAO();
 				caixa = caixaDAO.buscar(1l);
+				
+				pegaValorInicial();
+				
 			} catch (RuntimeException erro) {
 				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
 				erro.printStackTrace();
@@ -116,6 +129,44 @@ public class CaixaBean implements Serializable{
 		}
 		
 		
-		
-		
+		public void pegaValorInicial() {
+			carregaValor();
+		//	valorInformado = valorInformado;
+			
+		//	valorInformado = new BigDecimal("200.00");
+			
+		}
+
+		private void carregaValor() {
+			BigDecimal valor = null;
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			Transaction tx = null;
+		      try{
+		         tx = sessao.beginTransaction();
+		         
+		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
+		         
+		         SQLQuery query = sessao.createSQLQuery(sql);
+		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		         List data = query.list();
+
+		         for(Object object : data)  {
+		            Map row = (Map)object;
+		            
+		           // BigDecimal valor;
+		            
+		            valor = new BigDecimal(row.get("valorAbertura").toString());
+
+		         }
+		         tx.commit();
+		        
+		      }catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      }finally {
+		         sessao.close();
+		         valorInformado = valor;
+		         
+		      }
+		}
 }
