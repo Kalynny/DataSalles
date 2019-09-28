@@ -15,7 +15,7 @@ template="/templates/template.xhtml">
 <ui:define name="conteudo">
 
 	<h:form id="formListagem">
-		<p:panel header="Pedidos de Vendas">
+		<p:panel header="Recebimento de Caixa">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
 				<f:facet name="header">
@@ -54,10 +54,9 @@ template="/templates/template.xhtml">
 				</p:column>
 				
 				<p:column headerText="Opções" style="text-align:center">
-				<p:commandButton value="Receber"
-						actionListener="#{caixaBean.somarCaixa}"
-						update=":mensagem">
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
+								<p:commandButton value="Receber"
+						actionListener="#{caixaBean.editar()}"
+						update=":mensagem" oncomplete="PF('dialogo').show();">
 				</p:commandButton>
 				</p:column>
 				
@@ -74,73 +73,47 @@ template="/templates/template.xhtml">
 				</h:outputText>
 			
 				<br/>
-				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{caixaBean.caixa.valorInicialcaixa}">
+				<p:outputLabel value="Total a Receber: R$" />
+				<h:outputText value="#{caixaBean.vendas}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 				
 				<br/>
-				<p:commandButton value="Finalizar"
-								actionListener="#{vendaBean.finalizar}"
-								update=":mensagem :formularioFinalizar:painelFinalizar" 
-								oncomplete="PF('dialogo').show();">
-					<f:actionListener
-						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-				</p:commandButton> 
+				<p:outputLabel value="Total Geral: R$" />
+				<h:outputText value="#{caixaBean.caixa}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+								 
 			</h:panelGrid>
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Finalizar Venda" widgetVar="dialogo"
+	<p:dialog header="Recebimento do Pedido de Venda" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
-				<p:outputLabel value="Horário: " />
+				<p:outputLabel value="Cod do Pedido: " />
+				<h:outputText value="#{vendaBean.venda.codigo}"/>
+						
+				<p:outputLabel value="Data do Pedido: " />
 				<h:outputText value="#{vendaBean.venda.horario}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-
-				<p:outputLabel value="Total: R$" />
+				
+				<p:outputLabel value="Valor do Pedido: R$" />
 				<h:outputText value="#{vendaBean.venda.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
-
-				<p:outputLabel for="funcionario" value="Funcionário:" />
-				<p:selectOneMenu id="funcionario"
-					value="#{vendaBean.venda.funcionario}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains" required="true"
-					requiredMessage="O campo Funcionário é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um funcionário" />
-					<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
-						itemValue="#{funcionario}"
-						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Cliente:" />
-				<p:selectOneMenu value="#{vendaBean.venda.cliente}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um cliente" />
-					<f:selectItems value="#{vendaBean.clientes}" var="cliente"
-						itemValue="#{cliente}"
-						itemLabel="#{cliente.pessoa.cpf} - #{cliente.pessoa.nome}" />
-				</p:selectOneMenu>
+					
+				<p:outputLabel value="Tipo de Pagam.: " />
+				<h:outputText value="#{vendaBean.venda.tipopag}"/>
+					
+				<p:outputLabel value="Cliente do Pedido:" />
+				<h:outputText value="#{vendaBean.venda.cliente.pessoa.nome}"/>
 				
-				<p:outputLabel value="Tipo de Pagamento:" />
-				<p:selectOneMenu value="#{vendaBean.venda.tipopag}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Tipo de Pagamento" />
-					<f:selectItems value="#{vendaBean.tipopags}" var="tipopag"
-						itemValue="#{tipopag}"
-						itemLabel="#{tipopag.descricao}" />
-				</p:selectOneMenu>
-
+				<p:outputLabel value="Funcionário:" />
+				<h:outputText value="#{vendaBean.venda.funcionario.pessoa.nome}"/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
@@ -150,7 +123,7 @@ template="/templates/template.xhtml">
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
-	</p:dialog>		
+	</p:dialog>	
 		
 	</ui:define>
 </ui:composition>

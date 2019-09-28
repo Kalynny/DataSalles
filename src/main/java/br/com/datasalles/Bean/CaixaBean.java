@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -17,7 +15,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
+import br.com.datasalles.dao.ClienteDAO;
+import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.domain.Caixa;
+import br.com.datasalles.domain.Cliente;
+import br.com.datasalles.domain.Funcionario;
+import br.com.datasalles.domain.TipoPag;
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 
@@ -27,12 +30,39 @@ import br.com.datasalles.util.HibernateUtil;
 @ViewScoped
 public class CaixaBean implements Serializable{
 	private List<Venda> vendas;
+	private List<Funcionario> funcionarios;
+	private List<Cliente> clientes;
 	private Caixa caixa;
+	private Cliente cliente;
+	private TipoPag tipopag;
 	private Venda venda;
 	private BigDecimal valorInformado;
+	
+			
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
 
-	
-	
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public TipoPag getTipopag() {
+		return tipopag;
+	}
+
+	public void setTipopag(TipoPag tipopag) {
+		this.tipopag = tipopag;
+	}
+
 	public BigDecimal getValorInformado() {
 		return valorInformado;
 	}
@@ -57,6 +87,14 @@ public class CaixaBean implements Serializable{
 		this.vendas = vendas;
 	}
 	
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
 	public Venda getVenda() {
 		return venda;
 	}
@@ -81,6 +119,41 @@ public class CaixaBean implements Serializable{
 				erro.printStackTrace();
 			}
 		}
+		
+		
+		public void editar(ActionEvent evento){
+			try {
+				venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
+
+				ClienteDAO clienteDAO = new ClienteDAO();
+				clientes = clienteDAO.listar();
+				
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				funcionarios = funcionarioDAO.listar();
+				
+			} catch (RuntimeException erro) {
+				Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
+				erro.printStackTrace();
+			}	
+		}
+		
+		
+		public void receber() {
+			try {
+					CaixaDAO caixaDAO = new CaixaDAO();
+					caixaDAO.merge(caixa);
+
+					caixa = new Caixa();
+
+					FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+					funcionarios = funcionarioDAO.listar();
+					
+					Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+				} catch (RuntimeException erro) {
+					Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Recebimento do Caixa");
+					erro.printStackTrace();
+				}
+			}
 		
 		public void sacarCaixa(){
 			
@@ -110,7 +183,7 @@ public class CaixaBean implements Serializable{
 			caixa = null;
 			try{
 					CaixaDAO caixaDAO = new CaixaDAO();
-					caixa = caixaDAO.buscar(1l);
+					caixa = caixaDAO.buscar(4l);
 					
 					if(valorInformado.doubleValue() < caixa.getCaixa().doubleValue()){
 						
@@ -136,7 +209,8 @@ public class CaixaBean implements Serializable{
 		//	valorInformado = new BigDecimal("200.00");
 			
 		}
-
+		
+		@SuppressWarnings({ "rawtypes" })
 		private void carregaValor() {
 			BigDecimal valor = null;
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();

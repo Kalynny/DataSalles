@@ -12,6 +12,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Caixa extends GenericDomain{
 	
+	@ManyToOne
+	private Venda venda;
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
@@ -20,8 +23,9 @@ public class Caixa extends GenericDomain{
 	private BigDecimal precoTotal;
 	
 	@ManyToOne
-	private Venda venda;
-	
+	@JoinColumn(nullable = false)
+	private TipoPag tipopag;
+			
 	@ManyToOne
 	private Cliente cliente;
 	
@@ -32,15 +36,15 @@ public class Caixa extends GenericDomain{
 	@Column(nullable = false)
 	private BigDecimal caixa;
 	
+	@Column(nullable = false)
 	private BigDecimal valorInicialcaixa;
 
-	
-	public BigDecimal getCaixa() {
-		return caixa;
+	public Venda getVenda() {
+		return venda;
 	}
 
-	public void setCaixa(BigDecimal caixa) {
-		this.caixa = caixa;
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	public Date getHorario() {
@@ -59,6 +63,14 @@ public class Caixa extends GenericDomain{
 		this.precoTotal = precoTotal;
 	}
 
+	public TipoPag getTipopag() {
+		return tipopag;
+	}
+
+	public void setTipopag(TipoPag tipopag) {
+		this.tipopag = tipopag;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -75,12 +87,12 @@ public class Caixa extends GenericDomain{
 		this.funcionario = funcionario;
 	}
 
-	public Venda getVenda() {
-		return venda;
+	public BigDecimal getCaixa() {
+		return caixa;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setCaixa(BigDecimal caixa) {
+		this.caixa = caixa;
 	}
 
 	public BigDecimal getValorInicialcaixa() {
@@ -91,3 +103,6 @@ public class Caixa extends GenericDomain{
 		this.valorInicialcaixa = valorInicialcaixa;
 	}
 }
+
+	
+	
