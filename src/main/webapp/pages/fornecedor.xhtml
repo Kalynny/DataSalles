@@ -113,7 +113,7 @@ template="/templates/template.xhtml">
 				<p:commandButton value="Salvar"
 					actionListener="#{fornecedorBean.salvar()}"
 					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').show();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
