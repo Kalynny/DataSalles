@@ -35,6 +35,16 @@ public class CompraBean implements Serializable {
 	private List<Fornecedor> fornecedores;
 	private List<Funcionario> funcionarios;
 	private List<TipoPagc> tipopagcs;
+	private List<Compra> compras;
+
+	
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
 
 	public Compra getCompra() {
 		return compra;
@@ -212,6 +222,11 @@ public class CompraBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a compra");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void listar(){
+		CompraDAO dao = new CompraDAO();
+		compras = dao.listar("codigo");
 	}
 
 

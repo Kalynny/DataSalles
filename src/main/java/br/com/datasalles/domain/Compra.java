@@ -3,12 +3,19 @@ package br.com.datasalles.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -34,6 +41,10 @@ public class Compra extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoPagc tipopagc;
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
+	private List<ItemCompra>itensCompra;
 
 	public Date getHorario() {
 		return horario;
@@ -82,7 +93,14 @@ public class Compra extends GenericDomain {
 	public void setTipopagc(TipoPagc tipopagc) {
 		this.tipopagc = tipopagc;
 	}
+
+	public List<ItemCompra> getItensCompra() {
+		return itensCompra;
+	}
+
+	public void setItensCompra(List<ItemCompra> itensCompra) {
+		this.itensCompra = itensCompra;
+	}
 	
-	
-	
+		
 }
