@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9b26651-4feb-4997-a75a-ec1f7bde997c">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZGF0YXNhbGxlcy5lc3RhZG8gQVMgLDExOCwzNCxlZjhkY2M2NS0yOWVjLTQyOGQtODY5YS0zNTQ5
-ODZkNzliNGU7]]>
-	</property>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5f10080-8392-4d4b-b9a4-59b031771cf0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
 	<parameter name="CD_ESTADO" class="java.lang.Object"/>
 	<queryString language="SQL">
@@ -25,65 +22,72 @@ ORDER BY datasalles.estado.nome ASC]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="2" y="0" width="118" height="79" uuid="d5c97d0e-a6fe-4c4e-b27b-02a9fe56f6b0"/>
-				<imageExpression><![CDATA["/src/main/webapp/resources/img/Logo1.png"]]></imageExpression>
-			</image>
+		<band height="110" splitType="Stretch">
 			<staticText>
-				<reportElement x="130" y="24" width="310" height="30" uuid="c3537aed-bdd6-4962-b4ea-72949fee45eb"/>
+				<reportElement x="160" y="20" width="280" height="30" uuid="10abab96-3444-4cca-8be0-dba2e8270983"/>
 				<textElement textAlignment="Center" verticalAlignment="Justified">
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório de Estados]]></text>
 			</staticText>
 			<image>
-				<reportElement x="482" y="26" width="50" height="50" uuid="ccda52d0-24b8-4edd-9791-12d709786693"/>
+				<reportElement x="0" y="0" width="140" height="108" uuid="afbf07e7-1aaf-48ee-b727-82a2d1c7c0c1"/>
+				<imageExpression><![CDATA["/src/main/webapp/resources/img/Logo2.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="494" y="29" width="50" height="50" uuid="ac127229-8d5d-4df3-9349-b3b5dad0e59d"/>
 				<imageExpression><![CDATA[$P{CD_ESTADO}]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="15" splitType="Stretch"/>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="45" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="80" y="9" width="100" height="30" uuid="1642d8d2-97f9-4840-bade-e78650086d09">
+				<reportElement x="79" y="2" width="100" height="29" uuid="c00f897b-7293-47c5-ad3d-5b9be85a8424">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f34316de-3317-4de6-ad64-105ca0071f35"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Bottom">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="8" width="100" height="30" uuid="65b61231-a341-41aa-80a7-1c6fed915a42">
+				<reportElement x="279" y="1" width="100" height="29" uuid="a58440bf-ac19-46c4-bfb0-e5c591deffa7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3ee28e-a9dd-4aae-b345-818ea160a33f"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Bottom">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[Sigla]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="551" height="11" uuid="083dad00-d22d-4b6d-b423-eb4450439ec7"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="80" y="0" width="150" height="20" uuid="771c9430-6829-4e9b-95d9-9397de97b5eb">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f34316de-3317-4de6-ad64-105ca0071f35"/>
+				<reportElement x="80" y="0" width="100" height="20" uuid="6f606811-f877-4648-9640-dfd818b4fd8f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16395fb0-21c4-4aab-9b34-ae9f5cbe6af6"/>
 				</reportElement>
-				<textElement textAlignment="Left">
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="0" width="100" height="20" uuid="1cd05867-5922-4a2a-8994-936cce7f783b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e3ee28e-a9dd-4aae-b345-818ea160a33f"/>
+				<reportElement x="285" y="0" width="80" height="20" uuid="776a6d82-8a00-4458-b44c-8ec5b552ca25">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ecd0b7cd-6c93-4c2f-a4e9-f76227ca1926"/>
 				</reportElement>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
@@ -96,35 +100,35 @@ ORDER BY datasalles.estado.nome ASC]]>
 	<pageFooter>
 		<band height="90" splitType="Stretch">
 			<staticText>
-				<reportElement x="2" y="3" width="550" height="54" uuid="5c6e39c1-e2ff-40e4-b44d-5309e921ae13"/>
+				<reportElement x="2" y="3" width="552" height="54" uuid="24531bcb-3b9e-42c4-a511-8eee782483dd"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[                  Rua José Bonifácio, 32 - São José - Recife/PE  Cep: 50070-400                     Fone: (81) 3224-5777  e-mail: contato@aborisa.com.br ]]></text>
+				<text><![CDATA[                                 Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400                                   Fone: (81) 98829-5777  e-mail: contato@aborisa.com.br ]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="2" y="70" width="90" height="20" uuid="1bf1d476-382f-4ac3-89fc-c8ee6db230fc"/>
+				<reportElement x="2" y="70" width="148" height="20" uuid="4e963e7f-ff14-4f37-b2cc-efbe401fe01c"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="402" y="70" width="80" height="20" uuid="5cef8778-4095-433d-92db-0269f9487cdb"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="482" y="70" width="70" height="20" uuid="8359debb-1959-44e1-9d82-b73e46b31c3f"/>
+				<reportElement x="484" y="70" width="70" height="20" uuid="363bb0bd-4ddd-439c-b174-c632cbca6723"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="70" width="80" height="20" uuid="c5f686bb-8393-40b8-aa08-852bfa40c5ef"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
