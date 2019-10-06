@@ -25,9 +25,8 @@ template="/templates/template.xhtml"
 						actionListener="#{estadoBean.novo()}"
 						update=":formCadastro:pnCadastro" />
 						
-					<p:commandButton value="Imprimir" oncomplete="PF('dialogo').show();"
-						actionListener="#{estadoBean.imprimir}"
-						update=":formCadastro" />
+					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"
+						 />
 				</f:facet>
 
 				<p:column headerText="Nome" sortBy="#{estado.nome}" filterBy="#{estado.nome}">

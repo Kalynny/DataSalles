@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5f10080-8392-4d4b-b9a4-59b031771cf0">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
-	<parameter name="CD_ESTADO" class="java.lang.Object"/>
+	<parameter name="cd_Estado" class="java.lang.Object"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT datasalles.estado.nome,
 	datasalles.estado.sigla
@@ -30,14 +30,6 @@ ORDER BY datasalles.estado.nome ASC]]>
 				</textElement>
 				<text><![CDATA[Relatório de Estados]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="140" height="108" uuid="afbf07e7-1aaf-48ee-b727-82a2d1c7c0c1"/>
-				<imageExpression><![CDATA["/src/main/webapp/resources/img/Logo2.png"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="494" y="29" width="50" height="50" uuid="ac127229-8d5d-4df3-9349-b3b5dad0e59d"/>
-				<imageExpression><![CDATA[$P{CD_ESTADO}]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

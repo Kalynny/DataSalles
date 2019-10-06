@@ -2,16 +2,16 @@ package br.com.datasalles.Bean;
 
 import java.io.Serializable;
 import java.sql.Connection;
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
-//mport java.util.Map;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-//import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.datatable.DataTable;
 import br.com.datasalles.dao.EstadoDAO;
 import br.com.datasalles.domain.Estado;
 import br.com.datasalles.util.HibernateUtil;
@@ -20,6 +20,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 //import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.view.JasperViewer;
+
 
 
 
@@ -101,24 +102,41 @@ public void editar(ActionEvent evento){
 
 @SuppressWarnings("deprecation")
 public void imprimir(){
-	 
-	 try {
-	 
-	 String caminho = Faces.getRealPath("/reports/estado.jasper");
-	  
-	 
-	 Connection conexao = HibernateUtil.getConexao();
-	 		 
-	 JasperPrint relatorio = JasperFillManager.fillReport(caminho, null, conexao);
-	 JasperViewer view = new JasperViewer(relatorio, false);
-	 view.show();
-	 	
-	 
-	 } catch ( JRException erro) {
-		 Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-		 	erro.printStackTrace();
-		 	}
-	      }
+	try {
+		DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
+		Map<String, Object> filtros = tabela.getFilters();
+
+		String estNome = (String) filtros.get("nome");
+		String estSigla = (String) filtros.get("sigla");
+
+		String caminho = Faces.getRealPath("reports/estado.jasper");
+
+		Map<String, Object> parametros = new HashMap<>();
+		if (estNome == null) {
+			parametros.put("ESTADO_NOME", "%%");
+		} else {
+			parametros.put("ESTADO_NOME", "%" + estNome + "%");
+		}
+		if (estSigla == null) {
+			parametros.put("ESTADO_SIGLA", "%%");
+		} else {
+			parametros.put("ESTADO_SIGLA", "%" + estSigla + "%");
+		}
+
+		Connection conexao = HibernateUtil.getConexao();
+
+		JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+
+		JasperViewer view = new JasperViewer(relatorio, false);
+		 view.show();
+
+		} catch (JRException erro) {
+				Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+				erro.printStackTrace();
+			}
+		}
+
+
 
 
 	
