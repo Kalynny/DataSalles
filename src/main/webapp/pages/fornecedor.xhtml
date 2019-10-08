@@ -17,12 +17,13 @@ template="/templates/template.xhtml">
 		<p:panel header="Lista de Fornecedores">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{fornecedorBean.fornecedores}" var="fornecedor"
-				rows="6" id="tabela">
+				rows="10" id="tabela">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{fornecedorBean.novo()}"
 						update=":formCadastro:pnCadastro" />
 					<p:button value="Voltar" outcome="/pages/produto.xhtml"/>
+					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"/>
 				</f:facet>
 
 				<p:column headerText="Código" sortBy="#{fornecedor.codigo}"	>
@@ -34,15 +35,15 @@ template="/templates/template.xhtml">
 					<h:outputText value="#{fornecedor.descricao}" />
 				</p:column>
 				
-				<p:column headerText="CNPJ" sortBy="#{fornecedor.cnpj}"
+				<p:column headerText="CNPJ" style="text-align:center" sortBy="#{fornecedor.cnpj}"
 					filterBy="#{fornecedor.cnpj}">
 					<h:outputText value="#{fornecedor.cnpj}" />
 				</p:column>
-				<p:column headerText="Insc. Estadual" filterBy="#{fornecedor.ie}">
+				<p:column headerText="Insc. Estadual" style="text-align:center" filterBy="#{fornecedor.ie}">
 					<h:outputText value="#{fornecedor.ie}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{fornecedorBean.excluir}"
 						update=":mensagem :formListagem:tabela">

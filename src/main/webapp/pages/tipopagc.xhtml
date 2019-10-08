@@ -30,7 +30,7 @@ template="/templates/template.xhtml">
 					<h:outputText value="#{tipopagc.descricao}" />
 				</p:column>
 								
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{tipoPagcBean.excluir}"
 						update=":mensagem :formListagem:tabela">

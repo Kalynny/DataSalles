@@ -31,24 +31,24 @@
 					<h:outputText value="#{funcionario.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" filterBy="#{funcionario.pessoa.cpf}"
+				<p:column headerText="CPF" style="text-align:center" filterBy="#{funcionario.pessoa.cpf}"
 					sortBy="#{funcionario.pessoa.cpf}">
 					<h:outputText value="#{funcionario.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Data de Admissão"
+				<p:column headerText="Data de Admissão" style="text-align:center"
 					sortBy="#{funcionario.dataAdmissao}">
 					<h:outputText value="#{funcionario.dataAdmissao}">
 						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Carteira de Trabalho" sortBy="#{funcionario.carteiraTrabalho}">
+				<p:column headerText="Carteira de Trabalho" style="text-align:center" sortBy="#{funcionario.carteiraTrabalho}">
 					<h:outputText value="#{funcionario.carteiraTrabalho}"
 						disabled="true" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 					    actionListener="#{funcionarioBean.excluir}"
 					    update=":mensagem :formListagem:tabela">

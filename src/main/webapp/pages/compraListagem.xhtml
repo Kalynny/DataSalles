@@ -45,15 +45,15 @@ template="/templates/template.xhtml"
 					
 				</p:column>
 				
-				<p:column headerText="Cliente" filterBy="#{compra.fornecedor.descricao}"
-					sortBy="#{compra.fornecedor.descricao}" style="text-align: center;">
+				<p:column headerText="Fornecedor" filterBy="#{compra.fornecedor.descricao}"
+					sortBy="#{compra.fornecedor.descricao}" >
 					<h:outputText value="#{compra.fornecedor.descricao}" />
 					
 				</p:column>
 				
 				
 				<p:column headerText="Funcionário" filterBy="#{compra.funcionario.pessoa.nome}"
-					sortBy="#{compra.funcionario.pessoa.nome}" style="text-align: center;">
+					sortBy="#{compra.funcionario.pessoa.nome}" >
 					<h:outputText value="#{compra.funcionario.pessoa.nome}" />
 					
 				</p:column>

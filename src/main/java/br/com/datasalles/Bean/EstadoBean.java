@@ -72,7 +72,7 @@ public class EstadoBean implements Serializable {
 	public void listar(){
 		try{
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os estados");
 			erro.printStackTrace();
@@ -109,18 +109,22 @@ public void imprimir(){
 		String estNome = (String) filtros.get("nome");
 		String estSigla = (String) filtros.get("sigla");
 
-		String caminho = Faces.getRealPath("reports/estado.jasper");
-
+		String caminho = Faces.getRealPath("/reports/estado.jasper");
+		String banner = Faces.getRealPath("/resources/img/Logo1.png");
+		
 		Map<String, Object> parametros = new HashMap<>();
+		
+		parametros.put("BANNER",banner);
+		
 		if (estNome == null) {
-			parametros.put("ESTADO_NOME", "%%");
+			parametros.put("NOME_ESTADO", "%%");
 		} else {
-			parametros.put("ESTADO_NOME", "%" + estNome + "%");
+			parametros.put("NOME_ESTADO", "%" + estNome + "%");
 		}
 		if (estSigla == null) {
-			parametros.put("ESTADO_SIGLA", "%%");
+			parametros.put("SIGLA_ESTADO", "%%");
 		} else {
-			parametros.put("ESTADO_SIGLA", "%" + estSigla + "%");
+			parametros.put("SIGLA_ESTADO", "%" + estSigla + "%");
 		}
 
 		Connection conexao = HibernateUtil.getConexao();

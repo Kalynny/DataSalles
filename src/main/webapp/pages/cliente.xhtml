@@ -32,12 +32,12 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" filterBy="#{cliente.pessoa.cpf}"
+				<p:column headerText="CPF" style="text-align:center" filterBy="#{cliente.pessoa.cpf}"
 					sortBy="#{cliente.pessoa.cpf}">
 					<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Data de Cadastro"
+				<p:column headerText="Data de Cadastro" style="text-align:center"
 					sortBy="#{cliente.dataCadastro}">
 					<h:outputText value="#{cliente.dataCadastro}">
 						<f:convertDateTime locale="pt_BR" />
@@ -58,7 +58,7 @@ template="/templates/template.xhtml"
 						disabled="true" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{clienteBean.excluir}"
 						update=":mensagem :formListagem:tabela">

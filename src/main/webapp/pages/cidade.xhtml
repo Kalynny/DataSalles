@@ -14,13 +14,14 @@ template="/templates/template.xhtml"
 	<h:form id="formListagem">
 		<p:panel header="Cidades - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5">
+				paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="10">
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
 						oncomplete="PF('dialogo').show();"
 						update=":mensagem :formCadastro:painel" >
 						 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:commandButton>
+						<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"/>
 				</f:facet>
 
 				<p:column headerText="Nome" filterBy="#{cidade.nome}"
@@ -35,7 +36,7 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{cidade.estado.sigla}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{cidadeBean.excluir}"
 						update=":mensagem :formListagem:tabela">

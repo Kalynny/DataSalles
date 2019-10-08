@@ -28,15 +28,15 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="RG">
+				<p:column headerText="RG" style="text-align:center">
 					<h:outputText value="#{pessoa.rg}" />
 				</p:column>
 
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" style="text-align:center">
 					<h:outputText value="#{pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{pessoaBean.excluir}"
 						update=":mensagem :formListagem:tabela">

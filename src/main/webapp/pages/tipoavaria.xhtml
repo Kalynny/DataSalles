@@ -36,7 +36,7 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{tipoavaria.descricao}" />
 				</p:column>
 								
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{tipoavariaBean.excluir}"
 						update=":mensagem :formListagem:tabela">

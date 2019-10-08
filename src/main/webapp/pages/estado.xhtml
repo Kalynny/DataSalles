@@ -17,7 +17,7 @@ template="/templates/template.xhtml"
 		<p:panel header="Lista de Estados">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 		paginator="true"  value="#{estadoBean.estados}" var="estado"
-		rows="6"
+		rows="10"
 		id="tabela"
 		>
 				<f:facet name="header">
@@ -25,19 +25,18 @@ template="/templates/template.xhtml"
 						actionListener="#{estadoBean.novo()}"
 						update=":formCadastro:pnCadastro" />
 						
-					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"
-						 />
+					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"/>
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
+				<p:column headerText="Nome" style="text-align:left" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
 				<h:outputText value="#{estado.nome}" />
 				</p:column>
 
-				<p:column headerText="Sigla" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
+				<p:column headerText="Sigla" style="text-align:center" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
 				<h:outputText value="#{estado.sigla}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 				<p:commandButton icon="ui-icon-trash"
 				actionListener="#{estadoBean.excluir}"
 				update=":mensagem :formListagem:tabela">

@@ -31,20 +31,20 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{usuario.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" sortBy="#{usuario.pessoa.cpf}"
+				<p:column headerText="CPF" style="text-align:center" sortBy="#{usuario.pessoa.cpf}"
 					filterBy="#{usuario.pessoa.cpf}">
 					<h:outputText value="#{usuario.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Tipo" sortBy="#{usuario.tipoFormatado}">
+				<p:column headerText="Tipo" style="text-align:center" sortBy="#{usuario.tipoFormatado}">
 					<h:outputText value="#{usuario.tipoFormatado}" />
 				</p:column>
 
-				<p:column headerText="Ativo" sortBy="#{usuario.ativoFormatado}">
+				<p:column headerText="Ativo" style="text-align:center" sortBy="#{usuario.ativoFormatado}">
 					<h:outputText value="#{usuario.ativoFormatado}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="text-align:center">
 						<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{usuarioBean.editar}"
 						update=":mensagem :formCadastro:painel"
