@@ -30,14 +30,14 @@ ORDER BY datasalles.estado.nome ASC]]>
 	<title>
 		<band height="104" splitType="Stretch">
 			<staticText>
-				<reportElement x="160" y="20" width="280" height="30" uuid="10abab96-3444-4cca-8be0-dba2e8270983"/>
+				<reportElement x="160" y="0" width="280" height="30" uuid="10abab96-3444-4cca-8be0-dba2e8270983"/>
 				<textElement textAlignment="Center" verticalAlignment="Justified">
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório de Estados]]></text>
 			</staticText>
 			<image>
-				<reportElement x="21" y="4" width="110" height="100" uuid="1f6faac5-2228-4eac-b0ce-b7bdf76d54cb"/>
+				<reportElement x="21" y="-16" width="110" height="100" uuid="1f6faac5-2228-4eac-b0ce-b7bdf76d54cb"/>
 				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 		</band>

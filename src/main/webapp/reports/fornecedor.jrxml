@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fornecedor" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29dccd52-c29b-4d5c-a168-c14db669e884">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
+	<parameter name="BANNER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT datasalles.fornecedor.descricao,
+	datasalles.fornecedor.email,
+	datasalles.fornecedor.fone,
+	datasalles.fornecedor.nfantasia,
+	datasalles.fornecedor.cnpj,
+	datasalles.fornecedor.ie
+FROM datasalles.fornecedor
+ORDER BY datasalles.fornecedor.descricao ASC]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<field name="fone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<field name="nfantasia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nfantasia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<field name="cnpj" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cnpj"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<field name="ie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fornecedor"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<image>
+				<reportElement x="21" y="-16" width="110" height="100" uuid="92351a90-1990-4332-aaf1-44949d5955b2"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="160" y="20" width="280" height="30" uuid="0b257b48-0fe6-4918-b1b5-3901763974c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Justified">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Fornecedores]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="50" width="551" height="8" uuid="d615ad52-e171-4022-8a07-c1626263f015"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="24" width="100" height="30" uuid="4f3a729f-e9bd-4904-a43a-8d13d83c4e47">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd68a690-4867-4bfa-b327-747281620764"/>
+				</reportElement>
+				<text><![CDATA[Nome do Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="23" width="79" height="30" uuid="ed6ebeec-e7c5-4f23-b98f-75e592a238ee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33b09d04-c6ff-471a-adfd-9322d89b022d"/>
+				</reportElement>
+				<text><![CDATA[Nome Fantasia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="24" width="100" height="26" uuid="54a8f949-735b-432a-9442-c324fb78a28b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b989c60-7745-446d-bf0a-176a8ef0838b"/>
+				</reportElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="24" width="97" height="24" uuid="4447e1b0-8845-4608-8439-3980fac63bc5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85c95675-880d-4b1e-85d4-13e68f0b9560"/>
+				</reportElement>
+				<text><![CDATA[e-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="24" width="100" height="25" uuid="3c5dde0e-e9f4-4e2e-a299-b355cbd1e3ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a243871-a143-453a-9514-c7d760e62b6a"/>
+				</reportElement>
+				<text><![CDATA[Fone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="5" width="147" height="15" uuid="1f6ed116-c0c1-4e6d-b3aa-e16155cbe26c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd68a690-4867-4bfa-b327-747281620764"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="5" width="80" height="18" uuid="8ae068fe-b487-4960-be81-5a48ce0e2ebb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33b09d04-c6ff-471a-adfd-9322d89b022d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nfantasia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="3" width="100" height="17" uuid="065b6fcb-60eb-4fd1-8cf2-d55a71696886">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b989c60-7745-446d-bf0a-176a8ef0838b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="3" width="100" height="17" uuid="bc071d10-2f9a-4361-91d1-0d8d0270b289">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85c95675-880d-4b1e-85d4-13e68f0b9560"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="4" width="100" height="16" uuid="ff6e87bf-6446-4e4e-91c5-55e21883cae0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a243871-a143-453a-9514-c7d760e62b6a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="3" width="552" height="54" uuid="b392437d-c818-45ec-901a-6ce790a5ba21"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[                                 Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400                                   Fone: (81) 98829-5777  e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="70" width="148" height="20" uuid="d77b2b19-2b70-4a65-ae24-0d3b20b3f2eb"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="70" width="80" height="20" uuid="ed251b19-cd2e-4063-964a-53af6b258392"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="484" y="70" width="70" height="20" uuid="7a1da9e6-d614-46da-9bad-cb7247b8424a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -23,7 +23,7 @@ template="/templates/template.xhtml">
 						actionListener="#{fornecedorBean.novo()}"
 						update=":formCadastro:pnCadastro" />
 					<p:button value="Voltar" outcome="/pages/produto.xhtml"/>
-					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"/>
+					<p:commandButton value="Imprimir" actionListener="#{fornecedorBean.imprimir}"/>
 				</f:facet>
 
 				<p:column headerText="Código" sortBy="#{fornecedor.codigo}"	>

@@ -111,7 +111,7 @@ public class FornecedorBean implements Serializable {
 				String estNome = (String) filtros.get("nome");
 				String estSigla = (String) filtros.get("sigla");
 
-				String caminho = Faces.getRealPath("/reports/estado.jasper");
+				String caminho = Faces.getRealPath("/reports/fornecedor.jasper");
 				String banner = Faces.getRealPath("/resources/img/Logo1.png");
 				
 				Map<String, Object> parametros = new HashMap<>();
