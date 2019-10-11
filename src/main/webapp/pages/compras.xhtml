@@ -18,8 +18,7 @@ template="/templates/template.xhtml"
 				value="#{compraBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
-					sortBy="#{produto.descricao}">
+				<p:column headerText="Descrição">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
@@ -33,9 +32,7 @@ template="/templates/template.xhtml"
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Fornecedor"
-					filterBy="#{produto.fornecedor.descricao}"
-					sortBy="#{produto.fornecedor.descricao}">
+				<p:column headerText="Fornecedor">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 

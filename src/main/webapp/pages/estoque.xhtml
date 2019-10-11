@@ -15,9 +15,10 @@ template="/templates/template.xhtml"
 		<p:panel header="Lista de Estoque de Produtos">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{produtoBean.produtos}" var="produto"
-				rows="5">
+				rows="15">
 				
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
@@ -31,7 +32,8 @@ template="/templates/template.xhtml"
 					</h:outputText>	
 				</p:column>
 
-				<p:column headerText="Fornecedor">
+				<p:column headerText="Fornecedor" filterBy="#{produto.fornecedor.descricao}"
+					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 				

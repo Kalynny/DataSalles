@@ -60,40 +60,40 @@ ORDER BY datasalles.fornecedor.descricao ASC]]>
 		<band height="6" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="55" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="50" width="551" height="8" uuid="d615ad52-e171-4022-8a07-c1626263f015"/>
+				<reportElement x="0" y="44" width="551" height="8" uuid="d615ad52-e171-4022-8a07-c1626263f015"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<text><![CDATA[Static Text]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="24" width="100" height="30" uuid="4f3a729f-e9bd-4904-a43a-8d13d83c4e47">
+				<reportElement x="2" y="32" width="100" height="20" uuid="4f3a729f-e9bd-4904-a43a-8d13d83c4e47">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd68a690-4867-4bfa-b327-747281620764"/>
 				</reportElement>
 				<text><![CDATA[Nome do Fornecedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="147" y="23" width="79" height="30" uuid="ed6ebeec-e7c5-4f23-b98f-75e592a238ee">
+				<reportElement x="147" y="31" width="79" height="21" uuid="ed6ebeec-e7c5-4f23-b98f-75e592a238ee">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33b09d04-c6ff-471a-adfd-9322d89b022d"/>
 				</reportElement>
 				<text><![CDATA[Nome Fantasia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="233" y="24" width="100" height="26" uuid="54a8f949-735b-432a-9442-c324fb78a28b">
+				<reportElement x="233" y="32" width="100" height="20" uuid="54a8f949-735b-432a-9442-c324fb78a28b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b989c60-7745-446d-bf0a-176a8ef0838b"/>
 				</reportElement>
 				<text><![CDATA[CNPJ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="343" y="24" width="97" height="24" uuid="4447e1b0-8845-4608-8439-3980fac63bc5">
+				<reportElement x="343" y="32" width="97" height="20" uuid="4447e1b0-8845-4608-8439-3980fac63bc5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85c95675-880d-4b1e-85d4-13e68f0b9560"/>
 				</reportElement>
 				<text><![CDATA[e-mail]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="445" y="24" width="100" height="25" uuid="3c5dde0e-e9f4-4e2e-a299-b355cbd1e3ed">
+				<reportElement x="445" y="32" width="100" height="20" uuid="3c5dde0e-e9f4-4e2e-a299-b355cbd1e3ed">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a243871-a143-453a-9514-c7d760e62b6a"/>
 				</reportElement>
 				<text><![CDATA[Fone]]></text>

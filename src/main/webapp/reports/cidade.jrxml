@@ -23,23 +23,20 @@ ORDER BY datasalles.cidade.nome ASC]]>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="97" splitType="Stretch">
-			<image>
-				<reportElement x="21" y="-16" width="110" height="100" uuid="494ecb87-6c03-4f3c-aca7-8df44baf25d7"/>
-				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
-			</image>
+	<pageHeader>
+		<band height="113" splitType="Stretch">
 			<staticText>
-				<reportElement x="160" y="0" width="280" height="30" uuid="4556e0c3-0dea-4ba0-b926-49bda5d5c9ad"/>
+				<reportElement x="170" y="3" width="280" height="30" isPrintInFirstWholeBand="true" uuid="4556e0c3-0dea-4ba0-b926-49bda5d5c9ad"/>
 				<textElement textAlignment="Center" verticalAlignment="Justified">
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório de Cidades]]></text>
 			</staticText>
+			<image>
+				<reportElement x="40" y="6" width="110" height="100" uuid="494ecb87-6c03-4f3c-aca7-8df44baf25d7"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
+			</image>
 		</band>
-	</title>
-	<pageHeader>
-		<band height="11" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="38" splitType="Stretch">
@@ -121,7 +118,7 @@ ORDER BY datasalles.cidade.nome ASC]]>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
+			<textField evaluationTime="Page">
 				<reportElement x="484" y="70" width="70" height="20" uuid="70f6ce78-2355-42c3-b7bc-762d891b5849"/>
 				<textElement>
 					<font size="10" isBold="false"/>

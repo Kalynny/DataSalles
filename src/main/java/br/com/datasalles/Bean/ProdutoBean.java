@@ -122,7 +122,7 @@ public class ProdutoBean implements Serializable {
 
 			Messages.addGlobalInfo("Produto removido com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o produto");
+			Messages.addFlashGlobalError("O produto já tem movimento, não pode ser removido");
 			erro.printStackTrace();
 		}
 	}

@@ -15,7 +15,7 @@ template="/templates/template.xhtml"
 		<p:panel header="Lista de Produtos">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{produtoBean.produtos}" var="produto"
-				rows="5">
+				rows="10">
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
 						oncomplete="PF('dialogo').show();"

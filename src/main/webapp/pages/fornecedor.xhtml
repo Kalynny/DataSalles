@@ -1,125 +1,126 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
 
-<ui:define name="conteudo">
+	<ui:define name="conteudo">
 
 
-	<h:form id="formListagem">
+		<h:form id="formListagem">
 
 
-		<p:panel header="Lista de Fornecedores">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{fornecedorBean.fornecedores}" var="fornecedor"
-				rows="10" id="tabela">
-				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{fornecedorBean.novo()}"
-						update=":formCadastro:pnCadastro" />
-					<p:button value="Voltar" outcome="/pages/produto.xhtml"/>
-					<p:commandButton value="Imprimir" actionListener="#{fornecedorBean.imprimir}"/>
-				</f:facet>
+			<p:panel header="Lista de Fornecedores">
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{fornecedorBean.fornecedores}"
+					var="fornecedor" rows="10" id="tabela">
+					<f:facet name="header">
+						<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+							actionListener="#{fornecedorBean.novo()}"
+							update=":formCadastro:pnCadastro" />
+						<p:button value="Voltar" outcome="/pages/produto.xhtml" />
+						<p:commandButton value="Imprimir"
+							actionListener="#{fornecedorBean.imprimir}" />
+					</f:facet>
 
-				<p:column headerText="Código" sortBy="#{fornecedor.codigo}"	>
-					<h:outputText value="#{fornecedor.codigo}" />
-				</p:column>
+					<p:column headerText="Código" sortBy="#{fornecedor.codigo}">
+						<h:outputText value="#{fornecedor.codigo}" />
+					</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{fornecedor.descricao}"
-					filterBy="#{fornecedor.descricao}">
-					<h:outputText value="#{fornecedor.descricao}" />
-				</p:column>
-				
-				<p:column headerText="CNPJ" style="text-align:center" sortBy="#{fornecedor.cnpj}"
-					filterBy="#{fornecedor.cnpj}">
-					<h:outputText value="#{fornecedor.cnpj}" />
-				</p:column>
-				<p:column headerText="Insc. Estadual" style="text-align:center" filterBy="#{fornecedor.ie}">
-					<h:outputText value="#{fornecedor.ie}" />
-				</p:column>
+					<p:column headerText="Descrição" sortBy="#{fornecedor.descricao}"
+						filterBy="#{fornecedor.descricao}">
+						<h:outputText value="#{fornecedor.descricao}" />
+					</p:column>
 
-				<p:column headerText="Opções" style="text-align:center">
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{fornecedorBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o fornecedor?"
-							icon="ui-icon-alert" />
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
-					</p:commandButton>
+					<p:column headerText="CNPJ" style="text-align:center"
+						sortBy="#{fornecedor.cnpj}" filterBy="#{fornecedor.cnpj}">
+						<h:outputText value="#{fornecedor.cnpj}" />
+					</p:column>
+					<p:column headerText="Insc. Estadual" style="text-align:center"
+						filterBy="#{fornecedor.ie}">
+						<h:outputText value="#{fornecedor.ie}" />
+					</p:column>
 
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{fornecedorBean.editar}"
-						update=":formCadastro:pnCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
-					</p:commandButton>
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{fornecedorBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o fornecedor?" icon="ui-icon-alert" />
+							<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{fornecedorBean.editar}"
+							update=":formCadastro:pnCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+						</p:commandButton>
 
 
 
-				</p:column>
-			</p:dataTable>
+					</p:column>
+				</p:dataTable>
 
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 
-		</p:panel>
-	</h:form>
-
-	<p:dialog header="Fornecedores - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.descricao}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório" />
-					
-				<p:outputLabel value="Nome Fantasia:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.nfantasia}" required="true"
-					requiredMessage="O campo 'Nome Fantasia' é obrigatório" />
-					
-				<p:outputLabel value="CNPJ:" />
-				<p:inputMask id="cnpj" mask="99.999.999/9999-99" maxlength="18" size="30"
-					value="#{fornecedorBean.fornecedor.cnpj}" required="true"
-					requiredMessage="O campo 'CNPJ' é obrigatório" />
-					
-				<p:outputLabel value="Incrição Estadual:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.ie}" required="true"
-					requiredMessage="O campo 'Incrição Etadual' é obrigatório" />
-					
-				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputMask id="celular" mask="(99)99999-9999" maxlength="16" size="30"
-					value="#{fornecedorBean.fornecedor.fone}" required="true"
-					requiredMessage="O campo 'Celular' é obrigatório" />
-					
-				<p:outputLabel value="E-mail:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{fornecedorBean.fornecedor.email}" required="true"
-					requiredMessage="O campo 'E-mail' é obrigatório" />
-			
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{fornecedorBean.salvar()}"
-					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+			</p:panel>
 		</h:form>
-	</p:dialog>
+
+		<p:dialog header="Fornecedores - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="pnCadastro">
+					<p:outputLabel value="Nome:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{fornecedorBean.fornecedor.descricao}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório" />
+
+					<p:outputLabel value="Nome Fantasia:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{fornecedorBean.fornecedor.nfantasia}" required="true"
+						requiredMessage="O campo 'Nome Fantasia' é obrigatório" />
+
+					<p:outputLabel value="CNPJ:" />
+					<p:inputMask id="cnpj" mask="99.999.999/9999-99" maxlength="18"
+						size="30" value="#{fornecedorBean.fornecedor.cnpj}"
+						required="true" requiredMessage="O campo 'CNPJ' é obrigatório" />
+
+					<p:outputLabel value="Incrição Estadual:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{fornecedorBean.fornecedor.ie}" required="true"
+						requiredMessage="O campo 'Incrição Etadual' é obrigatório" />
+
+					<p:outputLabel for="celular" value="Celular:" />
+					<p:inputMask id="celular" mask="(99)99999-9999" maxlength="16"
+						size="30" value="#{fornecedorBean.fornecedor.fone}"
+						required="true" requiredMessage="O campo 'Celular' é obrigatório" />
+
+					<p:outputLabel value="E-mail:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{fornecedorBean.fornecedor.email}" required="true"
+						requiredMessage="O campo 'E-mail' é obrigatório" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{fornecedorBean.salvar()}"
+						update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
-</ui:define>
+	</ui:define>
 
 </ui:composition>
