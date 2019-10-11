@@ -17,6 +17,7 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
+
 import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Funcionario;
@@ -141,10 +142,10 @@ public class CaixaBean implements Serializable{
 		public void receber() {
 			try {
 					CaixaDAO caixaDAO = new CaixaDAO();
-					caixaDAO.merge(caixa);
+					caixaDAO.salvar(caixa);
 
 					caixa = new Caixa();
-
+										
 					FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 					funcionarios = funcionarioDAO.listar();
 					
@@ -154,52 +155,6 @@ public class CaixaBean implements Serializable{
 					erro.printStackTrace();
 				}
 			}
-		
-		public void sacarCaixa(){
-			
-			caixa = null;
-			try{
-					CaixaDAO caixaDAO = new CaixaDAO();
-					caixa = caixaDAO.buscar(1l);
-					
-					if(valorInformado.doubleValue() < caixa.getCaixa().doubleValue()){
-						
-						caixa.setCaixa(caixa.getCaixa().subtract(valorInformado)); 
-						caixaDAO.editar(caixa);
-					}else{
-						Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
-						Messages.addGlobalError("Ocorreu um erro ao tentar sacar o Dinheiro no Caixa");
-						Messages.addGlobalError("Tente refazer a transação, 'valor a ser sacado não pode ser superior ao informado pelo sistema!'");
-					}
-			
-			} catch (RuntimeException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
-				erro.printStackTrace();
-			}
-		}
-		
-		public void somarCaixa(){
-			
-			caixa = null;
-			try{
-					CaixaDAO caixaDAO = new CaixaDAO();
-					caixa = caixaDAO.buscar(4l);
-					
-					if(valorInformado.doubleValue() < caixa.getCaixa().doubleValue()){
-						
-						caixa.setCaixa(caixa.getCaixa().subtract(valorInformado)); 
-						caixaDAO.editar(caixa);
-					}else{
-						Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
-						Messages.addGlobalError("Ocorreu um erro ao tentar sacar o Dinheiro no Caixa");
-						Messages.addGlobalError("Tente refazer a transação, 'valor a ser sacado não pode ser superior ao informado pelo sistema!'");
-					}
-			
-			} catch (RuntimeException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
-				erro.printStackTrace();
-			}
-		}
 		
 		
 		public void pegaValorInicial() {

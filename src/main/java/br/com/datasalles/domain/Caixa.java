@@ -33,12 +33,6 @@ public class Caixa extends GenericDomain{
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;	
 	
-	@Column(nullable = false)
-	private BigDecimal caixa;
-	
-	@Column(nullable = false)
-	private BigDecimal valorInicialcaixa;
-
 	public Venda getVenda() {
 		return venda;
 	}
@@ -87,21 +81,6 @@ public class Caixa extends GenericDomain{
 		this.funcionario = funcionario;
 	}
 
-	public BigDecimal getCaixa() {
-		return caixa;
-	}
-
-	public void setCaixa(BigDecimal caixa) {
-		this.caixa = caixa;
-	}
-
-	public BigDecimal getValorInicialcaixa() {
-		return valorInicialcaixa;
-	}
-
-	public void setValorInicialcaixa(BigDecimal valorInicialcaixa) {
-		this.valorInicialcaixa = valorInicialcaixa;
-	}
 }
 
 	
