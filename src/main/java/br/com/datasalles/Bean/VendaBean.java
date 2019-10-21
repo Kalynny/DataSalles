@@ -145,7 +145,7 @@ public class VendaBean implements Serializable {
 	
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
+	 
 		int achou = -1;
 		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			if (itensVenda.get(posicao).getProduto().equals(produto)) {

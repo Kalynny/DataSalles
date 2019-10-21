@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
-
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 

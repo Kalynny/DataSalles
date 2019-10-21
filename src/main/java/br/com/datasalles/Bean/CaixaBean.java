@@ -17,7 +17,7 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
-
+import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Funcionario;
@@ -34,8 +34,10 @@ public class CaixaBean implements Serializable{
 	private List<Funcionario> funcionarios;
 	private List<Cliente> clientes;
 	private Caixa caixa;
+	private List<Caixa> caixas;
 	private Cliente cliente;
 	private TipoPag tipopag;
+	private List<TipoPag> tipopags;
 	private Venda venda;
 	private BigDecimal valorInformado;
 	
@@ -103,6 +105,22 @@ public class CaixaBean implements Serializable{
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
+	
+	public List<Caixa> getCaixas() {
+		return caixas;
+	}
+
+	public void setCaixas(List<Caixa> caixas) {
+		this.caixas = caixas;
+	}
+	
+	public List<TipoPag> getTipopags() {
+		return tipopags;
+	}
+
+	public void setTipopags(List<TipoPag> tipopags) {
+		this.tipopags = tipopags;
+	}
 
 		//preenche uma lista com registro de estados
 		@PostConstruct // essa anotation diz que o metodo tem que disparar no momento em que a tela é criada 
@@ -125,9 +143,17 @@ public class CaixaBean implements Serializable{
 		public void editar(ActionEvent evento){
 			try {
 				venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
-
+				
+				
 				ClienteDAO clienteDAO = new ClienteDAO();
 				clientes = clienteDAO.listar();
+				
+				/*VendaDAO vendaDao = new VendaDAO();
+				venda = vendaDao.buscar(venda.getCodigo()); */
+				
+				//tem q arrumar uma forma de passar o codigo do caixa aq em buscar ... ve se tem n
+				//CaixaDAO caixaDao = new CaixaDAO();
+				//caixaDao./();
 				
 				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 				funcionarios = funcionarioDAO.listar();
@@ -197,5 +223,49 @@ public class CaixaBean implements Serializable{
 		         valorInformado = valor;
 		         
 		      }
+		}
+		
+		public void salvar() {
+			try {
+				CaixaDAO caixaDAO = new CaixaDAO();
+				caixaDAO.salvar(caixa);
+				
+				caixa = new Caixa();
+
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				funcionarios = funcionarioDAO.listar("descricao");
+				
+				ClienteDAO clienteDAO = new ClienteDAO();
+				clientes = clienteDAO.listar("nome");
+				
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopags = tipopagDAO.listar("descricao");
+
+				caixas = caixaDAO.listar();
+
+				Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+			} catch (RuntimeException erro) {
+				Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
+				erro.printStackTrace();
+			}
+		}
+		public void finalizarCaixa() {
+			
+			try {
+		
+		@SuppressWarnings("unused")
+		String sql = "insert into caixa VALUES (null, sysdate(), ++,cliente_codigo,funcionario_codigo,tipopag_codigo,venda_codigo);";
+		
+		
+		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+		funcionarios = funcionarioDAO.listarOrdenado();		
+		
+		
+			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
+			erro.printStackTrace();
+		}
+			
 		}
 }

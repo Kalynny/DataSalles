@@ -16,7 +16,7 @@ public class Caixa extends GenericDomain{
 	private Venda venda;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date horario;
 	
 	@Column(nullable = false, precision = 7, scale = 2)
