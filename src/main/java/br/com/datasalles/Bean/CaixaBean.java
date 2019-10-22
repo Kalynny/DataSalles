@@ -249,23 +249,40 @@ public class CaixaBean implements Serializable{
 				erro.printStackTrace();
 			}
 		}
+		
+		@SuppressWarnings({ "unused", "rawtypes" })
 		public void finalizarCaixa() {
 			
-			try {
-		
-		@SuppressWarnings("unused")
-		String sql = "insert into caixa VALUES (null, sysdate(), ++,cliente_codigo,funcionario_codigo,tipopag_codigo,venda_codigo);";
-		
-		
-		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-		funcionarios = funcionarioDAO.listarOrdenado();		
-		
-		
-			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
-			erro.printStackTrace();
-		}
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			Transaction tx = null;
 			
-		}
+			try {
+				
+			tx = sessao.beginTransaction();
+					
+			String sql = "insert into caixa VALUES (null, sysdate(), ++,cliente_codigo,funcionario_codigo,tipopag_codigo,venda_codigo);";
+			
+			 SQLQuery query = sessao.createSQLQuery(sql);
+	         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+	         List data = query.list();
+
+	         for(Object object : data)  {
+	         Map row = (Map)object;
+			
+	         }
+	         tx.commit();
+			 Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+				
+				
+			 }catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      }finally {
+		         sessao.close();
+		         Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
+				 
+			  }
+				
+			}
+		
 }
