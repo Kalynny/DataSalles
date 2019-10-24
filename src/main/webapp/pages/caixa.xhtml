@@ -130,6 +130,16 @@
 					<p:commandButton value="Salvar"
 						actionListener="#{caixaBean.finalizarCaixa()}" update=":mensagem :formularioFinalizar:painelFinalizar"
 						oncomplete="PF('dialogo').hide();" />
+						
+						<!-- <f:attribute name="vendaCodigo" value="#{caixaBean.venda.codigo}"/>
+						<f:attribute name="vendaHorario" value="#{caixaBean.venda.horario}"/>
+						<f:attribute name="vendaPreco" value="#{caixaBean.venda.precoTotal}"/>
+						<f:attribute name="vendaTpPagamento" value="#{caixaBean.venda.tipopag.codigo}"/>
+						<f:attribute name="vendaCliente" value="#{caixaBean.venda.cliente.pessoa.codigo}"/>
+						<f:attribute name="vendaFuncionario" value="#{caixaBean.venda.funcionario.pessoa.codigo}"/> -->
+						
+						<!-- <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> -->
+						
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 			</h:form>
