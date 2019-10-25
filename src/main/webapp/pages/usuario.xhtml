@@ -75,8 +75,8 @@ template="/templates/template.xhtml"
 				<p:password id="senha" maxlength="8" size="10"
 					value="#{usuarioBean.usuario.senha}" required="true"
 					requiredMessage="O campo 'Senha' é obrigatório"
-					validatorMessage="Informe uma senha de 6 a 8 caracteres">
-					<f:validateLength minimum="6" maximum="8" />
+					validatorMessage="Informe uma senha de 3 a 8 caracteres">
+					<f:validateLength minimum="3" maximum="8" />
 				</p:password>
 
 				<p:outputLabel for="tipo" value="Tipo:" />

@@ -40,7 +40,7 @@ public class CaixaBean implements Serializable{
 	private List<TipoPag> tipopags;
 	private Venda venda;
 	private BigDecimal valorInformado;
-	
+	private BigDecimal valorRecebido;
 			
 	public List<Cliente> getClientes() {
 		return clientes;
@@ -73,6 +73,15 @@ public class CaixaBean implements Serializable{
 	public void setValorInformado(BigDecimal valorInformado) {
 		this.valorInformado = valorInformado;
 	}
+	
+	public BigDecimal getValorRecebido() {
+		return valorRecebido;
+	}
+
+	public void setValorRecebido(BigDecimal valorRecebido) {
+		this.valorRecebido = valorRecebido;
+	}
+
 
 	public Caixa getCaixa() {
 		return caixa;
@@ -121,11 +130,13 @@ public class CaixaBean implements Serializable{
 	public void setTipopags(List<TipoPag> tipopags) {
 		this.tipopags = tipopags;
 	}
-
+	
+	
 		//preenche uma lista com registro de estados
 		@PostConstruct // essa anotation diz que o metodo tem que disparar no momento em que a tela é criada 
 		public void listar(){
 			valorInformado = new BigDecimal("0");
+			valorRecebido = new BigDecimal("0");
 			try{
 				caixa = null;
 				CaixaDAO caixaDAO = new CaixaDAO();
@@ -211,6 +222,40 @@ public class CaixaBean implements Serializable{
 		           // BigDecimal valor;
 		            
 		            valor = new BigDecimal(row.get("valorAbertura").toString());
+		           ;
+		         }
+		         tx.commit();
+		        
+		      }catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      }finally {
+		         sessao.close();
+		         valorInformado = valor;
+		         
+		      }
+		}
+		
+		@SuppressWarnings({ "rawtypes", "unused" })
+		private BigDecimal carregaValors() {
+			BigDecimal valor = null;
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			Transaction tx = null;
+		      try{
+		         tx = sessao.beginTransaction();
+		         
+		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
+		         
+		         SQLQuery query = sessao.createSQLQuery(sql);
+		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		         List data = query.list();
+
+		         for(Object object : data)  {
+		            Map row = (Map)object;
+		            
+		           // BigDecimal valor;
+		            
+		            valor = new BigDecimal(row.get("valorAbertura").toString());
 
 		         }
 		         tx.commit();
@@ -223,6 +268,7 @@ public class CaixaBean implements Serializable{
 		         valorInformado = valor;
 		         
 		      }
+		      return valor;
 		}
 		
 		public void salvar() {
@@ -250,39 +296,32 @@ public class CaixaBean implements Serializable{
 			}
 		}
 		
-		@SuppressWarnings({ "unused", "rawtypes" })
 		public void finalizarCaixa() {
 			
+			//BigDecimal valorInicial = carregaValors();
+			
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			Transaction tx = null;
-			
+			org.hibernate.Transaction transacao = null;
 			try {
-				
-			tx = sessao.beginTransaction();
+				transacao= sessao.beginTransaction();
 					
-			String sql = "insert into caixa VALUES (null, sysdate(), ++,cliente_codigo,funcionario_codigo,tipopag_codigo,venda_codigo);";
-			
-			 SQLQuery query = sessao.createSQLQuery(sql);
-	         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-	         List data = query.list();
+			String sql = "insert into caixa VALUES (null, sysdate(),"+venda.getPrecoTotal()+","+venda.getCliente().getCodigo()+","+venda.getFuncionario().getCodigo()+","+venda.getTipopag().getCodigo()+","+venda.getCodigo()+");";
 
-	         for(Object object : data)  {
-	         Map row = (Map)object;
+			SQLQuery query = sessao.createSQLQuery(sql);
+					
+			int result = query.executeUpdate();
 			
-	         }
-	         tx.commit();
-			 Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-				
-				
-			 }catch (HibernateException e) {
-		         if (tx!=null) tx.rollback();
-		         e.printStackTrace(); 
-		      }finally {
-		         sessao.close();
-		         Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
-				 
-			  }
-				
-			}
+			transacao.commit();
+			System.out.println(result);
+
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+		}
+	}
 		
 }

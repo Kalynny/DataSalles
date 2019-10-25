@@ -111,6 +111,7 @@ public class AberturaBean implements Serializable {
 		
 		 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		 org.hibernate.Transaction transacao = null;
+		 
 		try {
 			transacao= sessao.beginTransaction();
 			
