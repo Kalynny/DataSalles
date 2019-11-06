@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:p="http://primefaces.org/ui"
+			template="/templates/template.xhtml" >
 
 	<ui:define name="metadata">
 		<f:metadata>
@@ -14,7 +15,7 @@
 
 	<ui:define name="conteudo">
 
-		<h:form id="formListagem">
+		<h:form id="formList">
 			<p:panel header="Recebimento de Caixa">
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
@@ -84,7 +85,7 @@
 
 					<br />
 					<p:outputLabel value="Total a Receber: R$" />
-					<h:outputText value="#{caixaBean.vendas}">
+					<h:outputText value="#{caixaBean.valorInformado}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
@@ -128,19 +129,11 @@
 
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{caixaBean.finalizarCaixa()}" update=":mensagem :formularioFinalizar:painelFinalizar"
+						actionListener="#{caixaBean.finalizarCaixa()}" update=":mensagem :formList :formularioFinalizar "
 						oncomplete="PF('dialogo').hide();" />
-						
-						<!-- <f:attribute name="vendaCodigo" value="#{caixaBean.venda.codigo}"/>
-						<f:attribute name="vendaHorario" value="#{caixaBean.venda.horario}"/>
-						<f:attribute name="vendaPreco" value="#{caixaBean.venda.precoTotal}"/>
-						<f:attribute name="vendaTpPagamento" value="#{caixaBean.venda.tipopag.codigo}"/>
-						<f:attribute name="vendaCliente" value="#{caixaBean.venda.cliente.pessoa.codigo}"/>
-						<f:attribute name="vendaFuncionario" value="#{caixaBean.venda.funcionario.pessoa.codigo}"/> -->
-						
-						<!-- <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> -->
-						
-					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />	
+
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>

@@ -1,57 +1,140 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewAction action="#{vendaBean.listar}" />
+		</f:metadata>
+	</ui:define>
 
-<h:form>
-	<p:schedule value="#{caixaBean.caixas}" timeZone="GMT-3">
-	<p:ajax event="dateSelect" oncomplete="PF('dialogo').show();"
-	listener="#{caixaBean.novo}"  update=":form:grid"/>	
-	</p:schedule>
-</h:form>
+	<ui:define name="conteudo">
 
-<p:dialog header="Fluxo de Caixa" resizable="false" 
-draggable="false" global="true" closable="true" widgetVar="dialogo">
-<h:form id="form">
-	<h:panelGrid columns="2" id="grid">
-	
-				<p:outputLabel value="Data de Abertura do Caixa:" />
-				<p:inputText valeu="#{caixaBean.caixa.dataAbertura}"> 
-				<f:converterDateTime locale="pt_BR"/>
-				</p:inputText>
-				
-				<p:outputLabel value="Valor de Abertura do Caixa:" />
-				<p:inputText valeu="#{caixaBean.caixa.valorAbertura}"/>
-				
-				<p:outputLabel value="Funcionario:" />
-				<p:selectOneMenu value="#{caixaBean.caixa.funcionario}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Funcionario" />
-					<f:selectItems value="#{caixaBean.funcionarios}" var="funcionario"
-						itemValue="#{funcionario}"
-						itemLabel="#{funcionario.pessoa.nome}" />
-				</p:selectOneMenu>
-	</h:panelGrid>	
-	
-	<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{cpagarBean.salvar()}"
-					 />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
-</h:form>
+		<h:form id="formListagem">
+			<p:panel header="Recebimento de Caixa">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
+					<f:facet name="header">
+					</f:facet>
 
-</p:dialog >
+					<p:column headerText="Cod. Pedido"
+						style="text-align: center; width:75px">
+						<h:outputText value="#{venda.codigo}">
+						</h:outputText>
+					</p:column>
 
+					<p:column headerText="Data do Pedido"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.horario}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
 
-</ui:define>
+					<p:column headerText="Valor do Pedido"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.precoTotal}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
+					<p:column headerText="Tipo de Pag"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.tipopag.descricao}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Cliente"
+						filterBy="#{venda.cliente.pessoa.nome}"
+						sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
+						<h:outputText value="#{venda.cliente.pessoa.nome}" />
+					</p:column>
+
+					<p:column headerText="Funcionário"
+						filterBy="#{venda.funcionario.pessoa.nome}"
+						sortBy="#{venda.funcionario.pessoa.nome}"
+						style="text-align: center;">
+						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+					
+						<p:commandButton value="Receber" actionListener="#{caixaBean.editar}" 
+						 update=":mensagem :formularioFinalizar:painelFinalizar" oncomplete="PF('dialogo').show();">
+						<f:attribute name="vendaSelecionado" value="#{venda}"/>
+						<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel header="Saldo do Caixa">
+
+				<h:panelGrid id="painelFinalizacao" columns="3">
+
+					<p:outputLabel value="Valor inicial Caixa: R$ " />
+					<h:outputText value="#{caixaBean.valorInformado}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<br />
+					<p:outputLabel value="Total a Receber: R$" />
+					<h:outputText value="#{caixaBean.vendas}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<br />
+					<p:outputLabel value="Total Geral: R$" />
+					<h:outputText value="#{caixaBean.caixa}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Recebimento do Pedido de Venda" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formularioFinalizar">
+				<h:panelGrid id="painelFinalizar" columns="2">
+					<p:outputLabel value="Cod do Pedido: " />
+					<h:outputText value="#{caixaBean.venda.codigo}" />
+
+					<p:outputLabel value="Data do Pedido: " />
+					<h:outputText value="#{caixaBean.venda.horario}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+
+					<p:outputLabel value="Valor do Pedido:" maxlength="500"/>
+					<h:outputText value="#{caixaBean.venda.precoTotal}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<p:outputLabel value="Tipo de Pagam.: " />
+					<h:outputText value="#{caixaBean.venda.tipopag.descricao}" />
+
+					<p:outputLabel value="Cliente do Pedido:" />
+					<h:outputText value="#{caixaBean.venda.cliente.pessoa.nome}" />
+
+					<p:outputLabel value="Funcionário:" />
+					<h:outputText value="#{caixaBean.venda.funcionario.pessoa.nome}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{caixaBean.finalizarCaixa()}" update=":mensagem :formularioFinalizar:painelFinalizar"
+						oncomplete="PF('dialogo').hide();" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />	
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
 </ui:composition>
