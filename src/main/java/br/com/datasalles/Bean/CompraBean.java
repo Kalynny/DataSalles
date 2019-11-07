@@ -3,6 +3,7 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,28 +15,32 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
 
+import br.com.datasalles.dao.CompraDAO;
+import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.TipoPagcDAO;
-import br.com.datasalles.dao.CompraDAO;
-import br.com.datasalles.dao.FornecedorDAO;
+import br.com.datasalles.domain.Compra;
+import br.com.datasalles.domain.Cpagar;
+import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
+import br.com.datasalles.service.DatasallesService;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import br.com.datasalles.domain.Compra;
-import br.com.datasalles.domain.Cpagar;
-import br.com.datasalles.domain.Fornecedor;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -249,23 +254,28 @@ public class CompraBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
 				return;
 			}
+			if(compra.getTipopagc().equals(1)) {
+							
+				CompraDAO compraDAO = new CompraDAO();
+				compraDAO.salvar(compra, itensCompra);
+				
+				compra = new Compra();
+				compra.setPrecoTotal(new BigDecimal("0.00"));
+	
+				ProdutoDAO produtoDAO = new ProdutoDAO();
+				produtos = produtoDAO.listar("descricao");
+	
+				@SuppressWarnings("unused")
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopagcs = new ArrayList<>();
+				
+				itensCompra = new ArrayList<>();
+				
+				Messages.addGlobalInfo("Compra realizada com sucesso");
+			}else{
+				pagamentoBoleto();
+			}
 			
-			CompraDAO compraDAO = new CompraDAO();
-			compraDAO.salvar(compra, itensCompra);
-			
-			compra = new Compra();
-			compra.setPrecoTotal(new BigDecimal("0.00"));
-
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar("descricao");
-
-			@SuppressWarnings("unused")
-			TipoPagDAO tipopagDAO = new TipoPagDAO();
-			tipopagcs = new ArrayList<>();
-			
-			itensCompra = new ArrayList<>();
-			
-			Messages.addGlobalInfo("Compra realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a compra");
 			erro.printStackTrace();
@@ -311,5 +321,44 @@ public class CompraBean implements Serializable {
 					erro.printStackTrace();
 				}
 			}
+	
+	public void pagamentoBoleto() {
+		
+		DatasallesService sevico = new DatasallesService();
+		
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		org.hibernate.Transaction transacao = null;
+
+		try {
+		
+		transacao= sessao.beginTransaction();
+			
+		//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento().getDate());	
+		String formato ="yyyy/MM/dd";
+		
+		String s = new SimpleDateFormat(formato).format(compra.getVencimento());
+	//	java.util.Date myDate = vs;
+		
+		
+		String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",sysdate(),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+
+		SQLQuery query = sessao.createSQLQuery(sql);
+				
+		int result = query.executeUpdate();
+		
+		transacao.commit();
+		System.out.println(result);
+
+	} catch (HibernateException e) {
+		if (transacao != null)
+			transacao.rollback();
+		e.printStackTrace();
+	} finally {
+		sessao.close();
+
+		Messages.addGlobalInfo("Compra realizada com sucesso com o tipo de pagamento BOLETO BANCÁRIO !!");
+	}
+		
+	}
 
 }
