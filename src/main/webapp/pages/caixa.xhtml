@@ -131,7 +131,9 @@
 					<p:commandButton value="Salvar"
 						actionListener="#{caixaBean.finalizarCaixa()}" update=":mensagem :formList :formularioFinalizar "
 						oncomplete="PF('dialogo').hide();" />
+
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />	
+
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>

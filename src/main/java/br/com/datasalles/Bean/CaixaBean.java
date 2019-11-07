@@ -236,7 +236,7 @@ public class CaixaBean implements Serializable{
 		      }
 		}
 		
-		@SuppressWarnings({ "rawtypes", "unused" })
+		//@SuppressWarnings({ "rawtypes", "unused" })
 		private BigDecimal carregaValors() {
 			BigDecimal valor = null;
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -271,6 +271,41 @@ public class CaixaBean implements Serializable{
 		      return valor;
 		}
 		
+	//	@SuppressWarnings({ "rawtypes" })
+	/*	private BigDecimal carregaValors() {
+			BigDecimal valor = null;
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			Transaction tx = null;
+		      try{
+		         tx = sessao.beginTransaction();
+		         
+		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
+		         
+		         SQLQuery query = sessao.createSQLQuery(sql);
+		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		         List data = query.list();
+
+		         for(Object object : data)  {
+		            Map row = (Map)object;
+		            
+		           // BigDecimal valor;
+		            
+		            valor = new BigDecimal(row.get("valorAbertura").toString());
+
+		         }
+		         tx.commit();
+		        
+		      }catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      }finally {
+		         sessao.close();
+		         valorInformado = valor;
+		         
+		      }
+		      return valor;
+		} */
+		
 		public void salvar() {
 			try {
 				CaixaDAO caixaDAO = new CaixaDAO();
@@ -301,7 +336,9 @@ public class CaixaBean implements Serializable{
 			//BigDecimal valorInicial = carregaValors();
 			
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			org.hibernate.Transaction transacao = null;
+
+			 org.hibernate.Transaction transacao = null;
+
 			try {
 				transacao= sessao.beginTransaction();
 					
@@ -320,6 +357,7 @@ public class CaixaBean implements Serializable{
 			e.printStackTrace();
 		} finally {
 			sessao.close();
+
 			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
 		}
 	}
