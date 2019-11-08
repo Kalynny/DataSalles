@@ -332,24 +332,22 @@ public class CaixaBean implements Serializable{
 		}
 		
 		public void finalizarCaixa() {
-			
-			//BigDecimal valorInicial = carregaValors();
-			
+			 
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-
-			 org.hibernate.Transaction transacao = null;
+			org.hibernate.Transaction transacao = null;
 
 			try {
-				transacao= sessao.beginTransaction();
+			
+			transacao= sessao.beginTransaction();
 					
-			String sql = "insert into caixa VALUES (null, sysdate(),"+venda.getPrecoTotal()+","+venda.getCliente().getCodigo()+","+venda.getFuncionario().getCodigo()+","+venda.getTipopag().getCodigo()+","+venda.getCodigo()+");";
+			String sql = "insert into datasalles.caixa VALUES (null, sysdate(),"+venda.getPrecoTotal()+","+venda.getCliente().getCodigo()+","+venda.getFuncionario().getCodigo()+","+venda.getTipopag().getCodigo()+","+venda.getCodigo()+");";
 
 			SQLQuery query = sessao.createSQLQuery(sql);
 					
 			int result = query.executeUpdate();
 			
 			transacao.commit();
-			System.out.println(result);
+		//	System.out.println(result);
 
 		} catch (HibernateException e) {
 			if (transacao != null)

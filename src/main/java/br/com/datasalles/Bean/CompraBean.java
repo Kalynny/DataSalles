@@ -3,6 +3,8 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -250,13 +252,14 @@ public class CompraBean implements Serializable {
 
 	public void salvar(ActionEvent event) {
 		try {
+			
+
 			if(compra.getPrecoTotal().signum() == 0){
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
 				return;
 			}
-			if(compra.getTipopagc().equals(1)) {
-							
-				CompraDAO compraDAO = new CompraDAO();
+			if(compra.getTipopagc().getCodigo().equals(1)) {
+				CompraDAO compraDAO = new CompraDAO();			
 				compraDAO.salvar(compra, itensCompra);
 				
 				compra = new Compra();
@@ -273,7 +276,21 @@ public class CompraBean implements Serializable {
 				
 				Messages.addGlobalInfo("Compra realizada com sucesso");
 			}else{
-				pagamentoBoleto();
+				//pagamentoBoleto();
+				CompraDAO compraDAO = new CompraDAO();
+				compraDAO.salvarBoleto(compra, itensCompra);
+				compra = new Compra();
+				compra.setPrecoTotal(new BigDecimal("0.00"));
+	
+				ProdutoDAO produtoDAO = new ProdutoDAO();
+				produtos = produtoDAO.listar("descricao");
+	
+				@SuppressWarnings("unused")
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopagcs = new ArrayList<>();
+				
+				itensCompra = new ArrayList<>();
+				
 			}
 			
 		} catch (RuntimeException erro) {
@@ -333,14 +350,12 @@ public class CompraBean implements Serializable {
 		
 		transacao= sessao.beginTransaction();
 			
-		//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento().getDate());	
-		String formato ="yyyy/MM/dd";
+		//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento());	
+		String padraoData = "%Y-%m-%d";
+		String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(compra.getVencimento());
+
 		
-		String s = new SimpleDateFormat(formato).format(compra.getVencimento());
-	//	java.util.Date myDate = vs;
-		
-		
-		String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",sysdate(),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+		String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
 
 		SQLQuery query = sessao.createSQLQuery(sql);
 				
