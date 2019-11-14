@@ -8,44 +8,46 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CreceberDAO;
-import br.com.datasalles.dao.FornecedorDAO;
+import br.com.datasalles.dao.ClienteDAO;
+import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Creceber;
-import br.com.datasalles.domain.Fornecedor;
+
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class CreceberBean implements Serializable {
 	private Creceber creceber;
-	private Fornecedor fornecedor;
+	private Cliente cliente;
 	private List<Creceber>creceberes;
-	private List<Fornecedor>fornecedores;
+	private List<Cliente>clientes;
 	private String tipo;
 	
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
 	
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
+
+	public List<Cliente> getClientes() {
+		return clientes;
 	}
-	
-	public Creceber getcreceber() {
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public Creceber getCreceber() {
 		return creceber;
 	}
 
 	public void setCreceber(Creceber creceber) {
 		this.creceber = creceber;
 	}
-
+	
 	public List<Creceber> getCreceberes() {
 		return creceberes;
 	}
@@ -53,7 +55,7 @@ public class CreceberBean implements Serializable {
 	public void setCreceberes(List<Creceber> creceberes) {
 		this.creceberes = creceberes;
 	}
-	
+
 	public String getTipo() {
 		return tipo;
 	}
@@ -66,8 +68,8 @@ public class CreceberBean implements Serializable {
 		try {
 		creceber = new Creceber();
 		
-		FornecedorDAO fornecedoresDAO = new FornecedorDAO();
-		fornecedores = fornecedoresDAO.listar();
+		ClienteDAO clientesDAO = new ClienteDAO();
+		clientes = clientesDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
 			erro.printStackTrace();
@@ -117,7 +119,7 @@ public class CreceberBean implements Serializable {
 			
 			creceberes = creceberDAO.listar();
 	
-			Messages.addGlobalInfo("Fornecedor removido com sucesso");
+			Messages.addGlobalInfo("Cliente removido com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Contas a Pagar");
 			erro.printStackTrace();

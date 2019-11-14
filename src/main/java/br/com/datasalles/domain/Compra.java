@@ -20,9 +20,10 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Compra extends GenericDomain {
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date horario;
+	private Date atual;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -46,12 +47,12 @@ public class Compra extends GenericDomain {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
 	private List<ItemCompra>itensCompra;
 
-	public Date getHorario() {
-		return horario;
+	public Date getAtual() {
+		return atual;
 	}
 
-	public void setHorario(Date horario) {
-		this.horario = horario;
+	public void setAtual(Date atual) {
+		this.atual = atual;
 	}
 
 	public Date getVencimento() {

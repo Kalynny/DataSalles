@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ItemAvaria extends GenericDomain {
+	
 	@Column(nullable = false)
 	private Short quantidade;
 	

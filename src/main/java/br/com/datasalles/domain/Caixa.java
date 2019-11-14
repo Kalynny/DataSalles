@@ -10,78 +10,54 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Caixa extends GenericDomain{
-	
-	@ManyToOne
-	private Venda venda;
-	
+public class Caixa extends GenericDomain {
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date horario;
+	private Date dataAbertura;
 	
-	@Column(nullable = false, precision = 7, scale = 2)
-	private BigDecimal precoTotal;
+	@Column(nullable = true)
+	@Temporal(TemporalType.DATE)
+	private Date dataFechamento;
 	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private TipoPag tipopag;
-			
-	@ManyToOne
-	private Cliente cliente;
+	@Column(nullable = false, precision = 7, scale = 2)    
+	private BigDecimal valorAbertura;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Funcionario funcionario;	
+	private Funcionario funcionario;
 	
-	public Venda getVenda() {
-		return venda;
-	}
-
-	public void setVenda(Venda venda) {
-		this.venda = venda;
-	}
-
-	public Date getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Date horario) {
-		this.horario = horario;
-	}
-
-	public BigDecimal getPrecoTotal() {
-		return precoTotal;
-	}
-
-	public void setPrecoTotal(BigDecimal precoTotal) {
-		this.precoTotal = precoTotal;
-	}
-
-	public TipoPag getTipopag() {
-		return tipopag;
-	}
-
-	public void setTipopag(TipoPag tipopag) {
-		this.tipopag = tipopag;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
+	
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-
+	
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 
-}
+	public Date getDataAbertura() {
+		return dataAbertura;
+	}
 
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public BigDecimal getValorAbertura() {
+		return valorAbertura;
+	}
+
+	public void setValorAbertura(BigDecimal valorAbertura) {
+		this.valorAbertura = valorAbertura;
+	}
 	
-	
+}

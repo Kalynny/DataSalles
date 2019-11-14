@@ -9,9 +9,9 @@
 
 		<!-- Configurações de Conexão com o Banco de Dados -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://127.0.0.1:8889/datasalles</property>
-		<property name="connection.username">elias</property>
-		<property name="connection.password"></property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/datasalles?zeroDateTimeBehavior=convertToNull</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
 
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>
@@ -57,6 +57,7 @@
 		<mapping class="br.com.datasalles.domain.TipoPag" />
 		<mapping class="br.com.datasalles.domain.TipoPagc" />
 		<mapping class="br.com.datasalles.domain.Caixa" />
+		<mapping class="br.com.datasalles.domain.Fechamento" />
 		
 	</session-factory>
 

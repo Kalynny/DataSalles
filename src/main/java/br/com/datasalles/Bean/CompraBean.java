@@ -3,20 +3,18 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.text.DateFormat;
-import java.text.ParseException;
+//import java.text.DateFormat;
+//import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -28,7 +26,7 @@ import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
-import br.com.datasalles.dao.TipoPagDAO;
+//import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.TipoPagcDAO;
 import br.com.datasalles.domain.Compra;
 import br.com.datasalles.domain.Cpagar;
@@ -37,7 +35,7 @@ import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
-import br.com.datasalles.service.DatasallesService;
+//import br.com.datasalles.service.DatasallesService;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -224,7 +222,7 @@ public class CompraBean implements Serializable {
 
 	public void finalizar() {
 		try {
-			compra.setHorario(new Date());
+			compra.setAtual(new Date());
 			compra.setFornecedor(null);
 			compra.setFuncionario(null);
 			compra.setTipopagc(null);
@@ -250,9 +248,9 @@ public class CompraBean implements Serializable {
 	}
 
 
+	@SuppressWarnings("unlikely-arg-type")
 	public void salvar(ActionEvent event) {
 		try {
-			
 
 			if(compra.getPrecoTotal().signum() == 0){
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
@@ -269,14 +267,14 @@ public class CompraBean implements Serializable {
 				produtos = produtoDAO.listar("descricao");
 	
 				@SuppressWarnings("unused")
-				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 				tipopagcs = new ArrayList<>();
 				
 				itensCompra = new ArrayList<>();
 				
 				Messages.addGlobalInfo("Compra realizada com sucesso");
 			}else{
-				//pagamentoBoleto();
+				
 				CompraDAO compraDAO = new CompraDAO();
 				compraDAO.salvarBoleto(compra, itensCompra);
 				compra = new Compra();
@@ -286,7 +284,7 @@ public class CompraBean implements Serializable {
 				produtos = produtoDAO.listar("descricao");
 	
 				@SuppressWarnings("unused")
-				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 				tipopagcs = new ArrayList<>();
 				
 				itensCompra = new ArrayList<>();
@@ -341,7 +339,7 @@ public class CompraBean implements Serializable {
 	
 	public void pagamentoBoleto() {
 		
-		DatasallesService sevico = new DatasallesService();
+		//DatasallesService sevico = new DatasallesService();
 		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
@@ -371,7 +369,7 @@ public class CompraBean implements Serializable {
 	} finally {
 		sessao.close();
 
-		Messages.addGlobalInfo("Compra realizada com sucesso com o tipo de pagamento BOLETO BANCÁRIO !!");
+		Messages.addGlobalInfo("Compra realizada com sucesso!!");
 	}
 		
 	}

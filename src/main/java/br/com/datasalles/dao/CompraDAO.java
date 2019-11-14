@@ -1,22 +1,19 @@
 package br.com.datasalles.dao;
 
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
-import br.com.datasalles.service.DatasallesService;
 import br.com.datasalles.domain.Compra;
 import br.com.datasalles.util.HibernateUtil;
 
 public class CompraDAO extends GenericDAO<Compra> {
+	
 	public void salvar(Compra compra, List<ItemCompra> itensCompra){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
@@ -43,27 +40,26 @@ public class CompraDAO extends GenericDAO<Compra> {
 				}else{
 				throw new RuntimeException("Erro ao atualizar estoque");
 				}
+				}
 				
-				
-			}
-			
-			transacao.commit();
-		} catch (RuntimeException erro) {
-			if (transacao != null) {
-				transacao.rollback();
-			}
-			throw erro;
-		} finally {
-			sessao.close();
-		}
+				transacao.commit();
+				} catch (RuntimeException erro) {
+				if (transacao != null) {
+					transacao.rollback();
+				}
+				throw erro;
+				} finally {
+				sessao.close();
+				}
 	}
+	
+	
 	public void salvarBoleto(Compra compra, List<ItemCompra> itensCompra){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
 		try {
 			transacao = sessao.beginTransaction();
-			
 			
 			sessao.save(compra);
 					
@@ -91,8 +87,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 				}else{
 				throw new RuntimeException("Erro ao atualizar estoque");
 				}
-				
-				
+						
 			}
 			
 			transacao.commit();
@@ -105,9 +100,10 @@ public class CompraDAO extends GenericDAO<Compra> {
 			sessao.close();
 		}
 	}
+	
 	public void pagamentoBoleto(ItemCompra itemCompra) {
 		
-		DatasallesService sevico = new DatasallesService();
+		//DatasallesService sevico = new DatasallesService();
 		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
@@ -133,7 +129,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 	} finally {
 		sessao.close();
 
-		Messages.addGlobalInfo("Compra realizada com sucesso com o tipo de pagamento BOLETO BANCÁRIO !!");
+		Messages.addGlobalInfo("Compra realizada com sucesso!!");
 	}
 		
 	}

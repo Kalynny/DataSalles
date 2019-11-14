@@ -7,66 +7,65 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
 template="/templates/template.xhtml">
 
-
 <ui:define name="conteudo">
-
-
 	<h:form id="formListagem">
 
 		<p:panel header="Lista de Contas a Receber">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{cpagarBean.cpagares}" var="cpagar"
-				rows="10" id="tabela">
+				paginator="true" value="#{creceberBean.creceberes}" var="creceber"
+				rows="6" id="tabela">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{cpagarBean.novo()}"
-						update=":mensagem :formCadastro:painel" />
+						actionListener="#{creceberBean.novo()}"
+						update=":formCadastro:pnCadastro" />
 				</f:facet>
 
-				<p:column headerText="Fornecedor" sortBy="#{cpagar.fornecedor.descricao}"
-					filterBy="#{cpagar.fornecedor.descricao}">
-					<h:outputText value="#{cpagar.fornecedor.descricao}" />
+				<p:column headerText="Cliente" sortBy="#{creceber.cliente.pessoa.nome}"
+					filterBy="#{creceber.cliente.pessoa.nome}">
+					<h:outputText value="#{creceber.cliente.pessoa.nome}" />
 				</p:column>
 				
-				<p:column headerText="Data Atual" style="text-align:center" sortBy="#{cpagar.atual}"
-					filterBy="#{cpagar.atual}" >
-					<h:outputText value="#{cpagar.atual}"  >
+				<p:column headerText="Data Atual" sortBy="#{creceber.horario}"
+					filterBy="#{creceber.horario}" style="text-align:center">
+					<h:outputText value="#{creceber.horario}" >
 					<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Data de Vencimento" style="text-align:center" sortBy="#{cpagar.vencimento}"
-					filterBy="#{cpagar.vencimento}">
-					<h:outputText value="#{cpagar.vencimento}" >
+				<p:column headerText="Data de Vencimento" sortBy="#{creceber.vencimento}"
+					filterBy="#{creceber.vencimento}" style="text-align:center">
+					<h:outputText value="#{creceber.vencimento}" >
 					<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Preço Total" style="text-align:right">
-					<h:outputText value="#{cpagar.precoTotal}" >
+					<h:outputText value="#{creceber.precoTotal}" >
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Tipo do Contas a Receber" style="text-align:center">
+					<h:outputText value="#{creceber.tipo}" />
 				</p:column>
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{cpagarBean.excluir}"
+						actionListener="#{creceberBean.excluir}"
 						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o Contas a Pagar?"
+						<p:confirm header="Confirmação" message="Deseja excluir o contas a receber?"
 							icon="ui-icon-alert" />
-						<f:attribute name="cpagarSelecionado" value="#{cpagar}" />
+						<f:attribute name="creceberSelecionado" value="#{creceber}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{cpagarBean.editar}"
-						update=":mensagem :formCadastro:painel"
+						actionListener="#{creceberBean.editar}"
+						update=":formCadastro:pnCadastro"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="cpagarSelecionado" value="#{cpagar}" />
+						<f:attribute name="creceberSelecionado" value="#{creceber}" />
 					</p:commandButton>
-
-
-
 				</p:column>
+				
 			</p:dataTable>
 
 			<p:confirmDialog global="true">
@@ -79,47 +78,56 @@ template="/templates/template.xhtml">
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Contas a Pagar - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Contas a Receber - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formCadastro">
-			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu value="#{cpagarBean.cpagar.fornecedor}"
+		
+			<h:panelGrid columns="2" id="pnCadastro">
+				<p:outputLabel value="Cliente:" />
+				<p:selectOneMenu value="#{creceberBean.creceber.cliente}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains">
 					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Fornecedor" />
-					<f:selectItems value="#{cpagarBean.fornecedores}" var="fornecedor"
-						itemValue="#{fornecedor}"
-						itemLabel="#{fornecedor.descricao}" />
+						itemLabel="Selecione um cliente" />
+					<f:selectItems value="#{creceberBean.clientes}" var="cliente"
+						itemValue="#{cliente}"
+						itemLabel="#{cliente.pessoa.nome}" />
 				</p:selectOneMenu>
-				
+			
+					
 				<p:outputLabel value="Data Atual:" />
-				<p:calendar value="#{cpagarBean.cpagar.atual}" required="true"
+				<p:calendar value="#{creceberBean.creceber.horario}" required="true"
 					requiredMessage="O campo 'Data Atual' é obrigatório">
 				</p:calendar>
 				
 				<p:outputLabel value="Data de Vencimento:" />
-				<p:calendar value="#{cpagarBean.cpagar.vencimento}" required="true"
+				<p:calendar value="#{creceberBean.creceber.vencimento}" required="true"
 					requiredMessage="O campo 'Data de Vencimento' é obrigatório">
 				</p:calendar>	
 
 				<p:outputLabel value="Preço Total:" />
 				<p:inputText maxlength="7" size="10"
-					value="#{cpagarBean.cpagar.precoTotal}" required="true"
+					value="#{creceberBean.creceber.precoTotal}" required="true"
 					requiredMessage="O campo 'Preço' é obrigatório"
 					converterMessage="Informe um valor válido para o campo 'Preço''"
 					validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
 					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</p:inputText>
-			
-			</h:panelGrid>
-
+				
+				<p:outputLabel value="Tipo de Contas a Receber:" />
+				<p:selectOneMenu id="tipo" value="#{creceberBean.tipo}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'tipo' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+					itemLabel="Selecione o Tipo de Contas a Receber" />
+					<f:selectItem itemValue="Entrada Manual" itemLabel="Entrada Manual" />
+				</p:selectOneMenu>
+			</h:panelGrid>			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{cpagarBean.salvar}"
-					update=":mensagem :formCadastro:painel" />
+					actionListener="#{creceberBean.salvar()}"
+					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

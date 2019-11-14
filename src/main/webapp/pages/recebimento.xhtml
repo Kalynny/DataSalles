@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:p="http://primefaces.org/ui"
+			template="/templates/template.xhtml" >
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewAction action="#{vendaBean.listar}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="formList">
+			<p:panel header="Recebimento de Caixa">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
+					<f:facet name="header">
+					</f:facet>
+
+					<p:column headerText="Cod. Pedido"
+						style="text-align: center; width:75px">
+						<h:outputText value="#{venda.codigo}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Data do Pedido"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.horario}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor do Pedido"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.precoTotal}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Tipo de Pag"
+						style="text-align: center; width:100px">
+						<h:outputText value="#{venda.tipopag.descricao}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Cliente"
+						filterBy="#{venda.cliente.pessoa.nome}"
+						sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
+						<h:outputText value="#{venda.cliente.pessoa.nome}" />
+					</p:column>
+
+					<p:column headerText="Funcionário"
+						filterBy="#{venda.funcionario.pessoa.nome}"
+						sortBy="#{venda.funcionario.pessoa.nome}"
+						style="text-align: center;">
+						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+					
+					<p:commandButton value="Receber" actionListener="#{recebimentoBean.editar}" 
+					 update=":mensagem :formularioFinalizar:painelFinalizar" oncomplete="PF('dialogo').show();">
+					<f:attribute name="vendaSelecionado" value="#{venda}"/>
+					<f:actionListener
+					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+										
+					<p:commandButton value="Excluir" actionListener="#{recebimentoBean.excluir}"
+					update=":mensagem :formularioFinalizar:painelFinalizar" oncomplete="PF('dialogo').show();">
+					<f:attribute name="vendaSelecionado" value="#{venda}"/>
+					<f:actionListener
+					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+					
+					
+					
+					
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel header="Saldo do Caixa">
+
+				<h:panelGrid id="painelFinalizacao" columns="3">
+
+					<p:outputLabel value="Valor inicial Caixa: R$ " />
+					<h:outputText value="#{recebimentoBean.valorInformado}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<!-- <br />
+					<p:outputLabel value="Total a Receber: R$" />
+					<h:outputText value="#{recebimentoBean.valorInformado}"> 
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>-->
+
+					<br />
+					<p:outputLabel value="Total Geral: R$" />
+					<h:outputText value="#{recebimentoBean.caixa}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Recebimento do Pedido de Venda" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formularioFinalizar">
+				<h:panelGrid id="painelFinalizar" columns="2">
+					<p:outputLabel value="Cod do Pedido: " />
+					<h:outputText value="#{recebimentoBean.venda.codigo}" />
+
+					<p:outputLabel value="Data do Pedido: " />
+					<h:outputText value="#{recebimentoBean.venda.horario}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+
+					<p:outputLabel value="Valor do Pedido:" maxlength="500"/>
+					<h:outputText value="#{recebimentoBean.venda.precoTotal}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<p:outputLabel value="Tipo de Pagam.: " />
+					<h:outputText value="#{recebimentoBean.venda.tipopag.descricao}" />
+
+					<p:outputLabel value="Cliente do Pedido:" />
+					<h:outputText value="#{recebimentoBean.venda.cliente.pessoa.nome}" />
+
+					<p:outputLabel value="Funcionário:" />
+					<h:outputText value="#{recebimentoBean.venda.funcionario.pessoa.nome}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{recebimentoBean.finalizarCaixa()}" update=":mensagem :formList :formularioFinalizar "
+						oncomplete="PF('dialogo').hide();" />
+
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />	
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

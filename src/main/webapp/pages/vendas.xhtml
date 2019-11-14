@@ -5,8 +5,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
+template="/templates/template.xhtml">
 
 <ui:define name="metadata">
 <f:metadata>
@@ -143,11 +142,19 @@ template="/templates/template.xhtml"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
+			
 				<p:outputLabel value="Horário: " />
 				<h:outputText value="#{vendaBean.venda.horario}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
-						timeZone="America/Sao_Paulo" />
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" 
+					locale="pt_BR" timeZone="America/Sao_Paulo" />
 				</h:outputText>
+				
+				<p:outputLabel value="Vencimento: " />
+				<h:inputText value="#{vendaBean.venda.vencimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" 
+					locale="pt_BR" timeZone="America/Sao_Paulo" />
+				</h:inputText>
+				
 
 				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{vendaBean.venda.precoTotal}">

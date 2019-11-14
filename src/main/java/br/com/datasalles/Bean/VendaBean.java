@@ -3,33 +3,33 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
-
 import br.com.datasalles.dao.ClienteDAO;
+import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
-import br.com.datasalles.dao.VendaDAO;
-import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
-import br.com.datasalles.domain.Cpagar;
+import br.com.datasalles.domain.Creceber;
+import br.com.datasalles.domain.Venda;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPag;
-import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -41,15 +41,15 @@ import net.sf.jasperreports.view.JasperViewer;
 @ViewScoped
 public class VendaBean implements Serializable {
 	private Venda venda;
-	private Cpagar cpagar;
-	private Caixa caixa;
+	private Creceber receber;
 	private List<Produto> produtos;
-	private List<TipoPag> tipopags;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
+	private List<TipoPag> tipopags;
 	private List<Venda> vendas;
-
+	
+	
 	public Venda getVenda() {
 		return venda;
 	}
@@ -58,12 +58,12 @@ public class VendaBean implements Serializable {
 		this.venda = venda;
 	}
 	
-	public Cpagar getCpagar() {
-		return cpagar;
+	public Creceber getReceber() {
+		return receber;
 	}
 
-	public void setCpagar(Cpagar cpagar) {
-		this.cpagar = cpagar;
+	public void setReceber(Creceber receber) {
+		this.receber = receber;
 	}
 
 	public List<Produto> getProdutos() {
@@ -113,15 +113,7 @@ public class VendaBean implements Serializable {
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
-			
-	public Caixa getCaixa() {
-		return caixa;
-	}
-
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-	}
-
+		
 	public void novo() {
 		try {
 			venda = new Venda();
@@ -140,7 +132,7 @@ public class VendaBean implements Serializable {
 	
 	public void listar(){
 		VendaDAO dao = new VendaDAO();
-		vendas = dao.listar("horario");
+		vendas = dao.listar();
 	}
 	
 	public void adicionar(ActionEvent evento) {
@@ -244,38 +236,58 @@ public class VendaBean implements Serializable {
 		}
 	}
 
-	public void salvar() {
-		try {
-			if(venda.getPrecoTotal().signum() == 0){
+	@SuppressWarnings("unlikely-arg-type")
+	public void salvar(ActionEvent event) {
+		try { 
+		
+				if(venda.getPrecoTotal().signum() == 0){
 				Messages.addGlobalError("Informe pelo menos um item para a venda");
 				return;
-			}
-			
-			VendaDAO vendaDAO = new VendaDAO();
-			vendaDAO.salvar (venda, itensVenda);
-			
-			venda = new Venda();
-			venda.setPrecoTotal(new BigDecimal("0.00"));
-
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar("descricao");
-			
-			TipoPagDAO tipopagDAO = new TipoPagDAO();
-			tipopags = tipopagDAO.listar();
-			
-			itensVenda = new ArrayList<>();
-			
-			Messages.addGlobalInfo("Venda realizada com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a venda");
-			erro.printStackTrace();
+				}
+				
+				if(venda.getTipopag().getCodigo().equals(1)) {
+					VendaDAO vendaDAO = new VendaDAO();			
+					vendaDAO.salvar(venda, itensVenda);
+					
+					venda = new Venda();
+					venda.setPrecoTotal(new BigDecimal("0.00"));
+		
+					ProdutoDAO produtoDAO = new ProdutoDAO();
+					produtos = produtoDAO.listar("descricao");
+		
+					@SuppressWarnings("unused")
+					TipoPagDAO tipopagDAO = new TipoPagDAO();
+					tipopags = new ArrayList<>();
+					
+					itensVenda = new ArrayList<>();
+					
+					Messages.addGlobalInfo("Venda realizada com sucesso");
+				}else{
+					
+					VendaDAO vendaDAO = new VendaDAO();
+					vendaDAO.salvarBoleto(venda, itensVenda);
+					venda = new Venda();
+					venda.setPrecoTotal(new BigDecimal("0.00"));
+		
+					ProdutoDAO produtoDAO = new ProdutoDAO();
+					produtos = produtoDAO.listar("descricao");
+		
+					@SuppressWarnings("unused")
+					TipoPagDAO tipopagDAO = new TipoPagDAO();
+					tipopags = new ArrayList<>();
+					
+					itensVenda = new ArrayList<>();					
+				}
+				
+			    }catch (RuntimeException erro) {
+				Messages.addGlobalError("Ocorreu um erro ao tentar salvar a venda");
+				erro.printStackTrace();
+			    }
 		}
-	}
 	
 	public void atualizarPrecoParcial(){
 		for(ItemVenda itemVenda : this.itensVenda){
 		itemVenda.setPrecoParcial(itemVenda.getProduto().getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
-		
 		}
 		this.calcular();
 	}
@@ -319,8 +331,44 @@ public class VendaBean implements Serializable {
 					erro.printStackTrace();
 				}
 			}
+	
+			
+public void pagamentoBoleto() {
+		
+		//DatasallesService sevico = new DatasallesService();
+		//SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
+		
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		org.hibernate.Transaction transacao = null;
 
-	
-	
+		try {
+		
+		transacao= sessao.beginTransaction();
+			
+		//String dataFormatada = sevico.formatData("yyyy/MM/DD",venda.getVencimento());	
+		String padraoData = "%Y-%m-%d";
+		String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(venda.getVencimento());
+
+		
+		String sql = "insert into creceber VALUES (null, sysdate(),"+venda.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
+
+		SQLQuery query = sessao.createSQLQuery(sql);
+				
+		int result = query.executeUpdate();
+		
+		transacao.commit();
+		System.out.println(result);
+
+	} catch (HibernateException e) {
+		if (transacao != null)
+			transacao.rollback();
+		e.printStackTrace();
+	} finally {
+		sessao.close();
+
+		Messages.addGlobalInfo("Venda realizada com sucesso!!");
+	}
+		
+	}	
 		
 }

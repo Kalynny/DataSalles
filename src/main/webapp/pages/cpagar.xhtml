@@ -26,14 +26,14 @@ template="/templates/template.xhtml">
 				</p:column>
 				
 				<p:column headerText="Data Atual" sortBy="#{cpagar.atual}"
-					filterBy="#{cpagar.atual}">
+					filterBy="#{cpagar.atual}" style="text-align:center">
 					<h:outputText value="#{cpagar.atual}" >
 					<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Data de Vencimento" sortBy="#{cpagar.vencimento}"
-					filterBy="#{cpagar.vencimento}">
+					filterBy="#{cpagar.vencimento}" style="text-align:center">
 					<h:outputText value="#{cpagar.vencimento}" >
 					<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
