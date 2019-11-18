@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Funcionario" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6489f7cb-1e6e-4afb-9798-0cee02432db6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGFzLnRiX2Z1bmNpb25hcmlvcyBBUyAsMTI0LDc1LDAwMTNmMWY4LWQzZmUtNGZiZi05YzIy&#xA;LTAwNzhhYmMxN2RhYzs=&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="Func" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_funcionarios.fun_nome,
+	vendas.tb_funcionarios.fun_cpf,
+	vendas.tb_funcionarios.fun_funcao,
+	vendas.tb_funcionarios.fun_registro,
+	vendas.tb_funcionarios.fun_codigo
+FROM vendas.tb_funcionarios]]>
+	</queryString>
+	<field name="fun_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<field name="fun_cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<field name="fun_funcao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_funcao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<field name="fun_registro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_registro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<field name="fun_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="fun_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="125" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="180" y="0" width="200" height="125" uuid="32ff73e6-17c8-4260-b5a5-967f230fb9e8"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="30" width="50" height="50" uuid="7f04657d-76a5-485b-be92-2bd8acc1bf2e"/>
+				<imageExpression><![CDATA[$P{Func}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="440" height="50" uuid="981fa20b-5c4e-4af7-8769-8963efe8a271"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Cadastro de Funcionarios]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="70" height="30" uuid="a2275503-0661-437d-a520-0140d2154c91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c1e4071-9aaf-41ed-9800-b43829ee1aa2"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="21" width="162" height="30" uuid="b9522a42-3fbe-41a0-a8e1-d24377eb75c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f130b191-b243-498d-aa7d-aec8c5d85a53"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nome do Funcinário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="21" width="107" height="30" uuid="1ae90619-9dd6-4055-b99b-a7c5a67c0a75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a998498-714f-4985-95a9-8c1c80b2939f"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CPF do Funcionário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="21" width="127" height="30" uuid="807e645c-ea27-450b-9008-14e7e0bc03dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7ba55a0a-7430-49d2-84d1-b91ffa07e36c"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Função do Funcionário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="21" width="60" height="30" uuid="7aaacab2-2f25-4a44-bab6-5c85bbe6078b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2b2ca6b-9b20-4fba-b6b6-dab81430286d"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<text><![CDATA[Registro]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="20" uuid="2345d973-70d8-4569-9294-211f716c5e63">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c1e4071-9aaf-41ed-9800-b43829ee1aa2"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fun_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="-1" width="162" height="21" uuid="e4ff4b22-1391-42d3-a4bb-e7650c86281e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f130b191-b243-498d-aa7d-aec8c5d85a53"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fun_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="-1" width="107" height="21" uuid="c895b7b1-c457-4db3-93c2-4ab801004a23">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a998498-714f-4985-95a9-8c1c80b2939f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fun_cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="0" width="127" height="20" uuid="cafeea0a-b080-44d4-96df-c70560ca1741">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7ba55a0a-7430-49d2-84d1-b91ffa07e36c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fun_funcao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="-1" width="60" height="21" uuid="22227452-c024-4015-95f1-1972963b2a62">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2b2ca6b-9b20-4fba-b6b6-dab81430286d"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{fun_registro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="25" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="42" width="90" height="20" uuid="e26cd24a-5543-4605-8afd-5775963aa494"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="-20" width="440" height="54" uuid="ea850d8d-556d-46b2-a11e-05d7af103812"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="42" width="80" height="20" uuid="42fa0a06-606f-4f5a-ac6e-0b2e7d4b9ca3"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="42" width="70" height="20" uuid="0cf37fea-0155-4bd7-a591-f7465f0a8ad4"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,6 +1,8 @@
 package br.com.datasalles.dao;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -62,7 +64,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 			transacao = sessao.beginTransaction();
 			
 			sessao.save(venda);
-					
+			
+			
 			for(int posicao = 0; posicao < itensvenda.size(); posicao++){
 				ItemVenda itemVenda = itensvenda.get(posicao);
 				itemVenda.setVenda(venda);
@@ -72,8 +75,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 				itemVenda.getVenda().getFuncionario().getCodigo();
 				
 				sessao.save(itemVenda);
-				
 				pagamentoBoleto(itemVenda);
+				
 			
 				
 				Produto produto = itemVenda.getProduto();
@@ -83,6 +86,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 				produto.setQuantidade(new Short((qtde) + ""));
 				
 				sessao.update(produto);
+				
 				
 				}else{
 				throw new RuntimeException("Erro ao atualizar estoque");
@@ -100,6 +104,9 @@ public class VendaDAO extends GenericDAO<Venda> {
 			sessao.close();
 		}
 	}
+	
+	
+	
 	public void pagamentoBoleto(ItemVenda itemVenda) {
 		
 		//DatasallesService sevico = new DatasallesService();
@@ -107,12 +114,19 @@ public class VendaDAO extends GenericDAO<Venda> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
 
-		try {
+		try  {
 		
 		transacao= sessao.beginTransaction(); 
-
 		
-		String sql = "insert into creceber VALUES (null, sysdate(),"+itemVenda.getVenda().getPrecoTotal()+",sysdate(),"+itemVenda.getVenda().getCliente().getCodigo()+","+itemVenda.getVenda().getTipopag().getCodigo()+");";
+		SimpleDateFormat fdata = new SimpleDateFormat("dd/MM/yyyy");
+		Date xdata = new Date();
+		@SuppressWarnings("unused")
+		String  data;
+		data = fdata.format(xdata);
+		String  data1 = new SimpleDateFormat("dd/MM/yyyy").format(itemVenda.getVenda().getVencimento());
+		
+				
+		String sql = "insert into creceber VALUES (null,sysdate(),"+itemVenda.getVenda().getPrecoTotal()+","+data1+","+itemVenda.getVenda().getCliente().getCodigo()+","+itemVenda.getVenda().getTipopag().getCodigo()+");";
 
 		SQLQuery query = sessao.createSQLQuery(sql);
 				
@@ -172,6 +186,49 @@ public class VendaDAO extends GenericDAO<Venda> {
 					sessao.close();
 				}
        	}
+	
+@SuppressWarnings("deprecation")
+public void pagamentoBol(Venda venda) {
+		
+		//DatasallesService sevico = new DatasallesService();
+		
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		org.hibernate.Transaction transacao = null;
+
+		try {
+		
+		transacao= sessao.beginTransaction(); 
+		
+		SimpleDateFormat fdata = new SimpleDateFormat("dd/MM/yyyy");
+		Date xdata = new Date("venda.getHorario()");
+		String  data;
+		data = fdata.format(xdata);
+		
+		SimpleDateFormat fdata1 = new SimpleDateFormat("dd/MM/yyyy");
+		Date xdata1 = new Date("venda.getVencimento()");
+		String  data1;
+		data1 = fdata1.format(xdata1);
+		
+		String sql = "insert into creceber VALUES (null,"+data+","+venda.getPrecoTotal()+","+data1+","+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
+
+		SQLQuery query = sessao.createSQLQuery(sql);
+				
+		int result = query.executeUpdate();
+		
+		transacao.commit();
+		System.out.println(result);
+
+	} catch (HibernateException e) {
+		if (transacao != null)
+			transacao.rollback();
+		e.printStackTrace();
+	} finally {
+		sessao.close();
+
+		Messages.addGlobalInfo("Venda realizada com sucesso!!");
+	}
+		
+	}
 	
 	
 }

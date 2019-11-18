@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Produto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="beec10c2-22a0-4a83-ba70-130f5483b9b8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGFzLnRiX3Byb2R1dG9zIEFTICwzMjIsNjcsMTYyZWVhMTktNjM0OC00NGQwLWFmN2YtYTA4&#xA;YWM1Y2VjYzUzO3ZlbmRhcy50Yl9mb3JuZWNlZG9yZXMgQVMgLDU0LDMwLDI0M2JkY2YwLWFjNmIt&#xA;NGUzOC1hYzM4LTIxNmVlMjQ3YTNmNjs=&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="Prod" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_produtos.pro_codigo,
+	vendas.tb_produtos.pro_descricao,
+	vendas.tb_produtos.pro_cbarras,
+	vendas.tb_fornecedores.for_rsocial
+FROM vendas.tb_produtos
+	INNER JOIN vendas.tb_fornecedores ON 
+	 vendas.tb_produtos.tb_fornecedores_for_codigo = vendas.tb_fornecedores.for_codigo]]>
+	</queryString>
+	<field name="pro_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="pro_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_produtos"/>
+	</field>
+	<field name="pro_descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pro_descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_produtos"/>
+	</field>
+	<field name="pro_cbarras" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pro_cbarras"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_produtos"/>
+	</field>
+	<field name="for_rsocial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_rsocial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="180" y="0" width="200" height="125" uuid="26e48432-5302-421d-8513-5eb693eb30f3"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="430" y="20" width="50" height="50" uuid="01c22053-ec52-4b2a-ab65-4cdc02448873"/>
+				<imageExpression><![CDATA[$P{Prod}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="85" y="6" width="390" height="50" uuid="16094502-0e55-4bc8-886e-440ec51ca516"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Cadastro de Produtos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="22" width="68" height="30" uuid="9711b205-8af0-44b6-81e0-2f2e8ca3797c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11a8a4d3-d5d3-4fa8-b121-aaf2c251d994"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="22" width="110" height="30" uuid="7ce7cfaa-ee12-4480-83b3-25a8135ceba2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d858291-42a6-4183-a270-e83557cd522e"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Codigo de Barras]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="22" width="160" height="30" uuid="f06ee051-a91b-410a-a71d-12a0a378bead">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19c41907-5bfa-4517-a350-1b494086c975"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Descrição do Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="23" width="170" height="30" uuid="d89988a4-1425-4251-8a49-2b7a35aab612">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ad0bdba-598d-4ac8-8c32-5cdb1f1c51ad"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nome do Fornecedor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="68" height="20" uuid="31b00ec6-5fcc-4c33-ae2d-b752cc78ffd9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11a8a4d3-d5d3-4fa8-b121-aaf2c251d994"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pro_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="110" height="20" uuid="4b69d904-fcc6-4d17-b2f4-306fe1686107">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d858291-42a6-4183-a270-e83557cd522e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{pro_cbarras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="160" height="20" uuid="f631fc71-9324-477b-8ede-912ad6e2a762">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19c41907-5bfa-4517-a350-1b494086c975"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{pro_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="170" height="20" uuid="29076841-505a-4721-a850-0ee7bcadafed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ad0bdba-598d-4ac8-8c32-5cdb1f1c51ad"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_rsocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="42" width="90" height="20" uuid="953212d9-f896-4a48-a44d-76d38e04ef84"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="-20" width="440" height="54" uuid="813a066f-bd8e-4732-be46-2b9afc7cf16a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="42" width="80" height="20" uuid="dd1a1c5a-c440-4d56-aa2f-c14fc211c498"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="42" width="70" height="20" uuid="31f5cf50-aa8a-4431-837d-15189c0e9f57"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -17,12 +17,12 @@
 
 		<h:form id="formList">
 			<p:panel header="Recebimento de Caixa">
-				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-					paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
-					<f:facet name="header">
-					</f:facet>
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="false" value="#{vendaBean.vendas}" var="venda" rows="1">
+					<!--<f:facet name="header">
+					</f:facet>-->
 
-					<p:column headerText="Cod. Pedido"
+				<!--<p:column headerText="Cod. Pedido"
 						style="text-align: center; width:75px">
 						<h:outputText value="#{venda.codigo}">
 						</h:outputText>
@@ -59,9 +59,9 @@
 						sortBy="#{venda.funcionario.pessoa.nome}"
 						style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
-					</p:column>
+					</p:column>-->
 
-					<p:column headerText="Opções" style="text-align:center">
+				<!--<p:column headerText="Opções" style="text-align:center">
 					
 					<p:commandButton value="Receber" actionListener="#{recebimentoBean.editar}" 
 					 update=":mensagem :formularioFinalizar:painelFinalizar" oncomplete="PF('dialogo').show();">
@@ -76,11 +76,7 @@
 					<f:actionListener
 					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-					
-					
-					
-					
-					</p:column>
+					</p:column>-->
 
 				</p:dataTable>
 			</p:panel>
@@ -89,20 +85,20 @@
 
 				<h:panelGrid id="painelFinalizacao" columns="3">
 
-					<p:outputLabel value="Valor inicial Caixa: R$ " />
+					<p:outputLabel value="Valor Inicial Caixa: R$ " />
 					<h:outputText value="#{recebimentoBean.valorInformado}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
-					<!-- <br />
+					<br />
 					<p:outputLabel value="Total a Receber: R$" />
-					<h:outputText value="#{recebimentoBean.valorInformado}"> 
+					<h:outputText value="#{recebimentoBean.valorRecebido}"> 
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>-->
+					</h:outputText>
 
 					<br />
 					<p:outputLabel value="Total Geral: R$" />
-					<h:outputText value="#{recebimentoBean.caixa}">
+					<h:outputText value="#{recebimentoBean.valorRecebido}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 

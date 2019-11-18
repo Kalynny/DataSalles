@@ -1,15 +1,16 @@
 package br.com.datasalles.dao;
 
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.Compra;
+import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.util.HibernateUtil;
 
 public class CompraDAO extends GenericDAO<Compra> {
@@ -22,7 +23,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 			transacao = sessao.beginTransaction();
 		
 			sessao.save(compra);
-					
+						
 			for(int posicao = 0; posicao < itensCompra.size(); posicao++){
 				ItemCompra itemCompra = itensCompra.get(posicao);
 				itemCompra.setCompra(compra);
@@ -62,7 +63,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 			transacao = sessao.beginTransaction();
 			
 			sessao.save(compra);
-					
+								
 			for(int posicao = 0; posicao < itensCompra.size(); posicao++){
 				ItemCompra itemCompra = itensCompra.get(posicao);
 				itemCompra.setCompra(compra);
@@ -72,9 +73,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 				itemCompra.getCompra().getFuncionario().getCodigo();
 				
 				sessao.save(itemCompra);
-				
-				pagamentoBoleto(itemCompra);
-			
+				pagamentoBoleto(itemCompra);			
 				
 				Produto produto = itemCompra.getProduto();
 				int qtde = produto.getQuantidade() + itemCompra.getQuantidade();
@@ -101,7 +100,8 @@ public class CompraDAO extends GenericDAO<Compra> {
 		}
 	}
 	
-	public void pagamentoBoleto(ItemCompra itemCompra) {
+
+public void pagamentoBoleto(ItemCompra itemCompra) {
 		
 		//DatasallesService sevico = new DatasallesService();
 		
@@ -110,17 +110,18 @@ public class CompraDAO extends GenericDAO<Compra> {
 
 		try {
 		
-		transacao= sessao.beginTransaction(); 
-
+		transacao = sessao.beginTransaction(); 
 		
-		String sql = "insert into cpagar VALUES (null, sysdate(),"+itemCompra.getCompra().getPrecoTotal()+",sysdate(),"+itemCompra.getCompra().getFornecedor().getCodigo()+","+itemCompra.getCompra().getTipopagc().getCodigo()+");";
-
-		SQLQuery query = sessao.createSQLQuery(sql);
-				
-		int result = query.executeUpdate();
+		Cpagar cpagar = new Cpagar();
+		cpagar.setVencimento(itemCompra.getCompra().getVencimento());
+		cpagar.setAtual(new Date());
+		cpagar.setFornecedor(itemCompra.getCompra().getFornecedor());
+		cpagar.setTipo(itemCompra.getCompra().getTipopagc().getDescricao());
+		cpagar.setPrecoTotal(itemCompra.getCompra().getPrecoTotal());
 		
+		sessao.save(cpagar);
+	
 		transacao.commit();
-		System.out.println(result);
 
 	} catch (HibernateException e) {
 		if (transacao != null)
@@ -133,5 +134,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 	}
 		
 	}
+	
+	
 }
 

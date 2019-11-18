@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="venda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="34f33d31-d8a9-4c75-b887-79966e65f112">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGFzLnRiX3ZlbmRhcyBBUyAsOTAsNjIsOGI0Zjk4MGEtY2NlMC00MjdmLTk2NTAtYzI3OWNm&#xA;ZThhMTczO3ZlbmRhcy50Yl9mdW5jaW9uYXJpb3MgQVMgLDE2MCwyMzEsZTI4Nzg3YTYtZGI2NC00&#xA;M2JiLTgzNDQtYmRjNzc5NTBmMTY5Ow==&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="logo" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_vendas.ven_codigo,
+	vendas.tb_vendas.ven_horario,
+	vendas.tb_vendas.ven_valor_total,
+	vendas.tb_funcionarios.fun_nome
+FROM vendas.tb_vendas
+	INNER JOIN vendas.tb_funcionarios ON 
+	 vendas.tb_vendas.tb_funcionarios_fun_codigo = vendas.tb_funcionarios.fun_codigo]]>
+	</queryString>
+	<field name="ven_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="ven_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_vendas"/>
+	</field>
+	<field name="ven_horario" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="ven_horario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_vendas"/>
+	</field>
+	<field name="ven_valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ven_valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_vendas"/>
+	</field>
+	<field name="fun_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fun_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_funcionarios"/>
+	</field>
+	<variable name="VLTOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{ven_valor_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="166" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="177" y="4" width="200" height="120" uuid="83d95667-c949-4924-98d8-c0dd7e3d33fc"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="138" y="127" width="277" height="39" uuid="513f5520-7ebd-43d6-ab27-1d9abf1796af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Vendas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="480" y="10" width="50" height="50" uuid="89179625-9a11-4dea-88aa-a3b416726df2"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="138" height="20" uuid="171f1aca-4c00-4eb9-9e33-d8c734d54f4f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="3" width="138" height="20" uuid="384cc8a1-4086-467a-a531-3e0900e019ff"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DO PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="3" width="138" height="20" uuid="f89ea1d3-8ec7-488c-982c-518a307dfade"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FUNCIONÁRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="3" width="138" height="20" uuid="7fa30dad-a0df-4811-a7e0-3b6a491e7de7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIA / HORA]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="30" width="555" height="1" uuid="ab4e4bb6-2f17-4505-9414-ba4ac74fa8f6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="120" height="25" uuid="638e5ef9-7782-4f60-8a0b-4141a431f121">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="967fd1c2-34b4-4b17-89da-d6e2d7edb1f5"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ven_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="8" width="138" height="20" uuid="213640eb-5dc6-4833-b643-ff22a86c1f62">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3941e740-9164-4e77-b37c-986181dcd6ff"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ven_horario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="3" width="150" height="25" uuid="7e636471-2e4a-4073-938e-9712b102188d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9b4e237-f891-4e6a-8b98-d3942c5e5bdc"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ven_valor_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="4" width="135" height="24" uuid="d2e7da8c-a708-43a2-846a-ffa8ac8a710e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="caa3978e-ab61-4d0e-8a32-1f19d464872c"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{fun_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="121" y="0" width="89" height="20" uuid="7fadb468-0e51-4e98-8820-fe71fefa2fd8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total:]]></text>
+			</staticText>
+			<textField pattern="#,##0.###;#,##0.###-">
+				<reportElement x="213" y="0" width="61" height="20" uuid="daf5dbdc-79aa-41b3-90d3-395e65be835e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VLTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="3" width="440" height="54" uuid="2da9d79b-f00a-4491-924c-93c45cab852c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="66" width="139" height="20" uuid="e88a08cb-0070-447e-8f8c-5a138a3a2b77"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="66" width="80" height="20" uuid="f457d6d2-03a8-45e5-a262-f4d414e8f696"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="66" width="40" height="20" uuid="4845b555-56dd-45da-bf1a-aa3067c099f7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="61" width="555" height="1" uuid="ab080c20-5de5-4543-a55e-32bdecab0aa7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

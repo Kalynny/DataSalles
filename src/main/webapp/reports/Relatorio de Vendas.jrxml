@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio de Vendas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc937272-0df8-4dd1-bb25-c35ef5ec49a8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+     tb_vendas.`ven_codigo` AS tb_vendas_ven_codigo,
+     tb_vendas.`ven_horario` AS tb_vendas_ven_horario,
+     tb_vendas.`ven_valor_total` AS tb_vendas_ven_valor_total,
+     tb_funcionarios.`fun_nome` AS tb_funcionarios_fun_nome
+FROM
+     `tb_funcionarios` tb_funcionarios INNER JOIN `tb_vendas` tb_vendas ON tb_funcionarios.`fun_codigo` = tb_vendas.`tb_funcionarios_fun_codigo`]]>
+	</queryString>
+	<field name="tb_vendas_ven_codigo" class="java.lang.Long"/>
+	<field name="tb_vendas_ven_horario" class="java.sql.Timestamp"/>
+	<field name="tb_vendas_ven_valor_total" class="java.math.BigDecimal"/>
+	<field name="tb_funcionarios_fun_nome" class="java.lang.String"/>
+	<variable name="VLTOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tb_vendas_ven_valor_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="138" y="0" width="338" height="48" uuid="59a9e3e1-136d-4778-bf30-91ce5852c71b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[Relatorio de Vendas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="221" y="48" width="139" height="22" uuid="337d306b-e62b-4fc2-94a4-98594a0d9faa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Vendas Diárias]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-18" width="139" height="88" uuid="74179b35-9629-4410-b232-06de263a3e29"/>
+				<imageExpression><![CDATA["C:\\DataSales\\Workspace\\Vendas\\WebContent\\img\\Logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="dfe92f2a-25f0-4407-9ea7-67328cd647a5"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="15" width="138" height="20" uuid="97232035-5e43-4036-9719-9bff28a7e85d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="16" width="138" height="20" uuid="0955f4bb-26ca-4c62-8119-7ff428d19e7d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIA / HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="16" width="138" height="20" uuid="bbc60e86-c580-466e-946f-e554be620ffa"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DO PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="16" width="138" height="20" uuid="9c267e4a-32e7-4c53-b288-1fc152346e4e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FUNCIONÁRIO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="276" y="0" width="138" height="20" uuid="c72aecad-8625-4a8c-af31-e1610ac29cb2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tb_funcionarios_fun_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="138" height="20" uuid="56551512-12fc-42c8-9a75-e72e298c3ae1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tb_vendas_ven_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="138" height="20" uuid="e928953f-a8d0-4b3c-a488-54c1ae2d69db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tb_vendas_ven_horario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="138" height="20" uuid="5ca47e50-0d39-4baf-a2b0-4aaa8b129f7c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tb_vendas_ven_valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50">
+			<staticText>
+				<reportElement x="360" y="0" width="83" height="20" uuid="db2e24fa-9f26-4f11-9983-148b5f1a223c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="0" width="94" height="20" uuid="ffd512f7-fde2-477c-a5b5-b5ce669edc43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VLTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="905621a9-19e7-4bf5-a070-64804293a3c1"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="33625fce-eab3-46a9-9f6c-4570196d105e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="eedb3d7d-e105-476b-99eb-3916faf1797b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

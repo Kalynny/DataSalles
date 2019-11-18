@@ -247,6 +247,13 @@ public class CompraBean implements Serializable {
 		compras = dao.listar("codigo");
 	}
 
+	
+	public void atualizarPrecoParcial(){
+		for(ItemCompra itemcompra : this.itensCompra){
+		itemcompra.setPrecoParcial(itemcompra.getProduto().getPreco().multiply(new BigDecimal(itemcompra.getQuantidade())));
+		}
+		this.calcular();
+	}
 
 	@SuppressWarnings("unlikely-arg-type")
 	public void salvar(ActionEvent event) {
@@ -257,8 +264,9 @@ public class CompraBean implements Serializable {
 				return;
 			}
 			if(compra.getTipopagc().getCodigo().equals(1)) {
+				
 				CompraDAO compraDAO = new CompraDAO();			
-				compraDAO.salvar(compra, itensCompra);
+				compraDAO.salvar(compra,itensCompra);
 				
 				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
@@ -273,10 +281,11 @@ public class CompraBean implements Serializable {
 				itensCompra = new ArrayList<>();
 				
 				Messages.addGlobalInfo("Compra realizada com sucesso");
+				return;
 			}else{
 				
 				CompraDAO compraDAO = new CompraDAO();
-				compraDAO.salvarBoleto(compra, itensCompra);
+				compraDAO.salvarBoleto(compra,itensCompra);
 				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
 	

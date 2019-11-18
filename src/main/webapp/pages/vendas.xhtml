@@ -22,7 +22,7 @@ template="/templates/template.xhtml">
 				value="#{vendaBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+				<p:column headerText="Descrição"
 					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
@@ -38,7 +38,6 @@ template="/templates/template.xhtml">
 				</p:column>
 
 				<p:column headerText="Fornecedor"
-					filterBy="#{produto.fornecedor.descricao}"
 					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
@@ -145,15 +144,14 @@ template="/templates/template.xhtml">
 			
 				<p:outputLabel value="Horário: " />
 				<h:outputText value="#{vendaBean.venda.horario}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" 
-					locale="pt_BR" timeZone="America/Sao_Paulo" />
+					
 				</h:outputText>
 				
-				<p:outputLabel value="Vencimento: " />
-				<h:inputText value="#{vendaBean.venda.vencimento}">
-					<f:convertDateTime pattern="dd/MM/yyyy" 
-					locale="pt_BR" timeZone="America/Sao_Paulo" />
-				</h:inputText>
+				<p:outputLabel value="Vencimento: " style="text-align: center;" />
+				<p:calendar id="vencimento"
+					value="#{vendaBean.venda.vencimento}" required="true"
+					requiredMessage="O campo 'vencimento' é obrigatório"
+					size="14"/>
 				
 
 				<p:outputLabel value="Total: R$" />

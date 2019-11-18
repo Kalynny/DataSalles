@@ -3,7 +3,7 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -137,54 +137,72 @@ public class VendaBean implements Serializable {
 	
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-	 
-		int achou = -1;
-		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
-			if (itensVenda.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		if (produto.getQuantidade()>0) {
+			
+//			int achou = -1;
+//			for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+//				if (itensVenda.get(posicao).getProduto().equals(produto)) {
+//					achou = posicao;
+//				}
+//			}
+			ItemVenda item = null;
+			for (ItemVenda rs : itensVenda) {
+				if (rs.getProduto().equals(produto)) {
+					item = rs;
+				}
 			}
+
+			if (item == null) {
+				ItemVenda itemVenda = new ItemVenda();
+				itemVenda.setPrecoParcial(produto.getPreco());
+				itemVenda.setProduto(produto);
+				itemVenda.setQuantidade(new Short("1"));
+	
+				itensVenda.add(itemVenda);
+			} else {
+				ItemVenda itemVenda = item;
+				itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+				itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+			}
+	
+			calcular();
+		
 		}
-
-		if (achou < 0) {
-			ItemVenda itemVenda = new ItemVenda();
-			itemVenda.setPrecoParcial(produto.getPreco());
-			itemVenda.setProduto(produto);
-			itemVenda.setQuantidade(new Short("1"));
-
-			itensVenda.add(itemVenda);
-		} else {
-			ItemVenda itemVenda = itensVenda.get(achou);
-			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
-			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
-		}
-
-		calcular();
 	}
 	
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
-		int achou = -1;
-		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
-			if (itensVenda.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		if (produto.getQuantidade()>0) {
+	//		int achou = -1;
+	//		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+	//			if (itensVenda.get(posicao).getProduto().equals(produto)) {
+	//				achou = posicao;
+	//			}
+	//		}
+			ItemVenda item = null;
+			for (ItemVenda rs : itensVenda) {
+				if (rs.getProduto().equals(produto)) {
+					item = rs;
+				}
 			}
+	
+			if (item == null) {
+				ItemVenda itemVenda = new ItemVenda();
+				itemVenda.setPrecoParcial(produto.getPreco());
+				itemVenda.setProduto(produto);
+				itemVenda.setQuantidade(new Short("1"));
+	
+				itensVenda.add(itemVenda);
+			} else {
+				ItemVenda itemVenda = item;
+				if (itemVenda.getQuantidade() != null && itemVenda.getQuantidade()>0) {
+					itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() - 1 + ""));
+				}
+				itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+			}
+	
+			calcular();
 		}
-
-		if (achou < 0) {
-			ItemVenda itemVenda = new ItemVenda();
-			itemVenda.setPrecoParcial(produto.getPreco());
-			itemVenda.setProduto(produto);
-			itemVenda.setQuantidade(new Short("1"));
-
-			itensVenda.add(itemVenda);
-		} else {
-			ItemVenda itemVenda = itensVenda.get(achou);
-			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() - 1 + ""));
-			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
-		}
-
-		calcular();
 	}
 
 	public void remover(ActionEvent evento) {
@@ -333,7 +351,7 @@ public class VendaBean implements Serializable {
 			}
 	
 			
-public void pagamentoBoleto() {
+	public void pagamentoBoleto()  {
 		
 		//DatasallesService sevico = new DatasallesService();
 		//SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
@@ -346,12 +364,12 @@ public void pagamentoBoleto() {
 		transacao= sessao.beginTransaction();
 			
 		//String dataFormatada = sevico.formatData("yyyy/MM/DD",venda.getVencimento());	
-		String padraoData = "%Y-%m-%d";
-		String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(venda.getVencimento());
+		//String padraoData = " %Y-%m-%d ";
+		//String dataFormatada = new SimpleDateFormat("yyyy-MM-dd").format(venda.getVencimento());
 
 		
-		String sql = "insert into creceber VALUES (null, sysdate(),"+venda.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
-
+		String sql = "insert into creceber VALUES (null,"+venda.getVencimento()+","+venda.getPrecoTotal()+","+venda.getVencimento()+","+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
+				
 		SQLQuery query = sessao.createSQLQuery(sql);
 				
 		int result = query.executeUpdate();
@@ -359,16 +377,16 @@ public void pagamentoBoleto() {
 		transacao.commit();
 		System.out.println(result);
 
-	} catch (HibernateException e) {
-		if (transacao != null)
-			transacao.rollback();
-		e.printStackTrace();
-	} finally {
-		sessao.close();
-
-		Messages.addGlobalInfo("Venda realizada com sucesso!!");
-	}
-		
-	}	
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+	
+			Messages.addGlobalInfo("Venda realizada com sucesso!!");
+		}
+			
+		}	
 		
 }

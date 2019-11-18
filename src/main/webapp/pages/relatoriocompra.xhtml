@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+template="/templates/template.xhtml"
+>
+
+<ui:define name="conteudo">
+
+<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputScript library="js" name="scripts.js" />
+<p:toolbar>
+<f:facet name="left">
+<h:outputText value="Relatório de Compras" />
+</f:facet>
+</p:toolbar>
+
+	<div align="center">
+		<h:panelGrid >
+		 <p:graphicImage style="text-align:center; display: block;
+         width: 300px;" library="img" name="Logo1.png" />
+               
+        </h:panelGrid>
+	</div>
+<br/>	
+<br/>
+<br/>
+
+	<div align="center" >	
+		<h:panelGrid columns="1" >
+			 <p:graphicImage  style="width: 150px;" library="img" name="compras.png" />
+			 <p:commandButton value= "Pedido de Compras" actionListener="#{MBCompras.impcom}" style="width: 200px;"/>
+			 <f:param name="proacao" value="impcom"/>
+		</h:panelGrid>
+	
+	</div>
+   
+</ui:define>
+
+</ui:composition>

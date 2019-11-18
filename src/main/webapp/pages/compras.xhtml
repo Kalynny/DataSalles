@@ -51,25 +51,49 @@ template="/templates/template.xhtml">
 				</p:column>
 			</p:dataTable>
 		</p:panel>
+		
+		<p:remoteCommand name="rc" 
+		actionListener="#{compraBean.atualizarPrecoParcial}"
+		update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
 
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{compraBean.itensCompra}" var="itemcompra" rows="5"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom"
+				editable="true"
+				editMode="cell">
+				
+				<p:ajax event="cellEdit" oncomplete="rc()" />	
 
 				<p:column headerText="Descrição" >
 					<h:outputText value="#{itemcompra.produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço Un." style="text-align: center;">
-					<h:outputText value="#{itemcompra.produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
+				<p:column headerText="Preço Un." style="text-align:center">
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemcompra.produto.preco}" style="width:40px; text-align:center">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemcompra.produto.preco}" style="width:40px; text-align:center" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
-
-				<p:column headerText="Qtde." style="text-align: center;">
-					<h:outputText value="#{itemcompra.quantidade}" />
+				
+				<p:column headerText="Qtde." style="text-align:center">
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemcompra.quantidade}" style="width:30px; text-align:center" />	
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemcompra.quantidade}" style="width:30px; text-align:center" />
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Preço Parcial" style="text-align: center;">
@@ -120,7 +144,8 @@ template="/templates/template.xhtml">
 				<p:calendar id="vencimento"
 					value="#{compraBean.compra.vencimento}" required="true"
 					requiredMessage="O campo 'vencimento' é obrigatório"
-					size="10"  locale="pt_BR"/>
+					size="14" pattern="dd/MM/yyyy" 
+					locale="pt_BR" timeZone="America/Sao_Paulo"/>
 								
 				<p:outputLabel value="Total: R$" style="text-align: center;" />
 				<h:outputText value="#{compraBean.compra.precoTotal}">

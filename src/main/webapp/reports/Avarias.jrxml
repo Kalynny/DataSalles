@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Avarias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="279c7f5f-68d4-4b2f-9ca2-45fdbf0e65bf">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGFzLnRiX2F2YXJpYXMgQVMgLDEyNSw2NiwwNTFjYTE4ZS1jNGFlLTQ2MjEtODE3OS04Nzdi&#xA;NDc2Mjk2YjM7&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="CD_AVARIA" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_avarias.ava_codigo,
+	vendas.tb_avarias.ava_descricao,
+	vendas.tb_avarias.ava_motivo,
+	vendas.tb_avarias.ava_quantidade
+FROM vendas.tb_avarias]]>
+	</queryString>
+	<field name="ava_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="ava_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_avarias"/>
+	</field>
+	<field name="ava_descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ava_descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_avarias"/>
+	</field>
+	<field name="ava_motivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ava_motivo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_avarias"/>
+	</field>
+	<field name="ava_quantidade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="ava_quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_avarias"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="181" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="180" y="0" width="200" height="117" uuid="0b70b7fe-afe8-4e12-9ed5-7473447375fb"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="164" y="120" width="238" height="60" uuid="23c742cc-7f87-4879-9f39-c58359790fad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Avarias]]></text>
+			</staticText>
+			<image>
+				<reportElement x="480" y="10" width="70" height="70" uuid="7cf7d020-e755-46f5-bf72-2579eb23b234"/>
+				<imageExpression><![CDATA[$P{CD_AVARIA}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="80" height="21" uuid="7b604f52-ab18-41b0-9c78-fdead78eba34">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ac302bd-376d-4fe1-9231-8c4763e5179e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="19" width="180" height="21" uuid="e331f318-72e1-4bd0-887f-4947444649a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dade2cd-b27a-41d2-b6eb-f930007a7788"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição do Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="19" width="120" height="21" uuid="7ba125a1-7af1-44f1-973d-81c7c52f5a96">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3249a544-ed8d-4ce0-b38d-6cb2ea904729"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo da  Avaria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="19" width="100" height="21" uuid="6b326eec-09de-46d6-8e2b-240121e5fc95">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d379bbb8-4b6d-4c77-a529-3f772cba1c37"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="5928392e-96b9-4d97-94b2-3586cb7dc4ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ac302bd-376d-4fe1-9231-8c4763e5179e"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ava_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="180" height="20" uuid="73d9b73a-7598-478e-8176-4ace8ed15a59">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dade2cd-b27a-41d2-b6eb-f930007a7788"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ava_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="120" height="20" uuid="1317fd9a-28bb-4cdf-a8be-75c894b1a751">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3249a544-ed8d-4ce0-b38d-6cb2ea904729"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ava_motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="20" uuid="275bb8a4-b941-4312-9fc5-8668802b2b25">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d379bbb8-4b6d-4c77-a529-3f772cba1c37"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ava_quantidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="38" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="0" width="440" height="54" uuid="96077699-ce80-49e4-94ca-9799214cbf31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="69" width="90" height="20" uuid="0916f03b-d8f2-4b3c-a5d0-ebd42d2cd04b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="69" width="80" height="20" uuid="77e85e6a-2403-439d-9687-af05d7cdc22d"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="68" width="70" height="20" uuid="c15dbf7b-f359-444c-aede-9436b68bf9ab"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

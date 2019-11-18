@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fornecedor" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="436624c2-fbf5-4588-a91d-3bed1121d1b8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGFzLnRiX2Zvcm5lY2Vkb3JlcyBBUyAsMTY1LDU2LDcxYTdiN2FiLWI0NzItNDBhMy1hMjI0&#xA;LTE5ZjBlMjZhNjAwOTs=&#xA;"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vendas"/>
+	<parameter name="Fornec" class="java.lang.Object"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT vendas.tb_fornecedores.for_codigo,
+	vendas.tb_fornecedores.for_email,
+	vendas.tb_fornecedores.for_rsocial,
+	vendas.tb_fornecedores.for_cnpj,
+	vendas.tb_fornecedores.for_ie,
+	vendas.tb_fornecedores.for_fone
+FROM vendas.tb_fornecedores]]>
+	</queryString>
+	<field name="for_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="for_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<field name="for_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<field name="for_rsocial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_rsocial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<field name="for_cnpj" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_cnpj"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<field name="for_ie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_ie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<field name="for_fone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="for_fone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_fornecedores"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="179" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="180" y="0" width="200" height="117" uuid="aa5d4958-e2d7-4210-b4a8-01669e9c1f31"/>
+				<imageExpression><![CDATA["C:/Sistema Vendas/Workspace/vendas/WebContent/resources/img/Logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="60" y="119" width="440" height="60" uuid="d21218ec-6592-49d3-8dfa-f4a0a10673a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Cadastro de Fornecedores]]></text>
+			</staticText>
+			<image>
+				<reportElement x="480" y="10" width="50" height="50" uuid="7df44eee-e705-4caa-a5f2-6fe83b0862f4"/>
+				<imageExpression><![CDATA[$P{Fornec}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="40" height="30" uuid="af8820a9-97f3-4e7c-bd84-b1b4da3c1cca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="124c89a2-b640-42f2-b2e4-9527507534cc"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="18" width="139" height="30" uuid="eb114e80-b544-4ba9-a457-c48040dbde0a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="421431fe-5757-4ac7-b693-72d6c26d8c81"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nome do Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="18" width="100" height="30" uuid="7066c8eb-8a66-45d0-8124-498d30ea83c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ececfe9b-388b-4add-b333-b3abd679e0ab"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="18" width="60" height="30" uuid="61939f0d-6bcd-4765-8b9b-b28e0687d23e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a8f4ca8-a792-43b4-8fe1-f425de588ffc"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Insc. Est.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="18" width="138" height="30" uuid="daa0b318-1858-4952-aa8d-0d7821f28ccf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0ab8c94-66eb-420f-b63f-58236d92c279"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="17" width="76" height="30" uuid="4038e476-c622-4d60-b9bc-e05d08218f32">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7470293e-3f1d-4bc0-b46f-9a5504f9a104"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Fone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="40" height="20" uuid="2313c27c-7248-47e3-82f6-44389d013fc9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="124c89a2-b640-42f2-b2e4-9527507534cc"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{for_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="0" width="140" height="20" uuid="44407a39-f897-42df-b4c1-07ccbdabf608">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="421431fe-5757-4ac7-b693-72d6c26d8c81"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_rsocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="0" width="101" height="20" uuid="2b5e83e6-9e6c-4c66-9e8d-3c8dfb707071">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ececfe9b-388b-4add-b333-b3abd679e0ab"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="-1" width="61" height="21" uuid="1cfcf86c-f7b9-4c5e-be5a-47b21aaf1263">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a8f4ca8-a792-43b4-8fe1-f425de588ffc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_ie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="140" height="20" uuid="153b15cb-0198-4425-a55e-4a9eb640643d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0ab8c94-66eb-420f-b63f-58236d92c279"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="0" width="77" height="20" uuid="8f3d0746-d01f-447d-82b9-6b625f7346b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7470293e-3f1d-4bc0-b46f-9a5504f9a104"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{for_fone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="56" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="42" width="90" height="20" uuid="da4f825f-5dcb-42fb-8447-73da5306093a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="42" width="80" height="20" uuid="bb1ebc2c-3986-435d-97d8-26f5d8e84647"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="42" width="70" height="20" uuid="35b8929b-02f1-420f-80e7-dc07cdf64881"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="-20" width="440" height="54" uuid="22a61c10-c5e3-4d2a-a620-4659c2787790"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: contato@aborisa.com.br ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
