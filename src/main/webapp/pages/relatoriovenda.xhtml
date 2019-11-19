@@ -19,7 +19,7 @@ template="/templates/template.xhtml"
 	<div align="center">
 		<h:panelGrid >
 		 <p:graphicImage style="text-align:center; display: block;
-         width: 300px;" library="img" name="Logo1.png" />
+         width: 300px;" library="img" name="Logo.png" />
                
         </h:panelGrid>
 	</div>
@@ -29,7 +29,7 @@ template="/templates/template.xhtml"
 	<div align="center" >	
 		<h:panelGrid columns="1" >
 			 <p:graphicImage  style="width:150px;" library="img" name="sales.png" />
-			 <p:commandButton value= "Pedido de Vendas" actionListener="#{MBVendas.impven()}" style="width: 160px;"/>
+			 <p:commandButton value= "Pedido de Vendas" actionListener="#{Vendas.impven()}" style="width: 160px;"/>
 			 <f:param name="proacao" value="impven"/>
 		</h:panelGrid>
 	

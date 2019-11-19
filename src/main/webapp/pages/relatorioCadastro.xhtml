@@ -21,7 +21,7 @@ template="/templates/template.xhtml"
 	  <div align="center">
 		<h:panelGrid >
 		 <p:graphicImage style="text-align:center; display: block;
-         width: 290px;" library="img" name="Logo1.png" />
+         width: 340px;" library="img" name="Logo.png" />
                
         </h:panelGrid>
 	</div>
@@ -32,28 +32,28 @@ template="/templates/template.xhtml"
 	<div align="center">
 	<h:panelGrid columns="5">
 		<h:panelGrid  >
-			 <p:graphicImage  style="width: 150px; height: 151px;" library="img" name="empresa.png" />
-			 <p:commandButton value= "empresa" actionListener="#{MBEmpresas.impemp}" style="width: 150px;"/>
+			 <p:graphicImage  style="width: 150px; height: 151px;" library="img" name="brazil.png" />
+			 <p:commandButton value= "empresa" actionListener="#{Estados.impemp}" style="width: 150px;"/>
 			 <f:param name="proacao" value="impemp"/>
 		</h:panelGrid>
 		<h:panelGrid  >
 			 <p:graphicImage  style="width: 150px; height: 152px;" library="img" name="clientes.png" />
-			 <p:commandButton value="Clientes" actionListener="#{MBClientes.impcli}" style="width: 150px;"/>
+			 <p:commandButton value="Clientes" actionListener="#{Clientes.impcli}" style="width: 150px;"/>
 			 <f:param name="proacao" value="impcli"/>
 		</h:panelGrid>
        <h:panelGrid >
 			 <p:graphicImage style="width: 150px;" library="img" name="fornecedores.jpg" />
-			 <p:commandButton value="Fornecedores" actionListener="#{MBFornecedores.impfor}" style="width: 150px;"/>
+			 <p:commandButton value="Fornecedores" actionListener="#{Fornecedores.impfor}" style="width: 150px;"/>
 			 <f:param name="proacao" value="impfor"/>
     	</h:panelGrid>
    		<h:panelGrid >
-			 <p:graphicImage style="width: 150px; height: 150px;" library="img" name="funcionarios2.png" />
-			 <p:commandButton value="Funcionarios" actionListener="#{MBFuncionarios.impfun}" style="width: 150px;"/>
+			 <p:graphicImage style="width: 150px; height: 150px;" library="img" name="funcionarios1.png" />
+			 <p:commandButton value="Funcionarios" actionListener="#{Funcionarios.impfun}" style="width: 150px;"/>
 			 <f:param name="proacao" value="impfun" />
     	</h:panelGrid>
      	<h:panelGrid >
    			 <p:graphicImage style="width: 150px; height: 151px;" library="img" name="Produto.jpg" />
-			 <p:commandButton value="Produtos" actionListener="#{MBProdutos.imprimir}" style="width: 150px;"/>
+			 <p:commandButton value="Produtos" actionListener="#{Produtos.imprimir}" style="width: 150px;"/>
 			 <f:param name="proacao" value="Imprimir" />
     	</h:panelGrid>
 	</h:panelGrid>	

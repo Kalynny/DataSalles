@@ -128,36 +128,20 @@ public class ProdutoBean implements Serializable {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void imprimir(){
+	public void imprimirpro(){
 		try {
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
+			@SuppressWarnings("unused")
 			Map<String, Object> filtros = tabela.getFilters();
-
-			String estNome = (String) filtros.get("nome");
-			String estSigla = (String) filtros.get("sigla");
-
-			String caminho = Faces.getRealPath("/reports/estado.jasper");
-			String banner = Faces.getRealPath("/resources/img/Logo1.png");
+			String caminho = Faces.getRealPath("/reports/Produto.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
 			
 			Map<String, Object> parametros = new HashMap<>();
 			
 			parametros.put("BANNER",banner);
 			
-			if (estNome == null) {
-				parametros.put("NOME_ESTADO", "%%");
-			} else {
-				parametros.put("NOME_ESTADO", "%" + estNome + "%");
-			}
-			if (estSigla == null) {
-				parametros.put("SIGLA_ESTADO", "%%");
-			} else {
-				parametros.put("SIGLA_ESTADO", "%" + estSigla + "%");
-			}
-
 			Connection conexao = HibernateUtil.getConexao();
-
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-
 			JasperViewer view = new JasperViewer(relatorio, false);
 			 view.show();
 

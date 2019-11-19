@@ -22,7 +22,7 @@ template="/templates/template.xhtml">
 				value="#{vendaBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição"
+				<p:column headerText="Descrição" 
 					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
@@ -73,7 +73,7 @@ template="/templates/template.xhtml">
 				
 		<p:ajax event="cellEdit" oncomplete="rc()" />		
 				
-				<p:column headerText="Descrição" style="text-align:center">
+				<p:column headerText="Descrição" style="text-align:center" >
 					<h:outputText value="#{itemVenda.produto.descricao}" />
 				</p:column>
 

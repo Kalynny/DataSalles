@@ -3,8 +3,6 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
-//import java.text.DateFormat;
-//import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +19,10 @@ import org.hibernate.Session;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
-
 import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
-//import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.TipoPagcDAO;
 import br.com.datasalles.domain.Compra;
 import br.com.datasalles.domain.Cpagar;
@@ -35,7 +31,6 @@ import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
-//import br.com.datasalles.service.DatasallesService;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -142,14 +137,14 @@ public class CompraBean implements Serializable {
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-		int achou = -1;
-		for (int posicao = 0; posicao < itensCompra.size(); posicao++) {
-			if (itensCompra.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		ItemCompra item = null;
+		for (ItemCompra rs : itensCompra) {
+			if (rs.getProduto().equals(produto)) {
+				item = rs;
 			}
 		}
 
-		if (achou < 0) {
+		if (item == null) {
 			ItemCompra itemCompra = new ItemCompra();
 			itemCompra.setPrecoParcial(produto.getPreco());
 			itemCompra.setProduto(produto);
@@ -157,7 +152,7 @@ public class CompraBean implements Serializable {
 
 			itensCompra.add(itemCompra);
 		} else {
-			ItemCompra itemCompra = itensCompra.get(achou);
+			ItemCompra itemCompra = item;
 			itemCompra.setQuantidade(new Short(itemCompra.getQuantidade() + 1 + ""));
 			itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
 		}
@@ -347,8 +342,6 @@ public class CompraBean implements Serializable {
 			}
 	
 	public void pagamentoBoleto() {
-		
-		//DatasallesService sevico = new DatasallesService();
 		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;

@@ -23,7 +23,7 @@ template="/templates/template.xhtml"
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-					<p:commandButton value="Imprimir" actionListener="#{estadoBean.imprimir}"/>										
+					<p:commandButton value="Imprimir" actionListener="#{produtoBean.imprimirpro}"/>										
 				</f:facet>
 
 				<p:column headerText="Descrição">
@@ -119,7 +119,6 @@ template="/templates/template.xhtml"
 					actionListener="#{produtoBean.salvar}"
 					update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-				<!--<p:button value= "Fornecedor" outcome="/pages/fornecedor.xhtml"/>-->
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>

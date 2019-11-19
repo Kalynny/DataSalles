@@ -34,7 +34,7 @@ template="/templates/template.xhtml"
 				
 				<p:column headerText="Data" style="text-align: center;">
 					<h:outputText value="#{compra.atual}" >
-					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm"/>
+					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
 
@@ -52,8 +52,7 @@ template="/templates/template.xhtml"
 				</p:column>
 				
 				
-				<p:column headerText="Funcionário" filterBy="#{compra.funcionario.pessoa.nome}"
-					sortBy="#{compra.funcionario.pessoa.nome}" >
+				<p:column headerText="Funcionário">
 					<h:outputText value="#{compra.funcionario.pessoa.nome}" />
 					
 				</p:column>

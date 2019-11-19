@@ -34,7 +34,7 @@ template="/templates/template.xhtml"
 				
 				<p:column headerText="Data" style="text-align: center;">
 					<h:outputText value="#{venda.horario}" >
-					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm"/>
+					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
 
@@ -45,34 +45,33 @@ template="/templates/template.xhtml"
 					
 				</p:column>
 				
-				<p:column headerText="Cliente" filterBy="#{venda.cliente.pessoa.nome}"
+				<p:column headerText="Fornecedor" filterBy="#{venda.cliente.pessoa.nome}"
 					sortBy="#{venda.cliente.pessoa.nome}" >
 					<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					
 				</p:column>
 				
 				
-				<p:column headerText="Funcionário" filterBy="#{venda.funcionario.pessoa.nome}"
-					sortBy="#{venda.funcionario.pessoa.nome}">
+				<p:column headerText="Funcionário">
 					<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					
 				</p:column>
 				
 			<p:rowExpansion>
 			<p:dataTable emptyMessage="Nenhum registro encontrado."	
-			value="#{venda.itensVenda}" var="itemVenda"
+			value="#{venda.itensVenda}" var="itemvenda"
 			>
 			
 			<p:column  headerText="Produto">
-			<h:outputText value="#{itemVenda.produto.descricao}" />
+			<h:outputText value="#{itemvenda.produto.descricao}" />
 			</p:column>
 			
 			<p:column  headerText="Quantidade" style="text-align:center">
-			<h:outputText value="#{itemVenda.quantidade}" />
+			<h:outputText value="#{itemvenda.quantidade}" />
 			</p:column>
 			
 			<p:column  headerText="Valor Unitário" style="text-align:center">
-			<h:outputText value="#{itemVenda.precoParcial}" />
+			<h:outputText value="#{itemvenda.precoParcial}" />
 			</p:column>
 				
 			</p:dataTable>

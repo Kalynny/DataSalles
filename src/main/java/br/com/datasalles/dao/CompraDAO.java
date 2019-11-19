@@ -101,40 +101,38 @@ public class CompraDAO extends GenericDAO<Compra> {
 	}
 	
 
-public void pagamentoBoleto(ItemCompra itemCompra) {
-		
-		//DatasallesService sevico = new DatasallesService();
-		
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		org.hibernate.Transaction transacao = null;
-
-		try {
-		
-		transacao = sessao.beginTransaction(); 
-		
-		Cpagar cpagar = new Cpagar();
-		cpagar.setVencimento(itemCompra.getCompra().getVencimento());
-		cpagar.setAtual(new Date());
-		cpagar.setFornecedor(itemCompra.getCompra().getFornecedor());
-		cpagar.setTipo(itemCompra.getCompra().getTipopagc().getDescricao());
-		cpagar.setPrecoTotal(itemCompra.getCompra().getPrecoTotal());
-		
-		sessao.save(cpagar);
+	public void pagamentoBoleto(ItemCompra itemCompra) {
+			
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+			org.hibernate.Transaction transacao = null;
 	
-		transacao.commit();
-
-	} catch (HibernateException e) {
-		if (transacao != null)
-			transacao.rollback();
-		e.printStackTrace();
-	} finally {
-		sessao.close();
-
-		Messages.addGlobalInfo("Compra realizada com sucesso!!");
-	}
+			try {
+			
+			transacao = sessao.beginTransaction(); 
+			
+			Cpagar cpagar = new Cpagar();
+			cpagar.setVencimento(itemCompra.getCompra().getVencimento());
+			cpagar.setAtual(new Date());
+			cpagar.setFornecedor(itemCompra.getCompra().getFornecedor());
+			cpagar.setTipo(itemCompra.getCompra().getTipopagc().getDescricao());
+			cpagar.setPrecoTotal(itemCompra.getCompra().getPrecoTotal());
+			
+			sessao.save(cpagar);
 		
-	}
+			transacao.commit();
 	
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+	
+			Messages.addGlobalInfo("Compra realizada com sucesso!!");
+		}
+			
+		}
+		
 	
 }
 
