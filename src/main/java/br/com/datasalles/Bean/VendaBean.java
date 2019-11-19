@@ -347,9 +347,6 @@ public class VendaBean implements Serializable {
 			
 	public void pagamentoBoleto()  {
 		
-		//DatasallesService sevico = new DatasallesService();
-		//SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
-		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
 

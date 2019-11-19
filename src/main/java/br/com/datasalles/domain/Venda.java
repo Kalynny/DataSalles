@@ -23,17 +23,17 @@ public class Venda extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;
+		
+	@Column(nullable = false, precision = 7, scale = 2)
+	private BigDecimal precoTotal;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
 	
-	@Column(nullable = false, precision = 7, scale = 2)
-	private BigDecimal precoTotal;
-	
 	@ManyToOne
 	private Cliente cliente;
-	
+		
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;

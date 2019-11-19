@@ -9,14 +9,15 @@ template="/templates/template.xhtml"
 >
 
 <ui:define name="metadata">
-<f:metadata><f:viewAction action="#{vendaBean.listar}" />
+<f:metadata>
+<f:viewAction action="#{vendaBean.listar}" />
 </f:metadata>
 </ui:define>
 
 <ui:define name="conteudo">
 
 	<h:form id="formListagem">
-		<p:panel header="Listagem de Vendas">
+		<p:panel header="Lista de Vendas">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
 				<f:facet name="header">
@@ -27,11 +28,7 @@ template="/templates/template.xhtml"
 				<p:rowToggler />
 				</p:column>
 
-				<p:column headerText="Cod. Pedido" style="text-align: center;">
-					<h:outputText value="#{venda.codigo}" >
-					</h:outputText>
-				</p:column>
-				
+
 				<p:column headerText="Data" style="text-align: center;">
 					<h:outputText value="#{venda.horario}" >
 					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
@@ -45,33 +42,34 @@ template="/templates/template.xhtml"
 					
 				</p:column>
 				
-				<p:column headerText="Fornecedor" filterBy="#{venda.cliente.pessoa.nome}"
-					sortBy="#{venda.cliente.pessoa.nome}" >
+				<p:column headerText="Cliente" filterBy="#{venda.cliente.pessoa.nome}"
+					sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
 					<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					
 				</p:column>
 				
 				
-				<p:column headerText="Funcionário">
+				<p:column headerText="Funcionário" filterBy="#{venda.funcionario.pessoa.nome}"
+					sortBy="#{venda.funcionario.pessoa.nome}" style="text-align: center;">
 					<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					
 				</p:column>
 				
 			<p:rowExpansion>
 			<p:dataTable emptyMessage="Nenhum registro encontrado."	
-			value="#{venda.itensVenda}" var="itemvenda"
+			value="#{venda.itensVenda}" var="itemVenda"
 			>
 			
 			<p:column  headerText="Produto">
-			<h:outputText value="#{itemvenda.produto.descricao}" />
+			<h:outputText value="#{itemVenda.produto.descricao}" />
 			</p:column>
 			
-			<p:column  headerText="Quantidade" style="text-align:center">
-			<h:outputText value="#{itemvenda.quantidade}" />
+			<p:column  headerText="Quantidade">
+			<h:outputText value="#{itemVenda.quantidade}" />
 			</p:column>
 			
-			<p:column  headerText="Valor Unitário" style="text-align:center">
-			<h:outputText value="#{itemvenda.precoParcial}" />
+			<p:column  headerText="Valor Unitário">
+			<h:outputText value="#{itemVenda.precoParcial}" />
 			</p:column>
 				
 			</p:dataTable>
