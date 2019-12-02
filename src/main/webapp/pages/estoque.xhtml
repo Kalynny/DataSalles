@@ -17,7 +17,7 @@ template="/templates/template.xhtml"
 				paginator="true" value="#{produtoBean.produtos}" var="produto"
 				rows="15">
 				
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+				<p:column headerText="Descrição" 
 					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
@@ -26,13 +26,13 @@ template="/templates/template.xhtml"
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" style="text-align:center">
+				<p:column headerText="Preço" >
 					<h:outputText value="#{produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>	
 				</p:column>
 
-				<p:column headerText="Fornecedor" filterBy="#{produto.fornecedor.descricao}"
+				<p:column headerText="Fornecedor" 
 					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>

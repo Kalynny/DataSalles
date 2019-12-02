@@ -44,7 +44,7 @@ public class Venda extends GenericDomain {
 	
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venda")
-	private List<ItemVenda>itensVenda;
+	private List<ItemVenda> itensVenda;
 
 	public Date getHorario() {
 		return horario;

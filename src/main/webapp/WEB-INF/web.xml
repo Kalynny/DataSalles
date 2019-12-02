@@ -6,6 +6,12 @@
 
 	<!-- Nome da Aplicação -->
 	<display-name>Datasalles</display-name>
+	
+	<!-- Template -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>redmond</param-value>
+	</context-param>
 
 
 	<!-- Estágio do Projeto -->

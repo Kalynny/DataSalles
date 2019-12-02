@@ -1,29 +1,29 @@
 package br.com.datasalles.dao;
 
 
-import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.Venda;
+import br.com.datasalles.impl.GenericImpl;
 import br.com.datasalles.domain.Creceber;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.util.HibernateUtil;
 
-public class VendaDAO extends GenericDAO<Venda> {
+public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 	
 	public void salvar(Venda venda, List<ItemVenda> itensVenda){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
 		try {
+			
 			transacao = sessao.beginTransaction();
 		
-			sessao.save(venda);
-			
+			venda = (Venda) sessao.merge(venda);
 			for(int posicao = 0; posicao < itensVenda.size(); posicao++){
 				ItemVenda itemVenda = itensVenda.get(posicao);
 				itemVenda.setVenda(venda);
@@ -34,26 +34,24 @@ public class VendaDAO extends GenericDAO<Venda> {
 				int qtde = produto.getQuantidade() - itemVenda.getQuantidade();
 				
 				if(qtde >= 0){
-				produto.setQuantidade(new Short((qtde) + ""));
-				
-				sessao.update(produto);
-								
+					produto.setQuantidade(new Short((qtde) + ""));
+					sessao.update(produto);
 				}else{
-				throw new RuntimeException("Erro ao atualizar estoque");
+					throw new RuntimeException("Erro ao atualizar estoque");
 				}
+			}
+					
+			transacao.commit();
 				
-				
-				}
-					transacao.commit();
-				}	catch (RuntimeException erro) {
-					if (transacao != null) {
-						transacao.rollback();
-					}
-					throw erro;
-					} finally {
-					sessao.close();
-				}
-       	}
+		} catch (RuntimeException erro) {
+			if (transacao != null) {
+				transacao.rollback();
+			}
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
 	
 	public void salvarBoleto(Venda venda, List<ItemVenda> itensvenda){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -74,7 +72,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 				itemVenda.getVenda().getFuncionario().getCodigo();
 				
 				sessao.save(itemVenda);
-				pagamentoBoleto(itemVenda);
+				
 								
 				Produto produto = itemVenda.getProduto();
 				int qtde = produto.getQuantidade() - itemVenda.getQuantidade();
@@ -91,6 +89,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 						
 			}
 			
+			pagamentoBoleto(venda);
+			
 			transacao.commit();
 		} catch (RuntimeException erro) {
 			if (transacao != null) {
@@ -104,7 +104,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 	
 	
 	
-	public void pagamentoBoleto(ItemVenda itemVenda) {
+	public void pagamentoBoleto(Venda venda) {
 		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
@@ -114,16 +114,15 @@ public class VendaDAO extends GenericDAO<Venda> {
 		transacao= sessao.beginTransaction(); 
 		
 		Creceber creceber = new Creceber();
-		creceber.setVencimento(itemVenda.getVenda().getVencimento());
-		creceber.setHorario(new Date());
-		creceber.setCliente(itemVenda.getVenda().getCliente());
-		creceber.setTipo(itemVenda.getVenda().getTipopag().getDescricao());
-		creceber.setPrecoTotal(itemVenda.getVenda().getPrecoTotal());
+		creceber.setVencimento(venda.getVencimento());
+		creceber.setHorario(venda.getHorario());
+		creceber.setCliente(venda.getCliente());
+		creceber.setTipo(venda.getTipopag().getDescricao());
+		creceber.setPrecoTotal(venda.getPrecoTotal());
 		
 		sessao.save(creceber);
 		
 		transacao.commit();
-		
 
 	} catch (HibernateException e) {
 		if (transacao != null)
@@ -176,6 +175,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 					sessao.close();
 				}
        	}
+
+	
 	
 }
 

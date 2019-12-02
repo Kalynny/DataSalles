@@ -18,7 +18,7 @@ template="/templates/template.xhtml"
 				value="#{orcamentoBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+				<p:column headerText="Descrição"
 					sortBy="#{produto.descricao}">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
@@ -34,7 +34,6 @@ template="/templates/template.xhtml"
 				</p:column>
 
 				<p:column headerText="Fornecedor"
-					filterBy="#{produto.fornecedor.descricao}"
 					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>

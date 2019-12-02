@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+template="/templates/template.xhtml"
+>
+
+<ui:define name="metadata">
+<f:metadata><f:viewAction action="#{compraBean.listar}" />
+</f:metadata>
+</ui:define>
+
+<ui:define name="conteudo">
+
+	<h:form id="formListagem">
+		<p:panel header="Listagem de Compras">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{compraBean.compras}" var="compra" rows="12">
+				<f:facet name="header">
+					
+				</f:facet>
+
+				<p:column style="width: 16px;">
+				<p:rowToggler />
+				</p:column>
+
+				<p:column headerText="Cod. Pedido" style="text-align: center;">
+					<h:outputText value="#{compra.codigo}" >
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Data" style="text-align: center;">
+					<h:outputText value="#{compra.atual}" >
+					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Valor" style="text-align: center;">
+					<h:outputText value="#{compra.precoTotal}" >
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</h:outputText>
+					
+				</p:column>
+				
+				<p:column headerText="Fornecedor" filterBy="#{compra.fornecedor.descricao}"
+					sortBy="#{compra.fornecedor.descricao}" >
+					<h:outputText value="#{compra.fornecedor.descricao}" />
+					
+				</p:column>
+				
+				
+				<p:column headerText="Funcionário">
+					<h:outputText value="#{compra.funcionario.pessoa.nome}" />
+					
+				</p:column>
+				
+			<p:rowExpansion>
+			<p:dataTable emptyMessage="Nenhum registro encontrado."	
+			value="#{compra.itensCompra}" var="itemCompra"
+			>
+			
+			<p:column  headerText="Produto">
+			<h:outputText value="#{itemCompra.produto.descricao}" />
+			</p:column>
+			
+			<p:column  headerText="Quantidade" style="text-align:center">
+			<h:outputText value="#{itemCompra.quantidade}" />
+			</p:column>
+			
+			<p:column  headerText="Valor Unitário" style="text-align:center">
+			<h:outputText value="#{itemCompra.precoParcial}" />
+			</p:column>
+				
+			</p:dataTable>
+			</p:rowExpansion>
+			
+			</p:dataTable>
+			</p:panel>
+			</h:form>
+			
+
+</ui:define>
+</ui:composition>

@@ -1,8 +1,19 @@
 .ui-widget, .ui-widget .ui-widget {
-font-size: 92% !important;
+font-size: 90% !important;
 }
 
 .ui-button{
 	width:85px
+	
+}
+
+.ui-define{
+	width:85px
+	
+}
+
+.ui-content{
+font-size: 65% !important;
+
 	
 }

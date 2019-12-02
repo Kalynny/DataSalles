@@ -248,7 +248,7 @@ public class VendaBean implements Serializable {
 		}
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
+	
 	public void salvar(ActionEvent event) {
 		try { 
 		
@@ -257,7 +257,7 @@ public class VendaBean implements Serializable {
 				return;
 				}
 				
-				if(venda.getTipopag().getCodigo().equals(1)) {
+				if(venda.getTipopag().getCodigo() == (1)) {
 					VendaDAO vendaDAO = new VendaDAO();			
 					vendaDAO.salvar(venda, itensVenda);
 					
@@ -278,7 +278,7 @@ public class VendaBean implements Serializable {
 					
 					VendaDAO vendaDAO = new VendaDAO();
 					vendaDAO.salvarBoleto(venda, itensVenda);
-					venda = new Venda();
+					//venda = new Venda();
 					venda.setPrecoTotal(new BigDecimal("0.00"));
 		
 					ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -288,7 +288,8 @@ public class VendaBean implements Serializable {
 					TipoPagDAO tipopagDAO = new TipoPagDAO();
 					tipopags = new ArrayList<>();
 					
-					itensVenda = new ArrayList<>();					
+					itensVenda = new ArrayList<>();	
+					Messages.addGlobalInfo("Venda realizada com sucesso");
 				}
 				
 			    }catch (RuntimeException erro) {

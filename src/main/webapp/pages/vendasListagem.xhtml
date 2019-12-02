@@ -27,15 +27,25 @@ template="/templates/template.xhtml"
 				<p:column style="width: 16px;">
 				<p:rowToggler />
 				</p:column>
+				
+				<p:column headerText="Cod. Pedido" style="width:80px; text-align:center">
+					<h:outputText value="#{venda.codigo}" >
+					</h:outputText>
+				</p:column>
 
-
-				<p:column headerText="Data" style="text-align: center;">
+				<p:column headerText="Data"  style="width:80px; text-align:center">
 					<h:outputText value="#{venda.horario}" >
 					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="Vencimento" style="width:80px; text-align:center">
+					<h:outputText value="#{venda.vencimento}" >
+					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
 
-				<p:column headerText="Valor" style="text-align: center;">
+				<p:column headerText="Valor" style="width:80px; text-align:right">
 					<h:outputText value="#{venda.precoTotal}" >
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
 					</h:outputText>

@@ -7,6 +7,7 @@ YmVlYjE4NzM7ZGF0YXNhbGxlcy5mb3JuZWNlZG9yIEFTICwyMDMsODAsMzI1YjU5ZjEtODk5MS00
 ZDE3LTg2MGQtODcyMTc3OWY2NDY1Ow==]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data Adapter "/>
+	<parameter name="BANNER" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT datasalles.produto.descricao,
 	datasalles.fornecedor.descricao,
@@ -42,7 +43,7 @@ FROM datasalles.produto
 		<band height="90" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="0" y="0" width="120" height="90" uuid="9477dcb7-e89b-4f3a-a3b8-de6986f25eb4"/>
-				<imageExpression><![CDATA["/img/Logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="130" y="20" width="370" height="50" uuid="0440bb9a-109f-4ab7-9555-6be332912887"/>
