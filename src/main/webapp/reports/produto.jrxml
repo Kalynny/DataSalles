@@ -7,7 +7,7 @@ YmVlYjE4NzM7ZGF0YXNhbGxlcy5mb3JuZWNlZG9yIEFTICwyMDMsODAsMzI1YjU5ZjEtODk5MS00
 ZDE3LTg2MGQtODcyMTc3OWY2NDY1Ow==]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data Adapter "/>
-	<parameter name="BANNER" class="java.lang.String"/>
+	<parameter name="pLogo" class="java.lang.Object"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT datasalles.produto.descricao,
 	datasalles.fornecedor.descricao,
@@ -41,10 +41,6 @@ FROM datasalles.produto
 	</title>
 	<pageHeader>
 		<band height="90" splitType="Stretch">
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="0" width="120" height="90" uuid="9477dcb7-e89b-4f3a-a3b8-de6986f25eb4"/>
-				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="130" y="20" width="370" height="50" uuid="0440bb9a-109f-4ab7-9555-6be332912887"/>
 				<textElement verticalAlignment="Middle">
@@ -52,6 +48,14 @@ FROM datasalles.produto
 				</textElement>
 				<text><![CDATA[Relátorio de Cadastro de Produtos]]></text>
 			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="2" y="0" width="118" height="60" uuid="fa99ac78-97d8-47d7-a8da-c0240665ea8a"/>
+				<imageExpression><![CDATA["/img/Logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="25" width="50" height="50" uuid="3474eb69-5b5b-40c2-ba8b-70fb869f824c"/>
+				<imageExpression><![CDATA[$P{pLogo}]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -60,7 +64,7 @@ FROM datasalles.produto
 				<reportElement x="0" y="0" width="100" height="20" uuid="70f756ac-d0dd-4ebe-8a4b-819d96d4bed7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c221dbfc-57ba-47ff-8ca2-e65892db483c"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
 				<text><![CDATA[Nome do Produto]]></text>
 			</staticText>
 			<staticText>
@@ -68,20 +72,20 @@ FROM datasalles.produto
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db79a4d3-40fa-4ddb-a618-a4a893d64693"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<text><![CDATA[Quatidade do Produto]]></text>
+				<text><![CDATA[Quat.do Produto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="230" y="0" width="100" height="20" uuid="f29dab26-c672-4899-af4b-6294f1132d27">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d715b30b-6b57-4a7d-897a-51961901235b"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<text><![CDATA[Preço do Produto]]></text>
+				<text><![CDATA[Preço Produto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="330" y="0" width="100" height="22" uuid="c2c456bd-4770-4d4c-9b7e-1e282b9fa55c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="55dde667-3123-4346-b7d2-72c91b26b885"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
 				<text><![CDATA[Fornecedor]]></text>
 			</staticText>
 		</band>

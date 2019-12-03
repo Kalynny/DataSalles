@@ -1,0 +1,9 @@
+.ui-widget, .ui-widget .ui-widget {
+ font-size: 92% !important;
+   
+ }
+ 
+.empresa {  
+    background-image: url("/img/empresa.png") !important;  
+}   
+  

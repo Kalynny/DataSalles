@@ -3,19 +3,15 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.HashMap;
-//import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-//import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-//import org.primefaces.component.datatable.DataTable;
-//import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.datatable.DataTable;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.util.HibernateUtil;
@@ -106,10 +102,11 @@ public class FornecedorBean implements Serializable {
 		@SuppressWarnings("deprecation")
 		 public void impfor(){
 			try {
-				//DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-				//Map<String, Object> filtros = tabela.getFilters();
-
-				String caminho = Faces.getRealPath("/reports/fornecedor.jasper");
+				DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
+				@SuppressWarnings("unused")
+				Map<String, Object> filtros = tabela.getFilters();
+				
+				String caminho = Faces.getRealPath("/reports/cliente.jasper");
 				String banner = Faces.getRealPath("/resources/img/Logo.png");
 				
 				Map<String, Object> parametros = new HashMap<>();
@@ -117,9 +114,7 @@ public class FornecedorBean implements Serializable {
 				parametros.put("BANNER",banner);
 				
 				Connection conexao = HibernateUtil.getConexao();
-
 				JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-
 				JasperViewer view = new JasperViewer(relatorio, false);
 				 view.show();
 
@@ -127,6 +122,6 @@ public class FornecedorBean implements Serializable {
 						Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 						erro.printStackTrace();
 					}
-				}	
+				}
 
 }

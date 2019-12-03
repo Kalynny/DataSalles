@@ -5,10 +5,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
+template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
+<ui:insert name="metadata"/>
 
 <h:outputStylesheet library="css" name="style.css"/>
 	<h:outputScript library="js" name="scripts.js" />
@@ -38,7 +37,7 @@ template="/templates/template.xhtml"
 		</h:panelGrid>
 		<h:panelGrid  >
 			 <p:graphicImage  style="width: 150px; height: 152px;" library="img" name="clientes.png" />
-			 <p:commandButton value="Clientes" actionListener="#{Clientes.impcli}" style="width: 150px;"/>
+			 <p:commandButton value="Clientes" actionListener="#{clienteBean.impcli()}" style="width: 150px;"/>
 			 <f:param name="proacao" value="impcli"/>
 		</h:panelGrid>
        <h:panelGrid >
@@ -58,7 +57,5 @@ template="/templates/template.xhtml"
     	</h:panelGrid>
 	</h:panelGrid>	
    </div>
-   
-</ui:define>
 
 </ui:composition>

@@ -24,7 +24,8 @@ template="/templates/template.xhtml"
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-
+					<p:commandButton value="Imprimir"
+							actionListener="#{clienteBean.impcli()}" />
 				</f:facet>
 
 				<p:column headerText="Nome" filterBy="#{cliente.pessoa.nome}"
