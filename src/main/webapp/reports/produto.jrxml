@@ -7,7 +7,7 @@ YmVlYjE4NzM7ZGF0YXNhbGxlcy5mb3JuZWNlZG9yIEFTICwyMDMsODAsMzI1YjU5ZjEtODk5MS00
 ZDE3LTg2MGQtODcyMTc3OWY2NDY1Ow==]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data Adapter "/>
-	<parameter name="pLogo" class="java.lang.Object"/>
+	<parameter name="BANNER" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT datasalles.produto.descricao,
 	datasalles.fornecedor.descricao,
@@ -49,12 +49,8 @@ FROM datasalles.produto
 				<text><![CDATA[Relátorio de Cadastro de Produtos]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="2" y="0" width="118" height="60" uuid="fa99ac78-97d8-47d7-a8da-c0240665ea8a"/>
-				<imageExpression><![CDATA["/img/Logo.png"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="505" y="25" width="50" height="50" uuid="3474eb69-5b5b-40c2-ba8b-70fb869f824c"/>
-				<imageExpression><![CDATA[$P{pLogo}]]></imageExpression>
+				<reportElement x="2" y="0" width="108" height="88" uuid="cea61447-dac9-44c2-9b24-402180a976b1"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

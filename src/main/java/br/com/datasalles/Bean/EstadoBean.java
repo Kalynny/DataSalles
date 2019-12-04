@@ -101,38 +101,23 @@ public void editar(ActionEvent evento){
 }
 
 @SuppressWarnings("deprecation")
-public void imprimir(){
+public void impest(){
 	try {
 		DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
+		@SuppressWarnings("unused")
 		Map<String, Object> filtros = tabela.getFilters();
-
-		String estNome = (String) filtros.get("nome");
-		String estSigla = (String) filtros.get("sigla");
-
+		
 		String caminho = Faces.getRealPath("/reports/estado.jasper");
-		String banner = Faces.getRealPath("/resources/img/Logo1.png");
+		String banner = Faces.getRealPath("/resources/img/Logo.png");
 		
 		Map<String, Object> parametros = new HashMap<>();
 		
 		parametros.put("BANNER",banner);
 		
-		if (estNome == null) {
-			parametros.put("NOME_ESTADO", "%%");
-		} else {
-			parametros.put("NOME_ESTADO", "%" + estNome + "%");
-		}
-		if (estSigla == null) {
-			parametros.put("SIGLA_ESTADO", "%%");
-		} else {
-			parametros.put("SIGLA_ESTADO", "%" + estSigla + "%");
-		}
-
 		Connection conexao = HibernateUtil.getConexao();
-
 		JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-
 		JasperViewer view = new JasperViewer(relatorio, false);
-		 view.show();
+		view.show();
 
 		} catch (JRException erro) {
 				Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
@@ -140,9 +125,4 @@ public void imprimir(){
 			}
 		}
 
-
-
-
-	
-	
 }

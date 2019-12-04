@@ -106,7 +106,7 @@ public class FornecedorBean implements Serializable {
 				@SuppressWarnings("unused")
 				Map<String, Object> filtros = tabela.getFilters();
 				
-				String caminho = Faces.getRealPath("/reports/cliente.jasper");
+				String caminho = Faces.getRealPath("/reports/fornecedor.jasper");
 				String banner = Faces.getRealPath("/resources/img/Logo.png");
 				
 				Map<String, Object> parametros = new HashMap<>();
@@ -116,7 +116,7 @@ public class FornecedorBean implements Serializable {
 				Connection conexao = HibernateUtil.getConexao();
 				JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 				JasperViewer view = new JasperViewer(relatorio, false);
-				 view.show();
+				view.show();
 
 				} catch (JRException erro) {
 						Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");

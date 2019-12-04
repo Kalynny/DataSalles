@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="838cbbc9-5e9b-4074-9a3c-57e48afb4983">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data Adapter "/>
+	<parameter name="BANNER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT datasalles.estado.nome,
+	datasalles.estado.sigla,
+	datasalles.cidade.nome
+FROM datasalles.cidade
+	INNER JOIN datasalles.estado ON 
+	 datasalles.cidade.estado_codigo = datasalles.estado.codigo 
+ORDER BY datasalles.estado.nome ASC]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sigla"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<field name="COLUMN_3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cidade"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="87">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="2" width="140" height="82" uuid="d923a6ce-8d30-4f95-86f0-5b8598ab5c3a"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="20" width="358" height="41" uuid="bcfd1020-030d-45da-9256-8780dc68e026"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Cadastro de Estados]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="62" y="2" width="156" height="30" uuid="d3ef518a-1778-4efc-a6ea-96d41e122388"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="3" width="113" height="30" uuid="efd3f6c2-3717-46ec-95c3-aaba2dc8c051"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sigla do Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="2" width="173" height="30" uuid="5295c19a-6779-4db3-a08c-36722c0287f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome da Capital]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="1" width="156" height="19" uuid="42f36b44-10cc-41d3-8d82-7784acc9b1b9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="1" width="95" height="19" uuid="3e475ed5-067c-44d4-8311-a031fa9bc97c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="1" width="113" height="19" uuid="344766e4-51bf-41dc-84e5-7ddfe7f6751f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="58" y="2" width="440" height="38" uuid="e7bbee1b-d925-4e74-939c-b0cc2fc85b78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: datasalles@datasalles.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="45" width="178" height="20" uuid="c2bba682-babd-42e9-8fe9-4c3cda921449"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="45" width="80" height="20" uuid="e2c53b89-be8c-4908-9263-6736cef4cc27"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page">
+				<reportElement x="482" y="45" width="70" height="20" uuid="3f471408-9530-4f70-9e6a-5b8e5a0bcfa9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

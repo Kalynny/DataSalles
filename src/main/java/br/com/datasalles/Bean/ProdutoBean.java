@@ -127,15 +127,15 @@ public class ProdutoBean implements Serializable {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void imprimirpro(){
+	@SuppressWarnings({ "deprecation", "unused" })
+	 public void imppro(){
 		try {
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-			@SuppressWarnings("unused")
+			
 			Map<String, Object> filtros = tabela.getFilters();
 			
 			String caminho = Faces.getRealPath("/reports/produto.jasper");
-			String banner = Faces.getRealPath("/resources/img/Logo.jpg");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
 			
 			Map<String, Object> parametros = new HashMap<>();
 			
