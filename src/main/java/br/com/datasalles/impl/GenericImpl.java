@@ -9,5 +9,5 @@ public interface GenericImpl {
 	
 	void salvar(Venda venda, List<ItemVenda> itens);
 	void salvarBoleto(Venda venda, List<ItemVenda> itens);
-
+	
 }

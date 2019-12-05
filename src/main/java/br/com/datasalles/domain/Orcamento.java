@@ -3,13 +3,17 @@ package br.com.datasalles.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -27,6 +31,10 @@ public class Orcamento extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orcamento")
+	private List<ItemOrca> itensOrca;
 
 	public Date getHorario() {
 		return horario;
@@ -59,4 +67,14 @@ public class Orcamento extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public List<ItemOrca> getItensOrca() {
+		return itensOrca;
+	}
+
+	public void setItensOrca(List<ItemOrca> itensOrca) {
+		this.itensOrca = itensOrca;
+	}
+
+		
 }

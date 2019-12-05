@@ -5,71 +5,81 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
+template="/templates/template.xhtml">
 
 <ui:define name="metadata">
 <f:metadata>
-<f:viewAction action="#{vendaBean.listar}" />
+<f:viewAction action="#{orcamentoBean.listar}" />
 </f:metadata>
 </ui:define>
 
 <ui:define name="conteudo">
 
-	<h:form id="formListagem">
-		<p:panel header="Lista de Vendas">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{vendaBean.vendas}" var="venda" rows="12">
+	<h:form >
+		<p:panel header="Orcamento de Vendas">
+			<p:dataTable emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{orcapesquisaBean.orcapesquisas}" var="cursororcamento" rows="12">
 				<f:facet name="header">
-					
 				</f:facet>
 
 				<p:column style="width: 16px;">
 				<p:rowToggler />
 				</p:column>
+				
+				<f:facet name="header">					
+							<p:outputLabel value="Data Inicio:" />
+							<p:calendar pattern="dd/MM/yyyy" value="#{orcapesquisaBean.dataInicio}"/>
+							<p:outputLabel value="Data Fim:" />
+							<p:calendar pattern="dd/MM/yyyy" value="#{orcapesquisaBean.dataFim}"/>
+							<p:commandButton value="pesquisar" actionListener="#{orcapesquisaBean.listarPorData()}" />
+				</f:facet>
 
 
+				<p:column headerText="Codigo" style="text-align: center;">
+					<h:outputText value="#{cursororcamento.codigo}" >
+					</h:outputText>
+				</p:column>
+				
 				<p:column headerText="Data" style="text-align: center;">
-					<h:outputText value="#{venda.horario}" >
+					<h:outputText value="#{cursororcamento.dataDoRecebimento}" >
 					<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Valor" style="text-align: center;">
-					<h:outputText value="#{venda.precoTotal}" >
+					<h:outputText value="#{cursororcamento.valor}" >
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
 					</h:outputText>
 					
 				</p:column>
 				
-				<p:column headerText="Cliente" filterBy="#{venda.cliente.pessoa.nome}"
-					sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
-					<h:outputText value="#{venda.cliente.pessoa.nome}" />
-					
+			<!-- 	<p:column headerText="Cliente" filterBy="#{cursororcamento.cliente.pessoa.nome}"
+					sortBy="#{cursororcamento.cliente.pessoa.nome}" style="text-align: center;">
+					<h:outputText value="#{cursororcamento.cliente.pessoa.nome}" />
 				</p:column>
 				
 				
-				<p:column headerText="Funcionário" filterBy="#{venda.funcionario.pessoa.nome}"
-					sortBy="#{venda.funcionario.pessoa.nome}" style="text-align: center;">
-					<h:outputText value="#{venda.funcionario.pessoa.nome}" />
+				<p:column headerText="Funcionário" filterBy="#{cursororcamento.funcionario.pessoa.nome}"
+					sortBy="#{orcamento.funcionario.pessoa.nome}" style="text-align: center;">
+					<h:outputText value="#{orcamento.funcionario.pessoa.nome}" />
 					
-				</p:column>
+				</p:column> -->
 				
 			<p:rowExpansion>
 			<p:dataTable emptyMessage="Nenhum registro encontrado."	
-			value="#{venda.itensVenda}" var="itemVenda"
+			value="#{orcamento.itensOrca}" var="itemorca"
 			>
 			
 			<p:column  headerText="Produto">
-			<h:outputText value="#{itemVenda.produto.descricao}" />
+			<h:outputText value="#{itemorca.produto.descricao}" />
 			</p:column>
 			
 			<p:column  headerText="Quantidade">
-			<h:outputText value="#{itemVenda.quantidade}" />
+			<h:outputText value="#{itemorca.quantidade}" />
 			</p:column>
 			
 			<p:column  headerText="Valor Unitário">
-			<h:outputText value="#{itemVenda.precoParcial}" />
+			<h:outputText value="#{itemorca.precoParcial}" />
 			</p:column>
 				
 			</p:dataTable>

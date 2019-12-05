@@ -6,14 +6,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
@@ -22,6 +19,7 @@ import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemOrca;
 import br.com.datasalles.domain.Produto;
+
 import br.com.datasalles.domain.Orcamento;
 
 @SuppressWarnings("serial")
@@ -34,6 +32,7 @@ public class orcamentoBean implements Serializable {
 	private List<ItemOrca> itensOrca;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
+	private List<Orcamento> orcamentos;
 
 	public Orcamento getOrcamento() {
 		return orcamento;
@@ -73,6 +72,14 @@ public class orcamentoBean implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+	
+	public List<Orcamento> getOrcamentos() {
+		return orcamentos;
+	}
+
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+		this.orcamentos = orcamentos;
 	}
 
 	@PostConstruct
@@ -209,5 +216,10 @@ public class orcamentoBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a orçamento");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void listar(){
+		OrcamentoDAO dao = new OrcamentoDAO();
+		orcamentos = dao.listar("codigo");
 	}
 }
