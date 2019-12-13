@@ -9,27 +9,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
+
 import br.com.datasalles.dao.ClienteDAO;
-import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
+import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Creceber;
-import br.com.datasalles.domain.Venda;
 import br.com.datasalles.domain.Funcionario;
+import br.com.datasalles.domain.ItemOrca;
 import br.com.datasalles.domain.ItemVenda;
+import br.com.datasalles.domain.Orcamento;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPag;
+import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -48,6 +53,8 @@ public class VendaBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<TipoPag> tipopags;
 	private List<Venda> vendas;
+	
+	
 	
 	
 	public Venda getVenda() {
@@ -112,6 +119,20 @@ public class VendaBean implements Serializable {
 
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
+	}
+	
+	public void importarOrcamento(Orcamento orcamento) {
+		for(ItemOrca rs : orcamento.getItensOrca()) {
+			ItemVenda item = new ItemVenda();
+			item.setPrecoParcial(rs.getPrecoParcial());
+			item.setProduto(rs.getProduto());
+			item.setQuantidade(rs.getQuantidade());
+			item.setVenda(venda);
+				
+			itensVenda.add(item);
+		}
+		
+		
 	}
 		
 	public void novo() {

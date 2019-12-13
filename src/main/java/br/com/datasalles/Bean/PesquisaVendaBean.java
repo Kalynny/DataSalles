@@ -10,24 +10,26 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
-import br.com.datasalles.dao.OrcamentoDAO;
-import br.com.datasalles.domain.Orcamento;
+
+import br.com.datasalles.dao.VendaDAO;
+import br.com.datasalles.domain.Venda;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class PesquisaOrcaBean implements Serializable {
+public class PesquisaVendaBean implements Serializable {
 	
-	private List<Orcamento> orcamentos;
+	private List<Venda> vendas;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
 		
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
+	
+	public List<Venda> getVendas() {
+		return vendas;
 	}
-	public void setOrcamentos(List<Orcamento> orcamentos) {
-		this.orcamentos = orcamentos;
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 	public Date getDataInicio() {
 		return dataInicio;
@@ -50,9 +52,9 @@ public class PesquisaOrcaBean implements Serializable {
 	
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
-		if(orcamentos.size() > 0){
-			for(int i=0; i<orcamentos.size(); i++){
-				valorTotal = valorTotal.add(orcamentos.get(i).getPrecoTotal());
+		if(vendas.size() > 0){
+			for(int i=0; i<vendas.size(); i++){
+				valorTotal = valorTotal.add(vendas.get(i).getPrecoTotal());
 			}
 		}		
 	}
@@ -69,7 +71,6 @@ public class PesquisaOrcaBean implements Serializable {
 		c1.set(Calendar.HOUR, 0);
 		c1.set(Calendar.MINUTE, 0);
 		c1.set(Calendar.SECOND, 0);
-		
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
@@ -84,8 +85,8 @@ public class PesquisaOrcaBean implements Serializable {
 			}
 			
 			valorTotal = new BigDecimal("0");
-			OrcamentoDAO orcamentoDAO = new OrcamentoDAO();			
-			orcamentos = orcamentoDAO.listarPorData(dataInicio, dataFim);
+			VendaDAO vendaDAO = new VendaDAO();			
+			vendas = vendaDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
 			
 		} catch (RuntimeException erro) {

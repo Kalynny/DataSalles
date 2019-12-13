@@ -1,10 +1,14 @@
 package br.com.datasalles.dao;
 
 
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.impl.GenericImpl;
@@ -175,6 +179,20 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 					sessao.close();
 				}
        	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Venda> listarPorData(Date dataInicio, Date dataFim){
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
+		try{
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			consulta.add(Restrictions.between("horario", dataInicio, dataFim));
+			return consulta.list();	
+		}catch(RuntimeException erro){
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}
 
 	
 	

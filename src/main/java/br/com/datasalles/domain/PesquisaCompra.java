@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 
 
 @Entity
-public class PesquisaOrca extends GenericDomain{
+public class PesquisaCompra extends GenericDomain{
 		
 	@JoinColumn(nullable = false)
 	private Venda venda;

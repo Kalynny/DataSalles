@@ -1,15 +1,20 @@
 package br.com.datasalles.dao;
 
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.datasalles.domain.ItemOrca;
 import br.com.datasalles.domain.Orcamento;
 import br.com.datasalles.util.HibernateUtil;
 
 public class OrcamentoDAO extends GenericDAO<Orcamento> {
+	
 	public void salvar(Orcamento orcamento, List<ItemOrca> itensOrca){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
@@ -37,5 +42,20 @@ public class OrcamentoDAO extends GenericDAO<Orcamento> {
 				sessao.close();
 			}
 		}
+
+	
+	@SuppressWarnings("unchecked")
+	public List<Orcamento> listarPorData(Date dataInicio, Date dataFim){
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
+		try{
+			Criteria consulta = sessao.createCriteria(Orcamento.class);
+			consulta.add(Restrictions.between("horario", dataInicio, dataFim));
+			return consulta.list();	
+		}catch(RuntimeException erro){
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}
 }
 

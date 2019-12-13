@@ -10,24 +10,27 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
-import br.com.datasalles.dao.OrcamentoDAO;
-import br.com.datasalles.domain.Orcamento;
+
+import br.com.datasalles.dao.CompraDAO;
+import br.com.datasalles.domain.Compra;
+
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class PesquisaOrcaBean implements Serializable {
+public class PesquisaCompraBean implements Serializable {
 	
-	private List<Orcamento> orcamentos;
+	private List<Compra> compras;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
 		
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
+		
+	public List<Compra> getCompras() {
+		return compras;
 	}
-	public void setOrcamentos(List<Orcamento> orcamentos) {
-		this.orcamentos = orcamentos;
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
 	}
 	public Date getDataInicio() {
 		return dataInicio;
@@ -50,9 +53,9 @@ public class PesquisaOrcaBean implements Serializable {
 	
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
-		if(orcamentos.size() > 0){
-			for(int i=0; i<orcamentos.size(); i++){
-				valorTotal = valorTotal.add(orcamentos.get(i).getPrecoTotal());
+		if(compras.size() > 0){
+			for(int i=0; i<compras.size(); i++){
+				valorTotal = valorTotal.add(compras.get(i).getPrecoTotal());
 			}
 		}		
 	}
@@ -69,7 +72,6 @@ public class PesquisaOrcaBean implements Serializable {
 		c1.set(Calendar.HOUR, 0);
 		c1.set(Calendar.MINUTE, 0);
 		c1.set(Calendar.SECOND, 0);
-		
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
@@ -84,8 +86,8 @@ public class PesquisaOrcaBean implements Serializable {
 			}
 			
 			valorTotal = new BigDecimal("0");
-			OrcamentoDAO orcamentoDAO = new OrcamentoDAO();			
-			orcamentos = orcamentoDAO.listarPorData(dataInicio, dataFim);
+			CompraDAO compraDAO = new CompraDAO();			
+			compras = compraDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
 			
 		} catch (RuntimeException erro) {

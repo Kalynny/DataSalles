@@ -232,7 +232,7 @@ public class AvariaBean implements Serializable {
 			
 			Messages.addGlobalInfo("Avaria realizada com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a avaria");
+			Messages.addGlobalError("Quantidade da Avaria insuficiente");
 			erro.printStackTrace();
 		}
 	}

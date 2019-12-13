@@ -3,9 +3,12 @@ package br.com.datasalles.dao;
 
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.Produto;
@@ -132,6 +135,20 @@ public class CompraDAO extends GenericDAO<Compra> {
 		}
 			
 		}
+	
+		@SuppressWarnings("unchecked")
+		public List<Compra> listarPorData(Date dataInicio, Date dataFim){
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
+			try{
+				Criteria consulta = sessao.createCriteria(Compra.class);
+				consulta.add(Restrictions.between("atual", dataInicio, dataFim));
+				return consulta.list();	
+			}catch(RuntimeException erro){
+				throw erro;
+			}finally {
+				sessao.close();
+			}
+	}
 		
 	
 }
