@@ -375,5 +375,12 @@ public class CompraBean implements Serializable {
 	}
 		
 	}
+	
+	public void editar(ActionEvent evento){
+		compra = (Compra) evento.getComponent().getAttributes().get("compraSelecionado");
+	}
+	
+	
+	
 
 }

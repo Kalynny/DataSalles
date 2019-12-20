@@ -18,6 +18,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Orcamento extends GenericDomain {
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;

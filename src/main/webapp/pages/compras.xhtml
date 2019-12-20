@@ -10,11 +10,14 @@ template="/templates/template.xhtml">
 <ui:define name="conteudo">
 
 	<h:form id="formulario">
-		<p:panel header="Pedido de Compras">
+		<p:panel header="Pedido de Compras" >
+		<p:button value="voltar" outcome="/pages/pesquisaC.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{compraBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
+				
+				
 
 				<p:column headerText="Descrição">
 					<h:outputText value="#{produto.descricao}" />
@@ -113,19 +116,19 @@ template="/templates/template.xhtml">
 		</p:panel>
 
 		<p:panel header="Finalização">
-			<h:panelGrid id="painelFinalizacao" columns="3">
+			<h:panelGrid id="painelFinalizacao" columns="5">
 				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{compraBean.compra.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
-				<p:commandButton value="Finalizar"
+				<p:commandButton value="Finalizar" style="margin-right: 790px;"
 					actionListener="#{compraBean.finalizar}"
 					update=":mensagem :formularioFinalizar:painelFinalizar"
 					oncomplete="PF('dialogo').show();">
 					<f:actionListener
-						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"  />
 				</p:commandButton>
-
+				
 			</h:panelGrid>
 		</p:panel>
 	</h:form>

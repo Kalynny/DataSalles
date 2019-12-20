@@ -13,6 +13,7 @@ template="/templates/template.xhtml"
 
 	<h:form id="formulario">
 		<p:panel header="Orçamento de Vendas">
+		<p:button value="voltar" outcome="/pages/pesquisaO.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{orcamentoBean.produtos}" var="produto" rows="5"

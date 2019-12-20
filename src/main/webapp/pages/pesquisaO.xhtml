@@ -24,13 +24,13 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header">
-						<p:outputLabel value="Data Inicio:" />
+					<f:facet name="header" >
+						<p:outputLabel value="Data Inicio:" style="text-align: center;"/>
 						<p:calendar pattern="dd/MM/yyyy"
-							value="#{pesquisaOrcaBean.dataInicio}" style="margin: 0 7px;" />
+							value="#{pesquisaOrcaBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="dd/MM/yyyy"
-							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 7px;" />
+							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 9px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
 						<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form"  />
@@ -62,13 +62,13 @@
 
 					<p:column headerText="Funcionário"
 						filterBy="#{orca.funcionario.pessoa.nome}"
-						sortBy="#{orcao.funcionario.pessoa.nome}"
+						sortBy="#{orca.funcionario.pessoa.nome}"
 						style="text-align: center;">
 						<h:outputText value="#{orca.funcionario.pessoa.nome}" />
 					</p:column>
 					
 					<p:column headerText="">
-					<p:commandButton value="Import" actionListener="#{vendaBean.importarOrcamento(ItemOrca)}" />
+					<p:commandButton value="Import" action="#{pesquisaOrcaBean.importarOrcamento(orca.codigo)}" />
 					</p:column>
 
 					<p:rowExpansion>

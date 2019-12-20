@@ -14,7 +14,7 @@
 
 	<ui:define name="conteudo">
 
-		<h:form>
+		<h:form id="formCadastro">
 			<p:panel header="Orcamento de Vendas">
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaCompraBean.compras}" var="compra"
@@ -37,8 +37,7 @@
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
-						<h:outputText value="#{compra.codigo}">
-						</h:outputText>
+						<h:outputText value="#{compra.codigo}"/>
 					</p:column>
 
 					<p:column headerText="Data" style="text-align: center;">

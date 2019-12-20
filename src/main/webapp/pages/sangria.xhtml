@@ -21,11 +21,11 @@
 				paginator="false" value="#{sangriaBean.sangria}" var="sangria" rows="5">
 					
 					
-					<f:facet name="header">
+					<!--<f:facet name="header">
 						<p:commandButton value="Sangria do caixa"
 						 oncomplete="PF('dialogo').show();"
 						 update=":form"/>
-					</f:facet>
+					</f:facet> -->
 					
 					<p:column headerText="sangria">
 						<h:outputText value="#{sangria.sangria}" />
@@ -36,7 +36,6 @@
 			</p:panel>
 		</h:form>
 		
-		<!--  janela de dialogo com prime faces para CC -->
 		<p:dialog widgetVar="dialogo" header="Sacar sangria do sistema"
 			closable="false" modal="true" resizable="false">
 			<h:form id="form">
@@ -53,7 +52,7 @@
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</p:inputText>
 						
-		 			<h:commandButton actionListener="#{sangriaBean.sacarsangria()}"  oncomplete="PF('dialogo').hide();"  update=":formTabela :mensagem" value="Finalizar"/>
+		 			<h:commandButton actionListener="#{sangriaBean.sacarsangria}"  oncomplete="PF('dialogo').hide();"  update=":formTabela :mensagem" value="Finalizar"/>
 		 			<h:commandButton oncomplete="PF('dialogo').hide();" value="Cancelar"/>
 				</h:panelGrid>
 			</h:form>

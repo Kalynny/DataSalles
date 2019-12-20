@@ -37,14 +37,14 @@ public class SangriaBean implements Serializable{
 	}
 	
 	
-	//preenche uma lista com registro de estados
-		@PostConstruct // essa anotation diz que o metodo tem que disparar no momento em que a tela é criada 
+	
+		@PostConstruct 
 		public void listar(){
 			valorInformado = new BigDecimal("0");
 			try{
 				sangria = null;
 				SangriaDAO sangriaDAO = new SangriaDAO();
-				sangria = sangriaDAO.buscar(1l);
+				sangria = sangriaDAO.busca;
 			} catch (RuntimeException erro) {
 				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o sangria");
 				erro.printStackTrace();

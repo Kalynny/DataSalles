@@ -3,16 +3,16 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
-//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -20,9 +20,9 @@ import org.hibernate.Session;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
-
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
+import br.com.datasalles.dao.OrcamentoDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
@@ -122,18 +122,27 @@ public class VendaBean implements Serializable {
 	}
 	
 	public void importarOrcamento(Orcamento orcamento) {
-		for(ItemOrca rs : orcamento.getItensOrca()) {
-			ItemVenda item = new ItemVenda();
-			item.setPrecoParcial(rs.getPrecoParcial());
-			item.setProduto(rs.getProduto());
-			item.setQuantidade(rs.getQuantidade());
-			item.setVenda(venda);
+						
+		try {
+					
+			for(ItemOrca rs : orcamento.getItensOrca()) {
 				
-			itensVenda.add(item);
+				ItemVenda item = new ItemVenda();
+				item.setPrecoParcial(rs.getPrecoParcial());
+				item.setProduto(rs.getProduto());
+				item.setQuantidade(rs.getQuantidade());
+				item.setVenda(venda);
+					
+				itensVenda.add(item);
+			}
+			
+			calcular();
+		
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar a importação");
+			erro.printStackTrace();
 		}
-		
-		
-	}
+    }
 		
 	public void novo() {
 		try {
@@ -145,6 +154,24 @@ public class VendaBean implements Serializable {
 
 			itensVenda = new ArrayList<>();
 			tipopags = new ArrayList<>();
+			
+			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			String orcamentoCodigo = request.getParameter("orcamento");
+			if(orcamentoCodigo!=null) {
+				try {
+					
+					OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
+					Long cod = Long.parseLong(orcamentoCodigo);
+					
+					importarOrcamento(orcamentoDAO.buscar(cod));
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			erro.printStackTrace();

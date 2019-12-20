@@ -17,6 +17,7 @@ template="/templates/template.xhtml">
 
 	<h:form id="formulario">
 		<p:panel header="Pedido de Vendas">
+		<p:button value="voltar" outcome="/pages/pesquisaV.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{vendaBean.produtos}" var="produto" rows="5"
