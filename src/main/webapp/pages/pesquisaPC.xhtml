@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewAction action="#{pesquisaPCompraBean.init}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="formCadastro">
+			<p:panel header="Pedido de Compras">
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{pesquisaPCompraBean.pedcompras}" var="pedcompras"
+					rows="12">
+
+					<p:column style="width: 16px;">
+						<p:rowToggler />
+					</p:column>
+
+					<f:facet name="header">
+						<p:outputLabel value="Data Inicio:" />
+						<p:calendar pattern="dd/MM/yyyy"
+							value="#{pesquisaPCompraBean.dataInicio}" style="margin: 0 7px;" />
+						<p:outputLabel value="Data Fim:" />
+						<p:calendar pattern="dd/MM/yyyy"
+							value="#{pesquisaPCompraBean.dataFim}" style="margin: 0 7px;" />
+						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+							actionListener="#{pesquisaPCompraBean.listar}" update="@form" />
+						<p:button value="Novo" outcome="/pages/pedcompra.xhtml" update="@form"  />
+					</f:facet>
+
+					<p:column headerText="Codigo" style="text-align: center;">
+						<h:outputText value="#{pedcompra.codigo}"/>
+					</p:column>
+
+					<p:column headerText="Data" style="text-align: center;">
+						<h:outputText value="#{pedcompra.atual}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor" style="text-align: center;">
+						<h:outputText value="#{pedcompra.precoTotal}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Fornecedor"
+						filterBy="#{pedcompra.fornecedor.descricao}"
+						sortBy="#{pedcompra.fornecedor.descricao}" style="text-align: center;">
+						<h:outputText value="#{pedcompra.fornecedor.descricao}" />
+					</p:column>
+
+
+					<p:column headerText="Funcionário"
+						filterBy="#{pedcompra.funcionario.pessoa.nome}"
+						sortBy="#{pedcomprao.funcionario.pessoa.nome}"
+						style="text-align: center;">
+						<h:outputText value="#{pedcompra.funcionario.pessoa.nome}" />
+					</p:column>
+					
+					<p:rowExpansion>
+						<p:dataTable emptyMessage="Nenhum registro encontrado."
+							value="#{pedcompras.itensPedcompra}" var="itemPedcompra">
+
+							<p:column headerText="Produto">
+								<h:outputText value="#{itemPedcompra.produto.descricao}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{itemPedcompra.quantidade}" />
+							</p:column>
+
+							<p:column headerText="Valor Unitário">
+								<h:outputText value="#{itemPedcompra.precoParcial}" />
+							</p:column>
+	
+						</p:dataTable>
+					</p:rowExpansion>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

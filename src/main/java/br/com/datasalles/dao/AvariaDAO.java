@@ -2,10 +2,12 @@
 package br.com.datasalles.dao;
 
 
+import java.util.Date;
 import java.util.List;
-
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import br.com.datasalles.domain.ItemAvaria;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.Avaria;
@@ -49,6 +51,20 @@ public class AvariaDAO extends GenericDAO<Avaria> {
 				} finally {
 				sessao.close();
 			}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Avaria> listarPorData(Date dataInicio, Date dataFim){
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
+		try{
+			Criteria consulta = sessao.createCriteria(Avaria.class);
+			consulta.add(Restrictions.between("horario", dataInicio, dataFim));
+			return consulta.list();	
+		}catch(RuntimeException erro){
+			throw erro;
+		}finally {
+			sessao.close();
+		}
 	}
 }
 

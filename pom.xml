@@ -4,15 +4,7 @@
 <artifactId>Datasalles</artifactId>
 <version>1.0</version>
 <packaging>war</packaging>
-
-   <repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>Prime Repo</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-	</repositories>
-  
+     
   <!-- Codificação dos caracteres -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
