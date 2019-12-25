@@ -27,7 +27,7 @@
 							actionListener="#{fornecedorBean.impfor()}" />
 					</f:facet>
 
-					<p:column headerText="Código" sortBy="#{fornecedor.codigo}">
+					<p:column headerText="Código" style="width:40px;">
 						<h:outputText value="#{fornecedor.codigo}" />
 					</p:column>
 
@@ -40,9 +40,16 @@
 						sortBy="#{fornecedor.cnpj}" filterBy="#{fornecedor.cnpj}">
 						<h:outputText value="#{fornecedor.cnpj}" />
 					</p:column>
-					<p:column headerText="Insc. Estadual" style="text-align:center"
-						filterBy="#{fornecedor.ie}">
+					<p:column headerText="Insc. Estadual" style="text-align:center">
 						<h:outputText value="#{fornecedor.ie}" />
+					</p:column>
+					
+					<p:column headerText="Telefone" style="text-align:center">
+						<h:outputText value="#{fornecedor.fone}" />
+					</p:column>
+					
+					<p:column headerText="E-mail" style="text-align:rigth">
+						<h:outputText value="#{fornecedor.email}" />
 					</p:column>
 
 					<p:column headerText="Opções" style="text-align:center">

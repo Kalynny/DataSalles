@@ -10,18 +10,32 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Produto extends GenericDomain {
+	@Column(length = 13, nullable = false)
+	private String codbarras;
+	
 	@Column(length = 80, nullable = false)
 	private String descricao;
 	
 	@Column(nullable = false)
 	private Short quantidade;
 	
+	@Column(nullable = false)
+	private Short marckup;
+	
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal preco;
-	
+			
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Fornecedor fornecedor;
+	
+	public String getCodbarras() {
+		return codbarras;
+	}
+
+	public void setCodbarras(String codbarras) {
+		this.codbarras = codbarras;
+	}
 
 	public String getDescricao() {
 		return descricao;
@@ -37,6 +51,14 @@ public class Produto extends GenericDomain {
 
 	public void setQuantidade(Short quantidade) {
 		this.quantidade = quantidade;
+	}
+		
+	public Short getMarckup() {
+		return marckup;
+	}
+
+	public void setMarckup(Short marckup) {
+		this.marckup = marckup;
 	}
 
 	public BigDecimal getPreco() {
@@ -54,4 +76,7 @@ public class Produto extends GenericDomain {
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
+
+	
+		
 }

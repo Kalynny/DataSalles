@@ -55,14 +55,18 @@
 
 					<p:column headerText="Cliente"
 						filterBy="#{venda.cliente.pessoa.nome}"
-						sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
+						style="text-align: center;">
 						<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					</p:column>
-
+					
+					<p:column headerText="Tipo de Pagamento"
+						filterBy="#{venda.tipopag.descricao}"
+						style="text-align: center;">
+						<h:outputText value="#{venda.tipopag.descricao}" />
+					</p:column>
 
 					<p:column headerText="Funcionário"
 						filterBy="#{venda.funcionario.pessoa.nome}"
-						sortBy="#{venda.funcionario.pessoa.nome}"
 						style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					</p:column>

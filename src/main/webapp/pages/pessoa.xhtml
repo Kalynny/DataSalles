@@ -14,7 +14,7 @@ template="/templates/template.xhtml"
 	<h:form id="formListagem">
 		<p:panel header="Lista de Pessoas">
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{pessoaBean.pessoas}" var="pessoa" rows="5">
+				paginator="true" value="#{pessoaBean.pessoas}" var="pessoa" rows="10">
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
 						oncomplete="PF('dialogo').show();"

@@ -32,7 +32,7 @@ public class ProdutoBean implements Serializable {
 	private Produto  produto;
 	private List<Produto> produtos;
 	private List<Fornecedor> fornecedor;
-	
+		
 	public Produto getProduto() {
 		return produto;
 	}
@@ -40,7 +40,7 @@ public class ProdutoBean implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-
+		
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -56,6 +56,7 @@ public class ProdutoBean implements Serializable {
 	public void setFornecedor(List<Fornecedor> fornecedor) {
 		this.fornecedor = fornecedor;
 	}
+	
 
 	@PostConstruct
 	public void listar() {
@@ -71,7 +72,7 @@ public class ProdutoBean implements Serializable {
 	public void novo() {
 		try {
 			produto = new Produto();
-
+			
 			FornecedorDAO fabricanteDAO = new FornecedorDAO();
 			fornecedor = fabricanteDAO.listar();
 		} catch (RuntimeException erro) {
@@ -83,7 +84,8 @@ public class ProdutoBean implements Serializable {
 	public void editar(ActionEvent evento){
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
+			
+			
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedor = fornecedorDAO.listar();
 		} catch (RuntimeException erro) {

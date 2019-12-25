@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" 
+	template="/templates/template.xhtml">
 
 	<ui:define name="metadata">
 		<f:metadata>
@@ -15,7 +16,8 @@
 	<ui:define name="conteudo">
 
 		<h:form>
-			<p:panel header="Orcamento de Vendas">
+			<p:panel columns="2" header="Orcamento de Vendas">
+				<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form"  />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaBean.orcamentos}" var="orca"
 					rows="12">
@@ -24,16 +26,16 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header" >
-						<p:outputLabel value="Data Inicio:" style="text-align: center;"/>
-						<p:calendar pattern="dd/MM/yyyy"
+					<f:facet name="header" style="text-align: center;">
+						<p:outputLabel value="Data Inicio:" />
+						<p:calendar pattern="     dd/MM/yyyy"
 							value="#{pesquisaOrcaBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="     dd/MM/yyyy"
 							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 9px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form"  />
+						
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
@@ -75,15 +77,15 @@
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{orca.itensOrca}" var="itemorca">
 
-							<p:column headerText="Produto">
+							<p:column headerText="Produto" style="text-align: center;">
 								<h:outputText value="#{itemorca.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade">
+							<p:column headerText="Quantidade" style="text-align: center;">
 								<h:outputText value="#{itemorca.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário">
+							<p:column headerText="Valor Unitário" style="text-align: center;">
 								<h:outputText value="#{itemorca.precoParcial}" />
 							</p:column>
 	
