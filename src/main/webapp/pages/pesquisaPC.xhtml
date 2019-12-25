@@ -26,10 +26,10 @@
 
 					<f:facet name="header">
 						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaPCompraBean.dataInicio}" style="margin: 0 7px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaPCompraBean.dataFim}" style="margin: 0 7px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaPCompraBean.listar}" update="@form" />

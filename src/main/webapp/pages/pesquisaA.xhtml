@@ -26,10 +26,10 @@
 
 					<f:facet name="header">
 						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaAvariaBean.dataInicio}" style="margin: 0 7px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaAvariaBean.dataFim}" style="margin: 0 7px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaAvariaBean.listar}" update="@form" />
@@ -73,11 +73,11 @@
 								<h:outputText value="#{itemavaria.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade">
+							<p:column headerText="Quantidade" style="text-align:center">
 								<h:outputText value="#{itemavaria.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário">
+							<p:column headerText="Valor Unitário" style="text-align:center">
 								<h:outputText value="#{itemavaria.precoParcial}" />
 							</p:column>
 	

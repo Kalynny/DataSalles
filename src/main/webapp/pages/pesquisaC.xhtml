@@ -26,10 +26,10 @@
 
 					<f:facet name="header">
 						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaCompraBean.dataInicio}" style="margin: 0 7px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="dd/MM/yyyy"
+						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaCompraBean.dataFim}" style="margin: 0 7px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaCompraBean.listar}" update="@form" />
@@ -74,12 +74,13 @@
 								<h:outputText value="#{itemcompra.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade">
+							<p:column headerText="Quantidade"  style="text-align:center">
 								<h:outputText value="#{itemcompra.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário">
+							<p:column headerText="Valor Unitário"  style="text-align:center">
 								<h:outputText value="#{itemcompra.precoParcial}" />
+								
 							</p:column>
 	
 						</p:dataTable>

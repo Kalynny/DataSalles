@@ -32,6 +32,8 @@
 		<property name="hbm2ddl.auto">update</property>
 		
 		<!-- Mapeamento das tabelas -->
+		<mapping class="br.com.datasalles.domain.PedCompra" />
+		<mapping class="br.com.datasalles.domain.ItemPedCompra" />
 		<mapping class="br.com.datasalles.domain.Estado" />
 		<mapping class="br.com.datasalles.domain.Cidade" />
 		<mapping class="br.com.datasalles.domain.Produto" />

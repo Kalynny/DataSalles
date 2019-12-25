@@ -66,23 +66,23 @@ template="/templates/template.xhtml">
 					<h:outputText value="#{itemOrca.produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço Un.">
+				<p:column headerText="Preço Un." style="text-align:center">
 					<h:outputText value="#{itemOrca.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Qtde.">
+				<p:column headerText="Qtde."  style="text-align:center">
 					<h:outputText value="#{itemOrca.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço Parcial">
+				<p:column headerText="Preço Parcial"  style="text-align:center">
 					<h:outputText value="#{itemOrca.precoParcial}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções"  style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
 						actionListener="#{orcamentoBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">

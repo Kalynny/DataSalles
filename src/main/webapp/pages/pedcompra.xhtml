@@ -16,9 +16,7 @@ template="/templates/template.xhtml">
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{pedCompraBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
-				
-				
-
+		
 				<p:column headerText="Descrição">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
