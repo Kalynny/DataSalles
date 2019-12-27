@@ -15,13 +15,11 @@ import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.PedCompraDAO;
 import br.com.datasalles.dao.ProdutoDAO;
-import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemPedCompra;
-import br.com.datasalles.domain.PedCompra;
 import br.com.datasalles.domain.Produto;
-
+import br.com.datasalles.domain.PedCompra;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -30,12 +28,11 @@ public class PedCompraBean implements Serializable {
 	
 	private PedCompra pedcompra;
 	private List<Produto> produtos;
-	private List<ItemPedCompra> itenspedcompra;
-	private List<Cliente> clientes;
+	private List<ItemPedCompra> itensPedcompra;
 	private List<Fornecedor> fornecedores;
 	private List<Funcionario> funcionarios;
 	private List<PedCompra> pedcompras;
-
+	
 	public PedCompra getPedcompra() {
 		return pedcompra;
 	}
@@ -44,12 +41,12 @@ public class PedCompraBean implements Serializable {
 		this.pedcompra = pedcompra;
 	}
 
-	public List<ItemPedCompra> getItenspedcompra() {
-		return itenspedcompra;
+	public List<ItemPedCompra> getItensPedcompra() {
+		return itensPedcompra;
 	}
 
-	public void setItenspedcompra(List<ItemPedCompra> itenspedcompra) {
-		this.itenspedcompra = itenspedcompra;
+	public void setItensPedcompra(List<ItemPedCompra> itensPedcompra) {
+		this.itensPedcompra = itensPedcompra;
 	}
 
 	public List<PedCompra> getPedcompras() {
@@ -67,13 +64,13 @@ public class PedCompraBean implements Serializable {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
+	
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
 	}
 
 	public List<Funcionario> getFuncionarios() {
@@ -84,14 +81,6 @@ public class PedCompraBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 	
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
-	}
-
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
-	}
-
 	@PostConstruct
 	public void novo() {
 		try {
@@ -101,9 +90,9 @@ public class PedCompraBean implements Serializable {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
-			itenspedcompra = new ArrayList<>();
+			itensPedcompra = new ArrayList<>();
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de Pedido de Compras");
+			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de PedCompras");
 			erro.printStackTrace();
 		}
 	}
@@ -112,23 +101,23 @@ public class PedCompraBean implements Serializable {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 		int achou = -1;
-		for (int posicao = 0; posicao < itenspedcompra.size(); posicao++) {
-			if (itenspedcompra.get(posicao).getProduto().equals(produto)) {
+		for (int posicao = 0; posicao < itensPedcompra.size(); posicao++) {
+			if (itensPedcompra.get(posicao).getProduto().equals(produto)) {
 				achou = posicao;
 			}
 		}
 
 		if (achou < 0) {
-			ItemPedCompra itempedcompra = new ItemPedCompra();
-			itempedcompra.setPrecoParcial(produto.getPreco());
-			itempedcompra.setProduto(produto);
-			itempedcompra.setQuantidade(new Short("1"));
+			ItemPedCompra itemPedcompra = new ItemPedCompra();
+			itemPedcompra.setPrecoParcial(produto.getPreco());
+			itemPedcompra.setProduto(produto);
+			itemPedcompra.setQuantidade(new Short("1"));
 
-			itenspedcompra.add(itempedcompra);
+			itensPedcompra.add(itemPedcompra);
 		} else {
-			ItemPedCompra itempedcompra = itenspedcompra.get(achou);
-			itempedcompra.setQuantidade(new Short(itempedcompra.getQuantidade() + 1 + ""));
-			itempedcompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itempedcompra.getQuantidade())));
+			ItemPedCompra itemPedCompra = itensPedcompra.get(achou);
+			itemPedCompra.setQuantidade(new Short(itemPedCompra.getQuantidade() + 1 + ""));
+			itemPedCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemPedCompra.getQuantidade())));
 		}
 
 		calcular();
@@ -138,40 +127,40 @@ public class PedCompraBean implements Serializable {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 		int achou = -1;
-		for (int posicao = 0; posicao < itenspedcompra.size(); posicao++) {
-			if (itenspedcompra.get(posicao).getProduto().equals(produto)) {
+		for (int posicao = 0; posicao < itensPedcompra.size(); posicao++) {
+			if (itensPedcompra.get(posicao).getProduto().equals(produto)) {
 				achou = posicao;
 			}
 		}
 
 		if (achou < 0) {
-			ItemPedCompra itempedcompra = new ItemPedCompra();
-			itempedcompra.setPrecoParcial(produto.getPreco());
-			itempedcompra.setProduto(produto);
-			itempedcompra.setQuantidade(new Short("1"));
+			ItemPedCompra itemPedCompra = new ItemPedCompra();
+			itemPedCompra.setPrecoParcial(produto.getPreco());
+			itemPedCompra.setProduto(produto);
+			itemPedCompra.setQuantidade(new Short("1"));
 
-			itenspedcompra.add(itempedcompra);
+			itensPedcompra.add(itemPedCompra);
 		} else {
-			ItemPedCompra itempedcompra = itenspedcompra.get(achou);
-			itempedcompra.setQuantidade(new Short(itempedcompra.getQuantidade() - 1 + ""));
-			itempedcompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itempedcompra.getQuantidade())));
+			ItemPedCompra itemPedCompra = itensPedcompra.get(achou);
+			itemPedCompra.setQuantidade(new Short(itemPedCompra.getQuantidade() - 1 + ""));
+			itemPedCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemPedCompra.getQuantidade())));
 		}
 
 		calcular();
 	}
 
 	public void remover(ActionEvent evento) {
-		ItemPedCompra itempedcompra = (ItemPedCompra) evento.getComponent().getAttributes().get("itemSelecionado");
+		ItemPedCompra itemPedCompra = (ItemPedCompra) evento.getComponent().getAttributes().get("itemSelecionado");
 
 		int achou = -1;
-		for (int posicao = 0; posicao < itenspedcompra.size(); posicao++) {
-			if (itenspedcompra.get(posicao).getProduto().equals(itempedcompra.getProduto())) {
+		for (int posicao = 0; posicao < itensPedcompra.size(); posicao++) {
+			if (itensPedcompra.get(posicao).getProduto().equals(itemPedCompra.getProduto())) {
 				achou = posicao;
 			}
 		}
 
 		if (achou > -1) {
-			itenspedcompra.remove(achou);
+			itensPedcompra.remove(achou);
 		}
 
 		calcular();
@@ -180,26 +169,25 @@ public class PedCompraBean implements Serializable {
 	public void calcular() {
 		pedcompra.setPrecoTotal(new BigDecimal("0.00"));
 
-		for (int posicao = 0; posicao < itenspedcompra.size(); posicao++) {
-			ItemPedCompra itempedcompra = itenspedcompra.get(posicao);
-			pedcompra.setPrecoTotal(pedcompra.getPrecoTotal().add(itempedcompra.getPrecoParcial()));
+		for (int posicao = 0; posicao < itensPedcompra.size(); posicao++) {
+			ItemPedCompra itemPedCompra = itensPedcompra.get(posicao);
+			pedcompra.setPrecoTotal(pedcompra.getPrecoTotal().add(itemPedCompra.getPrecoParcial()));
 		}
 	}
 
 	public void finalizar() {
 		try {
-			pedcompra.setAtual(new Date());
+			pedcompra.setHorario(new Date());
 			pedcompra.setFornecedor(null);
 			pedcompra.setFuncionario(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
-			
+
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
-			fornecedores = fornecedorDAO.listar();
-			
+			fornecedores = fornecedorDAO.listarOrdenado();
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar o Pedido de Compras");
+			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a pedcompra");
 			erro.printStackTrace();
 		}
 	}
@@ -207,12 +195,12 @@ public class PedCompraBean implements Serializable {
 	public void salvar() {
 		try {
 			if(pedcompra.getPrecoTotal().signum() == 0){
-				Messages.addGlobalError("Informe pelo menos um item para o Pedido de Compras");
+				Messages.addGlobalError("Informe pelo menos um item para a pedcompra");
 				return;
 			}
 			
 			PedCompraDAO pedcompraDAO = new PedCompraDAO();
-			pedcompraDAO.salvar(pedcompra, itenspedcompra);
+			pedcompraDAO.salvar(pedcompra, itensPedcompra);
 			
 			pedcompra = new PedCompra();
 			pedcompra.setPrecoTotal(new BigDecimal("0.00"));
@@ -220,11 +208,11 @@ public class PedCompraBean implements Serializable {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
-			itenspedcompra = new ArrayList<>();
+			itensPedcompra = new ArrayList<>();
 			
-			Messages.addGlobalInfo("Pedido de Compras realizada com sucesso");
+			Messages.addGlobalInfo("Orçamento realizada com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Pedido de Compras");
+			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a orçamento");
 			erro.printStackTrace();
 		}
 	}
@@ -233,12 +221,4 @@ public class PedCompraBean implements Serializable {
 		PedCompraDAO dao = new PedCompraDAO();
 		pedcompras = dao.listar("codigo");
 	}
-	
-	public void atualizarPrecoParcial(){
-		for(ItemPedCompra itempedcompra : this.itenspedcompra){
-		itempedcompra.setPrecoParcial(itempedcompra.getProduto().getPreco().multiply(new BigDecimal(itempedcompra.getQuantidade())));
-		}
-		this.calcular();
-	}
-	
 }

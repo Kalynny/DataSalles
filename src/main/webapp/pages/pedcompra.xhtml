@@ -7,17 +7,19 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
 template="/templates/template.xhtml">
 
+
 <ui:define name="conteudo">
 
 	<h:form id="formulario">
-		<p:panel header="Pedido de Compras" >
+		<p:panel header="Pedido de Compras">
 		<p:button value="voltar" outcome="/pages/pesquisaPC.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{pedCompraBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
-		
-				<p:column headerText="Descrição">
+
+				<p:column headerText="Descrição"
+					sortBy="#{produto.descricao}">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
@@ -31,7 +33,8 @@ template="/templates/template.xhtml">
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Fornecedor">
+				<p:column headerText="Fornecedor"
+					sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
@@ -46,109 +49,75 @@ template="/templates/template.xhtml">
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
-					
-					
-					
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-		
-		<p:remoteCommand name="rc" 
-		actionListener="#{pedCompraBean.atualizarPrecoParcial}"
-		update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
 
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{pedCompraBean.itenspedcompra}" var="itempedcompra" rows="5"
-				paginatorPosition="bottom"
-				editable="true"
-				editMode="cell">
-				
-				<p:ajax event="cellEdit" oncomplete="rc()" />	
+				value="#{pedCompraBean.itensPedcompra}" var="itemPedcompra" rows="5"
+				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição" >
-					<h:outputText value="#{itempedcompra.produto.descricao}" />
+				<p:column headerText="Descrição">
+					<h:outputText value="#{itemPedcompra.produto.descricao}" />
 				</p:column>
 
 				<p:column headerText="Preço Un." style="text-align:center">
-				<p:cellEditor>
-				<f:facet name="output">
-				<h:inputText value="#{itempedcompra.produto.preco}" style="width:40px; text-align:center">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-				</f:facet>
-				<f:facet name="input">
-				<h:inputText value="#{itempedcompra.produto.preco}" style="width:40px; text-align:center" >
-				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-				</f:facet>
-				</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Qtde." style="text-align:center">
-				<p:cellEditor>
-				<f:facet name="output">
-				<h:inputText value="#{itempedcompra.quantidade}" style="width:30px; text-align:center" />	
-				</f:facet>
-				<f:facet name="input">
-				<h:inputText value="#{itempedcompra.quantidade}" style="width:30px; text-align:center" />
-				</f:facet>
-				</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Preço Parcial" style="text-align: center;">
-					<h:outputText value="#{itempedcompra.precoParcial}">
+					<h:outputText value="#{itemPedcompra.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Qtde."  style="text-align:center">
+					<h:outputText value="#{itemPedcompra.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial"  style="text-align:center">
+					<h:outputText value="#{itemPedcompra.precoParcial}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções"  style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{pedCompraBean.remover}"
+						actionListener="#{Pedcompra.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="itemSelecionado" value="#{itempedcompra}" />
+						<f:attribute name="itemSelecionado" value="#{itemOrca}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 
 		<p:panel header="Finalização">
-			<h:panelGrid id="painelFinalizacao" columns="5">
+			<h:panelGrid id="painelFinalizacao" columns="3">
 				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{pedCompraBean.pedcompra.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
-				<p:commandButton value="Finalizar" style="margin-right: 790px;"
+				<p:commandButton value="Finalizar"
 					actionListener="#{pedCompraBean.finalizar}"
 					update=":mensagem :formularioFinalizar:painelFinalizar"
 					oncomplete="PF('dialogo').show();">
 					<f:actionListener
-						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"  />
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 				</p:commandButton>
-				
+
 			</h:panelGrid>
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Finalizar Pedido de Compra" widgetVar="dialogo"
+	<p:dialog header="Finalizar Pedido de Compras" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
-				<p:outputLabel value="Horário: " style="text-align: center;" />
-				<h:outputText value="#{pedCompraBean.pedcompra.atual}">
-					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+				<p:outputLabel value="Horário: " />
+				<h:outputText value="#{pedCompraBean.pedcompra.horario}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-				
-				<p:outputLabel value="Vencimento: " style="text-align: center;" />
-				<p:calendar id="vencimento"
-					value="#{pedCompraBean.pedcompra.vencimento}" required="true"
-					requiredMessage="O campo 'vencimento' é obrigatório"
-					size="14" pattern="dd/MM/yyyy" 
-					locale="pt_BR" timeZone="America/Sao_Paulo"/>
-								
-				<p:outputLabel value="Total: R$" style="text-align: center;" />
+
+				<p:outputLabel value="Total: R$" />
 				<h:outputText value="#{pedCompraBean.pedcompra.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
@@ -167,17 +136,16 @@ template="/templates/template.xhtml">
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu id="fornecedor" value="#{pedCompraBean.pedcompra.fornecedor}"
+				<p:selectOneMenu value="#{pedCompraBean.pedcompra.fornecedor}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains" required="true">
+					filterMatchMode="contains">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um Fornecedor" />
 					<f:selectItems value="#{pedCompraBean.fornecedores}" var="fornecedor"
 						itemValue="#{fornecedor}"
-						itemLabel="#{fornecedor.descricao}" />
+						itemLabel="#{fornecedor.cnpj} - #{fornecedor.descricao}" />
 				</p:selectOneMenu>
-												
-				
+
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">

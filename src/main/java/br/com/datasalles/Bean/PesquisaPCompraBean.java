@@ -97,4 +97,8 @@ public class PesquisaPCompraBean implements Serializable {
 	
 	}
 	
+	public String importarPedCompra(Long codigo) {
+		return "compras.xhtml?pedcompra="+codigo+"&faces-redirect=true";
+	}
+	
 }

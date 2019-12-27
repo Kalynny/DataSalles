@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" 
+	template="/templates/template.xhtml">
 
 	<ui:define name="metadata">
 		<f:metadata>
@@ -14,34 +15,36 @@
 
 	<ui:define name="conteudo">
 
-		<h:form id="formCadastro">
-			<p:panel header="Pedido de Compras">
+		<h:form>
+			<p:panel columns="2" header="Pedido de Compras">
+				<p:button value="Novo" outcome="/pages/pedcompra.xhtml" update="@form"  />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
-					paginator="true" value="#{pesquisaPCompraBean.pedcompras}" var="pedcompras"
+					paginator="true" value="#{pesquisaPCompraBean.pedcompras}" var="pedcompra"
 					rows="12">
 
 					<p:column style="width: 16px;">
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header">
+					<f:facet name="header" style="text-align: center;">
 						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaPCompraBean.dataInicio}" style="margin: 0 7px;" />
+						<p:calendar pattern="     dd/MM/yyyy"
+							value="#{pesquisaPCompraBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaPCompraBean.dataFim}" style="margin: 0 7px;" />
+						<p:calendar pattern="     dd/MM/yyyy"
+							value="#{pesquisaPCompraBean.dataFim}" style="margin: 0 9px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaPCompraBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/pedcompra.xhtml" update="@form"  />
+						
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
-						<h:outputText value="#{pedcompra.codigo}"/>
+						<h:outputText value="#{pedcompra.codigo}">
+						</h:outputText>
 					</p:column>
 
 					<p:column headerText="Data" style="text-align: center;">
-						<h:outputText value="#{pedcompra.atual}">
+						<h:outputText value="#{pedcompra.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -52,33 +55,32 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Fornecedor"
-						filterBy="#{pedcompra.fornecedor.descricao}"
-						sortBy="#{pedcompra.fornecedor.descricao}" style="text-align: center;">
+					<p:column headerText="Fornecedor" style="text-align: center;">
 						<h:outputText value="#{pedcompra.fornecedor.descricao}" />
 					</p:column>
 
 
-					<p:column headerText="Funcionário"
-						filterBy="#{pedcompra.funcionario.pessoa.nome}"
-						sortBy="#{pedcomprao.funcionario.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{pedcompra.funcionario.pessoa.nome}" />
 					</p:column>
 					
+					<p:column headerText="">
+					<p:commandButton value="Import" action="#{pesquisaPCompraBean.importarPedCompra(pedcompra.codigo)}" />
+					</p:column>
+
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
-							value="#{pedcompras.itensPedcompra}" var="itemPedcompra">
+							value="#{pedcompra.itensPedCompra}" var="itemPedcompra">
 
-							<p:column headerText="Produto">
+							<p:column headerText="Produto" style="text-align: center;">
 								<h:outputText value="#{itemPedcompra.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade">
+							<p:column headerText="Quantidade" style="text-align: center;">
 								<h:outputText value="#{itemPedcompra.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário">
+							<p:column headerText="Valor Unitário" style="text-align: center;">
 								<h:outputText value="#{itemPedcompra.precoParcial}" />
 							</p:column>
 	

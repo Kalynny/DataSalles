@@ -20,13 +20,9 @@ import org.hibernate.annotations.FetchMode;
 public class PedCompra extends GenericDomain {
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date atual;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date horario;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date vencimento;
-		
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
 	
@@ -38,23 +34,15 @@ public class PedCompra extends GenericDomain {
 	private Funcionario funcionario;
 	
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "itempedcompra")
-	private List<ItemPedCompra>itensPedcompra;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pedcompra")
+	private List<ItemPedCompra> itensPedCompra;
 
-	public Date getAtual() {
-		return atual;
+	public Date getHorario() {
+		return horario;
 	}
 
-	public void setAtual(Date atual) {
-		this.atual = atual;
-	}
-
-	public Date getVencimento() {
-		return vencimento;
-	}
-
-	public void setVencimento(Date vencimento) {
-		this.vencimento = vencimento;
+	public void setHorario(Date horario) {
+		this.horario = horario;
 	}
 
 	public BigDecimal getPrecoTotal() {
@@ -65,14 +53,6 @@ public class PedCompra extends GenericDomain {
 		this.precoTotal = precoTotal;
 	}
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -81,13 +61,21 @@ public class PedCompra extends GenericDomain {
 		this.funcionario = funcionario;
 	}
 
-	public List<ItemPedCompra> getItensPedcompra() {
-		return itensPedcompra;
+	public Fornecedor getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setItensPedcompra(List<ItemPedCompra> itensPedcompra) {
-		this.itensPedcompra = itensPedcompra;
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
-				
+	public List<ItemPedCompra> getItensPedCompra() {
+		return itensPedCompra;
+	}
+
+	public void setItensPedCompra(List<ItemPedCompra> itensPedCompra) {
+		this.itensPedCompra = itensPedCompra;
+	}
+
+		
 }

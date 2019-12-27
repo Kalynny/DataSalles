@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ItemPedCompra extends GenericDomain {
+	
 	@Column(nullable = false)
 	private Short quantidade;
 	
@@ -23,7 +24,7 @@ public class ItemPedCompra extends GenericDomain {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private PedCompra pedCompra;
+	private PedCompra pedcompra;
 
 	public Short getQuantidade() {
 		return quantidade;
@@ -49,15 +50,13 @@ public class ItemPedCompra extends GenericDomain {
 		this.produto = produto;
 	}
 
-	public PedCompra getPedCompra() {
-		return pedCompra;
+	public PedCompra getPedcompra() {
+		return pedcompra;
 	}
 
-	public void setPedCompra(PedCompra pedCompra) {
-		this.pedCompra = pedCompra;
+	public void setPedcompra(PedCompra pedcompra) {
+		this.pedcompra = pedcompra;
 	}
 
 		
 }
-
-
