@@ -17,7 +17,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 @Entity
-public class PedCompra extends GenericDomain {
+public class OrcamentoC extends GenericDomain {
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -34,8 +34,8 @@ public class PedCompra extends GenericDomain {
 	private Funcionario funcionario;
 	
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pedcompra")
-	private List<ItemPedCompra> itensPedCompra;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orcamentoc")
+	private List<ItemOrcaC> itensOrcaC;
 
 	public Date getHorario() {
 		return horario;
@@ -53,14 +53,6 @@ public class PedCompra extends GenericDomain {
 		this.precoTotal = precoTotal;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
@@ -69,13 +61,21 @@ public class PedCompra extends GenericDomain {
 		this.fornecedor = fornecedor;
 	}
 
-	public List<ItemPedCompra> getItensPedCompra() {
-		return itensPedCompra;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
-	public void setItensPedCompra(List<ItemPedCompra> itensPedCompra) {
-		this.itensPedCompra = itensPedCompra;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
-		
+	public List<ItemOrcaC> getItensOrcaC() {
+		return itensOrcaC;
+	}
+
+	public void setItensOrcaC(List<ItemOrcaC> itensOrcaC) {
+		this.itensOrcaC = itensOrcaC;
+	}
+	
+			
 }

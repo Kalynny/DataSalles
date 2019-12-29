@@ -32,8 +32,6 @@
 		<property name="hbm2ddl.auto">update</property>
 		
 		<!-- Mapeamento das tabelas -->
-		<mapping class="br.com.datasalles.domain.PedCompra" />
-		<mapping class="br.com.datasalles.domain.ItemPedCompra" />
 		<mapping class="br.com.datasalles.domain.Estado" />
 		<mapping class="br.com.datasalles.domain.Cidade" />
 		<mapping class="br.com.datasalles.domain.Produto" />
@@ -48,7 +46,9 @@
 		<mapping class="br.com.datasalles.domain.Compra" />
 		<mapping class="br.com.datasalles.domain.Avaria" />
 		<mapping class="br.com.datasalles.domain.ItemOrca" />
+		<mapping class="br.com.datasalles.domain.ItemOrcaC" />
 		<mapping class="br.com.datasalles.domain.Orcamento" />
+		<mapping class="br.com.datasalles.domain.OrcamentoC" />
 		<mapping class="br.com.datasalles.domain.Cpagar" />
 		<mapping class="br.com.datasalles.domain.Creceber" />
 		<mapping class="br.com.datasalles.domain.Historico" />

@@ -31,6 +31,7 @@ import br.com.datasalles.util.HibernateUtil;
 @ManagedBean
 @ViewScoped
 public class RecebimentoBean implements Serializable{
+	
 	private List<Venda> vendas;
 	private List<Funcionario> funcionarios;
 	private List<Cliente> clientes;
@@ -133,15 +134,15 @@ public class RecebimentoBean implements Serializable{
 	}
 	
 	
-		//preenche uma lista com registro de estados
-		@PostConstruct // essa anotation diz que o metodo tem que disparar no momento em que a tela é criada 
+		
+		@PostConstruct
 		public void listar(){
 			valorInformado = new BigDecimal("0");
 			valorRecebido = new BigDecimal("0");
 			try{
 				caixa = null;
 				CaixaDAO caixaDAO = new CaixaDAO();
-				caixa = caixaDAO.buscar(1l);
+				caixa = caixaDAO.buscar();
 				
 				pegaValorInicial();
 				
@@ -155,18 +156,10 @@ public class RecebimentoBean implements Serializable{
 		public void editar(ActionEvent evento){
 			try {
 				venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
-				
-				
+								
 				ClienteDAO clienteDAO = new ClienteDAO();
 				clientes = clienteDAO.listar();
-				
-				/*VendaDAO vendaDao = new VendaDAO();
-				venda = vendaDao.buscar(venda.getCodigo()); */
-				
-				//tem q arrumar uma forma de passar o codigo do caixa aq em buscar ... ve se tem n
-				//CaixaDAO caixaDao = new CaixaDAO();
-				//caixaDao./();
-				
+												
 				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 				funcionarios = funcionarioDAO.listar();
 				
@@ -237,7 +230,7 @@ public class RecebimentoBean implements Serializable{
 		      }
 		}
 		
-		//@SuppressWarnings({ "rawtypes", "unused" })
+		
 		@SuppressWarnings({ "rawtypes", "unused" })
 		private BigDecimal carregaValors() {
 			BigDecimal valor = null;

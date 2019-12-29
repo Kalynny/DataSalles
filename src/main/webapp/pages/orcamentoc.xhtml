@@ -11,11 +11,11 @@ template="/templates/template.xhtml">
 <ui:define name="conteudo">
 
 	<h:form id="formulario">
-		<p:panel header="Pedido de Compras">
-		<p:button value="voltar" outcome="/pages/pesquisaPC.xhtml" update="@form" style="margin-left: 960px;" />
+		<p:panel header="Orçamento de Vendas">
+		<p:button value="voltar" outcome="/pages/pesquisaOC.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{pedCompraBean.produtos}" var="produto" rows="5"
+				value="#{orcamentoCBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Descrição"
@@ -40,15 +40,18 @@ template="/templates/template.xhtml">
 
 				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-plus"
-						actionListener="#{pedCompraBean.adicionar}"
+						actionListener="#{orcamentoCBean.adicionar}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{pedCompraBean.subtrair}"
+						actionListener="#{orcamentoCBean.subtrair}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
+					
+					
+					
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -56,34 +59,34 @@ template="/templates/template.xhtml">
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{pedCompraBean.itensPedcompra}" var="itemPedcompra" rows="5"
+				value="#{orcamentoCBean.itensOrcaC}" var="itemOrcaC" rows="5"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Descrição">
-					<h:outputText value="#{itemPedcompra.produto.descricao}" />
+					<h:outputText value="#{itemOrcaC.produto.descricao}" />
 				</p:column>
 
 				<p:column headerText="Preço Un." style="text-align:center">
-					<h:outputText value="#{itemPedcompra.produto.preco}">
+					<h:outputText value="#{itemOrcaC.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Qtde."  style="text-align:center">
-					<h:outputText value="#{itemPedcompra.quantidade}" />
+					<h:outputText value="#{itemOrcaC.quantidade}" />
 				</p:column>
 
 				<p:column headerText="Preço Parcial"  style="text-align:center">
-					<h:outputText value="#{itemPedcompra.precoParcial}">
+					<h:outputText value="#{itemOrcaC.precoParcial}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Opções"  style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{Pedcompra.remover}"
+						actionListener="#{orcamentoCBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="itemSelecionado" value="#{itemOrca}" />
+						<f:attribute name="itemSelecionado" value="#{itemOrcaC}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -92,11 +95,11 @@ template="/templates/template.xhtml">
 		<p:panel header="Finalização">
 			<h:panelGrid id="painelFinalizacao" columns="3">
 				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{pedCompraBean.pedcompra.precoTotal}">
+				<h:outputText value="#{orcamentoCBean.orcamentoC.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 				<p:commandButton value="Finalizar"
-					actionListener="#{pedCompraBean.finalizar}"
+					actionListener="#{orcamentoCBean.finalizar}"
 					update=":mensagem :formularioFinalizar:painelFinalizar"
 					oncomplete="PF('dialogo').show();">
 					<f:actionListener
@@ -107,41 +110,41 @@ template="/templates/template.xhtml">
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Finalizar Pedido de Compras" widgetVar="dialogo"
+	<p:dialog header="Finalizar Orcamento de Compras" widgetVar="dialogo"
 		draggable="false" resizable="false" global="true" closable="false">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
 				<p:outputLabel value="Horário: " />
-				<h:outputText value="#{pedCompraBean.pedcompra.horario}">
+				<h:outputText value="#{orcamentoCBean.orcamentoC.horario}">
 					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 
 				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{pedCompraBean.pedcompra.precoTotal}">
+				<h:outputText value="#{orcamentoCBean.orcamentoC.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 
 				<p:outputLabel for="funcionario" value="Funcionário:" />
 				<p:selectOneMenu id="funcionario"
-					value="#{pedCompraBean.pedcompra.funcionario}"
+					value="#{orcamentoCBean.orcamentoC.funcionario}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains" required="true"
 					requiredMessage="O campo Funcionário é obrigatório">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um funcionário" />
-					<f:selectItems value="#{pedCompraBean.funcionarios}" var="funcionario"
+					<f:selectItems value="#{orcamentoCBean.funcionarios}" var="funcionario"
 						itemValue="#{funcionario}"
 						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu value="#{pedCompraBean.pedcompra.fornecedor}"
+				<p:selectOneMenu value="#{orcamentoCBean.orcamentoC.fornecedor}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um Fornecedor" />
-					<f:selectItems value="#{pedCompraBean.fornecedores}" var="fornecedor"
+					<f:selectItems value="#{orcamentoCBean.fornecedores}" var="fornecedor"
 						itemValue="#{fornecedor}"
 						itemLabel="#{fornecedor.cnpj} - #{fornecedor.descricao}" />
 				</p:selectOneMenu>
@@ -149,7 +152,7 @@ template="/templates/template.xhtml">
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{pedCompraBean.salvar}"
+				<p:commandButton value="Salvar" actionListener="#{orcamentoCBean.salvar}"
 					update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
 					oncomplete="PF('dialogo').hide();" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />

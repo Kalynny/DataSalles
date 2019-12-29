@@ -3,31 +3,30 @@ package br.com.datasalles.dao;
 
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import br.com.datasalles.domain.ItemPedCompra;
-import br.com.datasalles.domain.PedCompra;
+import br.com.datasalles.domain.ItemOrcaC;
+import br.com.datasalles.domain.OrcamentoC;
 import br.com.datasalles.util.HibernateUtil;
 
-public class PedCompraDAO extends GenericDAO<PedCompra> {
+public class OrcamentoCDAO extends GenericDAO<OrcamentoC> {
 	
-	public void salvar(PedCompra pedcompra, List<ItemPedCompra> itensPedcompra){
+	public void salvar(OrcamentoC orcamentoc, List<ItemOrcaC> itensOrcaC){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
 		try {
 			transacao = sessao.beginTransaction();
 		
-			sessao.save(pedcompra);
+			sessao.save(orcamentoc);
 			
-			for(int posicao = 0; posicao < itensPedcompra.size(); posicao++){
-				ItemPedCompra itemPedCompra = itensPedcompra.get(posicao);
-				itemPedCompra.setPedcompra(pedcompra);
+			for(int posicao = 0; posicao < itensOrcaC.size(); posicao++){
+				ItemOrcaC itemOrcaC = itensOrcaC.get(posicao);
+				itemOrcaC.setOrcamentoc(orcamentoc);
 				
-				sessao.save(itemPedCompra);
+				sessao.save(itemOrcaC);
 				
 				}
 			
@@ -44,10 +43,10 @@ public class PedCompraDAO extends GenericDAO<PedCompra> {
 
 	
 	@SuppressWarnings("unchecked")
-	public List<PedCompra> listarPorData(Date dataInicio, Date dataFim){
+	public List<OrcamentoC> listarPorData(Date dataInicio, Date dataFim){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
 		try{
-			Criteria consulta = sessao.createCriteria(PedCompra.class);
+			Criteria consulta = sessao.createCriteria(OrcamentoC.class);
 			consulta.add(Restrictions.between("horario", dataInicio, dataFim));
 			return consulta.list();	
 		}catch(RuntimeException erro){

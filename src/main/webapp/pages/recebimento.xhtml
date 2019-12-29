@@ -8,9 +8,9 @@
 			template="/templates/template.xhtml" >
 
 	<ui:define name="metadata">
-		<f:metadata>
-			<f:viewAction action="#{vendaBean.listar}" />
-		</f:metadata>
+		//<f:metadata>
+			//<f:viewAction action="#{recebimentoBean.listar}" />
+		//</f:metadata>
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -18,12 +18,10 @@
 		<h:form id="formList">
 			<p:panel header="Recebimento de Caixa">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-					paginator="false" value="#{vendaBean.vendas}" var="venda" rows="1">
+					paginator="false" value="#{recebimentoBean.vendas}" var="venda" rows="6"
+					paginatorPosition="bottom">
 					
-					<!--<f:facet name="header">
-					</f:facet>-->
-
-				<!--<p:column headerText="Cod. Pedido"
+					<p:column headerText="Cod. Pedido"
 						style="text-align: center; width:75px">
 						<h:outputText value="#{venda.codigo}">
 						</h:outputText>
@@ -32,7 +30,7 @@
 					<p:column headerText="Data do Pedido"
 						style="text-align: center; width:100px">
 						<h:outputText value="#{venda.horario}">
-							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm" />
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
@@ -50,21 +48,17 @@
 					</p:column>
 
 					<p:column headerText="Cliente"
-						filterBy="#{venda.cliente.pessoa.nome}"
-						sortBy="#{venda.cliente.pessoa.nome}" style="text-align: center;">
+						 style="text-align: center;">
 						<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					</p:column>
 
 					<p:column headerText="Funcionário"
-						filterBy="#{venda.funcionario.pessoa.nome}"
-						sortBy="#{venda.funcionario.pessoa.nome}"
 						style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
-					</p:column>-->
+					</p:column>
 
-				<!--<p:column headerText="Opções" style="text-align:center">
-					
-					<p:commandButton value="Receber" actionListener="#{recebimentoBean.editar}" 
+				<p:column headerText="Opções" style="text-align:center">
+					<p:commandButton value="Receber" actionListener="#{recebimentoBean.receber()}" 
 					 update=":mensagem :formularioFinalizar:painelFinalizar" oncomplete="PF('dialogo').show();">
 					<f:attribute name="vendaSelecionado" value="#{venda}"/>
 					<f:actionListener
@@ -77,7 +71,7 @@
 					<f:actionListener
 					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-					</p:column>-->
+					</p:column>
 
 				</p:dataTable>
 			</p:panel>
@@ -139,9 +133,7 @@
 					<p:commandButton value="Salvar"
 						actionListener="#{recebimentoBean.finalizarCaixa()}" update=":mensagem :formList :formularioFinalizar "
 						oncomplete="PF('dialogo').hide();" />
-
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />	
-
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>

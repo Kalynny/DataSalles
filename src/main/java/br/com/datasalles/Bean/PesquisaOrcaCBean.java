@@ -10,26 +10,25 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
-import br.com.datasalles.dao.PedCompraDAO;
-import br.com.datasalles.domain.PedCompra;
-
+import br.com.datasalles.dao.OrcamentoCDAO;
+import br.com.datasalles.domain.OrcamentoC;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class PesquisaPCompraBean implements Serializable {
+public class PesquisaOrcaCBean implements Serializable {
 	
-	private List<PedCompra> pedcompras;
+	private List<OrcamentoC> orcamentosc;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
 		
 	
-	public List<PedCompra> getPedcompras() {
-		return pedcompras;
+	public List<OrcamentoC> getOrcamentosc() {
+		return orcamentosc;
 	}
-	public void setPedcompras(List<PedCompra> pedcompras) {
-		this.pedcompras = pedcompras;
+	public void setOrcamentosc(List<OrcamentoC> orcamentosc) {
+		this.orcamentosc = orcamentosc;
 	}
 	public Date getDataInicio() {
 		return dataInicio;
@@ -52,9 +51,9 @@ public class PesquisaPCompraBean implements Serializable {
 	
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
-		if(pedcompras.size() > 0){
-			for(int i=0; i<pedcompras.size(); i++){
-				valorTotal = valorTotal.add(pedcompras.get(i).getPrecoTotal());
+		if(orcamentosc.size() > 0){
+			for(int i=0; i<orcamentosc.size(); i++){
+				valorTotal = valorTotal.add(orcamentosc.get(i).getPrecoTotal());
 			}
 		}		
 	}
@@ -71,6 +70,7 @@ public class PesquisaPCompraBean implements Serializable {
 		c1.set(Calendar.HOUR, 0);
 		c1.set(Calendar.MINUTE, 0);
 		c1.set(Calendar.SECOND, 0);
+		
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
@@ -85,8 +85,8 @@ public class PesquisaPCompraBean implements Serializable {
 			}
 			
 			valorTotal = new BigDecimal("0");
-			PedCompraDAO pedcompraDAO = new PedCompraDAO();			
-			pedcompras = pedcompraDAO.listarPorData(dataInicio, dataFim);
+			OrcamentoCDAO orcamentocDAO = new OrcamentoCDAO();			
+			orcamentosc = orcamentocDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
 			
 		} catch (RuntimeException erro) {
@@ -96,8 +96,8 @@ public class PesquisaPCompraBean implements Serializable {
 	
 	}
 	
-	public String importarPedCompra(Long codigo) {
-		return "compras.xhtml? pedcompra="+codigo+"&faces-redirect=true";
+	public String importarOrcamentoC(Long codigo) {
+		return "compras.xhtml?orcamentoc="+codigo+"&faces-redirect=true";
 	}
 	
 }

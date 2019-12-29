@@ -9,7 +9,7 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewAction action="#{pesquisaPCompraBean.init}" />
+			<f:viewAction action="#{pesquisaOrcaCBean.init}" />
 		</f:metadata>
 	</ui:define>
 
@@ -17,9 +17,9 @@
 
 		<h:form>
 			<p:panel columns="2" header="Pedido de Compras">
-				<p:button value="Novo" outcome="/pages/pedcompra.xhtml" update="@form"  />
+				<p:button value="Novo" outcome="/pages/orcamentoc.xhtml" update="@form"  />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
-					paginator="true" value="#{pesquisaPCompraBean.pedcompras}" var="pedcompra"
+					paginator="true" value="#{pesquisaOrcaCBean.orcamentosc}" var="orcac"
 					rows="12">
 
 					<p:column style="width: 16px;">
@@ -29,59 +29,59 @@
 					<f:facet name="header" style="text-align: center;">
 						<p:outputLabel value="Data Inicio:" />
 						<p:calendar pattern="     dd/MM/yyyy"
-							value="#{pesquisaPCompraBean.dataInicio}" style="margin: 0 9px;" />
+							value="#{pesquisaOrcaCBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="     dd/MM/yyyy"
-							value="#{pesquisaPCompraBean.dataFim}" style="margin: 0 9px;" />
+							value="#{pesquisaOrcaCBean.dataFim}" style="margin: 0 9px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
-							actionListener="#{pesquisaPCompraBean.listar}" update="@form" />
+							actionListener="#{pesquisaOrcaCBean.listar}" update="@form" />
 						
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
-						<h:outputText value="#{pedcompra.codigo}">
+						<h:outputText value="#{orcac.codigo}">
 						</h:outputText>
 					</p:column>
 
 					<p:column headerText="Data" style="text-align: center;">
-						<h:outputText value="#{pedcompra.horario}">
+						<h:outputText value="#{orcac.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
 					<p:column headerText="Valor" style="text-align: center;">
-						<h:outputText value="#{pedcompra.precoTotal}">
+						<h:outputText value="#{orcac.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 
 					<p:column headerText="Fornecedor" style="text-align: center;">
-						<h:outputText value="#{pedcompra.fornecedor.descricao}" />
+						<h:outputText value="#{orcac.fornecedor.descricao}" />
 					</p:column>
 
 
-					<p:column headerText="Funcionário" style="text-align: center;">
-						<h:outputText value="#{pedcompra.funcionario.pessoa.nome}" />
+					<p:column headerText="Funcionário"	style="text-align: center;">
+						<h:outputText value="#{orcac.funcionario.pessoa.nome}" />
 					</p:column>
 					
 					<p:column headerText="">
-					<p:commandButton value="Import" action="#{pesquisaPCompraBean.importarPedCompra(pedcompra.codigo)}" />
+					<p:commandButton value="Import" action="#{pesquisaOrcaCBean.importarOrcamentoC(orcac.codigo)}" />
 					</p:column>
 
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
-							value="#{pedcompra.itensPedCompra}" var="itemPedcompra">
+							value="#{orcac.itensOrcaC}" var="itemorcac">
 
-							<p:column headerText="Produto" style="text-align: center;">
-								<h:outputText value="#{itemPedcompra.produto.descricao}" />
+							<p:column headerText="Produto" >
+								<h:outputText value="#{itemorcac.produto.descricao}" />
 							</p:column>
 
 							<p:column headerText="Quantidade" style="text-align: center;">
-								<h:outputText value="#{itemPedcompra.quantidade}" />
+								<h:outputText value="#{itemorcac.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário" style="text-align: center;">
-								<h:outputText value="#{itemPedcompra.precoParcial}" />
+							<p:column headerText="Valor Unitário" style="text-align: center; ">
+								<h:outputText value="#{itemorcac.precoParcial}" />
 							</p:column>
 	
 						</p:dataTable>
@@ -90,5 +90,7 @@
 				</p:dataTable>
 			</p:panel>
 		</h:form>
+
+
 	</ui:define>
 </ui:composition>

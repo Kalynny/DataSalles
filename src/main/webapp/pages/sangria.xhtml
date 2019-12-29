@@ -19,15 +19,8 @@
 			<p:panel header="Sangria do Caixa">
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
 				paginator="false" value="#{sangriaBean.sangria}" var="sangria" rows="5">
-					
-					
-					<!--<f:facet name="header">
-						<p:commandButton value="Sangria do caixa"
-						 oncomplete="PF('dialogo').show();"
-						 update=":form"/>
-					</f:facet> -->
-					
-					<p:column headerText="sangria">
+												
+					<p:column headerText="Sangria">
 						<h:outputText value="#{sangria.sangria}" />
 					</p:column>
 					

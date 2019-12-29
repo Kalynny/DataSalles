@@ -2,7 +2,6 @@ package br.com.datasalles.domain;
 
 
 import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,8 +9,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class ItemPedCompra extends GenericDomain {
-	
+public class ItemOrcaC extends GenericDomain {
 	@Column(nullable = false)
 	private Short quantidade;
 	
@@ -24,7 +22,7 @@ public class ItemPedCompra extends GenericDomain {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private PedCompra pedcompra;
+	private OrcamentoC orcamentoc;
 
 	public Short getQuantidade() {
 		return quantidade;
@@ -50,13 +48,15 @@ public class ItemPedCompra extends GenericDomain {
 		this.produto = produto;
 	}
 
-	public PedCompra getPedcompra() {
-		return pedcompra;
+	public OrcamentoC getOrcamentoc() {
+		return orcamentoc;
 	}
 
-	public void setPedcompra(PedCompra pedcompra) {
-		this.pedcompra = pedcompra;
+	public void setOrcamentoc(OrcamentoC orcamentoc) {
+		this.orcamentoc = orcamentoc;
 	}
 
 		
 }
+
+

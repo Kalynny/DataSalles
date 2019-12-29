@@ -29,8 +29,8 @@ import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
-import br.com.datasalles.domain.ItemPedCompra;
-import br.com.datasalles.domain.PedCompra;
+import br.com.datasalles.domain.ItemOrcaC;
+import br.com.datasalles.domain.OrcamentoC;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
 import br.com.datasalles.util.HibernateUtil;
@@ -117,11 +117,12 @@ public class CompraBean implements Serializable {
 		this.cpagar = cpagar;
 	}
 
-	public void importarPedCompra(PedCompra pedcompra){
+	public void importarOrcamentoC(OrcamentoC orcamentoc) {
 		
 		try {
 					
-			for(ItemPedCompra rs : pedcompra.getItensPedCompra()) {
+			for(ItemOrcaC rs : orcamentoc.getItensOrcaC()) {
+				
 				ItemCompra item = new ItemCompra();
 				item.setPrecoParcial(rs.getPrecoParcial());
 				item.setProduto(rs.getProduto());
