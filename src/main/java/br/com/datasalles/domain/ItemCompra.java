@@ -2,11 +2,17 @@ package br.com.datasalles.domain;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -24,6 +30,11 @@ public class ItemCompra extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Compra compra;
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
+	private List<ItemCompra> itensCompra;
+	
 
 	public Short getQuantidade() {
 		return quantidade;
@@ -56,6 +67,15 @@ public class ItemCompra extends GenericDomain {
 	public void setCompra(Compra compra) {
 		this.compra = compra;
 	}
+
+	public List<ItemCompra> getItensCompra() {
+		return itensCompra;
+	}
+
+	public void setItensCompra(List<ItemCompra> itensCompra) {
+		this.itensCompra = itensCompra;
+	}
+		
 }
 
 

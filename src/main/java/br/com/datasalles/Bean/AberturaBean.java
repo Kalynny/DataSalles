@@ -3,6 +3,8 @@ package br.com.datasalles.Bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+//import java.text.SimpleDateFormat;
+//import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -85,6 +87,7 @@ public class AberturaBean implements Serializable {
 
 	public void salvar() {
 		try {
+						
 			AberturaDAO aberturaDAO = new AberturaDAO();
 			aberturaDAO.merge(abertura);
 
@@ -96,8 +99,8 @@ public class AberturaBean implements Serializable {
 			aberturs = aberturaDAO.listar();
 
 			Messages.addGlobalInfo("Abertura do Caixa salvo com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar a Abertura do Caixa");
+		}catch (RuntimeException erro) {
+			Messages.addFlashGlobalError(" Já existe um Abertura de Caixa Efetuado no Sistema");
 			erro.printStackTrace();
 		}
 	}

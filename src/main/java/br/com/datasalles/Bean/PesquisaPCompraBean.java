@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.PedCompraDAO;
 import br.com.datasalles.domain.PedCompra;
 
@@ -98,7 +97,7 @@ public class PesquisaPCompraBean implements Serializable {
 	}
 	
 	public String importarPedCompra(Long codigo) {
-		return "compras.xhtml?pedcompra="+codigo+"&faces-redirect=true";
+		return "compras.xhtml? pedcompra="+codigo+"&faces-redirect=true";
 	}
 	
 }

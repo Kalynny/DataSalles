@@ -29,6 +29,8 @@ import br.com.datasalles.domain.Cpagar;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
+import br.com.datasalles.domain.ItemPedCompra;
+import br.com.datasalles.domain.PedCompra;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
 import br.com.datasalles.util.HibernateUtil;
@@ -114,7 +116,28 @@ public class CompraBean implements Serializable {
 	public void setCpagar(Cpagar cpagar) {
 		this.cpagar = cpagar;
 	}
-	
+
+	public void importarPedCompra(PedCompra pedcompra){
+		
+		try {
+					
+			for(ItemPedCompra rs : pedcompra.getItensPedCompra()) {
+				ItemCompra item = new ItemCompra();
+				item.setPrecoParcial(rs.getPrecoParcial());
+				item.setProduto(rs.getProduto());
+				item.setQuantidade(rs.getQuantidade());
+				item.setCompra(compra);
+					
+				itensCompra.add(item);
+			}
+			
+			calcular();
+		
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar a importação");
+			erro.printStackTrace();
+		}
+    }
 	
 
 	@PostConstruct

@@ -210,7 +210,7 @@ public class PedCompraBean implements Serializable {
 
 			itensPedcompra = new ArrayList<>();
 			
-			Messages.addGlobalInfo("Orçamento realizada com sucesso");
+			Messages.addGlobalInfo("Pedido de Compras realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a orçamento");
 			erro.printStackTrace();
