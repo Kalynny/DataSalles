@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Dez-2019 às 03:57
+-- Tempo de geração: 29-Dez-2019 às 16:16
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -34,6 +34,14 @@ CREATE TABLE `abertura` (
   `valorAbertura` decimal(7,2) NOT NULL,
   `funcionario_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `abertura`
+--
+
+INSERT INTO `abertura` (`codigo`, `dataAbertura`, `valorAbertura`, `funcionario_codigo`) VALUES
+(1, '2019-12-27', '125.00', 1),
+(4, '2019-12-28', '125.00', 1);
 
 -- --------------------------------------------------------
 
@@ -406,25 +414,23 @@ INSERT INTO `itemorca` (`codigo`, `precoParcial`, `quantidade`, `orcamento_codig
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `itempedcompra`
+-- Estrutura da tabela `itemorcac`
 --
 
-CREATE TABLE `itempedcompra` (
+CREATE TABLE `itemorcac` (
   `codigo` bigint(20) NOT NULL,
   `precoParcial` decimal(7,2) NOT NULL,
   `quantidade` smallint(6) NOT NULL,
-  `pedcompra_codigo` bigint(20) NOT NULL,
+  `orcamentoc_codigo` bigint(20) NOT NULL,
   `produto_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `itempedcompra`
+-- Extraindo dados da tabela `itemorcac`
 --
 
-INSERT INTO `itempedcompra` (`codigo`, `precoParcial`, `quantidade`, `pedcompra_codigo`, `produto_codigo`) VALUES
-(1, '294.80', 10, 1, 19),
-(2, '211.00', 10, 2, 4),
-(3, '330.90', 10, 3, 12);
+INSERT INTO `itemorcac` (`codigo`, `precoParcial`, `quantidade`, `orcamentoc_codigo`, `produto_codigo`) VALUES
+(1, '211.00', 10, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -491,10 +497,10 @@ INSERT INTO `orcamento` (`codigo`, `horario`, `precoTotal`, `cliente_codigo`, `f
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pedcompra`
+-- Estrutura da tabela `orcamentoc`
 --
 
-CREATE TABLE `pedcompra` (
+CREATE TABLE `orcamentoc` (
   `codigo` bigint(20) NOT NULL,
   `horario` datetime NOT NULL,
   `precoTotal` decimal(7,2) NOT NULL,
@@ -503,13 +509,11 @@ CREATE TABLE `pedcompra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `pedcompra`
+-- Extraindo dados da tabela `orcamentoc`
 --
 
-INSERT INTO `pedcompra` (`codigo`, `horario`, `precoTotal`, `fornecedor_codigo`, `funcionario_codigo`) VALUES
-(1, '2019-12-26 22:45:30', '294.80', 1, 1),
-(2, '2019-12-26 22:53:38', '211.00', 7, 1),
-(3, '2019-12-26 23:21:23', '330.90', 9, 1);
+INSERT INTO `orcamentoc` (`codigo`, `horario`, `precoTotal`, `fornecedor_codigo`, `funcionario_codigo`) VALUES
+(1, '2019-12-29 11:58:53', '211.00', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -717,6 +721,7 @@ INSERT INTO `venda` (`codigo`, `horario`, `precoTotal`, `vencimento`, `cliente_c
 --
 ALTER TABLE `abertura`
   ADD PRIMARY KEY (`codigo`),
+  ADD UNIQUE KEY `dataAbertura` (`dataAbertura`),
   ADD KEY `FK_573kskix9gpqu9cnby5wnpvkg` (`funcionario_codigo`);
 
 --
@@ -831,12 +836,12 @@ ALTER TABLE `itemorca`
   ADD KEY `FK_4di694u3bguu1o2nw0vuvi3b9` (`produto_codigo`);
 
 --
--- Índices para tabela `itempedcompra`
+-- Índices para tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
+ALTER TABLE `itemorcac`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `FK_bkbq3uvrk5stem8ymtdt0h2i5` (`pedcompra_codigo`),
-  ADD KEY `FK_mnol6lde8g3vs10i4j658afmw` (`produto_codigo`);
+  ADD KEY `FK_8xtaxl8d9htbbgpuwvyq10ugh` (`orcamentoc_codigo`),
+  ADD KEY `FK_53y2vq1r6fwi78jd3sbi27cqw` (`produto_codigo`);
 
 --
 -- Índices para tabela `itemvenda`
@@ -863,12 +868,12 @@ ALTER TABLE `orcamento`
   ADD KEY `FK_9y1ujpxvo2ratiegaw1q3njlp` (`funcionario_codigo`);
 
 --
--- Índices para tabela `pedcompra`
+-- Índices para tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
+ALTER TABLE `orcamentoc`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `FK_nvx05c1m4fncoyun2r9kugg2m` (`fornecedor_codigo`),
-  ADD KEY `FK_p0w8fvg507nvpgnw9lqb2wjbd` (`funcionario_codigo`);
+  ADD KEY `FK_dcv6r7s1usnrhvpiq086rilwd` (`fornecedor_codigo`),
+  ADD KEY `FK_40e71sr5x5wa7efrxd85crwaa` (`funcionario_codigo`);
 
 --
 -- Índices para tabela `pessoa`
@@ -932,7 +937,7 @@ ALTER TABLE `venda`
 -- AUTO_INCREMENT de tabela `abertura`
 --
 ALTER TABLE `abertura`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `avaria`
@@ -1025,10 +1030,10 @@ ALTER TABLE `itemorca`
   MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de tabela `itempedcompra`
+-- AUTO_INCREMENT de tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `itemorcac`
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `itemvenda`
@@ -1049,10 +1054,10 @@ ALTER TABLE `orcamento`
   MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `pedcompra`
+-- AUTO_INCREMENT de tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `orcamentoc`
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
@@ -1198,11 +1203,11 @@ ALTER TABLE `itemorca`
   ADD CONSTRAINT `FK_qa5oavvwy5hvd8h2mjrngvr07` FOREIGN KEY (`orcamento_codigo`) REFERENCES `orcamento` (`codigo`);
 
 --
--- Limitadores para a tabela `itempedcompra`
+-- Limitadores para a tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
-  ADD CONSTRAINT `FK_bkbq3uvrk5stem8ymtdt0h2i5` FOREIGN KEY (`pedcompra_codigo`) REFERENCES `pedcompra` (`codigo`),
-  ADD CONSTRAINT `FK_mnol6lde8g3vs10i4j658afmw` FOREIGN KEY (`produto_codigo`) REFERENCES `produto` (`codigo`);
+ALTER TABLE `itemorcac`
+  ADD CONSTRAINT `FK_53y2vq1r6fwi78jd3sbi27cqw` FOREIGN KEY (`produto_codigo`) REFERENCES `produto` (`codigo`),
+  ADD CONSTRAINT `FK_8xtaxl8d9htbbgpuwvyq10ugh` FOREIGN KEY (`orcamentoc_codigo`) REFERENCES `orcamentoc` (`codigo`);
 
 --
 -- Limitadores para a tabela `itemvenda`
@@ -1226,11 +1231,11 @@ ALTER TABLE `orcamento`
   ADD CONSTRAINT `FK_slv2u118cmbj0tg5422o0q3m1` FOREIGN KEY (`cliente_codigo`) REFERENCES `cliente` (`codigo`);
 
 --
--- Limitadores para a tabela `pedcompra`
+-- Limitadores para a tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
-  ADD CONSTRAINT `FK_nvx05c1m4fncoyun2r9kugg2m` FOREIGN KEY (`fornecedor_codigo`) REFERENCES `fornecedor` (`codigo`),
-  ADD CONSTRAINT `FK_p0w8fvg507nvpgnw9lqb2wjbd` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`);
+ALTER TABLE `orcamentoc`
+  ADD CONSTRAINT `FK_40e71sr5x5wa7efrxd85crwaa` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`),
+  ADD CONSTRAINT `FK_dcv6r7s1usnrhvpiq086rilwd` FOREIGN KEY (`fornecedor_codigo`) REFERENCES `fornecedor` (`codigo`);
 
 --
 -- Limitadores para a tabela `pessoa`
