@@ -97,7 +97,7 @@ public class FechamentoBean implements Serializable {
 
 			Messages.addGlobalInfo("Fechamento do Caixa salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar a Fechamento do Caixa");
+			Messages.addFlashGlobalError("Já existe um Fechamento de Caixa Efetuado no Sistema");
 			erro.printStackTrace();
 		}
 	}

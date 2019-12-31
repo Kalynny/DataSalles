@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Fechamento extends GenericDomain {
 	
-	@Column (nullable = false)
+	@Column (nullable = false, unique = true)
 	@Temporal(TemporalType.DATE)
 	private Date dataFechamento;
 	
@@ -22,8 +22,7 @@ public class Fechamento extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
-	
+		
 	public Date getDataFechamento() {
 		return dataFechamento;
 	}

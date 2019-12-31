@@ -4,8 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
-	template="/templates/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
 	<ui:define name="metadata">
 		<f:metadata>
@@ -17,7 +16,8 @@
 
 		<h:form>
 			<p:panel columns="2" header="Orcamento de Vendas">
-				<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form"  />
+				<p:button value="Novo" outcome="/pages/orcamento.xhtml"
+					update="@form" />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaBean.orcamentos}" var="orca"
 					rows="12">
@@ -35,7 +35,7 @@
 							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 9px;" />
 						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
 							actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
-						
+
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
@@ -55,29 +55,25 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Cliente"
-						filterBy="#{orca.cliente.pessoa.nome}"
-						sortBy="#{orca.cliente.pessoa.nome}" style="text-align: center;">
+					<p:column headerText="Cliente" style="text-align: center;">
 						<h:outputText value="#{orca.cliente.pessoa.nome}" />
 					</p:column>
 
 
-					<p:column headerText="Funcionário"
-						filterBy="#{orca.funcionario.pessoa.nome}"
-						sortBy="#{orca.funcionario.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{orca.funcionario.pessoa.nome}" />
 					</p:column>
-					
+
 					<p:column headerText="">
-					<p:commandButton value="Import" action="#{pesquisaOrcaBean.importarOrcamento(orca.codigo)}" />
+						<p:commandButton value="Import"
+							action="#{pesquisaOrcaBean.importarOrcamento(orca.codigo)}" />
 					</p:column>
 
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{orca.itensOrca}" var="itemorca">
 
-							<p:column headerText="Produto" >
+							<p:column headerText="Produto">
 								<h:outputText value="#{itemorca.produto.descricao}" />
 							</p:column>
 
@@ -85,10 +81,11 @@
 								<h:outputText value="#{itemorca.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário" style="text-align: center; ">
+							<p:column headerText="Valor Unitário"
+								style="text-align: center; ">
 								<h:outputText value="#{itemorca.precoParcial}" />
 							</p:column>
-	
+
 						</p:dataTable>
 					</p:rowExpansion>
 

@@ -15,7 +15,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
 @Entity
 public class Compra extends GenericDomain {
 	

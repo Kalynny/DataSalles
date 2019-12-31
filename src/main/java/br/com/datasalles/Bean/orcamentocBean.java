@@ -24,7 +24,7 @@ import br.com.datasalles.domain.OrcamentoC;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class OrcamentoCBean implements Serializable {
+public class orcamentocBean implements Serializable {
 	
 	private OrcamentoC orcamentoc;
 	private List<Produto> produtos;

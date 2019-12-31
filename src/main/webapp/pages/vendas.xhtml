@@ -72,9 +72,9 @@ template="/templates/template.xhtml">
 				editable="true"
 				editMode="cell"	>
 				
-		<p:ajax event="cellEdit" oncomplete="rc()" />		
+				<p:ajax event="cellEdit" oncomplete="rc()" />		
 				
-				<p:column headerText="Descrição" style="text-align:center" >
+				<p:column headerText="Descrição" style="text-align:left" >
 					<h:outputText value="#{itemVenda.produto.descricao}" />
 				</p:column>
 

@@ -53,9 +53,6 @@ public class VendaBean implements Serializable {
 	private List<TipoPag> tipopags;
 	private List<Venda> vendas;
 	
-	
-	
-	
 	public Venda getVenda() {
 		return venda;
 	}

@@ -45,7 +45,7 @@
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</p:inputText>
 						
-		 			<h:commandButton actionListener="#{sangriaBean.sacarsangria}"  oncomplete="PF('dialogo').hide();"  update=":formTabela :mensagem" value="Finalizar"/>
+		 			<h:commandButton actionListener="#{sangriaBean.sacarSangria()}"  oncomplete="PF('dialogo').hide();"  update=":formTabela :mensagem" value="Finalizar"/>
 		 			<h:commandButton oncomplete="PF('dialogo').hide();" value="Cancelar"/>
 				</h:panelGrid>
 			</h:form>

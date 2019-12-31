@@ -116,7 +116,7 @@ template="/templates/template.xhtml"
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
 				<p:outputLabel value="Horário: " />
-				<h:outputText value="#{compraBean.compra.horario}">
+				<h:outputText value="#{compraBean.compra.atual}">
 					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>

@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 public class PesquisaOrcaC extends GenericDomain{
 		
 	@JoinColumn(nullable = false)
-	private Venda venda;
+	private Compra compra;
 	
 	@Column(nullable = false)
 	private String parcela;
@@ -28,12 +28,12 @@ public class PesquisaOrcaC extends GenericDomain{
 	@Column(nullable = false)
 	private String formaDeRecebimento;
 
-	public Venda getVenda() {
-		return venda;
+	public Compra getCompra() {
+		return compra;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setCompra(Compra compra) {
+		this.compra = compra;
 	}
 
 	public String getParcela() {
