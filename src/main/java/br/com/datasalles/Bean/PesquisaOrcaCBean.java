@@ -18,17 +18,17 @@ import br.com.datasalles.domain.OrcamentoC;
 @ViewScoped
 public class PesquisaOrcaCBean implements Serializable {
 	
-	private List<OrcamentoC> orcamentosc;
+	private List<OrcamentoC> orcamentos;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
 		
 	
-	public List<OrcamentoC> getOrcamentosc() {
-		return orcamentosc;
+	public List<OrcamentoC> getOrcamentos() {
+		return orcamentos;
 	}
-	public void setOrcamentosc(List<OrcamentoC> orcamentosc) {
-		this.orcamentosc = orcamentosc;
+	public void setOrcamentos(List<OrcamentoC> orcamentos) {
+		this.orcamentos = orcamentos;
 	}
 	public Date getDataInicio() {
 		return dataInicio;
@@ -51,9 +51,9 @@ public class PesquisaOrcaCBean implements Serializable {
 	
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
-		if(orcamentosc.size() > 0){
-			for(int i=0; i<orcamentosc.size(); i++){
-				valorTotal = valorTotal.add(orcamentosc.get(i).getPrecoTotal());
+		if(orcamentos.size() > 0){
+			for(int i=0; i<orcamentos.size(); i++){
+				valorTotal = valorTotal.add(orcamentos.get(i).getPrecoTotal());
 			}
 		}		
 	}
@@ -86,7 +86,7 @@ public class PesquisaOrcaCBean implements Serializable {
 			
 			valorTotal = new BigDecimal("0");
 			OrcamentoCDAO orcamentocDAO = new OrcamentoCDAO();			
-			orcamentosc = orcamentocDAO.listarPorData(dataInicio, dataFim);
+			orcamentos = orcamentocDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
 			
 		} catch (RuntimeException erro) {
@@ -96,7 +96,7 @@ public class PesquisaOrcaCBean implements Serializable {
 	
 	}
 	
-	public String importarOrcamentoC(Long codigo) {
+	public String importarOrcamento(Long codigo) {
 		return "compras.xhtml?orcamentoc="+codigo+"&faces-redirect=true";
 	}
 	

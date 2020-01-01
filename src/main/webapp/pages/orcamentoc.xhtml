@@ -15,7 +15,7 @@ template="/templates/template.xhtml">
 		<p:button value="voltar" outcome="/pages/pesquisaOC.xhtml" update="@form" style="margin-left: 960px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{orcamentoCBean.produtos}" var="produto" rows="5"
+				value="#{orcamentocBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Descrição"
@@ -40,12 +40,12 @@ template="/templates/template.xhtml">
 
 				<p:column headerText="Opções" style="text-align:center">
 					<p:commandButton icon="ui-icon-plus"
-						actionListener="#{orcamentoCBean.adicionar}"
+						actionListener="#{orcamentocBean.adicionar}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{orcamentoCBean.subtrair}"
+						actionListener="#{orcamentocBean.subtrair}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
@@ -59,7 +59,7 @@ template="/templates/template.xhtml">
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{orcamentoCBean.itensOrcaC}" var="itemOrcaC" rows="5"
+				value="#{orcamentocBean.itensOrcaC}" var="itemOrcaC" rows="5"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Descrição">
@@ -84,7 +84,7 @@ template="/templates/template.xhtml">
 
 				<p:column headerText="Opções"  style="text-align:center">
 					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{orcamentoCBean.remover}"
+						actionListener="#{orcamentocBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 						<f:attribute name="itemSelecionado" value="#{itemOrcaC}" />
 					</p:commandButton>
@@ -95,11 +95,11 @@ template="/templates/template.xhtml">
 		<p:panel header="Finalização">
 			<h:panelGrid id="painelFinalizacao" columns="3">
 				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{orcamentoCBean.orcamentoC.precoTotal}">
+				<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 				<p:commandButton value="Finalizar"
-					actionListener="#{orcamentoCBean.finalizar}"
+					actionListener="#{orcamentocBean.finalizar}"
 					update=":mensagem :formularioFinalizar:painelFinalizar"
 					oncomplete="PF('dialogo').show();">
 					<f:actionListener
@@ -115,36 +115,36 @@ template="/templates/template.xhtml">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
 				<p:outputLabel value="Horário: " />
-				<h:outputText value="#{orcamentoCBean.orcamentoC.horario}">
+				<h:outputText value="#{orcamentocBean.orcamentoC.horario}">
 					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 
 				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{orcamentoCBean.orcamentoC.precoTotal}">
+				<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 
 				<p:outputLabel for="funcionario" value="Funcionário:" />
 				<p:selectOneMenu id="funcionario"
-					value="#{orcamentoCBean.orcamentoC.funcionario}"
+					value="#{orcamentocBean.orcamentoC.funcionario}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains" required="true"
 					requiredMessage="O campo Funcionário é obrigatório">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um funcionário" />
-					<f:selectItems value="#{orcamentoCBean.funcionarios}" var="funcionario"
+					<f:selectItems value="#{orcamentocBean.funcionarios}" var="funcionario"
 						itemValue="#{funcionario}"
 						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu value="#{orcamentoCBean.orcamentoC.fornecedor}"
+				<p:selectOneMenu value="#{orcamentocBean.orcamentoC.fornecedor}"
 					converter="omnifaces.SelectItemsConverter" filter="true"
 					filterMatchMode="contains">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um Fornecedor" />
-					<f:selectItems value="#{orcamentoCBean.fornecedores}" var="fornecedor"
+					<f:selectItems value="#{orcamentocBean.fornecedores}" var="fornecedor"
 						itemValue="#{fornecedor}"
 						itemLabel="#{fornecedor.cnpj} - #{fornecedor.descricao}" />
 				</p:selectOneMenu>
@@ -152,7 +152,7 @@ template="/templates/template.xhtml">
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{orcamentoCBean.salvar}"
+				<p:commandButton value="Salvar" actionListener="#{orcamentocBean.salvar}"
 					update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
 					oncomplete="PF('dialogo').hide();" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
