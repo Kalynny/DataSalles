@@ -32,6 +32,7 @@ import br.com.datasalles.domain.ItemOrca;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Orcamento;
 import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.Recebimento;
 import br.com.datasalles.domain.TipoPag;
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
@@ -45,6 +46,7 @@ import net.sf.jasperreports.view.JasperViewer;
 @ViewScoped
 public class VendaBean implements Serializable {
 	private Venda venda;
+	private Recebimento recebimento;
 	private Creceber receber;
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
@@ -61,6 +63,14 @@ public class VendaBean implements Serializable {
 		this.venda = venda;
 	}
 	
+	public Recebimento getRecebimento() {
+		return recebimento;
+	}
+
+	public void setRecebimento(Recebimento recebimento) {
+		this.recebimento = recebimento;
+	}
+
 	public Creceber getReceber() {
 		return receber;
 	}
@@ -303,7 +313,7 @@ public class VendaBean implements Serializable {
 				
 				if(venda.getTipopag().getCodigo() == (1)) {
 					VendaDAO vendaDAO = new VendaDAO();			
-					vendaDAO.salvar(venda, itensVenda);
+					vendaDAO.salvar(venda, itensVenda, recebimento);
 					
 					venda = new Venda();
 					venda.setPrecoTotal(new BigDecimal("0.00"));

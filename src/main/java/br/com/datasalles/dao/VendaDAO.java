@@ -3,11 +3,11 @@ package br.com.datasalles.dao;
 
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.Venda;
@@ -15,11 +15,12 @@ import br.com.datasalles.impl.GenericImpl;
 import br.com.datasalles.domain.Creceber;
 import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.Recebimento;
 import br.com.datasalles.util.HibernateUtil;
 
 public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 	
-	public void salvar(Venda venda, List<ItemVenda> itensVenda){
+	public void salvar(Venda venda, List<ItemVenda> itensVenda, Recebimento recebimento){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -193,8 +194,27 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 			sessao.close();
 		}
 	}
-
 	
+	@SuppressWarnings("unchecked")
+	public List<Venda> listar() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			consulta.addOrder(Order.asc("codigo"));
+			List<Venda> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	@Override
+	public void salvar(Venda venda, List<ItemVenda> itens) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
 

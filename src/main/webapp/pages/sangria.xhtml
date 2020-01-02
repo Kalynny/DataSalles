@@ -11,23 +11,30 @@ template="/templates/template.xhtml">
 	<h:form id="formListagem">
 
 		<p:panel header="Sangria do Caixa">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
-				rows="3" id="tabela">
+				rows="4">
 								
-				<p:column headerText="Data Atual" sortBy="#{sangria.dataSangria}"
+				<p:column headerText="Data Atual" sortBy="#{sangriaBean.sangria.dataSangria}"
 					style="text-align:center">
 					<h:outputText value="#{sangria.dataSangria}" >
-					<f:convertDateTime locale="pt_BR" />
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 								
-				<p:column headerText="Valor Informadol" style="text-align:right">
+				<p:column headerText="Valor Informado" style="text-align:center">
 					<h:outputText value="#{sangria.valorInformado}" >
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-			</p:dataTable>
+				
+				<p:column headerText="Opções" style="text-align:center">
+				    <p:commandButton value="Sangria"
+						oncomplete="PF('dialogo').show();">
+					</p:commandButton>
+               	</p:column>
+           	</p:dataTable>
 		</p:panel>
 	</h:form>
 
@@ -40,6 +47,8 @@ template="/templates/template.xhtml">
 				<p:outputLabel value="Data da Sangria:" />
 				<p:calendar value="#{sangriaBean.sangria.dataSangria}" required="true"
 					requiredMessage="O campo 'Data da Sangria' é obrigatório">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="America/Sao_Paulo" />
 				</p:calendar>
 				
 				<p:outputLabel value="Valor Informado:" />
@@ -53,10 +62,9 @@ template="/templates/template.xhtml">
 				</p:inputText>
 			</h:panelGrid>			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{sangriaBean.salvar()}"
-					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Finalizar" actionListener="#{sangriaBean.sacarSangria()}"
+				oncomplete="PF('dialogo').hide();"  update=":formListagem" />
+		 		<p:commandButton oncomplete="PF('dialogo').hide();" value="Cancelar"/>
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>

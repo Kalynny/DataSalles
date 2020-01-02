@@ -12,8 +12,8 @@ import javax.persistence.TemporalType;
 @Entity
 public class Sangria extends GenericDomain {
 	
-	@Column (nullable = false, unique = true)
-	@Temporal(TemporalType.DATE)
+	@Column (nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSangria;
 	
 	@Column (nullable = false, precision= 7, scale=2 )

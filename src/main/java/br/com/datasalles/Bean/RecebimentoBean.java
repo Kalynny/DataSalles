@@ -17,11 +17,14 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
+import br.com.datasalles.dao.RecebimentoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Funcionario;
+import br.com.datasalles.domain.Produto;
+import br.com.datasalles.domain.Recebimento;
 import br.com.datasalles.domain.TipoPag;
 import br.com.datasalles.domain.Venda;
 import br.com.datasalles.util.HibernateUtil;
@@ -36,14 +39,25 @@ public class RecebimentoBean implements Serializable{
 	private List<Funcionario> funcionarios;
 	private List<Cliente> clientes;
 	private Caixa caixa;
+	private List<Produto> produtos;
 	private List<Caixa> caixas;
 	private Cliente cliente;
 	private TipoPag tipopag;
 	private List<TipoPag> tipopags;
 	private Venda venda;
+	private Recebimento recebimento;
 	private BigDecimal valorInformado;
 	private BigDecimal valorRecebido;
 			
+		
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -133,16 +147,22 @@ public class RecebimentoBean implements Serializable{
 		this.tipopags = tipopags;
 	}
 	
-	
-		
+	public Recebimento getRecebimento() {
+		return recebimento;
+	}
+
+	public void setRecebimento(Recebimento recebimento) {
+		this.recebimento = recebimento;
+	}
+
 		@PostConstruct
 		public void listar(){
 			valorInformado = new BigDecimal("0");
 			valorRecebido = new BigDecimal("0");
 			try{
-				caixa = null;
-				CaixaDAO caixaDAO = new CaixaDAO();
-				caixa = caixaDAO.buscar();
+				venda = null;
+				VendaDAO vendaDAO = new VendaDAO();
+				vendas = vendaDAO.listar();
 				
 				pegaValorInicial();
 				
@@ -151,7 +171,6 @@ public class RecebimentoBean implements Serializable{
 				erro.printStackTrace();
 			}
 		}
-		
 		
 		public void editar(ActionEvent evento){
 			try {
@@ -172,14 +191,18 @@ public class RecebimentoBean implements Serializable{
 		
 		public void receber() {
 			try {
-					CaixaDAO caixaDAO = new CaixaDAO();
-					caixaDAO.salvar(caixa);
+				@SuppressWarnings("unused")
+				RecebimentoDAO recebimentoDAO = new RecebimentoDAO();
+												
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				funcionarios = funcionarioDAO.listarOrdenado();
 
-					caixa = new Caixa();
-										
-					FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-					funcionarios = funcionarioDAO.listar();
-					
+				ClienteDAO clienteDAO = new ClienteDAO();
+				clientes = clienteDAO.listarOrdenado();
+				
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopags = tipopagDAO.listar();
+							
 					Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
 				} catch (RuntimeException erro) {
 					Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Recebimento do Caixa");

@@ -59,6 +59,7 @@
 		<mapping class="br.com.datasalles.domain.TipoPag" />
 		<mapping class="br.com.datasalles.domain.TipoPagc" />
 		<mapping class="br.com.datasalles.domain.Caixa" />
+		<mapping class="br.com.datasalles.domain.Recebimento" />
 		<mapping class="br.com.datasalles.domain.Fechamento" />
 		<mapping class="br.com.datasalles.domain.Sangria" />
 		
