@@ -16,8 +16,6 @@
 
 		<h:form>
 			<p:panel columns="2" header="Orcamento de Vendas">
-				<p:button value="Novo" outcome="/pages/orcamento.xhtml"
-					update="@form" />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaBean.orcamentos}" var="orca"
 					rows="12">
@@ -33,9 +31,9 @@
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="     dd/MM/yyyy"
 							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 9px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+						<p:commandButton value="Pesquisar" style="margin-right: 555px;"
 							actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
-
+						<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form" />
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">

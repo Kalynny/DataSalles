@@ -221,12 +221,7 @@ public class VendaBean implements Serializable {
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		if (produto.getQuantidade()>0) {
-	//		int achou = -1;
-	//		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
-	//			if (itensVenda.get(posicao).getProduto().equals(produto)) {
-	//				achou = posicao;
-	//			}
-	//		}
+	
 			ItemVenda item = null;
 			for (ItemVenda rs : itensVenda) {
 				if (rs.getProduto().equals(produto)) {
@@ -251,6 +246,7 @@ public class VendaBean implements Serializable {
 	
 			calcular();
 		}
+		
 	}
 
 	public void remover(ActionEvent evento) {

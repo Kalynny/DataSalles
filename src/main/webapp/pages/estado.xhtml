@@ -28,11 +28,11 @@ template="/templates/template.xhtml"
 					<p:commandButton value="Imprimir" actionListener="#{estadoBean.impest()}"/>
 				</f:facet>
 
-				<p:column headerText="Nome" style="text-align:left" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
+				<p:column headerText="Nome" style="text-align:left">
 				<h:outputText value="#{estado.nome}" />
 				</p:column>
 
-				<p:column headerText="Sigla" style="text-align:center" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
+				<p:column headerText="Sigla" style="text-align:center">
 				<h:outputText value="#{estado.sigla}" />
 				</p:column>
 

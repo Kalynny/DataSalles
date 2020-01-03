@@ -16,8 +16,6 @@
 
 		<h:form>
 			<p:panel columns="2" header="Pedido de Compras">
-				<p:button value="Novo" outcome="/pages/orcamentoc.xhtml"
-					update="@form" />
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaCBean.orcamentos}"
 					var="orcac" rows="12">
@@ -28,14 +26,14 @@
 
 					<f:facet name="header" style="text-align: center;">
 						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="     dd/MM/yyyy"
+						<p:calendar pattern="   dd/MM/yyyy"
 							value="#{pesquisaOrcaCBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="     dd/MM/yyyy"
+						<p:calendar pattern="   dd/MM/yyyy"
 							value="#{pesquisaOrcaCBean.dataFim}" style="margin: 0 9px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+						<p:commandButton value="Pesquisar" style="margin-right: 555px;"
 							actionListener="#{pesquisaOrcaCBean.listar}" update="@form" />
-
+						<p:button value="Novo" outcome="/pages/orcamentoc.xhtml" update="@form" />
 					</f:facet>
 
 					<p:column headerText="Codigo" style="text-align: center;">
@@ -66,7 +64,7 @@
 
 					<p:column headerText="">
 						<p:commandButton value="Import"
-							action="#{pesquisaOrcaCBean.importarOrcamento(orcac.codigo)}" />
+							action="#{pesquisaOrcaCBean.importarOrcamentoc(orcac.codigo)}" />
 					</p:column>
 
 					<p:rowExpansion>

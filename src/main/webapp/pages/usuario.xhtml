@@ -26,13 +26,11 @@ template="/templates/template.xhtml"
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy="#{usuario.pessoa.nome}"
-					filterBy="#{usuario.pessoa.nome}">
+				<p:column headerText="Nome">
 					<h:outputText value="#{usuario.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" style="text-align:center" sortBy="#{usuario.pessoa.cpf}"
-					filterBy="#{usuario.pessoa.cpf}">
+				<p:column headerText="CPF" style="text-align:center">
 					<h:outputText value="#{usuario.pessoa.cpf}" />
 				</p:column>
 

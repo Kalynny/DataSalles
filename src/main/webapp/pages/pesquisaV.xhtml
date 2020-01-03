@@ -27,11 +27,11 @@
 					<f:facet name="header">
 						<p:outputLabel value="Data Inicio:" />
 						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaVendaBean.dataInicio}" style="margin: 0 7px;" />
+							value="#{pesquisaVendaBean.dataInicio}" style="margin: 0 9px;" />
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaVendaBean.dataFim}" style="margin: 0 7px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+							value="#{pesquisaVendaBean.dataFim}" style="margin: 0 9px;" />
+						<p:commandButton value="Pesquisar" style="margin-right: 660px;"
 							actionListener="#{pesquisaVendaBean.listar}" update="@form" />
 						<p:button value="Novo" outcome="/pages/vendas.xhtml" update="@form"  />
 					</f:facet>
@@ -53,21 +53,15 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Cliente"
-						filterBy="#{venda.cliente.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Cliente" style="text-align: center;">
 						<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					</p:column>
 					
-					<p:column headerText="Tipo de Pagamento"
-						filterBy="#{venda.tipopag.descricao}"
-						style="text-align: center;">
+					<p:column headerText="Tipo de Pagamento" style="text-align: center;">
 						<h:outputText value="#{venda.tipopag.descricao}" />
 					</p:column>
 
-					<p:column headerText="Funcionário"
-						filterBy="#{venda.funcionario.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					</p:column>
 					

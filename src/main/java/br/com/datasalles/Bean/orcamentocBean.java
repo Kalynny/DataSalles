@@ -116,14 +116,14 @@ public class orcamentocBean implements Serializable {
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-		int achou = -1;
-		for (int posicao = 0; posicao < itensOrcaC.size(); posicao++) {
-			if (itensOrcaC.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		ItemOrcaC item = null;
+		for (ItemOrcaC rs : itensOrcaC) {
+			if (rs.getProduto().equals(produto)) {
+				item = rs;
 			}
 		}
 
-		if (achou < 0) {
+		if (item == null) {
 			ItemOrcaC itemOrcaC = new ItemOrcaC();
 			itemOrcaC.setPrecoParcial(produto.getPreco());
 			itemOrcaC.setProduto(produto);
@@ -131,38 +131,42 @@ public class orcamentocBean implements Serializable {
 
 			itensOrcaC.add(itemOrcaC);
 		} else {
-			ItemOrcaC itemOrcaC = itensOrcaC.get(achou);
+			ItemOrcaC itemOrcaC = item;
 			itemOrcaC.setQuantidade(new Short(itemOrcaC.getQuantidade() + 1 + ""));
 			itemOrcaC.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemOrcaC.getQuantidade())));
 		}
 
 		calcular();
 	}
-	
+		
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
-		int achou = -1;
-		for (int posicao = 0; posicao < itensOrcaC.size(); posicao++) {
-			if (itensOrcaC.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		if (produto.getQuantidade()>0) {
+		
+			ItemOrcaC item = null;
+			for (ItemOrcaC rs : itensOrcaC) {
+				if (rs.getProduto().equals(produto)) {
+					item = rs;
+				}
 			}
+	
+			if (item == null) {
+				ItemOrcaC itemOrcaC = new ItemOrcaC();
+				itemOrcaC.setPrecoParcial(produto.getPreco());
+				itemOrcaC.setProduto(produto);
+				itemOrcaC.setQuantidade(new Short("1"));
+	
+				itensOrcaC.add(itemOrcaC);
+			} else {
+				ItemOrcaC itemOrcaC = item;
+				if (itemOrcaC.getQuantidade() != null && itemOrcaC.getQuantidade()>0) {
+					itemOrcaC.setQuantidade(new Short(itemOrcaC.getQuantidade() - 1 + ""));
+				}
+				itemOrcaC.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemOrcaC.getQuantidade())));
+			}
+	
+			calcular();
 		}
-
-		if (achou < 0) {
-			ItemOrcaC itemOrcaC = new ItemOrcaC();
-			itemOrcaC.setPrecoParcial(produto.getPreco());
-			itemOrcaC.setProduto(produto);
-			itemOrcaC.setQuantidade(new Short("1"));
-
-			itensOrcaC.add(itemOrcaC);
-		} else {
-			ItemOrcaC itemOrcaC = itensOrcaC.get(achou);
-			itemOrcaC.setQuantidade(new Short(itemOrcaC.getQuantidade() - 1 + ""));
-			itemOrcaC.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemOrcaC.getQuantidade())));
-		}
-
-		calcular();
 	}
 
 	public void remover(ActionEvent evento) {

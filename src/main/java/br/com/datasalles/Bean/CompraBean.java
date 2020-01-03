@@ -186,30 +186,37 @@ public class CompraBean implements Serializable {
 	
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
-		int achou = -1;
-		for (int posicao = 0; posicao < itensCompra.size(); posicao++) {
-			if (itensCompra.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		if (produto.getQuantidade()>0) {
+		
+			ItemCompra item = null;
+			for (ItemCompra rs : itensCompra) {
+				if (rs.getProduto().equals(produto)) {
+					item = rs;
+				}
 			}
+	
+			if (item == null) {
+				ItemCompra itemCompra = new ItemCompra();
+				itemCompra.setPrecoParcial(produto.getPreco());
+				itemCompra.setProduto(produto);
+				itemCompra.setQuantidade(new Short("1"));
+	
+				itensCompra.add(itemCompra);
+			} else {
+				ItemCompra itemCompra = item;
+				if (itemCompra.getQuantidade() != null && itemCompra.getQuantidade()>0) {
+					itemCompra.setQuantidade(new Short(itemCompra.getQuantidade() - 1 + ""));
+				}
+				itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
+			}
+	
+			calcular();
 		}
-
-		if (achou < 0) {
-			ItemCompra itemCompra = new ItemCompra();
-			itemCompra.setPrecoParcial(produto.getPreco());
-			itemCompra.setProduto(produto);
-			itemCompra.setQuantidade(new Short("1"));
-
-			itensCompra.add(itemCompra);
-		} else {
-			ItemCompra itemCompra = itensCompra.get(achou);
-			itemCompra.setQuantidade(new Short(itemCompra.getQuantidade() - 1 + ""));
-			itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
-		}
-
-		calcular();
 	}
 	
+			
+			
+		
 
 	public void remover(ActionEvent evento) {
 		ItemCompra itemCompra = (ItemCompra) evento.getComponent().getAttributes().get("itemSelecionado");
@@ -227,9 +234,7 @@ public class CompraBean implements Serializable {
 
 		calcular();
 	}
-	
-	
-
+		
 	public void calcular() {
 		compra.setPrecoTotal(new BigDecimal("0.00"));
 

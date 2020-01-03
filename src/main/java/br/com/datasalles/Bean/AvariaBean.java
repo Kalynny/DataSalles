@@ -114,14 +114,14 @@ public class AvariaBean implements Serializable {
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-		int achou = -1;
-		for (int posicao = 0; posicao < itensAvaria.size(); posicao++) {
-			if (itensAvaria.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		ItemAvaria item = null;
+		for (ItemAvaria rs : itensAvaria) {
+			if (rs.getProduto().equals(produto)) {
+				item = rs;
 			}
 		}
 
-		if (achou < 0) {
+		if (item == null) {
 			ItemAvaria itemAvaria = new ItemAvaria();
 			itemAvaria.setPrecoParcial(produto.getPreco());
 			itemAvaria.setProduto(produto);
@@ -129,40 +129,46 @@ public class AvariaBean implements Serializable {
 
 			itensAvaria.add(itemAvaria);
 		} else {
-			ItemAvaria itemAvaria = itensAvaria.get(achou);
+			ItemAvaria itemAvaria = item;
 			itemAvaria.setQuantidade(new Short(itemAvaria.getQuantidade() + 1 + ""));
 			itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
 		}
 
 		calcular();
 	}
-	
+		
+		
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
-		int achou = -1;
-		for (int posicao = 0; posicao < itensAvaria.size(); posicao++) {
-			if (itensAvaria.get(posicao).getProduto().equals(produto)) {
-				achou = posicao;
+		if (produto.getQuantidade()>0) {
+		
+		
+			ItemAvaria item = null;
+			for (ItemAvaria rs : itensAvaria) {
+				if (rs.getProduto().equals(produto)) {
+					item = rs;
+				}
 			}
+	
+			if (item == null) {
+				ItemAvaria itemAvaria = new ItemAvaria();
+				itemAvaria.setPrecoParcial(produto.getPreco());
+				itemAvaria.setProduto(produto);
+				itemAvaria.setQuantidade(new Short("1"));
+	
+				itensAvaria.add(itemAvaria);
+			} else {
+				ItemAvaria itemAvaria = item;
+				if (itemAvaria.getQuantidade() != null && itemAvaria.getQuantidade()>0) {
+					itemAvaria.setQuantidade(new Short(itemAvaria.getQuantidade() - 1 + ""));
+				}
+				itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
+			}
+	
+			calcular();
 		}
-
-		if (achou < 0) {
-			ItemAvaria itemAvaria = new ItemAvaria();
-			itemAvaria.setPrecoParcial(produto.getPreco());
-			itemAvaria.setProduto(produto);
-			itemAvaria.setQuantidade(new Short("1"));
-
-			itensAvaria.add(itemAvaria);
-		} else {
-			ItemAvaria itemAvaria = itensAvaria.get(achou);
-			itemAvaria.setQuantidade(new Short(itemAvaria.getQuantidade() - 1 + ""));
-			itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
-		}
-
-		calcular();
 	}
-
+		
 	public void remover(ActionEvent evento) {
 		ItemAvaria itemAvaria = (ItemAvaria) evento.getComponent().getAttributes().get("itemSelecionado");
 

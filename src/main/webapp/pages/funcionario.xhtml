@@ -28,13 +28,11 @@
 
 				</f:facet>
 
-				<p:column headerText="Nome" filterBy="#{funcionario.pessoa.nome}"
-					sortBy="#{funcionario.pessoa.nome}">
+				<p:column headerText="Nome">
 					<h:outputText value="#{funcionario.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" style="text-align:center" filterBy="#{funcionario.pessoa.cpf}"
-					sortBy="#{funcionario.pessoa.cpf}">
+				<p:column headerText="CPF" style="text-align:center">
 					<h:outputText value="#{funcionario.pessoa.cpf}" />
 				</p:column>
 

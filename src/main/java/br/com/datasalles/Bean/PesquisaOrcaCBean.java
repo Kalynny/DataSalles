@@ -96,8 +96,8 @@ public class PesquisaOrcaCBean implements Serializable {
 	
 	}
 	
-	public String importarOrcamento(Long codigo) {
-		return "compras.xhtml?orcamentoc="+codigo+"&faces-redirect=true";
+	public String importarOrcamentoc(Long codigo) {
+		return "compras.xhtml?orcamentoc= " +codigo+ "&faces-redirect=true";
 	}
 	
 }

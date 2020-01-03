@@ -31,7 +31,7 @@
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaAvariaBean.dataFim}" style="margin: 0 7px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+						<p:commandButton value="Pesquisar" style="margin-right: 620px;"
 							actionListener="#{pesquisaAvariaBean.listar}" update="@form" />
 						<p:button value="Novo" outcome="/pages/avaria.xhtml" update="@form"  />
 					</f:facet>
@@ -52,16 +52,11 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Funcionário"
-						filterBy="#{avaria.funcionario.pessoa.nome}"
-						sortBy="#{avariao.funcionario.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{avaria.funcionario.pessoa.nome}" />
 					</p:column>
 					
-					<p:column headerText="Tipo de Avaria"
-						filterBy="#{avaria.tipoavaria.descricao}"
-						style="text-align: center;">
+					<p:column headerText="Tipo de Avaria" style="text-align: center;">
 						<h:outputText value="#{avaria.tipoavaria.descricao}" />
 					</p:column>
 					

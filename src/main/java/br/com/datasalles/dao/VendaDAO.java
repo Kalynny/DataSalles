@@ -212,7 +212,7 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 
 	@Override
 	public void salvar(Venda venda, List<ItemVenda> itens) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 	

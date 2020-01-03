@@ -13,14 +13,13 @@ template="/templates/template.xhtml"
 
 	<h:form id="formulario">
 		<p:panel header="Avaria de Mercadorias">
-		<p:button value="voltar" outcome="/pages/pesquisaO.xhtml" update="@form" style="margin-left: 960px;" />
+		<p:button value="voltar" outcome="/pages/pesquisaO.xhtml" update="@form" style="margin-left: 1150px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{avariaBean.produtos}" var="produto" rows="5"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
-					sortBy="#{produto.descricao}">
+				<p:column headerText="Descrição">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
@@ -34,9 +33,7 @@ template="/templates/template.xhtml"
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Fornecedor"
-					filterBy="#{produto.fornecedor.descricao}"
-					sortBy="#{produto.fornecedor.descricao}">
+				<p:column headerText="Fornecedor">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
@@ -62,20 +59,39 @@ template="/templates/template.xhtml"
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{avariaBean.itensAvaria}" var="itemAvaria" rows="5"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom" editable="true"
+				editMode="cell">
+				
+				<p:ajax event="cellEdit" oncomplete="rc()" />
 
 				<p:column headerText="Descrição">
 					<h:outputText value="#{itemAvaria.produto.descricao}" />
 				</p:column>
 
 				<p:column headerText="Qtde." style="text-align:center">
-					<h:outputText value="#{itemAvaria.quantidade}" />
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemAvaria.quantidade}" style="width:30px; text-align:center" />	
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemAvaria.quantidade}" style="width:30px; text-align:center" />
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
 				
 				<p:column headerText="Preço Un." style="text-align:center">
-					<h:outputText value="#{itemAvaria.produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
+					<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemAvaria.produto.preco}" style="width:40px; text-align:center">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemAvaria.produto.preco}" style="width:40px; text-align:center" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Fornecedor">

@@ -23,13 +23,11 @@ template="/templates/template.xhtml">
 						
 				</f:facet>
 
-				<p:column headerText="Nome" filterBy="#{cidade.nome}"
-					sortBy="#{cidade.nome}">
+				<p:column headerText="Nome">
 					<h:outputText value="#{cidade.nome}" />
 				</p:column>
 
-				<p:column headerText="Estado" filterBy="#{cidade.estado.nome}"
-					sortBy="#{cidade.estado.nome}">
+				<p:column headerText="Estado">
 					<h:outputText value="#{cidade.estado.nome}" />
 					<h:outputText value=" - " />
 					<h:outputText value="#{cidade.estado.sigla}" />

@@ -28,13 +28,11 @@ template="/templates/template.xhtml"
 							actionListener="#{clienteBean.impcli()}" />
 				</f:facet>
 
-				<p:column headerText="Nome" filterBy="#{cliente.pessoa.nome}"
-					sortBy="#{cliente.pessoa.nome}">
+				<p:column headerText="Nome">
 					<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" style="text-align:center" filterBy="#{cliente.pessoa.cpf}"
-					sortBy="#{cliente.pessoa.cpf}">
+				<p:column headerText="CPF" style="text-align:center">
 					<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 

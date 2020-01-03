@@ -16,7 +16,7 @@
 
 		<h:form id="formCadastro">
 			<p:panel header="Orcamento de Vendas">
-				<p:dataTable emptyMessage="Nenhum registro encontrado."
+			<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaCompraBean.compras}" var="compra"
 					rows="12">
 
@@ -31,7 +31,7 @@
 						<p:outputLabel value="Data Fim:" />
 						<p:calendar pattern="    dd/MM/yyyy"
 							value="#{pesquisaCompraBean.dataFim}" style="margin: 0 7px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 420px;"
+						<p:commandButton value="Pesquisar" style="margin-right: 620px;"
 							actionListener="#{pesquisaCompraBean.listar}" update="@form" />
 						<p:button value="Novo" outcome="/pages/compras.xhtml" update="@form"  />
 					</f:facet>
@@ -52,17 +52,12 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Fornecedor"
-						filterBy="#{compra.fornecedor.descricao}"
-						sortBy="#{compra.fornecedor.descricao}" style="text-align: center;">
+					<p:column headerText="Fornecedor" style="text-align:rigth;">
 						<h:outputText value="#{compra.fornecedor.descricao}" />
 					</p:column>
 
 
-					<p:column headerText="Funcionário"
-						filterBy="#{compra.funcionario.pessoa.nome}"
-						sortBy="#{comprao.funcionario.pessoa.nome}"
-						style="text-align: center;">
+					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{compra.funcionario.pessoa.nome}" />
 					</p:column>
 					

@@ -12,7 +12,7 @@ template="/templates/template.xhtml">
 
 	<h:form id="formulario">
 		<p:panel header="Orçamento de Vendas">
-		<p:button value="voltar" outcome="/pages/pesquisaO.xhtml" update="@form" style="margin-left: 960px;" />
+		<p:button value="voltar" outcome="/pages/pesquisaO.xhtml" update="@form" style="margin-left: 1150px;" />
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{orcamentoBean.produtos}" var="produto" rows="5"
@@ -60,20 +60,40 @@ template="/templates/template.xhtml">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{orcamentoBean.itensOrca}" var="itemOrca" rows="5"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom"
+				editable="true"
+				editMode="cell">
+				
+				<p:ajax event="cellEdit" oncomplete="rc()" />
 
 				<p:column headerText="Descrição">
 					<h:outputText value="#{itemOrca.produto.descricao}" />
 				</p:column>
 
 				<p:column headerText="Preço Un." style="text-align:center">
-					<h:outputText value="#{itemOrca.produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
+					<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemOrca.produto.preco}" style="width:40px; text-align:center">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemOrca.produto.preco}" style="width:40px; text-align:center" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Qtde."  style="text-align:center">
-					<h:outputText value="#{itemOrca.quantidade}" />
+				<p:cellEditor>
+				<f:facet name="output">
+				<h:inputText value="#{itemOrca.quantidade}" style="width:30px; text-align:center" />	
+				</f:facet>
+				<f:facet name="input">
+				<h:inputText value="#{itemOrca.quantidade}" style="width:30px; text-align:center" />
+				</f:facet>
+				</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Preço Parcial"  style="text-align:center">

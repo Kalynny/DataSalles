@@ -27,17 +27,15 @@
 							actionListener="#{fornecedorBean.impfor()}" />
 					</f:facet>
 
-					<p:column headerText="Código" style="width:40px;">
+					<p:column headerText="Código" style="width:40px; text-align:center" >
 						<h:outputText value="#{fornecedor.codigo}" />
 					</p:column>
 
-					<p:column headerText="Descrição" sortBy="#{fornecedor.descricao}"
-						filterBy="#{fornecedor.descricao}">
+					<p:column headerText="Descrição" sortBy="#{fornecedor.descricao}">
 						<h:outputText value="#{fornecedor.descricao}" />
 					</p:column>
 
-					<p:column headerText="CNPJ" style="text-align:center"
-						sortBy="#{fornecedor.cnpj}" filterBy="#{fornecedor.cnpj}">
+					<p:column headerText="CNPJ" style="text-align:center">
 						<h:outputText value="#{fornecedor.cnpj}" />
 					</p:column>
 					<p:column headerText="Insc. Estadual" style="text-align:center">
