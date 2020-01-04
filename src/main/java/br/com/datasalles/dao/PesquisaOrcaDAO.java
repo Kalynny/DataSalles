@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.datasalles.domain.PesquisaOrca;
 import br.com.datasalles.util.HibernateUtil;
 
-public class PesquisaOrcaDAO  extends GenericDAO<PesquisaOrca>{
+public class PesquisaOrcaDAO extends GenericDAO<PesquisaOrca>{
 	
 	@SuppressWarnings("rawtypes")
 	public List listarPorData(Date dataInicio, Date dataFim){

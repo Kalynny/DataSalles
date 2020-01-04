@@ -36,7 +36,7 @@
 						<p:button value="Novo" outcome="/pages/orcamentoc.xhtml" update="@form" />
 					</f:facet>
 
-					<p:column headerText="Codigo" style="text-align: center;">
+					<p:column headerText="Codigo" style="width:80px; text-align: center;">
 						<h:outputText value="#{orcac.codigo}">
 						</h:outputText>
 					</p:column>
@@ -64,7 +64,7 @@
 
 					<p:column headerText="">
 						<p:commandButton value="Import"
-							action="#{pesquisaOrcaCBean.importarOrcamentoc(orcac.codigo)}" />
+							action="#{pesquisaOrcaCBean.importarOrcamentoC(orcac.codigo)}" />
 					</p:column>
 
 					<p:rowExpansion>

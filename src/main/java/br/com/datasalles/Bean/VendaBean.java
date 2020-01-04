@@ -343,7 +343,7 @@ public class VendaBean implements Serializable {
 				}
 				
 			    }catch (RuntimeException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar salvar a venda");
+				Messages.addGlobalError("Quantidade do Estoque menor que o solicitado na Venda");
 				erro.printStackTrace();
 			    }
 		}

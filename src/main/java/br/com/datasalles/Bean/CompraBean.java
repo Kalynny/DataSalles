@@ -212,6 +212,7 @@ public class CompraBean implements Serializable {
 	
 			calcular();
 		}
+		System.out.println("Digite uma Quatidade Maior que Zero");
 	}
 	
 			
@@ -239,8 +240,8 @@ public class CompraBean implements Serializable {
 		compra.setPrecoTotal(new BigDecimal("0.00"));
 
 		for (int posicao = 0; posicao < itensCompra.size(); posicao++) {
-			ItemCompra itemCompra = itensCompra.get(posicao);
-			compra.setPrecoTotal(compra.getPrecoTotal().add(itemCompra.getPrecoParcial()));
+			ItemCompra itemcompra = itensCompra.get(posicao);
+			compra.setPrecoTotal(compra.getPrecoTotal().add(itemcompra.getPrecoParcial()));
 		}
 	}
 

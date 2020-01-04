@@ -68,7 +68,7 @@ template="/templates/template.xhtml">
 		<p:panel header="Carrinho de Compras">
 			<p:dataTable id="tabelaCesta"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{compraBean.itensCompra}" var="itemcompra" rows="5"
+				value="#{compraBean.itensCompra}" var="itemCompra" rows="5"
 				paginatorPosition="bottom"
 				editable="true"
 				editMode="cell">
@@ -82,12 +82,12 @@ template="/templates/template.xhtml">
 				<p:column headerText="Preço Un." style="text-align:center">
 				<p:cellEditor>
 				<f:facet name="output">
-				<h:inputText value="#{itemcompra.produto.preco}" style="width:40px; text-align:center">
+				<h:inputText value="#{itemCompra.produto.preco}" style="width:40px; text-align:center">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 				</f:facet>
 				<f:facet name="input">
-				<h:inputText value="#{itemcompra.produto.preco}" style="width:40px; text-align:center" >
+				<h:inputText value="#{itemCompra.produto.preco}" style="width:40px; text-align:center" >
 				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 				</f:facet>
@@ -97,25 +97,25 @@ template="/templates/template.xhtml">
 				<p:column headerText="Qtde." style="text-align:center">
 				<p:cellEditor>
 				<f:facet name="output">
-				<h:inputText value="#{itemcompra.quantidade}" style="width:30px; text-align:center" />	
+				<h:inputText value="#{itemCompra.quantidade}" style="width:30px; text-align:center" />	
 				</f:facet>
 				<f:facet name="input">
-				<h:inputText value="#{itemcompra.quantidade}" style="width:30px; text-align:center" />
+				<h:inputText value="#{itemCompra.quantidade}" style="width:30px; text-align:center" />
 				</f:facet>
 				</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Preço Parcial" style="text-align: center;">
-					<h:outputText value="#{itemcompra.precoParcial}">
+					<h:outputText value="#{itemCompra.precoParcial}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-minus"
+				<p:column headerText="Opções"  style="text-align: center;">
+					<p:commandButton icon="ui-icon-minus" 
 						actionListener="#{compraBean.remover}"
 						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="itemSelecionado" value="#{itemcompra}" />
+						<f:attribute name="itemSelecionado" value="#{itemCompra}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>

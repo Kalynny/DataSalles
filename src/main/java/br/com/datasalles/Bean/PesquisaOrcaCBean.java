@@ -23,7 +23,6 @@ public class PesquisaOrcaCBean implements Serializable {
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
 		
-	
 	public List<OrcamentoC> getOrcamentos() {
 		return orcamentos;
 	}
@@ -96,8 +95,8 @@ public class PesquisaOrcaCBean implements Serializable {
 	
 	}
 	
-	public String importarOrcamentoc(Long codigo) {
-		return "compras.xhtml?orcamentoc= " +codigo+ "&faces-redirect=true";
+	public String importarOrcamentoC(Long codigo) {
+		return "compras.xhtml?orcamento="+codigo+"&faces-redirect=true";
 	}
 	
 }

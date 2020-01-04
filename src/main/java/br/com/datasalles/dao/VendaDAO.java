@@ -42,7 +42,7 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 					produto.setQuantidade(new Short((qtde) + ""));
 					sessao.update(produto);
 				}else{
-					throw new RuntimeException("Erro ao atualizar estoque");
+					throw new RuntimeException("Quatidade do Estoque menor que o solicitado");
 				}
 			}
 					
