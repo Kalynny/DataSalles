@@ -14,12 +14,13 @@
 					<p:outputLabel value="LISTA DE CONTAS A PAGAR"
 						style="font-size:100%; margin-right:1020px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{cpagarBean.novo()}" update="@form" />
+						actionListener="#{cpagarBean.novo()}"
+						update=":formCadastro:pnCadastro" />
 				</f:facet>
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{cpagarBean.cpagares}" var="cpagar"
 					rows="6" id="tabela">
-					
+
 					<p:column headerText="Fornecedor">
 						<h:outputText value="#{cpagar.fornecedor.descricao}" />
 					</p:column>

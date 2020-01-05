@@ -14,16 +14,23 @@
 					<p:outputLabel value="LISTA DE CONTAS A RECEBER"
 						style="font-size:100%; margin-right:1010px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{creceberBean.novo()}" update="@form" />
+						actionListener="#{creceberBean.novo()}"
+						update=":mensagem :formCadastro:pnCadastro" />
 				</f:facet>
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{creceberBean.creceberes}" var="creceber"
 					rows="6" id="tabela">
 
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{creceber.codigo}">
+						</h:outputText>
+					</p:column>
+										
 					<p:column headerText="Cliente">
 						<h:outputText value="#{creceber.cliente.pessoa.nome}" />
 					</p:column>
-
+										
 					<p:column headerText="Data Atual" style="text-align:center">
 						<h:outputText value="#{creceber.horario}">
 							<f:convertDateTime locale="pt_BR" />
@@ -93,7 +100,8 @@
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Data Atual:" />
-					<p:calendar value="#{creceberBean.creceber.horario}" required="true"
+					<p:calendar value="#{creceberBean.creceber.horario}"
+						required="true"
 						requiredMessage="O campo 'Data Atual' é obrigatório">
 					</p:calendar>
 

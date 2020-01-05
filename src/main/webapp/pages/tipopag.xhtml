@@ -32,11 +32,11 @@
 
 					<p:column headerText="Opções" style="text-align:center">
 						<p:commandButton icon="ui-icon-trash"
-							actionListener="#{tipopagBean.excluir}"
+							actionListener="#{tipoPagBean.excluir}"
 							update=":mensagem :formListagem:tabela">
 							<p:confirm header="Confirmação"
 								message="Deseja excluir o tipo avaria?" icon="ui-icon-alert" />
-							<f:attribute name="tipopagSelecionado" value="#{tipoapg}" />
+							<f:attribute name="tipopagSelecionado" value="#{tipopag}" />
 						</p:commandButton>
 
 						<p:commandButton icon="ui-icon-pencil"

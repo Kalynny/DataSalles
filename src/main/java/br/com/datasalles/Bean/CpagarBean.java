@@ -61,7 +61,7 @@ public class CpagarBean implements Serializable {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
+	
 	public void novo() {
 		try {
 		cpagar = new Cpagar();

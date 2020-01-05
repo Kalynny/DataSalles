@@ -2,20 +2,23 @@ package br.com.datasalles.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import br.com.datasalles.domain.Creceber;
+import br.com.datasalles.domain.Pagamento;
 import br.com.datasalles.util.HibernateUtil;
 
-public class CreceberDAO extends GenericDAO<Creceber> {
-
-	public void salvar(Creceber creceber){
+public class PagamentoDAO extends GenericDAO <Pagamento> {
+	
+	public void salvar(Pagamento pagamento){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
 		try {
-
+			
 			transacao = sessao.beginTransaction();
-			creceber = (Creceber) sessao.merge(creceber);
-
+					
+			sessao.save(pagamento);
+				
+			throw new RuntimeException("Erro ao atualizar estoque");
+								
 		} catch (RuntimeException erro) {
 			if (transacao != null) {
 				transacao.rollback();
@@ -25,5 +28,7 @@ public class CreceberDAO extends GenericDAO<Creceber> {
 			sessao.close();
 		}
 	}
-
+	
+	
+	
 }

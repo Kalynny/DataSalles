@@ -22,7 +22,7 @@ public class CreceberBean implements Serializable {
 	private List<Creceber>creceberes;
 	private List<Cliente>clientes;
 	private String tipo;
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -46,7 +46,7 @@ public class CreceberBean implements Serializable {
 	public void setCreceber(Creceber creceber) {
 		this.creceber = creceber;
 	}
-	
+
 	public List<Creceber> getCreceberes() {
 		return creceberes;
 	}
@@ -65,37 +65,37 @@ public class CreceberBean implements Serializable {
 
 	public void novo() {
 		try {
-		creceber = new Creceber();
-		
-		ClienteDAO clientesDAO = new ClienteDAO();
-		clientes = clientesDAO.listar();
+			creceber = new Creceber();
+
+			ClienteDAO clientesDAO = new ClienteDAO();
+			clientes = clientesDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
 			erro.printStackTrace();
 		}
-		
 	}
 
-	
+
 	public void salvar() {
+
 		try {
 			CreceberDAO creceberDAO = new CreceberDAO();
 			creceberDAO.merge(creceber);
-			
-			creceber = new Creceber();			
+
+			ClienteDAO clientesDAO = new ClienteDAO();
+			clientes = clientesDAO.listar();
+
 			creceberes = creceberDAO.listar();
-			
-				
-			Messages.addGlobalInfo("Contas a Receber salvo com sucesso");
+
+			Messages.addGlobalInfo("Conta a Receber salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Receber");
 			erro.printStackTrace();
 		}
 	}
-	
-	
 
-@PostConstruct
+
+	@PostConstruct
 	public void listar(){
 		try{
 			CreceberDAO creceberDAO = new CreceberDAO();
@@ -110,19 +110,19 @@ public class CreceberBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		try {
 			creceber = (Creceber) evento.getComponent().getAttributes().get("creceberSelecionado");
-	
+
 			CreceberDAO creceberDAO = new CreceberDAO();
 			creceberDAO.excluir(creceber);
-			
+
 			creceberes = creceberDAO.listar();
-	
+
 			Messages.addGlobalInfo("Cliente removido com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Contas a Pagar");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		creceber = (Creceber) evento.getComponent().getAttributes().get("creceberSelecionado");
 	}

@@ -62,6 +62,8 @@
 		<mapping class="br.com.datasalles.domain.Recebimento" />
 		<mapping class="br.com.datasalles.domain.Fechamento" />
 		<mapping class="br.com.datasalles.domain.Sangria" />
+		<mapping class="br.com.datasalles.domain.Recebimento" />
+		<mapping class="br.com.datasalles.domain.Pagamento" />
 		
 	</session-factory>
 
