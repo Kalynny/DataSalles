@@ -16,6 +16,21 @@
 
 		<h:form>
 			<p:panel columns="2" header="Orcamento de Vendas">
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="LISTA DE ORÇAMENTO DE VENDAS"
+						style="margin-right:160px;" />
+					<p:outputLabel value="Data Inicio:" />
+					<p:calendar pattern="       dd/MM/yyyy"
+						value="#{pesquisaOrcaBean.dataInicio}" style="margin: 0 9px;" />
+					<p:outputLabel value="Data Fim:" />
+					<p:calendar pattern="       dd/MM/yyyy"
+						value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 10px;" />
+					<p:commandButton value="Pesquisar" style="margin-right: 275px;"
+						actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
+					<p:button value="Novo" outcome="/pages/orcamento.xhtml"
+						update="@form" />
+				</f:facet>
+
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaBean.orcamentos}" var="orca"
 					rows="12">
@@ -24,36 +39,27 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header" style="text-align: center;">
-						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="     dd/MM/yyyy"
-							value="#{pesquisaOrcaBean.dataInicio}" style="margin: 0 9px;" />
-						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="     dd/MM/yyyy"
-							value="#{pesquisaOrcaBean.dataFim}" style="margin: 0 9px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 555px;"
-							actionListener="#{pesquisaOrcaBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/orcamento.xhtml" update="@form" />
-					</f:facet>
-
-					<p:column headerText="Codigo" style="text-align: center;">
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
 						<h:outputText value="#{orca.codigo}">
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Data" style="text-align: center;">
+					<p:column headerText="Data"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{orca.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor" style="text-align: center;">
+					<p:column headerText="Valor"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{orca.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Cliente" style="text-align: center;">
+					<p:column headerText="Cliente">
 						<h:outputText value="#{orca.cliente.pessoa.nome}" />
 					</p:column>
 
@@ -62,7 +68,7 @@
 						<h:outputText value="#{orca.funcionario.pessoa.nome}" />
 					</p:column>
 
-					<p:column headerText="">
+					<p:column headerText="" style="text-align: center;">
 						<p:commandButton value="Import"
 							action="#{pesquisaOrcaBean.importarOrcamento(orca.codigo)}" />
 					</p:column>
@@ -81,7 +87,7 @@
 
 							<p:column headerText="Valor Unitário"
 								style="text-align: center; ">
-								<h:outputText value="#{itemorca.precoParcial}" />
+								<h:outputText value="#{itemorca.produto.preco}" />
 							</p:column>
 
 						</p:dataTable>

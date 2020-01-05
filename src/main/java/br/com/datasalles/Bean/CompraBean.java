@@ -12,7 +12,9 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -22,6 +24,7 @@ import org.primefaces.component.datatable.DataTable;
 import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
+import br.com.datasalles.dao.OrcamentoCDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.dao.TipoPagcDAO;
 import br.com.datasalles.domain.Compra;
@@ -152,8 +155,24 @@ public class CompraBean implements Serializable {
 
 			itensCompra = new ArrayList<>();
 			tipopagcs = new ArrayList<>();
+			
+			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			String orcamentocCodigo = request.getParameter("orcamentoc");
+			if(orcamentocCodigo!=null) {
+				try {
+					
+					OrcamentoCDAO orcamentocDAO = new OrcamentoCDAO();
+					Long cod = Long.parseLong(orcamentocCodigo);
+					
+					importarOrcamentoC(orcamentocDAO.buscar(cod));
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+							
+			}
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de compras");
+			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			erro.printStackTrace();
 		}
 	}

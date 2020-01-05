@@ -16,6 +16,19 @@
 
 		<h:form>
 			<p:panel header="Pedido de Vendas">
+				<f:facet name="header">
+				<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+						style="margin-right:180px;" />
+					<p:outputLabel value="Data Inicio:" />
+					<p:calendar pattern="    dd/MM/yyyy"
+						value="#{pesquisaVendaBean.dataInicio}" style="margin: 0 9px;" />
+					<p:outputLabel value="Data Fim:" />
+					<p:calendar pattern="    dd/MM/yyyy"
+						value="#{pesquisaVendaBean.dataFim}" style="margin: 0 9px;" />
+					<p:commandButton value="Pesquisar" style="margin-right: 230px;"
+						actionListener="#{pesquisaVendaBean.listar}" update="@form" />
+					<p:button value="Novo" outcome="/pages/vendas.xhtml" update="@form" />
+				</f:facet>
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaVendaBean.vendas}" var="venda"
 					rows="12">
@@ -24,53 +37,48 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header">
-						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaVendaBean.dataInicio}" style="margin: 0 9px;" />
-						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaVendaBean.dataFim}" style="margin: 0 9px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 660px;"
-							actionListener="#{pesquisaVendaBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/vendas.xhtml" update="@form"  />
-					</f:facet>
 
-					<p:column headerText="Codigo" style="width:80px; text-align: center;">
+
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
 						<h:outputText value="#{venda.codigo}">
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Data da Venda" style="width:100px; text-align: center;">
+					<p:column headerText="Data da Venda"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{venda.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
-					
-					<p:column headerText="Vencimento" style="width:80px; text-align: center;">
+
+					<p:column headerText="Vencimento"
+						style="width:80px; text-align: center;">
 						<h:outputText value="#{venda.vencimento}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor" style="width:100px; text-align: center;">
+					<p:column headerText="Valor"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{venda.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Cliente" style="text-align: center;">
+					<p:column headerText="Cliente">
 						<h:outputText value="#{venda.cliente.pessoa.nome}" />
 					</p:column>
-					
-					<p:column headerText="Tipo de Pagamento" style="width:120px; text-align: center;">
+
+					<p:column headerText="Tipo de Pagamento"
+						style="width:120px; text-align: center;">
 						<h:outputText value="#{venda.tipopag.descricao}" />
 					</p:column>
 
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					</p:column>
-					
+
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{venda.itensVenda}" var="itemVenda">
@@ -79,14 +87,15 @@
 								<h:outputText value="#{itemVenda.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade">
+							<p:column headerText="Quantidade" style="text-align:center">
 								<h:outputText value="#{itemVenda.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário">
-								<h:outputText value="#{itemVenda.precoParcial}" />
+							<p:column headerText="Valor Unitário" style="text-align:center">
+								<h:outputText value="#{itemVenda.produto.preco}" />
 							</p:column>
-	
+
+
 						</p:dataTable>
 					</p:rowExpansion>
 

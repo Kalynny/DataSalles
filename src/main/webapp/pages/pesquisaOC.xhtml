@@ -16,6 +16,21 @@
 
 		<h:form>
 			<p:panel columns="2" header="Pedido de Compras">
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+						style="margin-right:200px;" />
+					<p:outputLabel value="Data Inicio:" />
+					<p:calendar pattern="     dd/MM/yyyy"
+						value="#{pesquisaOrcaCBean.dataInicio}" style="margin: 0 7px;" />
+					<p:outputLabel value="Data Fim:" />
+					<p:calendar pattern="     dd/MM/yyyy"
+						value="#{pesquisaOrcaCBean.dataFim}" style="margin: 0 7px;" />
+					<p:commandButton value="Pesquisar" style="margin-right: 235px;"
+						actionListener="#{pesquisaOrcaCBean.listar}" update="@form" />
+					<p:button value="Novo" outcome="/pages/orcamentoc.xhtml"
+						update="@form" />
+				</f:facet>
+
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaOrcaCBean.orcamentos}"
 					var="orcac" rows="12">
@@ -24,36 +39,28 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header" style="text-align: center;">
-						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="   dd/MM/yyyy"
-							value="#{pesquisaOrcaCBean.dataInicio}" style="margin: 0 9px;" />
-						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="   dd/MM/yyyy"
-							value="#{pesquisaOrcaCBean.dataFim}" style="margin: 0 9px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 555px;"
-							actionListener="#{pesquisaOrcaCBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/orcamentoc.xhtml" update="@form" />
-					</f:facet>
 
-					<p:column headerText="Codigo" style="width:80px; text-align: center;">
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
 						<h:outputText value="#{orcac.codigo}">
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Data" style="text-align: center;">
+					<p:column headerText="Data"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{orcac.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor" style="text-align: center;">
+					<p:column headerText="Valor"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{orcac.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Fornecedor" style="text-align: center;">
+					<p:column headerText="Fornecedor">
 						<h:outputText value="#{orcac.fornecedor.descricao}" />
 					</p:column>
 
@@ -62,7 +69,7 @@
 						<h:outputText value="#{orcac.funcionario.pessoa.nome}" />
 					</p:column>
 
-					<p:column headerText="">
+					<p:column headerText="" style="text-align: center;">
 						<p:commandButton value="Import"
 							action="#{pesquisaOrcaCBean.importarOrcamentoC(orcac.codigo)}" />
 					</p:column>
@@ -81,7 +88,7 @@
 
 							<p:column headerText="Valor Unitário"
 								style="text-align: center; ">
-								<h:outputText value="#{itemorcac.precoParcial}" />
+								<h:outputText value="#{itemorcac.produto.preco}" />
 							</p:column>
 
 						</p:dataTable>

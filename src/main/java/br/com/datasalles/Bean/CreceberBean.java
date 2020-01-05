@@ -23,7 +23,6 @@ public class CreceberBean implements Serializable {
 	private List<Cliente>clientes;
 	private String tipo;
 	
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -81,17 +80,15 @@ public class CreceberBean implements Serializable {
 	public void salvar() {
 		try {
 			CreceberDAO creceberDAO = new CreceberDAO();
-			System.out.println(creceberDAO);
 			creceberDAO.merge(creceber);
 			
-						
-			novo();
+			creceber = new Creceber();			
 			creceberes = creceberDAO.listar();
 			
-			
-			Messages.addGlobalInfo("Contas a Pagar salvo com sucesso");
+				
+			Messages.addGlobalInfo("Contas a Receber salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Pagar");
+			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Receber");
 			erro.printStackTrace();
 		}
 	}

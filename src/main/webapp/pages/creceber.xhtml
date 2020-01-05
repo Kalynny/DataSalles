@@ -1,139 +1,138 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
-	<h:form id="formListagem">
+	<ui:define name="conteudo">
+		<h:form id="formListagem">
 
-		<p:panel header="Lista de Contas a Receber">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{creceberBean.creceberes}" var="creceber"
-				rows="6" id="tabela">
-				<f:facet name="header">
+			<p:panel>
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="LISTA DE CONTAS A RECEBER"
+						style="font-size:100%; margin-right:1010px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{creceberBean.novo()}"
-						update=":formCadastro:pnCadastro" />
+						actionListener="#{creceberBean.novo()}" update="@form" />
 				</f:facet>
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{creceberBean.creceberes}" var="creceber"
+					rows="6" id="tabela">
 
-				<p:column headerText="Cliente" sortBy="#{creceber.cliente.pessoa.nome}"
-					filterBy="#{creceber.cliente.pessoa.nome}">
-					<h:outputText value="#{creceber.cliente.pessoa.nome}" />
-				</p:column>
-				
-				<p:column headerText="Data Atual" sortBy="#{creceber.horario}"
-					filterBy="#{creceber.horario}" style="text-align:center">
-					<h:outputText value="#{creceber.horario}" >
-					<f:convertDateTime locale="pt_BR" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Data de Vencimento" sortBy="#{creceber.vencimento}"
-					filterBy="#{creceber.vencimento}" style="text-align:center">
-					<h:outputText value="#{creceber.vencimento}" >
-					<f:convertDateTime locale="pt_BR" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Preço Total" style="text-align:right">
-					<h:outputText value="#{creceber.precoTotal}" >
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Tipo do Contas a Receber" style="text-align:center">
-					<h:outputText value="#{creceber.tipo}" />
-				</p:column>
+					<p:column headerText="Cliente">
+						<h:outputText value="#{creceber.cliente.pessoa.nome}" />
+					</p:column>
 
-				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{creceberBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o contas a receber?"
-							icon="ui-icon-alert" />
-						<f:attribute name="creceberSelecionado" value="#{creceber}" />
-					</p:commandButton>
+					<p:column headerText="Data Atual" style="text-align:center">
+						<h:outputText value="#{creceber.horario}">
+							<f:convertDateTime locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{creceberBean.editar}"
-						update=":formCadastro:pnCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="creceberSelecionado" value="#{creceber}" />
-					</p:commandButton>
-				</p:column>
-				
-			</p:dataTable>
+					<p:column headerText="Data de Vencimento" style="text-align:center">
+						<h:outputText value="#{creceber.vencimento}">
+							<f:convertDateTime locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
+					<p:column headerText="Preço Total" style="text-align:right">
+						<h:outputText value="#{creceber.precoTotal}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
-		</p:panel>
-	</h:form>
+					<p:column headerText="Tipo do Contas a Receber"
+						style="text-align:center">
+						<h:outputText value="#{creceber.tipo}" />
+					</p:column>
 
-	<p:dialog header="Contas a Receber - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-		
-			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Cliente:" />
-				<p:selectOneMenu value="#{creceberBean.creceber.cliente}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um cliente" />
-					<f:selectItems value="#{creceberBean.clientes}" var="cliente"
-						itemValue="#{cliente}"
-						itemLabel="#{cliente.pessoa.nome}" />
-				</p:selectOneMenu>
-			
-					
-				<p:outputLabel value="Data Atual:" />
-				<p:calendar value="#{creceberBean.creceber.horario}" required="true"
-					requiredMessage="O campo 'Data Atual' é obrigatório">
-				</p:calendar>
-				
-				<p:outputLabel value="Data de Vencimento:" />
-				<p:calendar value="#{creceberBean.creceber.vencimento}" required="true"
-					requiredMessage="O campo 'Data de Vencimento' é obrigatório">
-				</p:calendar>	
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{creceberBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o contas a receber?"
+								icon="ui-icon-alert" />
+							<f:attribute name="creceberSelecionado" value="#{creceber}" />
+						</p:commandButton>
 
-				<p:outputLabel value="Preço Total:" />
-				<p:inputText maxlength="7" size="10"
-					value="#{creceberBean.creceber.precoTotal}" required="true"
-					requiredMessage="O campo 'Preço' é obrigatório"
-					converterMessage="Informe um valor válido para o campo 'Preço''"
-					validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
-					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</p:inputText>
-				
-				<p:outputLabel value="Tipo de Contas a Receber:" />
-				<p:selectOneMenu id="tipo" value="#{creceberBean.tipo}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'tipo' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-					itemLabel="Selecione o Tipo de Contas a Receber" />
-					<f:selectItem itemValue="Entrada Manual" itemLabel="Entrada Manual" />
-				</p:selectOneMenu>
-			</h:panelGrid>			
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{creceberBean.salvar()}"
-					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{creceberBean.editar}"
+							update=":formCadastro:pnCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="creceberSelecionado" value="#{creceber}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</p:panel>
 		</h:form>
-	</p:dialog>
+
+		<p:dialog header="Contas a Receber - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formCadastro">
+
+				<h:panelGrid columns="2" id="pnCadastro">
+					<p:outputLabel value="Cliente:" />
+					<p:selectOneMenu value="#{creceberBean.creceber.cliente}"
+						converter="omnifaces.SelectItemsConverter" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um cliente" />
+						<f:selectItems value="#{creceberBean.clientes}" var="cliente"
+							itemValue="#{cliente}" itemLabel="#{cliente.pessoa.nome}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data Atual:" />
+					<p:calendar value="#{creceberBean.creceber.horario}" required="true"
+						requiredMessage="O campo 'Data Atual' é obrigatório">
+					</p:calendar>
+
+					<p:outputLabel value="Data de Vencimento:" />
+					<p:calendar value="#{creceberBean.creceber.vencimento}"
+						required="true"
+						requiredMessage="O campo 'Data de Vencimento' é obrigatório">
+					</p:calendar>
+
+					<p:outputLabel value="Preço Total:" />
+					<p:inputText maxlength="7" size="10"
+						value="#{creceberBean.creceber.precoTotal}" required="true"
+						requiredMessage="O campo 'Preço' é obrigatório"
+						converterMessage="Informe um valor válido para o campo 'Preço''"
+						validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
+						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:inputText>
+
+					<p:outputLabel value="Tipo de Contas a Receber:" />
+					<p:selectOneMenu id="tipo" value="#{creceberBean.tipo}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'tipo' é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Tipo de Contas a Receber" />
+						<f:selectItem itemValue="Entrada Manual"
+							itemLabel="Entrada Manual" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{creceberBean.salvar()}"
+						update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
-</ui:define>
+	</ui:define>
 
 </ui:composition>

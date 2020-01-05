@@ -23,10 +23,10 @@ public class PesquisaOrcaC extends GenericDomain{
 	private BigDecimal valor;
 	
 	@Column(nullable = false)
-	private Date dataDoRecebimento;
+	private Date dataDoPagamento;
 
 	@Column(nullable = false)
-	private String formaDeRecebimento;
+	private String formaDePagamento;
 
 	public Compra getCompra() {
 		return compra;
@@ -52,21 +52,21 @@ public class PesquisaOrcaC extends GenericDomain{
 		this.valor = valor;
 	}
 
-	public Date getDataDoRecebimento() {
-		return dataDoRecebimento;
+	public Date getDataDoPagamento() {
+		return dataDoPagamento;
 	}
 
-	public void setDataDoRecebimento(Date dataDoRecebimento) {
-		this.dataDoRecebimento = dataDoRecebimento;
+	public void setDataDoPagamento(Date dataDoPagamento) {
+		this.dataDoPagamento = dataDoPagamento;
 	}
 
-	public String getFormaDeRecebimento() {
-		return formaDeRecebimento;
+	public String getFormaDePagamento() {
+		return formaDePagamento;
 	}
 
-	public void setFormaDeRecebimento(String formaDeRecebimento) {
-		this.formaDeRecebimento = formaDeRecebimento;
+	public void setFormaDePagamento(String formaDePagamento) {
+		this.formaDePagamento = formaDePagamento;
 	}
-	
-		
+
+			
 }

@@ -16,7 +16,22 @@
 
 		<h:form id="formCadastro">
 			<p:panel header="Orcamento de Vendas">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+				<f:facet name="header">
+					<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+						style="margin-right:160px;" />
+					<p:outputLabel value="Data Inicio:" />
+					<p:calendar pattern="    dd/MM/yyyy"
+						value="#{pesquisaCompraBean.dataInicio}" style="margin: 0 7px;" />
+					<p:outputLabel value="Data Fim:" />
+					<p:calendar pattern="    dd/MM/yyyy"
+						value="#{pesquisaCompraBean.dataFim}" style="margin: 0 7px;" />
+					<p:commandButton value="Pesquisar" style="margin-right: 310px;"
+						actionListener="#{pesquisaCompraBean.listar}" update="@form" />
+					<p:button value="Novo" outcome="/pages/compras.xhtml"
+						update="@form" />
+				</f:facet>
+
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaCompraBean.compras}" var="compra"
 					rows="12">
 
@@ -24,29 +39,37 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header">
-						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaCompraBean.dataInicio}" style="margin: 0 7px;" />
-						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaCompraBean.dataFim}" style="margin: 0 7px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 620px;"
-							actionListener="#{pesquisaCompraBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/compras.xhtml" update="@form"  />
-					</f:facet>
-
-					<p:column headerText="Codigo" style="text-align: center;">
-						<h:outputText value="#{compra.codigo}"/>
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{compra.codigo}" />
 					</p:column>
 
-					<p:column headerText="Data" style="text-align: center;">
+					<p:column headerText="NF de Compra"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{compra.nfcompra}" />
+					</p:column>
+
+					<p:column headerText="Ped de Compra"
+						style="width:90px; text-align: center;">
+						<h:outputText value="#{compra.pedido}" />
+					</p:column>
+
+					<p:column headerText="Data da Compra"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{compra.atual}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor" style="text-align: center;">
+					<p:column headerText="Vencimento"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{compra.vencimento}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{compra.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
@@ -56,11 +79,15 @@
 						<h:outputText value="#{compra.fornecedor.descricao}" />
 					</p:column>
 
+					<p:column headerText="Tipo de Pagamento"
+						style="width:120px; text-align: center;">
+						<h:outputText value="#{compra.tipopagc.descricao}" />
+					</p:column>
 
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{compra.funcionario.pessoa.nome}" />
 					</p:column>
-					
+
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{compra.itensCompra}" var="itemcompra">
@@ -69,15 +96,15 @@
 								<h:outputText value="#{itemcompra.produto.descricao}" />
 							</p:column>
 
-							<p:column headerText="Quantidade"  style="text-align:center">
+							<p:column headerText="Quantidade" style="text-align:center">
 								<h:outputText value="#{itemcompra.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário"  style="text-align:center">
-								<h:outputText value="#{itemcompra.precoParcial}" />
-								
+							<p:column headerText="Valor Unitário" style="text-align:center">
+								<h:outputText value="#{itemcompra.produto.preco}" />
+
 							</p:column>
-	
+
 						</p:dataTable>
 					</p:rowExpansion>
 

@@ -18,9 +18,9 @@ public class PesquisaOrcaCDAO extends GenericDAO<PesquisaOrcaC>{
 					
 					Criteria consulta = sessao.createCriteria(PesquisaOrcaC.class);
 										
-					consulta.add(Restrictions.ge("dataDoRecebimento",dataInicio));
+					consulta.add(Restrictions.ge("dataDoPagamento",dataInicio));
 				     
-				    consulta.add(Restrictions.le("dataDoRecebimento",dataFim));
+				    consulta.add(Restrictions.le("dataDoPagamento",dataFim));
 					
 					List resultado = consulta.list();
 					

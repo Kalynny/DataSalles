@@ -1,98 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml"
->
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
+	<ui:define name="conteudo">
 
-<ui:define name="conteudo">
-
-
-	<h:form id="formListagem">
-
-		<p:panel header="Lista de Estados">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-		paginator="true"  value="#{estadoBean.estados}" var="estado"
-		rows="10"
-		id="tabela"
-		>
-				<f:facet name="header">
+		<h:form id="formListagem">
+			<p:panel header="Lista de Estados">
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="LISTA DE ESTADOS"
+						style="font-size:100%; margin-right:470px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{estadoBean.novo()}"
 						update=":formCadastro:pnCadastro" />
-						
-					<p:commandButton value="Imprimir" actionListener="#{estadoBean.impest()}"/>
+					<p:commandButton value="Imprimir"
+						actionListener="#{estadoBean.impest()}" update="@form" />
 				</f:facet>
 
-				<p:column headerText="Nome" style="text-align:left">
-				<h:outputText value="#{estado.nome}" />
-				</p:column>
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{estadoBean.estados}" var="estado"
+					rows="10" id="tabela">
 
-				<p:column headerText="Sigla" style="text-align:center">
-				<h:outputText value="#{estado.sigla}" />
-				</p:column>
+					<p:column headerText="Nome" style="text-align:left">
+						<h:outputText value="#{estado.nome}" />
+					</p:column>
 
-				<p:column headerText="Opções" style="text-align:center">
-				<p:commandButton icon="ui-icon-trash"
-				actionListener="#{estadoBean.excluir}"
-				update=":mensagem :formListagem:tabela">
-				<p:confirm header="Confirmação" message="Deseja excluir o estado?"
-				icon="ui-icon-alert" />
-				<f:attribute name="estadoSelecionado" value="#{estado}" />
-				</p:commandButton>
-				
-				<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{estadoBean.editar}"
-						update=":formCadastro:pnCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="estadoSelecionado" value="#{estado}" />
-					</p:commandButton>
+					<p:column headerText="Sigla" style="text-align:center">
+						<h:outputText value="#{estado.sigla}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{estadoBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o estado?" icon="ui-icon-alert" />
+							<f:attribute name="estadoSelecionado" value="#{estado}" />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{estadoBean.editar}"
+							update=":formCadastro:pnCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="estadoSelecionado" value="#{estado}" />
+						</p:commandButton>
 
 
 
-				</p:column>
-			</p:dataTable>
-			
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
-			
-		</p:panel>
-	</h:form>
+					</p:column>
+				</p:dataTable>
 
-	<p:dialog header="Estados - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{estadoBean.estado.nome}" 
-					required="true"
-					requiredMessage="O campo 'Nome' é obrigatório"/>
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 
-				<p:outputLabel value="Sigla:" />
-				<p:inputText maxlength="2" size="10"
-					value="#{estadoBean.estado.sigla}"
-					required="true"
-					requiredMessage="O campo 'Sigla' é obrigatório" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{estadoBean.salvar()}"
-					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" 
-					oncomplete="PF('dialogo').hide();"  />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+			</p:panel>
 		</h:form>
-	</p:dialog>
 
-</ui:define>
+		<p:dialog header="Estados - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="pnCadastro">
+					<p:outputLabel value="Nome:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{estadoBean.estado.nome}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório" />
+
+					<p:outputLabel value="Sigla:" />
+					<p:inputText maxlength="2" size="10"
+						value="#{estadoBean.estado.sigla}" required="true"
+						requiredMessage="O campo 'Sigla' é obrigatório" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{estadoBean.salvar()}"
+						update=":mensagem :formCadastro:pnCadastro :formListagem:tabela"
+						oncomplete="PF('dialogo').hide();" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
 </ui:composition>

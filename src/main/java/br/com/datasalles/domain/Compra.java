@@ -18,6 +18,14 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Compra extends GenericDomain {
 	
+	
+	@JoinColumn(nullable = false)
+	private String nfcompra;
+	
+	
+	@JoinColumn(nullable = false)
+	private String pedido;
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date atual;
@@ -43,6 +51,22 @@ public class Compra extends GenericDomain {
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
 	private List<ItemCompra>itensCompra;
+
+	public String getNfcompra() {
+		return nfcompra;
+	}
+
+	public void setNfcompra(String nfcompra) {
+		this.nfcompra = nfcompra;
+	}
+
+	public String getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(String pedido) {
+		this.pedido = pedido;
+	}
 
 	public Date getAtual() {
 		return atual;

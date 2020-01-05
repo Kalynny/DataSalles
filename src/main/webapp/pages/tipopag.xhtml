@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
+	<ui:define name="conteudo">
 
-	<h:form id="formListagem">
+		<h:form id="formListagem">
 
-		<p:panel header="Lista de Tipos de Pagamento de Vendas">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{tipoPagBean.tipopags}" var="tipopag"
-				rows="6" id="tabela">
-				<f:facet name="header">
+			<p:panel header="Lista de Tipos de Pagamento de Vendas">
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="LISTA DE TIPOS DE PAGAMENTO DE VENDAS"
+						style="font-size:100%; margin-right:800px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{tipoPagBean.novo()}"
-						update=":formCadastro:pnCadastro" />
+						actionListener="#{tipoPagBean.novo()}" update="@form" />
 				</f:facet>
+				<p:dataTable emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{tipoPagBean.tipopags}" var="tipopag"
+					rows="6" id="tabela">
 
-				<p:column headerText="Código" sortBy="#{tipopag.codigo}"	>
-					<h:outputText value="#{tipopag.codigo}" />
-				</p:column>
+					<p:column headerText="Código" sortBy="#{tipopag.codigo}">
+						<h:outputText value="#{tipopag.codigo}" />
+					</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{tipopag.descricao}"
-					filterBy="#{tipopag.descricao}">
-					<h:outputText value="#{tipopag.descricao}" />
-				</p:column>
-								
-				<p:column headerText="Opções" style="text-align:center">
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{tipopagBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o tipo avaria?"
-							icon="ui-icon-alert" />
-						<f:attribute name="tipopagSelecionado" value="#{tipoapg}" />
-					</p:commandButton>
+					<p:column headerText="Descrição" sortBy="#{tipopag.descricao}"
+						filterBy="#{tipopag.descricao}">
+						<h:outputText value="#{tipopag.descricao}" />
+					</p:column>
 
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{tipoPagBean.editar}"
-						update=":formCadastro:pnCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="tipopagSelecionado" value="#{tipopag}" />
-					</p:commandButton>
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{tipopagBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o tipo avaria?" icon="ui-icon-alert" />
+							<f:attribute name="tipopagSelecionado" value="#{tipoapg}" />
+						</p:commandButton>
 
-				</p:column>
-			</p:dataTable>
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{tipoPagBean.editar}"
+							update=":formCadastro:pnCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="tipopagSelecionado" value="#{tipopag}" />
+						</p:commandButton>
 
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
 
-		</p:panel>
-	</h:form>
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 
-	<p:dialog header="Tipo de Pagamento - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid columns="2" id="pnCadastro">
-				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{tipoPagBean.tipopag.descricao}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório" />
-											
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{tipoPagBean.salvar()}"
-					update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+			</p:panel>
 		</h:form>
-	</p:dialog>
+
+		<p:dialog header="Tipo de Pagamento - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid columns="2" id="pnCadastro">
+					<p:outputLabel value="Nome:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{tipoPagBean.tipopag.descricao}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{tipoPagBean.salvar()}"
+						update=":mensagem :formCadastro:pnCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
-</ui:define>
+	</ui:define>
 
 </ui:composition>

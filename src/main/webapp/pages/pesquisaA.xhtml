@@ -15,7 +15,21 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formCadastro">
-			<p:panel header="Listagem de Avarias">
+			<p:panel>
+				<f:facet name="header">
+				<p:outputLabel value="LISTA DE AVARIA DE PRODUTOS"
+						style="margin-right:160px;" />
+					<p:outputLabel value="Data Inicio:" />
+					<p:calendar pattern="      dd/MM/yyyy"
+						value="#{pesquisaAvariaBean.dataInicio}" style="margin: 0 7px;" />
+					<p:outputLabel value="Data Fim:" />
+					<p:calendar pattern="      dd/MM/yyyy"
+						value="#{pesquisaAvariaBean.dataFim}" style="margin: 0 7px;" />
+					<p:commandButton value="Pesquisar" style="margin-right: 220px;"
+						actionListener="#{pesquisaAvariaBean.listar}" update="@form" />
+					<p:button value="Novo" outcome="/pages/avaria.xhtml" update="@form" />
+				</f:facet>
+
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaAvariaBean.avarias}" var="avaria"
 					rows="12">
@@ -24,29 +38,20 @@
 						<p:rowToggler />
 					</p:column>
 
-					<f:facet name="header">
-						<p:outputLabel value="Data Inicio:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaAvariaBean.dataInicio}" style="margin: 0 7px;" />
-						<p:outputLabel value="Data Fim:" />
-						<p:calendar pattern="    dd/MM/yyyy"
-							value="#{pesquisaAvariaBean.dataFim}" style="margin: 0 7px;" />
-						<p:commandButton value="Pesquisar" style="margin-right: 620px;"
-							actionListener="#{pesquisaAvariaBean.listar}" update="@form" />
-						<p:button value="Novo" outcome="/pages/avaria.xhtml" update="@form"  />
-					</f:facet>
-
-					<p:column headerText="Codigo" style="text-align: center;">
-						<h:outputText value="#{avaria.codigo}"/>
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{avaria.codigo}" />
 					</p:column>
 
-					<p:column headerText="Data" style="text-align: center;">
+					<p:column headerText="Data da Avaria"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{avaria.horario}">
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor" style="text-align: center;">
+					<p:column headerText="Valor"
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{avaria.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
@@ -55,11 +60,11 @@
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{avaria.funcionario.pessoa.nome}" />
 					</p:column>
-					
+
 					<p:column headerText="Tipo de Avaria" style="text-align: center;">
 						<h:outputText value="#{avaria.tipoavaria.descricao}" />
 					</p:column>
-					
+
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{avaria.itensAvaria}" var="itemavaria">
@@ -73,9 +78,9 @@
 							</p:column>
 
 							<p:column headerText="Valor Unitário" style="text-align:center">
-								<h:outputText value="#{itemavaria.precoParcial}" />
+								<h:outputText value="#{itemavaria.produto.preco}" />
 							</p:column>
-	
+
 						</p:dataTable>
 					</p:rowExpansion>
 

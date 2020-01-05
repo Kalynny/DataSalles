@@ -1,185 +1,195 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
 
-<ui:define name="conteudo">
+	<ui:define name="conteudo">
 
-	<h:form id="formulario">
-		<p:panel header="Orçamento de Vendas">
-		<p:button value="voltar" outcome="/pages/pesquisaOC.xhtml" update="@form" style="margin-left: 1150px;" />
-			<p:dataTable id="tabelaProduto"
-				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{orcamentocBean.produtos}" var="produto" rows="5"
-				paginatorPosition="bottom">
+		<h:form id="formulario">
+			<p:panel>
+				<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="ORÇAMENTO DE COMPRAS"
+						style="font-size:100%;"/>
+					<p:button value="Voltar" outcome="/pages/pesquisaOC.xhtml"
+						update="@form" style="margin-left: 995px;" />
+				</f:facet>
 
-				<p:column headerText="Descrição"
-					sortBy="#{produto.descricao}">
-					<h:outputText value="#{produto.descricao}" />
-				</p:column>
 
-				<p:column headerText="Quantidade" style="text-align:center" sortBy="#{produto.quantidade}">
-					<h:outputText value="#{produto.quantidade}" />
-				</p:column>
+				<p:dataTable id="tabelaProduto"
+					emptyMessage="Nenhum registro encontrado." paginator="true"
+					value="#{orcamentocBean.produtos}" var="produto" rows="5"
+					paginatorPosition="bottom">
 
-				<p:column headerText="Preço" style="text-align:center" sortBy="#{produto.preco}">
-					<h:outputText value="#{produto.preco}">
+					<p:column headerText="Descrição" sortBy="#{produto.descricao}">
+						<h:outputText value="#{produto.descricao}" />
+					</p:column>
+
+					<p:column headerText="Quantidade" style="text-align:center"
+						sortBy="#{produto.quantidade}">
+						<h:outputText value="#{produto.quantidade}" />
+					</p:column>
+
+					<p:column headerText="Preço" style="text-align:center"
+						sortBy="#{produto.preco}">
+						<h:outputText value="#{produto.preco}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Fornecedor"
+						sortBy="#{produto.fornecedor.descricao}">
+						<h:outputText value="#{produto.fornecedor.descricao}" />
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{orcamentocBean.adicionar}"
+							update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+							<f:attribute name="produtoSelecionado" value="#{produto}" />
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-minus"
+							actionListener="#{orcamentocBean.subtrair}"
+							update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+							<f:attribute name="produtoSelecionado" value="#{produto}" />
+						</p:commandButton>
+
+
+
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel header="Produtos do Orçamento de Compras">
+				<p:dataTable id="tabelaCesta"
+					emptyMessage="Nenhum registro encontrado." paginator="true"
+					value="#{orcamentocBean.itensOrcaC}" var="itemOrcaC" rows="5"
+					paginatorPosition="bottom" editable="true" editMode="cell">
+
+					<p:ajax event="cellEdit" oncomplete="rc()" />
+
+					<p:column headerText="Descrição">
+						<h:outputText value="#{itemOrcaC.produto.descricao}" />
+					</p:column>
+
+					<p:column headerText="Preço Un." style="text-align:center">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:inputText value="#{itemOrcaC.produto.preco}"
+									style="width:40px; text-align:center">
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+								</h:inputText>
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{itemOrcaC.produto.preco}"
+									style="width:40px; text-align:center">
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+								</h:inputText>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Qtde." style="text-align:center">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:inputText value="#{itemOrcaC.quantidade}"
+									style="width:30px; text-align:center" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{itemOrcaC.quantidade}"
+									style="width:30px; text-align:center" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Preço Parcial" style="text-align:center">
+						<h:outputText value="#{itemOrcaC.precoParcial}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-minus"
+							actionListener="#{orcamentocBean.remover}"
+							update=":formulario:tabelaCesta :formulario:painelFinalizacao">
+							<f:attribute name="itemSelecionado" value="#{itemOrcaC}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel header="Finalização">
+				<h:panelGrid id="painelFinalizacao" columns="3">
+					<p:outputLabel value="Total: R$" />
+					<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Fornecedor"
-					sortBy="#{produto.fornecedor.descricao}">
-					<h:outputText value="#{produto.fornecedor.descricao}" />
-				</p:column>
-
-				<p:column headerText="Opções" style="text-align:center">
-					<p:commandButton icon="ui-icon-plus"
-						actionListener="#{orcamentocBean.adicionar}"
-						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					<p:commandButton value="Finalizar"
+						actionListener="#{orcamentocBean.finalizar}"
+						update=":mensagem :formularioFinalizar:painelFinalizar"
+						oncomplete="PF('dialogo').show();">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{orcamentocBean.subtrair}"
-						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
-					</p:commandButton>
-					
-					
-					
-				</p:column>
-			</p:dataTable>
-		</p:panel>
 
-		<p:panel header="Carrinho de Compras">
-			<p:dataTable id="tabelaCesta"
-				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{orcamentocBean.itensOrcaC}" var="itemOrcaC" rows="5"
-				paginatorPosition="bottom"
-				editable="true"
-				editMode="cell">
-				
-				<p:ajax event="cellEdit" oncomplete="rc()" />
-
-				<p:column headerText="Descrição">
-					<h:outputText value="#{itemOrcaC.produto.descricao}" />
-				</p:column>
-
-				<p:column headerText="Preço Un." style="text-align:center">
-				<p:cellEditor>
-				<f:facet name="output">
-				<h:inputText value="#{itemOrcaC.produto.preco}" style="width:40px; text-align:center">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-				</f:facet>
-				<f:facet name="input">
-				<h:inputText value="#{itemOrcaC.produto.preco}" style="width:40px; text-align:center" >
-				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-				</f:facet>
-				</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Qtde." style="text-align:center">
-				<p:cellEditor>
-				<f:facet name="output">
-				<h:inputText value="#{itemOrcaC.quantidade}" style="width:30px; text-align:center" />	
-				</f:facet>
-				<f:facet name="input">
-				<h:inputText value="#{itemOrcaC.quantidade}" style="width:30px; text-align:center" />
-				</f:facet>
-				</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Preço Parcial"  style="text-align:center">
-					<h:outputText value="#{itemOrcaC.precoParcial}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Opções"  style="text-align:center">
-					<p:commandButton icon="ui-icon-minus"
-						actionListener="#{orcamentocBean.remover}"
-						update=":formulario:tabelaCesta :formulario:painelFinalizacao">
-						<f:attribute name="itemSelecionado" value="#{itemOrcaC}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-
-		<p:panel header="Finalização">
-			<h:panelGrid id="painelFinalizacao" columns="3">
-				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-				<p:commandButton value="Finalizar"
-					actionListener="#{orcamentocBean.finalizar}"
-					update=":mensagem :formularioFinalizar:painelFinalizar"
-					oncomplete="PF('dialogo').show();">
-					<f:actionListener
-						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-				</p:commandButton>
-
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
-
-	<p:dialog header="Finalizar Orcamento de Compras" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formularioFinalizar">
-			<h:panelGrid id="painelFinalizar" columns="2">
-				<p:outputLabel value="Horário: " />
-				<h:outputText value="#{orcamentocBean.orcamentoC.horario}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
-						timeZone="America/Sao_Paulo" />
-				</h:outputText>
-
-				<p:outputLabel value="Total: R$" />
-				<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel for="funcionario" value="Funcionário:" />
-				<p:selectOneMenu id="funcionario"
-					value="#{orcamentocBean.orcamentoC.funcionario}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains" required="true"
-					requiredMessage="O campo Funcionário é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um funcionário" />
-					<f:selectItems value="#{orcamentocBean.funcionarios}" var="funcionario"
-						itemValue="#{funcionario}"
-						itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Fornecedor:" />
-				<p:selectOneMenu value="#{orcamentocBean.orcamentoC.fornecedor}"
-					converter="omnifaces.SelectItemsConverter" filter="true"
-					filterMatchMode="contains">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Fornecedor" />
-					<f:selectItems value="#{orcamentocBean.fornecedores}" var="fornecedor"
-						itemValue="#{fornecedor}"
-						itemLabel="#{fornecedor.cnpj} - #{fornecedor.descricao}" />
-				</p:selectOneMenu>
-
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{orcamentocBean.salvar}"
-					update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
-					oncomplete="PF('dialogo').hide();" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
-	</p:dialog>
+
+		<p:dialog header="Finalizar Orcamento de Compras" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formularioFinalizar">
+				<h:panelGrid id="painelFinalizar" columns="2">
+					<p:outputLabel value="Horário: " />
+					<h:outputText value="#{orcamentocBean.orcamentoC.horario}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+
+					<p:outputLabel value="Total: R$" />
+					<h:outputText value="#{orcamentocBean.orcamentoC.precoTotal}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+
+					<p:outputLabel for="funcionario" value="Funcionário:" />
+					<p:selectOneMenu id="funcionario"
+						value="#{orcamentocBean.orcamentoC.funcionario}"
+						converter="omnifaces.SelectItemsConverter" filter="true"
+						filterMatchMode="contains" required="true"
+						requiredMessage="O campo Funcionário é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um funcionário" />
+						<f:selectItems value="#{orcamentocBean.funcionarios}"
+							var="funcionario" itemValue="#{funcionario}"
+							itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Fornecedor:" />
+					<p:selectOneMenu value="#{orcamentocBean.orcamentoC.fornecedor}"
+						converter="omnifaces.SelectItemsConverter" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um Fornecedor" />
+						<f:selectItems value="#{orcamentocBean.fornecedores}"
+							var="fornecedor" itemValue="#{fornecedor}"
+							itemLabel="#{fornecedor.cnpj} - #{fornecedor.descricao}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{orcamentocBean.salvar}"
+						update=":mensagem :formulario:tabelaProduto :formulario:tabelaCesta :formulario:painelFinalizacao"
+						oncomplete="PF('dialogo').hide();" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
-</ui:define>
+	</ui:define>
 </ui:composition>
