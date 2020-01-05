@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Dez-2019 às 02:55
+-- Tempo de geração: 05-Jan-2020 às 06:05
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -41,7 +41,8 @@ CREATE TABLE `abertura` (
 
 INSERT INTO `abertura` (`codigo`, `dataAbertura`, `valorAbertura`, `funcionario_codigo`) VALUES
 (1, '2019-12-27', '125.00', 1),
-(4, '2019-12-28', '125.00', 1);
+(4, '2019-12-28', '125.00', 1),
+(19, '2019-12-31', '128.00', 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,8 @@ CREATE TABLE `avaria` (
 --
 
 INSERT INTO `avaria` (`codigo`, `horario`, `precoTotal`, `fornecedor_codigo`, `funcionario_codigo`, `tipoavaria_codigo`) VALUES
-(1, '2019-12-24 22:45:29', '252.90', 2, 1, 1);
+(1, '2019-12-24 22:45:29', '252.90', 2, 1, 1),
+(2, '2020-01-03 20:46:00', '330.90', 3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -161,16 +163,18 @@ CREATE TABLE `compra` (
   `vencimento` date NOT NULL,
   `fornecedor_codigo` bigint(20) DEFAULT NULL,
   `funcionario_codigo` bigint(20) NOT NULL,
-  `tipopagc_codigo` bigint(20) NOT NULL
+  `tipopagc_codigo` bigint(20) NOT NULL,
+  `nfcompra` varchar(255) DEFAULT NULL,
+  `pedido` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `compra`
 --
 
-INSERT INTO `compra` (`codigo`, `atual`, `precoTotal`, `vencimento`, `fornecedor_codigo`, `funcionario_codigo`, `tipopagc_codigo`) VALUES
-(1, '2019-12-24', '10191.00', '2020-01-24', 1, 1, 2),
-(2, '2019-12-24', '6590.00', '2020-01-24', 9, 1, 2);
+INSERT INTO `compra` (`codigo`, `atual`, `precoTotal`, `vencimento`, `fornecedor_codigo`, `funcionario_codigo`, `tipopagc_codigo`, `nfcompra`, `pedido`) VALUES
+(3, '2020-01-04', '359.10', '2020-01-31', 1, 1, 2, '78921', '0'),
+(4, '2020-01-04', '817.29', '2020-01-29', 3, 1, 2, '0', '0');
 
 -- --------------------------------------------------------
 
@@ -192,7 +196,9 @@ CREATE TABLE `cpagar` (
 --
 
 INSERT INTO `cpagar` (`codigo`, `atual`, `precoTotal`, `tipo`, `vencimento`, `fornecedor_codigo`) VALUES
-(1, '2019-12-24', '6590.00', 'Boleto Bancario', '2020-01-24', 9);
+(1, '2019-12-24', '6590.00', 'Boleto Bancario', '2020-01-24', 9),
+(4, '2020-01-04', '359.10', 'Boleto Bancario', '2020-01-31', 1),
+(6, '2020-01-04', '817.29', 'Boleto Bancario', '2020-01-29', 3);
 
 -- --------------------------------------------------------
 
@@ -206,15 +212,16 @@ CREATE TABLE `creceber` (
   `precoTotal` decimal(6,2) NOT NULL,
   `tipo` varchar(255) NOT NULL,
   `vencimento` date NOT NULL,
-  `cliente_codigo` bigint(20) DEFAULT NULL
+  `cliente_codigo` bigint(20) DEFAULT NULL,
+  `tipopag_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `creceber`
 --
 
-INSERT INTO `creceber` (`codigo`, `horario`, `precoTotal`, `tipo`, `vencimento`, `cliente_codigo`) VALUES
-(1, '2019-12-24', '940.60', 'Boleto Bancario', '2020-01-30', 5);
+INSERT INTO `creceber` (`codigo`, `horario`, `precoTotal`, `tipo`, `vencimento`, `cliente_codigo`, `tipopag_codigo`) VALUES
+(1, '2019-12-24', '940.60', 'Boleto Bancario', '2020-01-30', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -274,6 +281,13 @@ CREATE TABLE `fechamento` (
   `funcionario_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `fechamento`
+--
+
+INSERT INTO `fechamento` (`codigo`, `dataFechamento`, `valorFechamento`, `funcionario_codigo`) VALUES
+(1, '2019-12-31', '126.00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -296,15 +310,15 @@ CREATE TABLE `fornecedor` (
 
 INSERT INTO `fornecedor` (`codigo`, `cnpj`, `descricao`, `email`, `fone`, `ie`, `nfantasia`) VALUES
 (1, '07.206.816/0052-65', 'M. DIAS BRANCO LTDA', 'sac@vitarella.com.br', '(81)98526-4712', '0541444-00', 'VITARELLA '),
-(2, '15.250.084/0001-99', 'LETICIA INFORMATICA ME', 'sac@leticiainformaticame.com.br', '(81) 98463-5396', '0408830-19', 'LETICIA INFORMATICA'),
-(3, '75.009.590/0001-12', ' AURORA MARKETING LTDA', 'sac@auroramarketing.com', '(81)99880-4479', '3566859-85', 'AURORA MARKETING'),
-(4, '56.030.849/0001-62', 'TIAGO ELETRONICA LTDA', 'contato@tiagoeletronica.com.br', '(87) 98739-6819', '1189586-15', 'TIAGO ELETRONICA'),
-(5, '27.570.628/0001-89', 'MARCOS LIMPEZA S/A', 'contato@marcoslimpeza.com', '(81) 99451-7995', '1922238-60', 'MARCOS LIMPEZA'),
-(6, '51.036.984/0001-00', 'SABRINA CONTRUCOES LTDA', 'contato@sabinaconstrucoes.com', '(81) 98583-8793', '1464568-82', 'SABRINA CONSTRUCOES'),
-(7, '87.253.396/0001-67', 'HEITOR TRANSPORTE  S/A', 'sac@heitortrans.com', '(81) 99674-3040', '0183617-06', 'EITOR TRANSPORTES'),
-(8, '60.873.093/0001-90', 'PADARIA DANILO ME', 'contato@padariadanilo.com', '(81) 98819-9535', '6099088-04', 'PADARIA DANILO'),
-(9, '97.083.875/0001-36', 'SARA FILMAGENS S/A', 'contato@sarafilmagens.com.br', '(81) 99409-3837', '3254436-70', 'SARA FILMAGENS'),
-(10, '23.796.226/0001-46', 'ISABELA GRAFICA LTDA', 'sac@isabelagrafica.com.br', '(81) 99263-6360', '7931798-74', 'ISABELA GRAFICA');
+(2, '15.250.084/0001-99', 'A&B ALIMENTOS E BEBIDAS LTDA', 'sac@aebalimentos.com.br', '(81)98463-5396', '0408830-19', 'A&B ALIMENTOS E BEBIDAS'),
+(3, '75.009.590/0001-12', 'HB ALIMENTOS LTDA', 'sac@hbalimentos.com.br', '(81)99880-4479', '3566859-85', 'HB ALIMENTOS'),
+(4, '56.030.849/0001-62', 'CADAN ALIMENTOS LTDA', 'contato@cadanalimentos.com.br', '(87)98739-6819', '1189586-15', 'CADAN ALIMENTOS LTDA'),
+(5, '27.570.628/0001-89', 'JR ALIMENTOS E BEBIDAS S/A', 'contato@jralimentos.com.br', '(81)99451-7995', '1922238-60', 'JR ALIMENTOS E BEBIDAS'),
+(6, '51.036.984/0001-00', 'RM ATACADO E VAREJO LTDA', 'contato@rmatacado.com.br', '(81)98583-8793', '1464568-82', 'RM ATACADO E VAREJO'),
+(7, '87.253.396/0001-67', 'UNILEVER PRODUTOS  S/A', 'sac@produtosunilever.com', '(81)99674-3040', '0183617-06', 'UNILEVER PRODUTOS'),
+(8, '60.873.093/0001-90', 'ATACADO MARTINS ME', 'contato@atacadomartins.com', '(81)98819-9535', '6099088-04', 'ATACADO MARTINS'),
+(9, '97.083.875/0001-36', 'ATACAMAX DISTRIBUIDORAS S/A', 'contato@atacamax.com.br', '(81)99409-3837', '3254436-70', 'ATACAMAX DISTRIBUIDORAS'),
+(10, '23.796.226/0001-46', 'COMAL - COM. ATACADISTA LTDA', 'sac@comalatacadista.com.br', '(81)99263-6360', '7931798-74', 'COMAL - COMERCIO ATACADISTA');
 
 -- --------------------------------------------------------
 
@@ -359,7 +373,8 @@ CREATE TABLE `itemavaria` (
 
 INSERT INTO `itemavaria` (`codigo`, `precoParcial`, `quantidade`, `avaria_codigo`, `produto_codigo`) VALUES
 (1, '147.40', 5, 1, 19),
-(2, '105.50', 5, 1, 4);
+(2, '105.50', 5, 1, 4),
+(3, '330.90', 10, 2, 12);
 
 -- --------------------------------------------------------
 
@@ -380,13 +395,9 @@ CREATE TABLE `itemcompra` (
 --
 
 INSERT INTO `itemcompra` (`codigo`, `precoParcial`, `quantidade`, `compra_codigo`, `produto_codigo`) VALUES
-(1, '2948.00', 100, 1, 19),
-(2, '2110.00', 100, 1, 4),
-(3, '3309.00', 100, 1, 12),
-(4, '1824.00', 100, 1, 8),
-(5, '1009.00', 100, 2, 16),
-(6, '1756.00', 100, 2, 17),
-(7, '3825.00', 100, 2, 18);
+(1, '248.90', 10, 3, 7),
+(2, '110.20', 10, 3, 11),
+(3, '817.29', 81, 4, 16);
 
 -- --------------------------------------------------------
 
@@ -409,31 +420,31 @@ CREATE TABLE `itemorca` (
 INSERT INTO `itemorca` (`codigo`, `precoParcial`, `quantidade`, `orcamento_codigo`, `produto_codigo`) VALUES
 (1, '1244.50', 50, 1, 7),
 (2, '551.00', 50, 1, 11),
-(3, '5960.00', 50, 1, 14);
+(3, '5960.00', 50, 1, 14),
+(4, '357.60', 3, 2, 14);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `itempedcompra`
+-- Estrutura da tabela `itemorcac`
 --
 
-CREATE TABLE `itempedcompra` (
+CREATE TABLE `itemorcac` (
   `codigo` bigint(20) NOT NULL,
   `precoParcial` decimal(7,2) NOT NULL,
   `quantidade` smallint(6) NOT NULL,
-  `pedcompra_codigo` bigint(20) NOT NULL,
+  `orcamentoc_codigo` bigint(20) NOT NULL,
   `produto_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `itempedcompra`
+-- Extraindo dados da tabela `itemorcac`
 --
 
-INSERT INTO `itempedcompra` (`codigo`, `precoParcial`, `quantidade`, `pedcompra_codigo`, `produto_codigo`) VALUES
-(1, '294.80', 10, 1, 19),
-(2, '211.00', 10, 2, 4),
-(3, '330.90', 10, 3, 12),
-(4, '182.40', 10, 4, 8);
+INSERT INTO `itemorcac` (`codigo`, `precoParcial`, `quantidade`, `orcamentoc_codigo`, `produto_codigo`) VALUES
+(1, '211.00', 10, 1, 4),
+(2, '182.40', 10, 2, 8),
+(3, '182.40', 10, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -460,7 +471,9 @@ INSERT INTO `itemvenda` (`codigo`, `precoParcial`, `quantidade`, `produto_codigo
 (4, '330.90', 10, 12, 2),
 (5, '201.80', 20, 16, 2),
 (6, '175.60', 10, 17, 3),
-(7, '765.00', 20, 18, 3);
+(7, '765.00', 20, 18, 3),
+(11, '341.00', 10, 12, 7),
+(12, '192.40', 10, 8, 8);
 
 -- --------------------------------------------------------
 
@@ -495,15 +508,16 @@ CREATE TABLE `orcamento` (
 --
 
 INSERT INTO `orcamento` (`codigo`, `horario`, `precoTotal`, `cliente_codigo`, `funcionario_codigo`) VALUES
-(1, '2019-12-26 23:36:28', '7755.50', 2, 1);
+(1, '2019-12-26 23:36:28', '7755.50', 2, 1),
+(2, '2020-01-02 21:13:26', '357.60', 5, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pedcompra`
+-- Estrutura da tabela `orcamentoc`
 --
 
-CREATE TABLE `pedcompra` (
+CREATE TABLE `orcamentoc` (
   `codigo` bigint(20) NOT NULL,
   `horario` datetime NOT NULL,
   `precoTotal` decimal(7,2) NOT NULL,
@@ -512,14 +526,13 @@ CREATE TABLE `pedcompra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `pedcompra`
+-- Extraindo dados da tabela `orcamentoc`
 --
 
-INSERT INTO `pedcompra` (`codigo`, `horario`, `precoTotal`, `fornecedor_codigo`, `funcionario_codigo`) VALUES
-(1, '2019-12-26 22:45:30', '294.80', 1, 1),
-(2, '2019-12-26 22:53:38', '211.00', 7, 1),
-(3, '2019-12-26 23:21:23', '330.90', 9, 1),
-(4, '2019-12-28 19:20:40', '182.40', 4, 1);
+INSERT INTO `orcamentoc` (`codigo`, `horario`, `precoTotal`, `fornecedor_codigo`, `funcionario_codigo`) VALUES
+(1, '2019-12-29 11:58:53', '211.00', 10, 1),
+(2, '2019-12-31 19:25:53', '182.40', 10, 1),
+(3, '2020-01-03 00:02:34', '182.40', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -586,20 +599,36 @@ INSERT INTO `produto` (`codigo`, `descricao`, `preco`, `quantidade`, `fornecedor
 (4, 'ACUCAR CRISTAL OLHO DAGUA 500G', '21.10', 90, 4, 3, '7893761409259'),
 (5, 'MARGARINA DELINE 250G', '32.40', 0, 5, 6, '7894652590162'),
 (6, 'GUARANA ANTARTICA 2 LT', '19.80', 0, 6, 7, '7895543681075'),
-(7, 'SABAO EM PO BEM-TE-VI 500G', '24.89', 0, 7, 4, '7896434772988'),
-(8, 'BISCOITO TRELOSO CHOCOLATE 130G', '18.24', 90, 8, 2, '7897325863891'),
+(7, 'SABAO EM PO BEM-TE-VI 500G', '24.89', 10, 7, 4, '7896434772988'),
+(8, 'BISCOITO TRELOSO CHOCOLATE 130G', '19.24', 80, 8, 2, '7897325863891'),
 (9, 'FEIJAO CARIOCA AZEDINHO 1KG', '16.78', 0, 9, 5, '7898216954704'),
 (10, 'CHARQUE PONTA DE AGULHA 1KG', '28.42', 0, 10, 5, '7899107045617'),
-(11, 'SUCO DE LARANJA AMARELINHO 1LT', '11.02', 0, 1, 9, '7891908227421'),
-(12, 'AZEITE DE OLIVA GALLO 500ML', '33.09', 90, 2, 8, '7892817318347'),
+(11, 'SUCO DE LARANJA AMARELINHO 1LT', '11.02', 10, 1, 9, '7891908227421'),
+(12, 'AZEITE DE OLIVA GALLO 500ML', '34.10', 70, 2, 8, '7892817318347'),
 (13, 'CARNE MOIDA KG', '15.66', 0, 3, 2, '7898219547071'),
 (14, 'WHISKY JOHNNIE WALKER BLACK 1 LT ', '119.20', 0, 4, 6, '7896213002657'),
 (15, 'FLOCAO DE MILHO CUSCUMIL 500G', '56.70', 0, 5, 7, '7899100456182'),
-(16, 'CAFE PILAR EXTRA FORTE 500G', '10.09', 80, 6, 5, '7894655390165'),
+(16, 'CAFE PILAR EXTRA FORTE 500G', '10.09', 161, 6, 5, '7894655390165'),
 (17, 'PRESUNTO DE PEITO DE PERU 1KG', '17.56', 90, 7, 4, '7895546841070'),
 (18, 'QUEIJO MUSSARELA 1KG', '38.25', 80, 8, 6, '7896437725981'),
 (19, 'ACHOCOLATADO NESCAU 1LT', '29.48', 90, 9, 2, '7897328638694'),
 (20, 'LEITE EM PO NINHO 3KG', '35.64', 0, 10, 3, '7893762409258');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `recebimento`
+--
+
+CREATE TABLE `recebimento` (
+  `codigo` bigint(20) NOT NULL,
+  `horario` date NOT NULL,
+  `precoTotal` decimal(7,2) NOT NULL,
+  `cliente_codigo` bigint(20) DEFAULT NULL,
+  `funcionario_codigo` bigint(20) NOT NULL,
+  `tipopag_codigo` bigint(20) NOT NULL,
+  `venda_codigo` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -609,8 +638,17 @@ INSERT INTO `produto` (`codigo`, `descricao`, `preco`, `quantidade`, `fornecedor
 
 CREATE TABLE `sangria` (
   `codigo` bigint(20) NOT NULL,
-  `sangria` decimal(19,2) NOT NULL
+  `dataSangria` datetime NOT NULL,
+  `valorInformado` decimal(7,2) NOT NULL,
+  `funcionario_codigo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `sangria`
+--
+
+INSERT INTO `sangria` (`codigo`, `dataSangria`, `valorInformado`, `funcionario_codigo`) VALUES
+(1, '2020-01-01 00:00:00', '125.00', 1);
 
 -- --------------------------------------------------------
 
@@ -650,7 +688,8 @@ CREATE TABLE `tipopag` (
 
 INSERT INTO `tipopag` (`codigo`, `descricao`) VALUES
 (1, 'A Vista'),
-(2, 'Boleto Bancario');
+(2, 'Boleto Bancario'),
+(3, 'Entrada Manual');
 
 -- --------------------------------------------------------
 
@@ -669,7 +708,8 @@ CREATE TABLE `tipopagc` (
 
 INSERT INTO `tipopagc` (`codigo`, `descricao`) VALUES
 (1, 'A Vista'),
-(2, 'Boleto Bancario');
+(2, 'Boleto Bancario'),
+(3, 'Entrada Manual');
 
 -- --------------------------------------------------------
 
@@ -716,7 +756,9 @@ CREATE TABLE `venda` (
 INSERT INTO `venda` (`codigo`, `horario`, `precoTotal`, `vencimento`, `cliente_codigo`, `funcionario_codigo`, `tipopag_codigo`) VALUES
 (1, '2019-12-24', '435.30', '2019-12-26', 4, 1, 1),
 (2, '2019-12-24', '532.70', '2019-12-26', 3, 1, 1),
-(3, '2019-12-24', '940.60', '2020-01-30', 5, 1, 2);
+(3, '2019-12-24', '940.60', '2020-01-30', 5, 1, 2),
+(7, '2020-01-04', '341.00', '2020-01-06', 3, 1, 1),
+(8, '2020-01-04', '192.40', '2020-01-06', 4, 1, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -794,6 +836,7 @@ ALTER TABLE `estado`
 --
 ALTER TABLE `fechamento`
   ADD PRIMARY KEY (`codigo`),
+  ADD UNIQUE KEY `UK_sqf049y8wbjdjgsjbnea4j8hd` (`dataFechamento`),
   ADD KEY `FK_3g4c49wsbk6nb7ce0byd9qafr` (`funcionario_codigo`);
 
 --
@@ -842,12 +885,12 @@ ALTER TABLE `itemorca`
   ADD KEY `FK_4di694u3bguu1o2nw0vuvi3b9` (`produto_codigo`);
 
 --
--- Índices para tabela `itempedcompra`
+-- Índices para tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
+ALTER TABLE `itemorcac`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `FK_bkbq3uvrk5stem8ymtdt0h2i5` (`pedcompra_codigo`),
-  ADD KEY `FK_mnol6lde8g3vs10i4j658afmw` (`produto_codigo`);
+  ADD KEY `FK_8xtaxl8d9htbbgpuwvyq10ugh` (`orcamentoc_codigo`),
+  ADD KEY `FK_53y2vq1r6fwi78jd3sbi27cqw` (`produto_codigo`);
 
 --
 -- Índices para tabela `itemvenda`
@@ -874,12 +917,12 @@ ALTER TABLE `orcamento`
   ADD KEY `FK_9y1ujpxvo2ratiegaw1q3njlp` (`funcionario_codigo`);
 
 --
--- Índices para tabela `pedcompra`
+-- Índices para tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
+ALTER TABLE `orcamentoc`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `FK_nvx05c1m4fncoyun2r9kugg2m` (`fornecedor_codigo`),
-  ADD KEY `FK_p0w8fvg507nvpgnw9lqb2wjbd` (`funcionario_codigo`);
+  ADD KEY `FK_dcv6r7s1usnrhvpiq086rilwd` (`fornecedor_codigo`),
+  ADD KEY `FK_40e71sr5x5wa7efrxd85crwaa` (`funcionario_codigo`);
 
 --
 -- Índices para tabela `pessoa`
@@ -896,10 +939,21 @@ ALTER TABLE `produto`
   ADD KEY `FK_js72o9rt9rkmbkgwyc8u6vixg` (`fornecedor_codigo`);
 
 --
+-- Índices para tabela `recebimento`
+--
+ALTER TABLE `recebimento`
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `FK_hqhje9nys4ctjk11hhp82bvw5` (`cliente_codigo`),
+  ADD KEY `FK_r0ek3nv63ft0w8kjxnoy88y2r` (`funcionario_codigo`),
+  ADD KEY `FK_bqx0kcsudymual6q1tfxm3sjr` (`tipopag_codigo`),
+  ADD KEY `FK_amdmjcih2ihu67nvgtpmdjo1j` (`venda_codigo`);
+
+--
 -- Índices para tabela `sangria`
 --
 ALTER TABLE `sangria`
-  ADD PRIMARY KEY (`codigo`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `FK_kvt5458o791c2t6lmi6awmffc` (`funcionario_codigo`);
 
 --
 -- Índices para tabela `tipoavaria`
@@ -943,13 +997,13 @@ ALTER TABLE `venda`
 -- AUTO_INCREMENT de tabela `abertura`
 --
 ALTER TABLE `abertura`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `avaria`
 --
 ALTER TABLE `avaria`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `caixa`
@@ -973,13 +1027,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `cpagar`
 --
 ALTER TABLE `cpagar`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `creceber`
@@ -997,7 +1051,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de tabela `fechamento`
 --
 ALTER TABLE `fechamento`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
@@ -1021,31 +1075,31 @@ ALTER TABLE `historico`
 -- AUTO_INCREMENT de tabela `itemavaria`
 --
 ALTER TABLE `itemavaria`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `itemcompra`
 --
 ALTER TABLE `itemcompra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `itemorca`
 --
 ALTER TABLE `itemorca`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de tabela `itempedcompra`
+-- AUTO_INCREMENT de tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `itemorcac`
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `itemvenda`
 --
 ALTER TABLE `itemvenda`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `movimentacao`
@@ -1057,13 +1111,13 @@ ALTER TABLE `movimentacao`
 -- AUTO_INCREMENT de tabela `orcamento`
 --
 ALTER TABLE `orcamento`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `pedcompra`
+-- AUTO_INCREMENT de tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `orcamentoc`
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
@@ -1078,10 +1132,16 @@ ALTER TABLE `produto`
   MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT de tabela `recebimento`
+--
+ALTER TABLE `recebimento`
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `sangria`
 --
 ALTER TABLE `sangria`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `tipoavaria`
@@ -1093,13 +1153,13 @@ ALTER TABLE `tipoavaria`
 -- AUTO_INCREMENT de tabela `tipopag`
 --
 ALTER TABLE `tipopag`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tipopagc`
 --
 ALTER TABLE `tipopagc`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
@@ -1111,7 +1171,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `venda`
 --
 ALTER TABLE `venda`
-  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para despejos de tabelas
@@ -1209,11 +1269,11 @@ ALTER TABLE `itemorca`
   ADD CONSTRAINT `FK_qa5oavvwy5hvd8h2mjrngvr07` FOREIGN KEY (`orcamento_codigo`) REFERENCES `orcamento` (`codigo`);
 
 --
--- Limitadores para a tabela `itempedcompra`
+-- Limitadores para a tabela `itemorcac`
 --
-ALTER TABLE `itempedcompra`
-  ADD CONSTRAINT `FK_bkbq3uvrk5stem8ymtdt0h2i5` FOREIGN KEY (`pedcompra_codigo`) REFERENCES `pedcompra` (`codigo`),
-  ADD CONSTRAINT `FK_mnol6lde8g3vs10i4j658afmw` FOREIGN KEY (`produto_codigo`) REFERENCES `produto` (`codigo`);
+ALTER TABLE `itemorcac`
+  ADD CONSTRAINT `FK_53y2vq1r6fwi78jd3sbi27cqw` FOREIGN KEY (`produto_codigo`) REFERENCES `produto` (`codigo`),
+  ADD CONSTRAINT `FK_8xtaxl8d9htbbgpuwvyq10ugh` FOREIGN KEY (`orcamentoc_codigo`) REFERENCES `orcamentoc` (`codigo`);
 
 --
 -- Limitadores para a tabela `itemvenda`
@@ -1237,11 +1297,11 @@ ALTER TABLE `orcamento`
   ADD CONSTRAINT `FK_slv2u118cmbj0tg5422o0q3m1` FOREIGN KEY (`cliente_codigo`) REFERENCES `cliente` (`codigo`);
 
 --
--- Limitadores para a tabela `pedcompra`
+-- Limitadores para a tabela `orcamentoc`
 --
-ALTER TABLE `pedcompra`
-  ADD CONSTRAINT `FK_nvx05c1m4fncoyun2r9kugg2m` FOREIGN KEY (`fornecedor_codigo`) REFERENCES `fornecedor` (`codigo`),
-  ADD CONSTRAINT `FK_p0w8fvg507nvpgnw9lqb2wjbd` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`);
+ALTER TABLE `orcamentoc`
+  ADD CONSTRAINT `FK_40e71sr5x5wa7efrxd85crwaa` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`),
+  ADD CONSTRAINT `FK_dcv6r7s1usnrhvpiq086rilwd` FOREIGN KEY (`fornecedor_codigo`) REFERENCES `fornecedor` (`codigo`);
 
 --
 -- Limitadores para a tabela `pessoa`
@@ -1254,6 +1314,21 @@ ALTER TABLE `pessoa`
 --
 ALTER TABLE `produto`
   ADD CONSTRAINT `FK_js72o9rt9rkmbkgwyc8u6vixg` FOREIGN KEY (`fornecedor_codigo`) REFERENCES `fornecedor` (`codigo`);
+
+--
+-- Limitadores para a tabela `recebimento`
+--
+ALTER TABLE `recebimento`
+  ADD CONSTRAINT `FK_amdmjcih2ihu67nvgtpmdjo1j` FOREIGN KEY (`venda_codigo`) REFERENCES `venda` (`codigo`),
+  ADD CONSTRAINT `FK_bqx0kcsudymual6q1tfxm3sjr` FOREIGN KEY (`tipopag_codigo`) REFERENCES `tipopag` (`codigo`),
+  ADD CONSTRAINT `FK_hqhje9nys4ctjk11hhp82bvw5` FOREIGN KEY (`cliente_codigo`) REFERENCES `cliente` (`codigo`),
+  ADD CONSTRAINT `FK_r0ek3nv63ft0w8kjxnoy88y2r` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`);
+
+--
+-- Limitadores para a tabela `sangria`
+--
+ALTER TABLE `sangria`
+  ADD CONSTRAINT `FK_kvt5458o791c2t6lmi6awmffc` FOREIGN KEY (`funcionario_codigo`) REFERENCES `funcionario` (`codigo`);
 
 --
 -- Limitadores para a tabela `usuario`
