@@ -82,6 +82,14 @@
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{venda.itensVenda}" var="itemVenda">
+							
+							<p:column headerText="Codigo do Pedido">
+								<h:outputText value="#{itemVenda.venda.codigo}" />
+							</p:column>
+
+							<p:column headerText="Codigo do Produto ">
+								<h:outputText value="#{itemVenda.codigo}" />
+							</p:column>
 
 							<p:column headerText="Produto">
 								<h:outputText value="#{itemVenda.produto.descricao}" />

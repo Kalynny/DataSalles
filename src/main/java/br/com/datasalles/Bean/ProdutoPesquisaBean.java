@@ -57,7 +57,7 @@ public class ProdutoPesquisaBean implements Serializable  {
 			public void buscar(){
 				try{
 				ProdutoDAO produtodao = new ProdutoDAO();
-				Produto resultado = produtodao.buscar(produto.getCodigo());
+				Produto resultado = produtodao.buscarnome(produto.getDescricao());
 				
 				if(resultado == null){
 					Messages.addGlobalWarn("Não existe este Produto Cadastrado");

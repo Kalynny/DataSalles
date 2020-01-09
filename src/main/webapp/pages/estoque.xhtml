@@ -17,16 +17,21 @@ template="/templates/template.xhtml"
 				paginator="true" value="#{produtoBean.produtos}" var="produto"
 				rows="15">
 				
+				<p:column headerText="Cod.de Barras" style="width:100px; text-align: center;" 
+					sortBy="#{produto.codbarras}" >
+					<h:outputText value="#{produto.codbarras}" />
+				</p:column>
+				
 				<p:column headerText="Descrição" 
 					sortBy="#{produto.descricao}" >
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade" style="text-align:center">
+				<p:column headerText="Quantidade" style=" width:100px; text-align:center">
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" >
+				<p:column headerText="Preço" style="width:100px; text-align:center" >
 					<h:outputText value="#{produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>	
@@ -60,8 +65,8 @@ template="/templates/template.xhtml"
 					<f:validateLongRange minimum="0" maximum="1000" />
 				</p:inputText>	
 
-				<p:outputLabel value="Preço:" />
-				<p:inputText maxlength="7" size="10"
+				<p:outputLabel value="Preço:"  />
+				<p:inputText maxlength="7" size="10" 
 					value="#{produtoBean.produto.preco}" required="true"
 					requiredMessage="O campo 'Preço' é obrigatório"
 					converterMessage="Informe um valor válido para o campo 'Preço''"

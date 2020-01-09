@@ -16,14 +16,14 @@ template="/templates/template.xhtml"
 <h:form id="formulario">
 		<p:panel header="Produtos">
 			<h:panelGrid columns="3">
-				<p:outputLabel for="codigo" value="Código:" />
-				<p:inputText id="codigo" size="20" maxlength="13"
-					required="true" requiredMessage="O campo Código é obrigatório"
-					value="#{produtoPesquisaBean.produto.codigo}" />
+				<p:outputLabel for="descricao" value="Produto:" />
+				<p:inputText id="descricao" size="60" maxlength="80"
+					required="true" requiredMessage="O campo Descrição é obrigatório"
+					value="#{produtoPesquisaBean.produto.descricao}" />
 				<p:commandButton icon="ui-icon-search" 
 				actionListener="#{produtoPesquisaBean.buscar()}" 
 				update=":mensagem :formulario:painelDados"
-				process="@this :formulario:codigo"
+				process="@this :formulario:descricao"
 				/>
 			</h:panelGrid>
 			
