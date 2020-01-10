@@ -11,14 +11,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-import org.primefaces.component.datatable.DataTable;
 import br.com.datasalles.dao.EstadoDAO;
 import br.com.datasalles.domain.Estado;
 import br.com.datasalles.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-//import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.view.JasperViewer;
 
 
@@ -30,11 +28,11 @@ import net.sf.jasperreports.view.JasperViewer;
 public class EstadoBean implements Serializable {
 	private Estado estado;
 	private List<Estado>estados;
-	
+
 	public List<Estado> getEstados() {
 		return estados;
 	}
-	
+
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
 	}
@@ -58,17 +56,17 @@ public class EstadoBean implements Serializable {
 
 			novo();
 			estados = estadoDAO.listar();
-			
+
 			Messages.addGlobalInfo("Estado salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o estado");
 			erro.printStackTrace();
 		}
 	}
-	
-	
 
-@PostConstruct
+
+
+	@PostConstruct
 	public void listar(){
 		try{
 			EstadoDAO estadoDAO = new EstadoDAO();
@@ -80,74 +78,68 @@ public class EstadoBean implements Serializable {
 	}
 
 
-public void excluir(ActionEvent evento) {
-	try {
-		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+	public void excluir(ActionEvent evento) {
+		try {
+			estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 
-		EstadoDAO estadoDAO = new EstadoDAO();
-		estadoDAO.excluir(estado);
-		
-		estados = estadoDAO.listar();
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO.excluir(estado);
 
-		Messages.addGlobalInfo("Estado removido com sucesso");
-	} catch (RuntimeException erro) {
-		Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
-		erro.printStackTrace();
+			estados = estadoDAO.listar();
+
+			Messages.addGlobalInfo("Estado removido com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
+			erro.printStackTrace();
+		}
 	}
-}
 
-public void editar(ActionEvent evento){
-	estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
-}
+	public void editar(ActionEvent evento){
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+	}
 
-@SuppressWarnings("deprecation")
-public void impest(){
-	try {
-		DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-		@SuppressWarnings("unused")
-		Map<String, Object> filtros = tabela.getFilters();
-		
-		String caminho = Faces.getRealPath("/reports/estado.jasper");
-		String banner = Faces.getRealPath("/resources/img/Logo.png");
-		
-		Map<String, Object> parametros = new HashMap<>();
-		
-		parametros.put("BANNER",banner);
-		
-		Connection conexao = HibernateUtil.getConexao();
-		JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-		JasperViewer view = new JasperViewer(relatorio, false);
-		view.show();
+	@SuppressWarnings("deprecation")
+	public void impest(){
+		try {
+			
+			String caminho = Faces.getRealPath("/reports/estado.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
+
+			Map<String, Object> parametros = new HashMap<>();
+
+			parametros.put("BANNER",banner);
+
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
 
 		} catch (JRException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-				erro.printStackTrace();
-			}
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
 		}
+	}
 
-@SuppressWarnings("deprecation")
-public void impestrel(){
-	try {
-		DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-		@SuppressWarnings("unused")
-		Map<String, Object> filtros = tabela.getFilters();
-		
-		String caminho = Faces.getRealPath("/reports/estado.jasper");
-		String banner = Faces.getRealPath("/resources/img/Logo.png");
-		
-		Map<String, Object> parametros = new HashMap<>();
-		
-		parametros.put("BANNER",banner);
-		
-		Connection conexao = HibernateUtil.getConexao();
-		JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-		JasperViewer view = new JasperViewer(relatorio, false);
-		view.show();
+	@SuppressWarnings("deprecation")
+	public void impestrel(){
+		try {
+			
+			String caminho = Faces.getRealPath("/reports/estado.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
+
+			Map<String, Object> parametros = new HashMap<>();
+
+			parametros.put("BANNER",banner);
+
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
 
 		} catch (JRException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-				erro.printStackTrace();
-			}
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
 		}
+	}
 
 }

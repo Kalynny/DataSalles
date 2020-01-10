@@ -18,6 +18,8 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Venda extends GenericDomain {
 	
+	public static int TIPOPAGTO_AVISTA = 1;
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;

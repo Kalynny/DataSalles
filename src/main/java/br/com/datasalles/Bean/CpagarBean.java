@@ -18,26 +18,25 @@ import br.com.datasalles.domain.Fornecedor;
 public class CpagarBean implements Serializable {
 	private Cpagar cpagar;
 	private Fornecedor fornecedor;
-	private List<Cpagar>cpagares;
-	private List<Fornecedor>fornecedores;
-	private String tipo;
-	
+	private List<Cpagar> cpagares;
+	private List<Fornecedor> fornecedores;
+
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
-	
+
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
 	public List<Fornecedor> getFornecedores() {
 		return fornecedores;
 	}
-	
+
 	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
-	
+
 	public Cpagar getCpagar() {
 		return cpagar;
 	}
@@ -53,50 +52,42 @@ public class CpagarBean implements Serializable {
 	public void setCpagares(List<Cpagar> cpagares) {
 		this.cpagares = cpagares;
 	}
-	
-	public String getTipo() {
-		return tipo;
-	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	
 	public void novo() {
 		try {
-		cpagar = new Cpagar();
-		
-		FornecedorDAO fornecedoresDAO = new FornecedorDAO();
-		fornecedores = fornecedoresDAO.listar();
+			cpagar = new Cpagar();
+
+			FornecedorDAO fornecedoresDAO = new FornecedorDAO();
+			fornecedores = fornecedoresDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
 			erro.printStackTrace();
 		}
-		
+
 	}
 
-	
+
 	public void salvar() {
 		try {
 			CpagarDAO cpagarDAO = new CpagarDAO();
 			System.out.println(cpagarDAO);
 			cpagarDAO.merge(cpagar);
-			
-						
+
+
 			novo();
 			cpagares = cpagarDAO.listar();
-			
-			
+
+
 			Messages.addGlobalInfo("Contas a Pagar salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Pagar");
 			erro.printStackTrace();
 		}
 	}
-	
-	
 
-@PostConstruct
+
+
+	@PostConstruct
 	public void listar(){
 		try{
 			CpagarDAO cpagarDAO = new CpagarDAO();
@@ -111,19 +102,19 @@ public class CpagarBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		try {
 			cpagar = (Cpagar) evento.getComponent().getAttributes().get("cpagarSelecionado");
-	
+
 			CpagarDAO cpagarDAO = new CpagarDAO();
 			cpagarDAO.excluir(cpagar);
-			
+
 			cpagares = cpagarDAO.listar();
-	
+
 			Messages.addGlobalInfo("Fornecedor removido com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Contas a Pagar");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		cpagar = (Cpagar) evento.getComponent().getAttributes().get("cpagarSelecionado");
 	}

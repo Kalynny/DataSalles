@@ -123,5 +123,27 @@ public class FornecedorBean implements Serializable {
 						erro.printStackTrace();
 					}
 				}
+		
+		@SuppressWarnings("deprecation")
+		public void impforrel(){
+			try {
+				
+				String caminho = Faces.getRealPath("/reports/fornecedor.jasper");
+				String banner = Faces.getRealPath("/resources/img/Logo.png");
+
+				Map<String, Object> parametros = new HashMap<>();
+
+				parametros.put("BANNER",banner);
+
+				Connection conexao = HibernateUtil.getConexao();
+				JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+				JasperViewer view = new JasperViewer(relatorio, false);
+				view.show();
+
+			} catch (JRException erro) {
+				Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+				erro.printStackTrace();
+			}
+		}
 
 }

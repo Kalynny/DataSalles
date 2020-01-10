@@ -5,16 +5,13 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
-
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.ProdutoDAO;
 import br.com.datasalles.domain.Fornecedor;
@@ -153,5 +150,26 @@ public class ProdutoBean implements Serializable {
 					erro.printStackTrace();
 				}
 			}
+	
+	@SuppressWarnings("deprecation")
+	public void improrel(){
+		try {
+			
+			String caminho = Faces.getRealPath("/reports/produto.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
 
+			Map<String, Object> parametros = new HashMap<>();
+
+			parametros.put("BANNER",banner);
+
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
+
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
 }

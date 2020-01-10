@@ -91,30 +91,30 @@ public class FuncionarioBean implements Serializable {
 			funcionarioDAO.merge(funcionario);
 
 			funcionario = new Funcionario();
-			
+
 			funcionarios = funcionarioDAO.listar("dataAdmissao");
 			System.out.println(funcionarios);
 
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
-			
+
 			Messages.addGlobalInfo("Funcionario salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o funcionario");
 			erro.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void excluir(ActionEvent evento) {
 		try {
 			funcionario = (Funcionario) evento.getComponent().getAttributes().get("funcionarioSelecionado");
 
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarioDAO.excluir(funcionario);
-			
+
 			funcionarios = funcionarioDAO.listar();
-					
+
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
 
@@ -124,8 +124,8 @@ public class FuncionarioBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void editar(ActionEvent evento){
 		try {
 			funcionario = (Funcionario) evento.getComponent().getAttributes().get("funcionarioSelecionado");
@@ -137,30 +137,52 @@ public class FuncionarioBean implements Serializable {
 			erro.printStackTrace();
 		}	
 	}
-	
+
 	@SuppressWarnings({ "deprecation", "unused" })
-	 public void impfun(){
+	public void impfun(){
 		try {
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-			
+
 			Map<String, Object> filtros = tabela.getFilters();
-			
+
 			String caminho = Faces.getRealPath("/reports/funcionario.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			Connection conexao = HibernateUtil.getConexao();
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
-	
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public void impfunrel(){
+		try {
+
+			String caminho = Faces.getRealPath("/reports/funcionario.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
+
+			Map<String, Object> parametros = new HashMap<>();
+
+			parametros.put("BANNER",banner);
+
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
+
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+
 }

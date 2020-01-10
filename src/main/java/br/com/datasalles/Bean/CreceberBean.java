@@ -12,16 +12,15 @@ import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.domain.Creceber;
 
-
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class CreceberBean implements Serializable {
+	
 	private Creceber creceber;
 	private Cliente cliente;
-	private List<Creceber>creceberes;
-	private List<Cliente>clientes;
-	private String tipo;
+	private List<Creceber> creceberes;
+	private List<Cliente> clientes;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -53,14 +52,6 @@ public class CreceberBean implements Serializable {
 
 	public void setCreceberes(List<Creceber> creceberes) {
 		this.creceberes = creceberes;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public void novo() {

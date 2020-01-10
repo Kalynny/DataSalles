@@ -34,7 +34,7 @@ import br.com.datasalles.util.HibernateUtil;
 @ManagedBean
 @ViewScoped
 public class RecebimentoBean implements Serializable{
-	
+
 	private List<Venda> vendas;
 	private List<Funcionario> funcionarios;
 	private List<Cliente> clientes;
@@ -48,8 +48,8 @@ public class RecebimentoBean implements Serializable{
 	private Recebimento recebimento;
 	private BigDecimal valorInformado;
 	private BigDecimal valorRecebido;
-			
-		
+
+
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -89,7 +89,7 @@ public class RecebimentoBean implements Serializable{
 	public void setValorInformado(BigDecimal valorInformado) {
 		this.valorInformado = valorInformado;
 	}
-	
+
 	public BigDecimal getValorRecebido() {
 		return valorRecebido;
 	}
@@ -106,7 +106,7 @@ public class RecebimentoBean implements Serializable{
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
 	}
-		
+
 	public List<Venda> getVendas() {
 		return vendas;
 	}
@@ -114,7 +114,7 @@ public class RecebimentoBean implements Serializable{
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
-	
+
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
@@ -130,7 +130,7 @@ public class RecebimentoBean implements Serializable{
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	
+
 	public List<Caixa> getCaixas() {
 		return caixas;
 	}
@@ -138,7 +138,7 @@ public class RecebimentoBean implements Serializable{
 	public void setCaixas(List<Caixa> caixas) {
 		this.caixas = caixas;
 	}
-	
+
 	public List<TipoPag> getTipopags() {
 		return tipopags;
 	}
@@ -146,7 +146,7 @@ public class RecebimentoBean implements Serializable{
 	public void setTipopags(List<TipoPag> tipopags) {
 		this.tipopags = tipopags;
 	}
-	
+
 	public Recebimento getRecebimento() {
 		return recebimento;
 	}
@@ -155,140 +155,123 @@ public class RecebimentoBean implements Serializable{
 		this.recebimento = recebimento;
 	}
 
-		@PostConstruct
-		public void listar(){
-			valorInformado = new BigDecimal("0");
-			valorRecebido = new BigDecimal("0");
-			try{
-				venda = null;
-				VendaDAO vendaDAO = new VendaDAO();
-				vendas = vendaDAO.listar();
-				
-				pegaValorInicial();
-				
-			} catch (RuntimeException erro) {
-				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
-				erro.printStackTrace();
-			}
-		}
-		
-		public void editar(ActionEvent evento){
-			try {
-				venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
-								
-				ClienteDAO clienteDAO = new ClienteDAO();
-				clientes = clienteDAO.listar();
-												
-				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-				funcionarios = funcionarioDAO.listar();
-				
-			} catch (RuntimeException erro) {
-				Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
-				erro.printStackTrace();
-			}	
-		}
-		
-		
-		public void receber() {
-			try {
-				@SuppressWarnings("unused")
-				RecebimentoDAO recebimentoDAO = new RecebimentoDAO();
-												
-				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-				funcionarios = funcionarioDAO.listarOrdenado();
+	@PostConstruct
+	public void listar(){
+		valorInformado = new BigDecimal("0");
+		valorRecebido = new BigDecimal("0");
+		try{
+			venda = null;
+			VendaDAO vendaDAO = new VendaDAO();
+			vendas = vendaDAO.listarAvista();
 
-				ClienteDAO clienteDAO = new ClienteDAO();
-				clientes = clienteDAO.listarOrdenado();
-				
-				TipoPagDAO tipopagDAO = new TipoPagDAO();
-				tipopags = tipopagDAO.listar();
-							
-					Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-				} catch (RuntimeException erro) {
-					Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Recebimento do Caixa");
-					erro.printStackTrace();
-				}
-			}
+			pegaValorInicial();
+
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
+			erro.printStackTrace();
+		}
+	}
+
+	public void editar(ActionEvent evento){
+		try {
+			venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
+
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listar();
+
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar();
+
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
+			erro.printStackTrace();
+		}	
+	}
+
+
+	public void receber() {
 		
-		
-		public void pegaValorInicial() {
-			carregaValor();
+	}
+
+
+	public void pegaValorInicial() {
+		carregaValor();
 		//	valorInformado = valorInformado;
-			
+
 		//	valorInformado = new BigDecimal("200.00");
-			
-		}
-		
-		@SuppressWarnings({ "rawtypes" })
-		private void carregaValor() {
-			BigDecimal valor = null;
-			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			Transaction tx = null;
-		      try{
-		         tx = sessao.beginTransaction();
-		         
-		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-		         
-		         SQLQuery query = sessao.createSQLQuery(sql);
-		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		         List data = query.list();
 
-		         for(Object object : data)  {
-		            Map row = (Map)object;
-		            
-		           // BigDecimal valor;
-		            
-		            valor = new BigDecimal(row.get("valorAbertura").toString());
-		           ;
-		         }
-		         tx.commit();
-		        
-		      }catch (HibernateException e) {
-		         if (tx!=null) tx.rollback();
-		         e.printStackTrace(); 
-		      }finally {
-		         sessao.close();
-		         valorInformado = valor;
-		         
-		      }
-		}
-		
-		
-		@SuppressWarnings({ "rawtypes", "unused" })
-		private BigDecimal carregaValors() {
-			BigDecimal valor = null;
-			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			Transaction tx = null;
-		      try{
-		         tx = sessao.beginTransaction();
-		         
-		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-		         
-		         SQLQuery query = sessao.createSQLQuery(sql);
-		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		         List data = query.list();
+	}
 
-		         for(Object object : data)  {
-		            Map row = (Map)object;
-		            
-		           // BigDecimal valor;
-		            
-		            valor = new BigDecimal(row.get("valorAbertura").toString());
+	@SuppressWarnings({ "rawtypes" })
+	private void carregaValor() {
+		BigDecimal valor = null;
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction tx = null;
+		try{
+			tx = sessao.beginTransaction();
 
-		         }
-		         tx.commit();
-		        
-		      }catch (HibernateException e) {
-		         if (tx!=null) tx.rollback();
-		         e.printStackTrace(); 
-		      }finally {
-		         sessao.close();
-		         valorInformado = valor;
-		         
-		      }
-		      return valor;
+			String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
+
+			SQLQuery query = sessao.createSQLQuery(sql);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+
+			for(Object object : data)  {
+				Map row = (Map)object;
+
+				// BigDecimal valor;
+
+				valor = new BigDecimal(row.get("valorAbertura").toString());
+				;
+			}
+			tx.commit();
+
+		}catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace(); 
+		}finally {
+			sessao.close();
+			valorInformado = valor;
+
 		}
-		
+	}
+
+
+	@SuppressWarnings({ "rawtypes", "unused" })
+	private BigDecimal carregaValors() {
+		BigDecimal valor = null;
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction tx = null;
+		try{
+			tx = sessao.beginTransaction();
+
+			String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
+
+			SQLQuery query = sessao.createSQLQuery(sql);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
+
+			for(Object object : data)  {
+				Map row = (Map)object;
+
+				// BigDecimal valor;
+
+				valor = new BigDecimal(row.get("valorAbertura").toString());
+
+			}
+			tx.commit();
+
+		}catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace(); 
+		}finally {
+			sessao.close();
+			valorInformado = valor;
+
+		}
+		return valor;
+	}
+
 	//	@SuppressWarnings({ "rawtypes" })
 	/*	private BigDecimal carregaValors() {
 			BigDecimal valor = null;
@@ -296,77 +279,77 @@ public class RecebimentoBean implements Serializable{
 			Transaction tx = null;
 		      try{
 		         tx = sessao.beginTransaction();
-		         
+
 		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-		         
+
 		         SQLQuery query = sessao.createSQLQuery(sql);
 		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		         List data = query.list();
 
 		         for(Object object : data)  {
 		            Map row = (Map)object;
-		            
+
 		           // BigDecimal valor;
-		            
+
 		            valor = new BigDecimal(row.get("valorAbertura").toString());
 
 		         }
 		         tx.commit();
-		        
+
 		      }catch (HibernateException e) {
 		         if (tx!=null) tx.rollback();
 		         e.printStackTrace(); 
 		      }finally {
 		         sessao.close();
 		         valorInformado = valor;
-		         
+
 		      }
 		      return valor;
 		} */
-		
-		public void salvar() {
-			try {
-				CaixaDAO caixaDAO = new CaixaDAO();
-				caixaDAO.salvar(caixa);
-				
-				caixa = new Caixa();
 
-				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-				funcionarios = funcionarioDAO.listar("descricao");
-				
-				ClienteDAO clienteDAO = new ClienteDAO();
-				clientes = clienteDAO.listar("nome");
-				
-				TipoPagDAO tipopagDAO = new TipoPagDAO();
-				tipopags = tipopagDAO.listar("descricao");
+	public void salvar() {
+		try {
+			CaixaDAO caixaDAO = new CaixaDAO();
+			caixaDAO.salvar(caixa);
 
-				caixas = caixaDAO.listar();
+			caixa = new Caixa();
 
-				Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-			} catch (RuntimeException erro) {
-				Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
-				erro.printStackTrace();
-			}
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar("descricao");
+
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listar("nome");
+
+			TipoPagDAO tipopagDAO = new TipoPagDAO();
+			tipopags = tipopagDAO.listar("descricao");
+
+			caixas = caixaDAO.listar();
+
+			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
+			erro.printStackTrace();
 		}
-		
-		@SuppressWarnings("unused")
-		public void finalizarCaixa() {
-			 
-			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			org.hibernate.Transaction transacao = null;
+	}
 
-			try {
-			
+	@SuppressWarnings("unused")
+	public void finalizarCaixa() {
+
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		org.hibernate.Transaction transacao = null;
+
+		try {
+
 			transacao= sessao.beginTransaction();
-					
+
 			String sql = "insert into datasalles.caixa VALUES (null, sysdate(),"+venda.getPrecoTotal()+","+venda.getCliente().getCodigo()+","+venda.getFuncionario().getCodigo()+","+venda.getTipopag().getCodigo()+","+venda.getCodigo()+");";
 
 			SQLQuery query = sessao.createSQLQuery(sql);
-					
+
 			int result = query.executeUpdate();
-			
+
 			transacao.commit();
-		//	System.out.println(result);
+			//	System.out.println(result);
 
 		} catch (HibernateException e) {
 			if (transacao != null)
@@ -378,22 +361,22 @@ public class RecebimentoBean implements Serializable{
 			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
 		}
 	}
-	
-		public void excluir(ActionEvent evento) {
-			try {
-				venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
 
-				VendaDAO vendaDAO = new VendaDAO();
-				vendaDAO.excluir(venda);
-				
-				vendas = vendaDAO.listar();
+	public void excluir(ActionEvent evento) {
+		try {
+			venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
 
-				Messages.addGlobalInfo("Estado removido com sucesso");
-			} catch (RuntimeException erro) {
-				Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
-				erro.printStackTrace();
-			}
+			VendaDAO vendaDAO = new VendaDAO();
+			vendaDAO.excluir(venda);
+
+			vendas = vendaDAO.listar();
+
+			Messages.addGlobalInfo("Estado removido com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
+			erro.printStackTrace();
 		}
-	
-		
+	}
+
+
 }

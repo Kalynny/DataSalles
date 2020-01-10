@@ -209,6 +209,22 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 			sessao.close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Venda> listarAvista() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class, "v");
+			consulta.add(Restrictions.eq("v.tipopag.id", Venda.TIPOPAGTO_AVISTA));
+			consulta.addOrder(Order.asc("codigo"));
+			List<Venda> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
 
 	@Override
 	public void salvar(Venda venda, List<ItemVenda> itens) {
