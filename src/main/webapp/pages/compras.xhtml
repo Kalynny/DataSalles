@@ -17,12 +17,11 @@
 		<h:form id="formulario">
 			<p:panel header="Pedido de Compras">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="PEDIDO DE COMPRAS"
-						style="font-size:100%;" />
+					<p:outputLabel value="PEDIDO DE COMPRAS" style="font-size:100%;" />
 					<p:button value="Voltar" outcome="/pages/pesquisaC.xhtml"
-					update="@form" style="margin-left: 1030px;" />
+						update="@form" style="margin-left: 1030px;" />
 				</f:facet>
-			
+
 				<p:dataTable id="tabelaProduto"
 					emptyMessage="Nenhum registro encontrado." paginator="true"
 					value="#{compraBean.produtos}" var="produto" rows="5"

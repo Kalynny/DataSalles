@@ -9,7 +9,7 @@ import br.com.datasalles.domain.Fechamento;
 import br.com.datasalles.util.HibernateUtil;
 
 public class FechamentoDAO extends GenericDAO<Fechamento> {
-	
+
 	public Fechamento buscar(Date dataFechamento) {
 		Session sessao =  HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
@@ -22,9 +22,9 @@ public class FechamentoDAO extends GenericDAO<Fechamento> {
 		} finally {
 			sessao.close();
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 }

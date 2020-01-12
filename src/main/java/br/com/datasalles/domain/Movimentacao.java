@@ -12,22 +12,22 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Movimentacao extends GenericDomain {
-	
+
 	@Column (nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;
-	
+
 	@Column (nullable = false, precision= 7, scale=2 )
 	private BigDecimal valor;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Abertura abertura;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
+
 
 	public Date getHorario() {
 		return horario;
@@ -60,7 +60,7 @@ public class Movimentacao extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	
-		
+
+
 
 }

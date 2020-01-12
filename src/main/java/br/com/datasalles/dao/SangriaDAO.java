@@ -8,7 +8,7 @@ import br.com.datasalles.domain.Sangria;
 import br.com.datasalles.util.HibernateUtil;
 
 public class SangriaDAO extends GenericDAO<Sangria> {
-	
+
 	public Sangria buscar(Date dataSangria) {
 		Session sessao =  HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
@@ -21,9 +21,9 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 		} finally {
 			sessao.close();
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 }

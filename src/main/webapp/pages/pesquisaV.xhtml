@@ -17,7 +17,7 @@
 		<h:form>
 			<p:panel header="Pedido de Vendas">
 				<f:facet name="header">
-				<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+					<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
 						style="margin-right:180px;" />
 					<p:outputLabel value="Data Inicio:" />
 					<p:calendar pattern="    dd/MM/yyyy"
@@ -82,7 +82,7 @@
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{venda.itensVenda}" var="itemVenda">
-							
+
 							<p:column headerText="Codigo do Pedido">
 								<h:outputText value="#{itemVenda.venda.codigo}" />
 							</p:column>

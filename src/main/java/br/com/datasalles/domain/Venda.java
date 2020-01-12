@@ -17,31 +17,31 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Venda extends GenericDomain {
-	
+
 	public static int TIPOPAGTO_AVISTA = 1;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
-		
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
-		
+
 	@ManyToOne
 	private Cliente cliente;
-		
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoPag tipopag;
-	
+
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venda")
 	private List<ItemVenda> itensVenda;
@@ -53,7 +53,7 @@ public class Venda extends GenericDomain {
 	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
-	
+
 	public Date getVencimento() {
 		return vencimento;
 	}
@@ -101,6 +101,6 @@ public class Venda extends GenericDomain {
 	public void setItensVenda(List<ItemVenda> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
-	
-	
+
+
 }

@@ -12,18 +12,18 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Cliente extends GenericDomain {
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
-	
+
 	@Column(nullable = false)
 	private Boolean liberado;
-	
+
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
-		
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -48,5 +48,5 @@ public class Cliente extends GenericDomain {
 		this.pessoa = pessoa;
 	}
 
-	
+
 }

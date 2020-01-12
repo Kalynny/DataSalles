@@ -7,21 +7,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 
-
-
-
 @Entity
 public class PesquisaCompra extends GenericDomain{
-		
+
 	@JoinColumn(nullable = false)
 	private Venda venda;
-	
+
 	@Column(nullable = false)
 	private String parcela;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valor;
-	
+
 	@Column(nullable = false)
 	private Date dataDoRecebimento;
 
@@ -67,6 +64,6 @@ public class PesquisaCompra extends GenericDomain{
 	public void setFormaDeRecebimento(String formaDeRecebimento) {
 		this.formaDeRecebimento = formaDeRecebimento;
 	}
-	
-		
+
+
 }

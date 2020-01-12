@@ -8,7 +8,7 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewAction action="#{recebimentoBean.listar}" />
+			<f:viewAction action="#{recebimentoBean.listar()}" />
 		</f:metadata>
 	</ui:define>
 
@@ -68,7 +68,6 @@
 							oncomplete="PF('dialogo').show();">
 							<f:setPropertyActionListener value="#{venda}"
 								target="#{recebimentoBean.venda}" />
-
 						</p:commandButton>
 
 						<p:commandButton value="Excluir"

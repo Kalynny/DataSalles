@@ -1,6 +1,4 @@
-
 package br.com.datasalles.dao;
-
 
 import java.util.Date;
 import java.util.List;
@@ -20,39 +18,39 @@ public class AvariaDAO extends GenericDAO<Avaria> {
 
 		try {
 			transacao = sessao.beginTransaction();
-		
+
 			sessao.save(avaria);
-			
+
 			for(int posicao = 0; posicao < itensAvaria.size(); posicao++){
 				ItemAvaria itemAvaria = itensAvaria.get(posicao);
 				itemAvaria.setAvaria(avaria);
-				
+
 				sessao.save(itemAvaria);
-				
+
 				Produto produto = itemAvaria.getProduto();
 				int qtde = produto.getQuantidade() - itemAvaria.getQuantidade();
-				
+
 				if(qtde >= 0){
-				produto.setQuantidade(new Short((qtde) + ""));
-				
-				sessao.update(produto);
-				
+					produto.setQuantidade(new Short((qtde) + ""));
+
+					sessao.update(produto);
+
 				}else{
-				throw new RuntimeException("Quantidade insuficiente em estoque");
+					throw new RuntimeException("Quantidade insuficiente em estoque");
 				}
-				
+
 			}
-				transacao.commit();
-			}	catch (RuntimeException erro) {
-				if (transacao != null) {
-					transacao.rollback();
-				}
-				throw erro;
-				} finally {
-				sessao.close();
+			transacao.commit();
+		}	catch (RuntimeException erro) {
+			if (transacao != null) {
+				transacao.rollback();
 			}
+			throw erro;
+		} finally {
+			sessao.close();
+		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Avaria> listarPorData(Date dataInicio, Date dataFim){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		

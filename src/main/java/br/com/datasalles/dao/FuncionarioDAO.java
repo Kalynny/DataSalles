@@ -11,8 +11,8 @@ import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.util.HibernateUtil;
 
 public class FuncionarioDAO extends GenericDAO<Funcionario>{
-	
-	
+
+
 	public List<Funcionario> listarOrdenado() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {

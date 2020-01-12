@@ -11,27 +11,27 @@ import javax.persistence.Transient;
 public class Usuario extends GenericDomain {
 	@Column(length = 32, nullable = false)
 	private String senha;
-	
+
 	@Transient
 	private String senhaSemCriptografia;
-	
+
 	@Column(nullable = false)
 	private Character tipo;
-	
+
 	@Column(nullable = false)
 	private Boolean ativo;
-	
+
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
-	
-	
-	
-	
+
+
+
+
 	public String getSenhaSemCriptografia() {
 		return senhaSemCriptografia;
 	}
-	
+
 	public void setSenhaSemCriptografia(String senhaSemCriptografia) {
 		this.senhaSemCriptografia = senhaSemCriptografia;
 	}
@@ -47,20 +47,20 @@ public class Usuario extends GenericDomain {
 	public Character getTipo() {
 		return tipo;
 	}
-	
+
 	@Transient
 	public String getTipoFormatado(){
 		String tipoFormatado = null;
-		
+
 		if(tipo == 'A'){
 			tipoFormatado = "Administrador";
-			
+
 		} else if(tipo == 'B'){
 			tipoFormatado = "Balconista";
-			
+
 		}else if(tipo == 'G'){
 			tipoFormatado = "Gerente";
-			
+
 		}
 		return tipoFormatado;
 	}
@@ -72,7 +72,7 @@ public class Usuario extends GenericDomain {
 	public Boolean getAtivo() {
 		return ativo;
 	}
-	
+
 	@Transient
 	public String getAtivoFormatado(){
 		String ativoFormatado = "Não";

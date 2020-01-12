@@ -11,21 +11,21 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Cpagar extends GenericDomain {
-	
+
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date atual;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
-	
+
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@Column(nullable = false)
 	private String tipo;
 
@@ -70,5 +70,5 @@ public class Cpagar extends GenericDomain {
 	}
 
 
-			
+
 }

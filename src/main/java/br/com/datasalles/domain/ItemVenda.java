@@ -19,18 +19,18 @@ import org.hibernate.annotations.FetchMode;
 public class ItemVenda extends GenericDomain {
 	@Column(nullable = false)
 	private Short quantidade;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoParcial;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Venda venda;
-	
+
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venda")
 	private List<ItemVenda> itensVenda;
@@ -62,7 +62,7 @@ public class ItemVenda extends GenericDomain {
 	public Venda getVenda() {
 		return venda;
 	}
-	
+
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
@@ -75,7 +75,7 @@ public class ItemVenda extends GenericDomain {
 		this.itensVenda = itensVenda;
 	}
 
-		
+
 }
 
 

@@ -18,13 +18,13 @@ import br.com.datasalles.domain.Avaria;
 @ManagedBean
 @ViewScoped
 public class PesquisaAvariaBean implements Serializable {
-	
+
 	private List<Avaria> avarias;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
-		
-		
+
+
 	public List<Avaria> getAvarias() {
 		return avarias;
 	}
@@ -49,7 +49,7 @@ public class PesquisaAvariaBean implements Serializable {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
 		if(avarias.size() > 0){
@@ -58,13 +58,13 @@ public class PesquisaAvariaBean implements Serializable {
 			}
 		}		
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		startDatas();
 		listar();
 	}
-	
+
 	public void startDatas(){
 		Calendar c1 = Calendar.getInstance();
 		c1.set(Calendar.DAY_OF_MONTH, 1);
@@ -74,26 +74,26 @@ public class PesquisaAvariaBean implements Serializable {
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
-	
-	
+
+
 	@PostConstruct  
 	public void listar(){
 		try{
-			
+
 			if(dataInicio==null || dataFim==null){
 				startDatas();
 			}
-			
+
 			valorTotal = new BigDecimal("0");
 			AvariaDAO avariaDAO = new AvariaDAO();			
 			avarias = avariaDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Estoque Insuficiente");
 			erro.printStackTrace();
 		}
-	
+
 	}
-	
+
 }

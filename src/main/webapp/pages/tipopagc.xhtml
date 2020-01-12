@@ -15,14 +15,14 @@
 					<p:outputLabel value="LISTA DE TIPOS DE PAGAMENTO DE COMPRAS"
 						style="margin-right:800px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-							actionListener="#{tipoPagcBean.novo()}" update="@form" />
+						actionListener="#{tipoPagcBean.novo()}" update="@form" />
 				</f:facet>
 
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{tipoPagcBean.tipopagcs}" var="tipopagc"
 					rows="6" id="tabela">
 					<f:facet name="header">
-						
+
 					</f:facet>
 
 					<p:column headerText="Código" sortBy="#{tipopagc.codigo}">

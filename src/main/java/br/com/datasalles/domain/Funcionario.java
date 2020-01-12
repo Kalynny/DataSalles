@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 public class Funcionario extends GenericDomain {
 	@Column(length = 15, nullable = false)
 	private String carteiraTrabalho;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataAdmissao;
-	
+
 	@OneToOne
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;

@@ -8,7 +8,7 @@ import br.com.datasalles.domain.Cliente;
 import br.com.datasalles.util.HibernateUtil;
 
 public class ClienteDAO extends GenericDAO<Cliente>{
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Cliente> listarOrdenado() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();

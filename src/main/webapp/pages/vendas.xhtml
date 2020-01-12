@@ -20,9 +20,9 @@
 					<p:outputLabel value="PEDIDO DE VENDAS"
 						style="font-size:100%; margin-right:1040px;" />
 					<p:button value="Voltar" outcome="/pages/pesquisaV.xhtml"
-					update="@form" />
+						update="@form" />
 				</f:facet>
-				
+
 				<p:dataTable id="tabelaProduto"
 					emptyMessage="Nenhum registro encontrado." paginator="true"
 					value="#{vendaBean.produtos}" var="produto" rows="5"

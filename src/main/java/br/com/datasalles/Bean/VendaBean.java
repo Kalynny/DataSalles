@@ -54,7 +54,7 @@ public class VendaBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<TipoPag> tipopags;
 	private List<Venda> vendas;
-	
+
 	public Venda getVenda() {
 		return venda;
 	}
@@ -62,7 +62,7 @@ public class VendaBean implements Serializable {
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	
+
 	public Recebimento getRecebimento() {
 		return recebimento;
 	}
@@ -110,7 +110,7 @@ public class VendaBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
+
 	public List<TipoPag> getTipopags() {
 		return tipopags;
 	}
@@ -118,7 +118,7 @@ public class VendaBean implements Serializable {
 	public void setTipopags(List<TipoPag> tipopags) {
 		this.tipopags = tipopags;
 	}
-	
+
 	public List<Venda> getVendas() {
 		return vendas;
 	}
@@ -126,30 +126,30 @@ public class VendaBean implements Serializable {
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
-	
+
 	public void importarOrcamento(Orcamento orcamento) {
-						
+
 		try {
-					
+
 			for(ItemOrca rs : orcamento.getItensOrca()) {
-				
+
 				ItemVenda item = new ItemVenda();
 				item.setPrecoParcial(rs.getPrecoParcial());
 				item.setProduto(rs.getProduto());
 				item.setQuantidade(rs.getQuantidade());
 				item.setVenda(venda);
-					
+
 				itensVenda.add(item);
 			}
-			
+
 			calcular();
-		
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar a importação");
 			erro.printStackTrace();
 		}
-    }
-		
+	}
+
 	public void novo() {
 		try {
 			venda = new Venda();
@@ -160,39 +160,39 @@ public class VendaBean implements Serializable {
 
 			itensVenda = new ArrayList<>();
 			tipopags = new ArrayList<>();
-			
+
 			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 			String orcamentoCodigo = request.getParameter("orcamento");
 			if(orcamentoCodigo!=null) {
 				try {
-					
+
 					OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
 					Long cod = Long.parseLong(orcamentoCodigo);
-					
+
 					importarOrcamento(orcamentoDAO.buscar(cod));
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
-			
-			
+
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void listar(){
 		VendaDAO dao = new VendaDAO();
 		vendas = dao.listar("codigo");
 	}
-	
+
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		if (produto.getQuantidade()>0) {
-			
+
 			ItemVenda item = null;
 			for (ItemVenda rs : itensVenda) {
 				if (rs.getProduto().equals(produto)) {
@@ -205,36 +205,36 @@ public class VendaBean implements Serializable {
 				itemVenda.setPrecoParcial(produto.getPreco());
 				itemVenda.setProduto(produto);
 				itemVenda.setQuantidade(new Short("1"));
-	
+
 				itensVenda.add(itemVenda);
 			} else {
 				ItemVenda itemVenda = item;
 				itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
 				itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 			}
-	
+
 			calcular();
-		
+
 		}
 	}
-	
+
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		if (produto.getQuantidade()>0) {
-	
+
 			ItemVenda item = null;
 			for (ItemVenda rs : itensVenda) {
 				if (rs.getProduto().equals(produto)) {
 					item = rs;
 				}
 			}
-	
+
 			if (item == null) {
 				ItemVenda itemVenda = new ItemVenda();
 				itemVenda.setPrecoParcial(produto.getPreco());
 				itemVenda.setProduto(produto);
 				itemVenda.setQuantidade(new Short("1"));
-	
+
 				itensVenda.add(itemVenda);
 			} else {
 				ItemVenda itemVenda = item;
@@ -243,10 +243,10 @@ public class VendaBean implements Serializable {
 				}
 				itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 			}
-	
+
 			calcular();
 		}
-		
+
 	}
 
 	public void remover(ActionEvent evento) {
@@ -281,80 +281,80 @@ public class VendaBean implements Serializable {
 			venda.setCliente(null);
 			venda.setTipopag(null);
 			venda.setFuncionario(null);
-			
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 
 			ClienteDAO clienteDAO = new ClienteDAO();
 			clientes = clienteDAO.listarOrdenado();
-			
+
 			TipoPagDAO tipopagDAO = new TipoPagDAO();
 			tipopags = tipopagDAO.listar();
-						
-			
+
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();
 		}
 	}
 
-	
+
 	public void salvar(ActionEvent event) {
 		try { 
-		
-				if(venda.getPrecoTotal().signum() == 0){
+
+			if(venda.getPrecoTotal().signum() == 0){
 				Messages.addGlobalError("Informe pelo menos um item para a venda");
 				return;
-				}
-				
-				if(venda.getTipopag().getCodigo() == (1)) {
-					VendaDAO vendaDAO = new VendaDAO();			
-					vendaDAO.salvar(venda, itensVenda, recebimento);
-					
-					venda = new Venda();
-					venda.setPrecoTotal(new BigDecimal("0.00"));
-		
-					ProdutoDAO produtoDAO = new ProdutoDAO();
-					produtos = produtoDAO.listar("descricao");
-		
-					@SuppressWarnings("unused")
-					TipoPagDAO tipopagDAO = new TipoPagDAO();
-					tipopags = new ArrayList<>();
-					
-					itensVenda = new ArrayList<>();
-					
-					Messages.addGlobalInfo("Venda realizada com sucesso");
-				}else{
-					
-					VendaDAO vendaDAO = new VendaDAO();
-					vendaDAO.salvarBoleto(venda, itensVenda);
-					//venda = new Venda();
-					venda.setPrecoTotal(new BigDecimal("0.00"));
-		
-					ProdutoDAO produtoDAO = new ProdutoDAO();
-					produtos = produtoDAO.listar("descricao");
-		
-					@SuppressWarnings("unused")
-					TipoPagDAO tipopagDAO = new TipoPagDAO();
-					tipopags = new ArrayList<>();
-					
-					itensVenda = new ArrayList<>();	
-					Messages.addGlobalInfo("Venda realizada com sucesso");
-				}
-				
-			    }catch (RuntimeException erro) {
-				Messages.addGlobalError("Quantidade do Estoque menor que o solicitado na Venda");
-				erro.printStackTrace();
-			    }
+			}
+
+			if(venda.getTipopag().getCodigo() == (1)) {
+				VendaDAO vendaDAO = new VendaDAO();			
+				vendaDAO.salvar(venda, itensVenda, recebimento);
+
+				venda = new Venda();
+				venda.setPrecoTotal(new BigDecimal("0.00"));
+
+				ProdutoDAO produtoDAO = new ProdutoDAO();
+				produtos = produtoDAO.listar("descricao");
+
+				@SuppressWarnings("unused")
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopags = new ArrayList<>();
+
+				itensVenda = new ArrayList<>();
+
+				Messages.addGlobalInfo("Venda realizada com sucesso");
+			}else{
+
+				VendaDAO vendaDAO = new VendaDAO();
+				vendaDAO.salvarBoleto(venda, itensVenda);
+				//venda = new Venda();
+				venda.setPrecoTotal(new BigDecimal("0.00"));
+
+				ProdutoDAO produtoDAO = new ProdutoDAO();
+				produtos = produtoDAO.listar("descricao");
+
+				@SuppressWarnings("unused")
+				TipoPagDAO tipopagDAO = new TipoPagDAO();
+				tipopags = new ArrayList<>();
+
+				itensVenda = new ArrayList<>();	
+				Messages.addGlobalInfo("Venda realizada com sucesso");
+			}
+
+		}catch (RuntimeException erro) {
+			Messages.addGlobalError("Quantidade do Estoque menor que o solicitado na Venda");
+			erro.printStackTrace();
 		}
-	
+	}
+
 	public void atualizarPrecoParcial(){
 		for(ItemVenda itemVenda : this.itensVenda){
-		itemVenda.setPrecoParcial(itemVenda.getProduto().getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+			itemVenda.setPrecoParcial(itemVenda.getProduto().getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 		}
 		this.calcular();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void imprimir(){
 		try {
@@ -366,11 +366,11 @@ public class VendaBean implements Serializable {
 
 			String caminho = Faces.getRealPath("/reports/estado.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo1.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			if (estNome == null) {
 				parametros.put("NOME_ESTADO", "%%");
 			} else {
@@ -387,37 +387,37 @@ public class VendaBean implements Serializable {
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
-	
-			
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+
+
 	public void pagamentoBoleto()  {
-		
+
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
 
 		try {
-		
-		transacao= sessao.beginTransaction();
-			
-		//String dataFormatada = sevico.formatData("yyyy/MM/DD",venda.getVencimento());	
-		//String padraoData = " %Y-%m-%d ";
-		//String dataFormatada = new SimpleDateFormat("yyyy-MM-dd").format(venda.getVencimento());
 
-		
-		String sql = "insert into creceber VALUES (null,"+venda.getVencimento()+","+venda.getPrecoTotal()+","+venda.getVencimento()+","+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
-				
-		SQLQuery query = sessao.createSQLQuery(sql);
-				
-		int result = query.executeUpdate();
-		
-		transacao.commit();
-		System.out.println(result);
+			transacao= sessao.beginTransaction();
+
+			//String dataFormatada = sevico.formatData("yyyy/MM/DD",venda.getVencimento());	
+			//String padraoData = " %Y-%m-%d ";
+			//String dataFormatada = new SimpleDateFormat("yyyy-MM-dd").format(venda.getVencimento());
+
+
+			String sql = "insert into creceber VALUES (null,"+venda.getVencimento()+","+venda.getPrecoTotal()+","+venda.getVencimento()+","+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
+
+			SQLQuery query = sessao.createSQLQuery(sql);
+
+			int result = query.executeUpdate();
+
+			transacao.commit();
+			System.out.println(result);
 
 		} catch (HibernateException e) {
 			if (transacao != null)
@@ -425,10 +425,10 @@ public class VendaBean implements Serializable {
 			e.printStackTrace();
 		} finally {
 			sessao.close();
-	
+
 			Messages.addGlobalInfo("Venda realizada com sucesso!!");
 		}
-			
-		}	
-		
+
+	}	
+
 }

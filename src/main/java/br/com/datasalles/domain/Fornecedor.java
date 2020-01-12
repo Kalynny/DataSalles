@@ -6,16 +6,16 @@ import javax.persistence.Entity;
 
 @Entity
 public class Fornecedor extends GenericDomain {
-	
+
 	@Column(length = 50, nullable = false)
 	private String descricao;
-	
+
 	@Column(length=50, nullable=false )
 	private String nfantasia;
-	
+
 	@Column(length = 18, nullable = false, unique = true )
 	private String cnpj;
-	
+
 	@Column(length=50, nullable=false )
 	private String ie;
 
@@ -24,15 +24,15 @@ public class Fornecedor extends GenericDomain {
 
 	@Column(length=50, nullable=false )
 	private String email;
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-		
+
 	public String getNfantasia() {
 		return nfantasia;
 	}
@@ -56,7 +56,7 @@ public class Fornecedor extends GenericDomain {
 	public void setIe(String ie) {
 		this.ie = ie;
 	}
-	
+
 	public String getFone() {
 		return fone;
 	}
@@ -72,5 +72,5 @@ public class Fornecedor extends GenericDomain {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

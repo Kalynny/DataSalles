@@ -15,23 +15,23 @@ public class Caixa extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
-	
+
 	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date dataFechamento;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)    
 	private BigDecimal valorAbertura;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
-	
+
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-	
+
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
@@ -59,5 +59,5 @@ public class Caixa extends GenericDomain {
 	public void setValorAbertura(BigDecimal valorAbertura) {
 		this.valorAbertura = valorAbertura;
 	}
-	
+
 }

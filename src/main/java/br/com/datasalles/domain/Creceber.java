@@ -11,21 +11,21 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Creceber extends GenericDomain {
-	
+
 	@ManyToOne
 	private Cliente cliente;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
-	
+
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@Column(nullable = false)
 	private String tipo;
 
@@ -68,5 +68,5 @@ public class Creceber extends GenericDomain {
 	public void setPrecoTotal(BigDecimal precoTotal) {
 		this.precoTotal = precoTotal;
 	}
-			
+
 }

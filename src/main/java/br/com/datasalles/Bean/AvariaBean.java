@@ -74,7 +74,7 @@ public class AvariaBean implements Serializable {
 	public List<Fornecedor> getFornecedores() {
 		return fornecedores;
 	}
-	
+
 	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
@@ -86,7 +86,7 @@ public class AvariaBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
+
 	public List<TipoAvaria> getTiposAvaria() {
 		return tiposAvaria;
 	}
@@ -136,26 +136,26 @@ public class AvariaBean implements Serializable {
 
 		calcular();
 	}
-		
-		
+
+
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		if (produto.getQuantidade()>0) {
-		
-		
+
+
 			ItemAvaria item = null;
 			for (ItemAvaria rs : itensAvaria) {
 				if (rs.getProduto().equals(produto)) {
 					item = rs;
 				}
 			}
-	
+
 			if (item == null) {
 				ItemAvaria itemAvaria = new ItemAvaria();
 				itemAvaria.setPrecoParcial(produto.getPreco());
 				itemAvaria.setProduto(produto);
 				itemAvaria.setQuantidade(new Short("1"));
-	
+
 				itensAvaria.add(itemAvaria);
 			} else {
 				ItemAvaria itemAvaria = item;
@@ -164,11 +164,11 @@ public class AvariaBean implements Serializable {
 				}
 				itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
 			}
-	
+
 			calcular();
 		}
 	}
-		
+
 	public void remover(ActionEvent evento) {
 		ItemAvaria itemAvaria = (ItemAvaria) evento.getComponent().getAttributes().get("itemSelecionado");
 
@@ -201,16 +201,16 @@ public class AvariaBean implements Serializable {
 			avaria.setFornecedor(null);
 			avaria.setTipoavaria(null);
 			avaria.setFuncionario(null);
-			
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedores = fornecedorDAO.listar();
-			
+
 			TipoavariaDAO tipoavariaDAO = new TipoavariaDAO();
 			tiposAvaria = tipoavariaDAO.listar();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a avaria");
 			erro.printStackTrace();
@@ -223,10 +223,10 @@ public class AvariaBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a avaria");
 				return;
 			}
-			
+
 			AvariaDAO avariaDAO = new AvariaDAO();
 			avariaDAO.salvar(avaria, itensAvaria);
-			
+
 			avaria = new Avaria();
 			avaria.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -235,14 +235,14 @@ public class AvariaBean implements Serializable {
 
 			itensAvaria = new ArrayList<>();
 			tiposAvaria = new ArrayList<>();
-			
+
 			Messages.addGlobalInfo("Avaria realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Quantidade da Avaria insuficiente");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void imprimir(){
 		try {
@@ -254,11 +254,11 @@ public class AvariaBean implements Serializable {
 
 			String caminho = Faces.getRealPath("/reports/estado.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo1.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			if (estNome == null) {
 				parametros.put("NOME_ESTADO", "%%");
 			} else {
@@ -275,12 +275,12 @@ public class AvariaBean implements Serializable {
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
 
 }

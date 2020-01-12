@@ -9,7 +9,7 @@ import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.util.HibernateUtil;
 
 public class FornecedorDAO extends GenericDAO<Fornecedor> {
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Fornecedor> listarOrdenado() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -24,7 +24,7 @@ public class FornecedorDAO extends GenericDAO<Fornecedor> {
 			sessao.close();
 		}
 	}
-	
-	
+
+
 
 }

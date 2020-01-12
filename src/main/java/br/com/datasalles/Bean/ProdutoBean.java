@@ -29,7 +29,7 @@ public class ProdutoBean implements Serializable {
 	private Produto  produto;
 	private List<Produto> produtos;
 	private List<Fornecedor> fornecedor;
-		
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -37,7 +37,7 @@ public class ProdutoBean implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-		
+
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -53,7 +53,7 @@ public class ProdutoBean implements Serializable {
 	public void setFornecedor(List<Fornecedor> fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
 
 	@PostConstruct
 	public void listar() {
@@ -65,11 +65,11 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void novo() {
 		try {
 			produto = new Produto();
-			
+
 			FornecedorDAO fabricanteDAO = new FornecedorDAO();
 			fornecedor = fabricanteDAO.listar();
 		} catch (RuntimeException erro) {
@@ -77,12 +77,12 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			
-			
+
+
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedor = fornecedorDAO.listar();
 		} catch (RuntimeException erro) {
@@ -90,7 +90,7 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}	
 	}
-	
+
 	public void salvar() {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -125,36 +125,36 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings({ "deprecation", "unused" })
-	 public void imppro(){
+	public void imppro(){
 		try {
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-			
+
 			Map<String, Object> filtros = tabela.getFilters();
-			
+
 			String caminho = Faces.getRealPath("/reports/produto.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			Connection conexao = HibernateUtil.getConexao();
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
-	
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	public void improrel(){
 		try {
-			
+
 			String caminho = Faces.getRealPath("/reports/produto.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
 

@@ -1,6 +1,5 @@
 package br.com.datasalles.Bean;
 
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -14,18 +13,17 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CompraDAO;
 import br.com.datasalles.domain.Compra;
 
-
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class PesquisaCompraBean implements Serializable {
-	
+
 	private List<Compra> compras;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
-		
-		
+
+
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -50,7 +48,7 @@ public class PesquisaCompraBean implements Serializable {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
 		if(compras.size() > 0){
@@ -59,13 +57,13 @@ public class PesquisaCompraBean implements Serializable {
 			}
 		}		
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		startDatas();
 		listar();
 	}
-	
+
 	public void startDatas(){
 		Calendar c1 = Calendar.getInstance();
 		c1.set(Calendar.DAY_OF_MONTH, 1);
@@ -75,26 +73,26 @@ public class PesquisaCompraBean implements Serializable {
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
-	
-	
+
+
 	@PostConstruct  
 	public void listar(){
 		try{
-			
+
 			if(dataInicio==null || dataFim==null){
 				startDatas();
 			}
-			
+
 			valorTotal = new BigDecimal("0");
 			CompraDAO compraDAO = new CompraDAO();			
 			compras = compraDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Estoque Insuficiente");
 			erro.printStackTrace();
 		}
-	
+
 	}
-	
+
 }

@@ -55,7 +55,7 @@ public class CompraBean implements Serializable {
 	private List<TipoPagc> tipopagcs;
 	private List<Compra> compras;
 
-	
+
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -103,7 +103,7 @@ public class CompraBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
+
 	public List<TipoPagc> getTipopagcs() {
 		return tipopagcs;
 	}
@@ -111,7 +111,7 @@ public class CompraBean implements Serializable {
 	public void setTipopagcs(List<TipoPagc> tipopagcs) {
 		this.tipopagcs = tipopagcs;
 	}
-			
+
 	public Cpagar getCpagar() {
 		return cpagar;
 	}
@@ -121,28 +121,28 @@ public class CompraBean implements Serializable {
 	}
 
 	public void importarOrcamentoC(OrcamentoC orcamentoc) {
-		
+
 		try {
-					
+
 			for(ItemOrcaC rs : orcamentoc.getItensOrcaC()) {
-				
+
 				ItemCompra item = new ItemCompra();
 				item.setPrecoParcial(rs.getPrecoParcial());
 				item.setProduto(rs.getProduto());
 				item.setQuantidade(rs.getQuantidade());
 				item.setCompra(compra);
-					
+
 				itensCompra.add(item);
 			}
-			
+
 			calcular();
-		
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar a importação");
 			erro.printStackTrace();
 		}
-    }
-	
+	}
+
 
 	@PostConstruct
 	public void novo() {
@@ -155,21 +155,21 @@ public class CompraBean implements Serializable {
 
 			itensCompra = new ArrayList<>();
 			tipopagcs = new ArrayList<>();
-			
+
 			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 			String orcamentocCodigo = request.getParameter("orcamentoc");
 			if(orcamentocCodigo!=null) {
 				try {
-					
+
 					OrcamentoCDAO orcamentocDAO = new OrcamentoCDAO();
 					Long cod = Long.parseLong(orcamentocCodigo);
-					
+
 					importarOrcamentoC(orcamentocDAO.buscar(cod));
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-							
+
 			}
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
@@ -202,24 +202,24 @@ public class CompraBean implements Serializable {
 
 		calcular();
 	}
-	
+
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		if (produto.getQuantidade()>0) {
-		
+
 			ItemCompra item = null;
 			for (ItemCompra rs : itensCompra) {
 				if (rs.getProduto().equals(produto)) {
 					item = rs;
 				}
 			}
-	
+
 			if (item == null) {
 				ItemCompra itemCompra = new ItemCompra();
 				itemCompra.setPrecoParcial(produto.getPreco());
 				itemCompra.setProduto(produto);
 				itemCompra.setQuantidade(new Short("1"));
-	
+
 				itensCompra.add(itemCompra);
 			} else {
 				ItemCompra itemCompra = item;
@@ -228,15 +228,15 @@ public class CompraBean implements Serializable {
 				}
 				itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
 			}
-	
+
 			calcular();
 		}
 		System.out.println("Digite uma Quatidade Maior que Zero");
 	}
-	
-			
-			
-		
+
+
+
+
 
 	public void remover(ActionEvent evento) {
 		ItemCompra itemCompra = (ItemCompra) evento.getComponent().getAttributes().get("itemSelecionado");
@@ -254,7 +254,7 @@ public class CompraBean implements Serializable {
 
 		calcular();
 	}
-		
+
 	public void calcular() {
 		compra.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -270,31 +270,31 @@ public class CompraBean implements Serializable {
 			compra.setFornecedor(null);
 			compra.setFuncionario(null);
 			compra.setTipopagc(null);
-			
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedores = fornecedorDAO.listar();
-			
+
 			TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 			tipopagcs = tipopagcDAO.listar();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a compra");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void listar(){
 		CompraDAO dao = new CompraDAO();
 		compras = dao.listar("codigo");
 	}
 
-	
+
 	public void atualizarPrecoParcial(){
 		for(ItemCompra itemcompra : this.itensCompra){
-		itemcompra.setPrecoParcial(itemcompra.getProduto().getPreco().multiply(new BigDecimal(itemcompra.getQuantidade())));
+			itemcompra.setPrecoParcial(itemcompra.getProduto().getPreco().multiply(new BigDecimal(itemcompra.getQuantidade())));
 		}
 		this.calcular();
 	}
@@ -308,48 +308,48 @@ public class CompraBean implements Serializable {
 				return;
 			}
 			if(compra.getTipopagc().getCodigo().equals(1)) {
-				
+
 				CompraDAO compraDAO = new CompraDAO();			
 				compraDAO.salvar(compra,itensCompra);
-				
+
 				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
-	
+
 				ProdutoDAO produtoDAO = new ProdutoDAO();
 				produtos = produtoDAO.listar("descricao");
-	
+
 				@SuppressWarnings("unused")
 				TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 				tipopagcs = new ArrayList<>();
-				
+
 				itensCompra = new ArrayList<>();
-				
+
 				Messages.addGlobalInfo("Compra realizada com sucesso");
 				return;
 			}else{
-				
+
 				CompraDAO compraDAO = new CompraDAO();
 				compraDAO.salvarBoleto(compra,itensCompra);
 				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
-	
+
 				ProdutoDAO produtoDAO = new ProdutoDAO();
 				produtos = produtoDAO.listar("descricao");
-	
+
 				@SuppressWarnings("unused")
 				TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 				tipopagcs = new ArrayList<>();
-				
+
 				itensCompra = new ArrayList<>();
-				
+
 			}
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a compra");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void imprimir(){
 		try {
@@ -361,11 +361,11 @@ public class CompraBean implements Serializable {
 
 			String caminho = Faces.getRealPath("/reports/estado.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo1.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			if (estNome == null) {
 				parametros.put("NOME_ESTADO", "%%");
 			} else {
@@ -382,54 +382,54 @@ public class CompraBean implements Serializable {
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
-	
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+
 	public void pagamentoBoleto() {
-		
+
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		org.hibernate.Transaction transacao = null;
 
 		try {
-		
-		transacao= sessao.beginTransaction();
-			
-		//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento());	
-		String padraoData = "%Y-%m-%d";
-		String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(compra.getVencimento());
 
-		
-		String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+			transacao= sessao.beginTransaction();
 
-		SQLQuery query = sessao.createSQLQuery(sql);
-				
-		int result = query.executeUpdate();
-		
-		transacao.commit();
-		System.out.println(result);
+			//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento());	
+			String padraoData = "%Y-%m-%d";
+			String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(compra.getVencimento());
 
-	} catch (HibernateException e) {
-		if (transacao != null)
-			transacao.rollback();
-		e.printStackTrace();
-	} finally {
-		sessao.close();
 
-		Messages.addGlobalInfo("Compra realizada com sucesso!!");
+			String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+
+			SQLQuery query = sessao.createSQLQuery(sql);
+
+			int result = query.executeUpdate();
+
+			transacao.commit();
+			System.out.println(result);
+
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+
+			Messages.addGlobalInfo("Compra realizada com sucesso!!");
+		}
+
 	}
-		
-	}
-	
+
 	public void editar(ActionEvent evento){
 		compra = (Compra) evento.getComponent().getAttributes().get("compraSelecionado");
 	}
-	
-	
-	
+
+
+
 
 }

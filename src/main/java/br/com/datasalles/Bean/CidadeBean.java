@@ -80,8 +80,8 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void salvar() {
 		try {
 			CidadeDAO cidadeDAO = new CidadeDAO();
@@ -116,7 +116,7 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		try {
 			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
@@ -128,7 +128,7 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}	
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void imprimir(){
 		try {
@@ -140,11 +140,11 @@ public class CidadeBean implements Serializable {
 
 			String caminho = Faces.getRealPath("/reports/cidade.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo1.png");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			parametros.put("BANNER",banner);
-			
+
 			if (estNome == null) {
 				parametros.put("NOME_ESTADO", "%%");
 			} else {
@@ -161,19 +161,19 @@ public class CidadeBean implements Serializable {
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
 
 			JasperViewer view = new JasperViewer(relatorio, false);
-			 view.show();
+			view.show();
 
-			} catch (JRException erro) {
-					Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-					erro.printStackTrace();
-				}
-			}
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
 
 
-	
+
 }
 
 
 
-	
+
 

@@ -17,37 +17,37 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Compra extends GenericDomain {
-	
-	
+
+
 	@JoinColumn(nullable = false)
 	private String nfcompra;
-	
-	
+
+
 	@JoinColumn(nullable = false)
 	private String pedido;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date atual;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
-		
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoPagc tipopagc;
-	
+
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
 	private List<ItemCompra>itensCompra;
@@ -123,6 +123,6 @@ public class Compra extends GenericDomain {
 	public void setItensCompra(List<ItemCompra> itensCompra) {
 		this.itensCompra = itensCompra;
 	}
-	
-		
+
+
 }

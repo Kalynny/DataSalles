@@ -1,73 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
-	<h:form id="formListagem">
+	<ui:define name="conteudo">
+		<h:form id="formListagem">
 
-		<p:panel header="Sangria do Caixa">
-			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
-				rows="4">
-								
-				<p:column headerText="Data Atual" sortBy="#{sangriaBean.sangria.dataSangria}"
-					style="text-align:center">
-					<h:outputText value="#{sangria.dataSangria}" >
-					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
-					timeZone="America/Sao_Paulo" />
-					</h:outputText>
-				</p:column>
-								
-				<p:column headerText="Valor Informado" style="text-align:center">
-					<h:outputText value="#{sangria.valorInformado}" >
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Opções" style="text-align:center">
-				    <p:commandButton value="Sangria"
-						oncomplete="PF('dialogo').show();">
-					</p:commandButton>
-               	</p:column>
-           	</p:dataTable>
-		</p:panel>
-	</h:form>
+			<p:panel header="Sangria do Caixa">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
+					rows="4">
 
-	<p:dialog header="Sangria do Caixa" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
-		
-			<h:panelGrid columns="2" id="pnCadastro">
-								
-				<p:outputLabel value="Data da Sangria:" />
-				<p:calendar value="#{sangriaBean.sangria.dataSangria}" required="true"
-					requiredMessage="O campo 'Data da Sangria' é obrigatório">
-					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
-					timeZone="America/Sao_Paulo" />
-				</p:calendar>
-				
-				<p:outputLabel value="Valor Informado:" />
-				<p:inputText maxlength="7" size="10"
-					value="#{sangriaBean.sangria.valorInformado}" required="true"
-					requiredMessage="O campo 'Valor Informado' é obrigatório"
-					converterMessage="Informe um valor válido para o campo 'Preço''"
-					validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
-					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</p:inputText>
-			</h:panelGrid>			
-			<h:panelGrid columns="2">
-				<p:commandButton value="Finalizar" actionListener="#{sangriaBean.sacarSangria()}"
-				oncomplete="PF('dialogo').hide();"  update=":formListagem" />
-		 		<p:commandButton oncomplete="PF('dialogo').hide();" value="Cancelar"/>
-			</h:panelGrid>
+					<p:column headerText="Data Atual"
+						sortBy="#{sangriaBean.sangria.dataSangria}"
+						style="text-align:center">
+						<h:outputText value="#{sangria.dataSangria}">
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor Informado" style="text-align:center">
+						<h:outputText value="#{sangria.valorInformado}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton value="Sangria"
+							oncomplete="PF('dialogo').show();">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
-	</p:dialog>
 
-</ui:define>
+		<p:dialog header="Sangria do Caixa" widgetVar="dialogo"
+			draggable="false" resizable="false" global="true" closable="false">
+			<h:form id="formCadastro">
+
+				<h:panelGrid columns="2" id="pnCadastro">
+
+					<p:outputLabel value="Data da Sangria:" />
+					<p:calendar value="#{sangriaBean.sangria.dataSangria}"
+						required="true"
+						requiredMessage="O campo 'Data da Sangria' é obrigatório">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
+					</p:calendar>
+
+					<p:outputLabel value="Valor Informado:" />
+					<p:inputText maxlength="7" size="10"
+						value="#{sangriaBean.sangria.valorInformado}" required="true"
+						requiredMessage="O campo 'Valor Informado' é obrigatório"
+						converterMessage="Informe um valor válido para o campo 'Preço''"
+						validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
+						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Finalizar"
+						actionListener="#{sangriaBean.sacarSangria()}"
+						oncomplete="PF('dialogo').hide();" update=":formListagem" />
+					<p:commandButton oncomplete="PF('dialogo').hide();"
+						value="Cancelar" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
 </ui:composition>

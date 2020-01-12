@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class Estado extends GenericDomain{
 	@Column(length = 2, nullable = false)
 	private String sigla;
-	
+
 	@Column(length = 50, nullable = false)
 	private String nome;
 
@@ -28,9 +28,9 @@ public class Estado extends GenericDomain{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
-	
+
+
+
 }
 
 

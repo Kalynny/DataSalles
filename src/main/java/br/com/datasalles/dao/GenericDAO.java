@@ -10,20 +10,20 @@ import org.hibernate.criterion.Restrictions;
 import br.com.datasalles.util.HibernateUtil;
 
 public class GenericDAO<Entidade> {
-			
-		private Class<Entidade> classe;
 
-	
-		@SuppressWarnings("unchecked")
-		public GenericDAO() {
-			this.classe = (Class<Entidade>) ((ParameterizedType) getClass().getGenericSuperclass())
-					.getActualTypeArguments()[0];
-		}
-	
-	
-		public void salvar(Entidade entidade) {
-			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			Transaction transacao = null;
+	private Class<Entidade> classe;
+
+
+	@SuppressWarnings("unchecked")
+	public GenericDAO() {
+		this.classe = (Class<Entidade>) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
+	}
+
+
+	public void salvar(Entidade entidade) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction transacao = null;
 
 		try {
 			transacao = sessao.beginTransaction();
@@ -38,9 +38,9 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-		
-	
-		public void merge(Entidade entidade) {
+
+
+	public void merge(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -57,10 +57,10 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
-	
-		@SuppressWarnings("unchecked")
-		public List<Entidade> listar() {
+
+
+	@SuppressWarnings("unchecked")
+	public List<Entidade> listar() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(classe);
@@ -72,9 +72,9 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
-		@SuppressWarnings("unchecked")
-		public List<Entidade> listar(String campoOrdenacao) {
+
+	@SuppressWarnings("unchecked")
+	public List<Entidade> listar(String campoOrdenacao) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(classe);
@@ -87,10 +87,10 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
-	
-		@SuppressWarnings("unchecked")
-		public Entidade buscar(Long codigo) {
+
+
+	@SuppressWarnings("unchecked")
+	public Entidade buscar(Long codigo) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(classe);
@@ -103,8 +103,8 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
-		public void excluir(Entidade entidade) {
+
+	public void excluir(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -121,8 +121,8 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
-		public void editar(Entidade entidade) {
+
+	public void editar(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -141,5 +141,5 @@ public class GenericDAO<Entidade> {
 	}
 
 
-	
+
 }

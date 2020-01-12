@@ -10,21 +10,21 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ItemAvaria extends GenericDomain {
-	
+
 	@Column(nullable = false)
 	private Short quantidade;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoParcial;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Avaria avaria;
-	
+
 	public Short getQuantidade() {
 		return quantidade;
 	}
@@ -52,12 +52,12 @@ public class ItemAvaria extends GenericDomain {
 	public Avaria getAvaria() {
 		return avaria;
 	}
-	
+
 	public void setAvaria(Avaria avaria) {
 		this.avaria = avaria;
 	}
 
-	
+
 }
 
 

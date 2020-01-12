@@ -12,14 +12,14 @@ import javax.persistence.ManyToOne;
 public class ItemOrca extends GenericDomain {
 	@Column(nullable = false)
 	private Short quantidade;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoParcial;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Orcamento orcamento;
@@ -56,7 +56,7 @@ public class ItemOrca extends GenericDomain {
 		this.orcamento = orcamento;
 	}
 
-	
+
 }
 
 

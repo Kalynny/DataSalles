@@ -18,13 +18,13 @@ import br.com.datasalles.domain.Venda;
 @ManagedBean
 @ViewScoped
 public class PesquisaVendaBean implements Serializable {
-	
+
 	private List<Venda> vendas;
 	private Date dataInicio = new Date(System.currentTimeMillis());
 	private Date dataFim  = new Date(System.currentTimeMillis());
 	private BigDecimal valorTotal;
-		
-	
+
+
 	public List<Venda> getVendas() {
 		return vendas;
 	}
@@ -49,7 +49,7 @@ public class PesquisaVendaBean implements Serializable {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 	public void calculaValorTotal(){
 		valorTotal = new BigDecimal("0");
 		if(vendas.size() > 0){
@@ -58,13 +58,13 @@ public class PesquisaVendaBean implements Serializable {
 			}
 		}		
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		startDatas();
 		listar();
 	}
-	
+
 	public void startDatas(){
 		Calendar c1 = Calendar.getInstance();
 		c1.set(Calendar.DAY_OF_MONTH, 1);
@@ -74,26 +74,26 @@ public class PesquisaVendaBean implements Serializable {
 		dataInicio = c1.getTime();
 		dataFim = new Date();
 	}
-	
-	
+
+
 	@PostConstruct  
 	public void listar(){
 		try{
-			
+
 			if(dataInicio==null || dataFim==null){
 				startDatas();
 			}
-			
+
 			valorTotal = new BigDecimal("0");
 			VendaDAO vendaDAO = new VendaDAO();			
 			vendas = vendaDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Estoque Insuficiente");
 			erro.printStackTrace();
 		}
-	
+
 	}
-	
+
 }

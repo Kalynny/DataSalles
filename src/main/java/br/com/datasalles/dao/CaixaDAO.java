@@ -7,7 +7,7 @@ import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.util.HibernateUtil;
 
 public class CaixaDAO extends GenericDAO<Caixa>{
-	
+
 	public Caixa buscar() {
 		Session sessao =  HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
@@ -20,7 +20,7 @@ public class CaixaDAO extends GenericDAO<Caixa>{
 		} finally {
 			sessao.close();
 		}
-	
+
 	}
-	
+
 }

@@ -20,60 +20,60 @@ import br.com.datasalles.domain.Funcionario;
 @ManagedBean
 @ViewScoped
 public class CaixaBean {
- private ScheduleModel caixas;
- private Caixa caixa;
- private List<Funcionario>funcionarios;
- 
- public List<Funcionario> getFuncionarios() {
-	return funcionarios;
-}
- 
- public void setFuncionarios(List<Funcionario> funcionarios) {
-	this.funcionarios = funcionarios;
-}
- 
- public Caixa getCaixa() {
-	return caixa;
-}
- 
- public void setCaixa(Caixa caixa) {
-	this.caixa = caixa;
-}
- 
- public ScheduleModel getCaixas() {
-	return caixas;
-}
- 
- public void setCaixas(ScheduleModel caixas) {
-	this.caixas = caixas;
-}
- 
- @PostConstruct
- public void listar(){
-	caixas = new DefaultScheduleModel();
- }
- 
- 
- public void novo(SelectEvent evento){
-	 caixa = new Caixa();
-	 caixa.setDataAbertura((Date)evento.getObject());
-	 FuncionarioDAO dao = new FuncionarioDAO();
-	 funcionarios = dao.listar();
- }
- 
- 
-@SuppressWarnings("static-access")
-public void salvar(){
-	 
-	 Calendar calendar = Calendar.getInstance();
-	 calendar.setTime(caixa.getDataAbertura());
-	 calendar.add(calendar.DATE, 1 );
-	 caixa.setDataAbertura(calendar.getTime());
-	 
-	 CaixaDAO dao = new CaixaDAO();
-	 dao.merge(caixa);
-	 Messages.addGlobalInfo("Caixa aberto com sucesso");
- }
- 
- 
+	private ScheduleModel caixas;
+	private Caixa caixa;
+	private List<Funcionario>funcionarios;
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
+	public Caixa getCaixa() {
+		return caixa;
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+
+	public ScheduleModel getCaixas() {
+		return caixas;
+	}
+
+	public void setCaixas(ScheduleModel caixas) {
+		this.caixas = caixas;
+	}
+
+	@PostConstruct
+	public void listar(){
+		caixas = new DefaultScheduleModel();
+	}
+
+
+	public void novo(SelectEvent evento){
+		caixa = new Caixa();
+		caixa.setDataAbertura((Date)evento.getObject());
+		FuncionarioDAO dao = new FuncionarioDAO();
+		funcionarios = dao.listar();
+	}
+
+
+	@SuppressWarnings("static-access")
+	public void salvar(){
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(caixa.getDataAbertura());
+		calendar.add(calendar.DATE, 1 );
+		caixa.setDataAbertura(calendar.getTime());
+
+		CaixaDAO dao = new CaixaDAO();
+		dao.merge(caixa);
+		Messages.addGlobalInfo("Caixa aberto com sucesso");
+	}
+
+
 }

@@ -11,28 +11,28 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Recebimento extends GenericDomain{
-	
+
 	@ManyToOne
 	private Venda venda;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoPag tipopag;
-			
+
 	@ManyToOne
 	private Cliente cliente;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;	
-	
+
 	public Venda getVenda() {
 		return venda;
 	}
@@ -83,5 +83,4 @@ public class Recebimento extends GenericDomain{
 
 }
 
-	
-	
+

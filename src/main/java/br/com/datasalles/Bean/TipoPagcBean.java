@@ -16,7 +16,7 @@ import br.com.datasalles.domain.TipoPagc;
 public class TipoPagcBean implements Serializable {
 	private TipoPagc tipopagc;
 	private List<TipoPagc>tipopagcs;
-	
+
 	public TipoPagc getTipopagc() {
 		return tipopagc;
 	}
@@ -32,7 +32,7 @@ public class TipoPagcBean implements Serializable {
 	public void setTipopagcs(List<TipoPagc> tipopagcs) {
 		this.tipopagcs = tipopagcs;
 	}
-	
+
 
 	public void novo() {
 		tipopagc = new TipoPagc();
@@ -45,14 +45,14 @@ public class TipoPagcBean implements Serializable {
 
 			novo();
 			tipopagcs = tipopagcDAO.listar();
-			
+
 			Messages.addGlobalInfo("Tipo de Pagamento salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Tipo de Pagamento");
 			erro.printStackTrace();
 		}
 	}
-		
+
 
 	@PostConstruct
 	public void listar(){
@@ -69,19 +69,19 @@ public class TipoPagcBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		try {
 			tipopagc = (TipoPagc) evento.getComponent().getAttributes().get("tipopagcSelecionado");
-	
+
 			TipoPagcDAO tipopagcDAO = new TipoPagcDAO();
 			tipopagcDAO.excluir(tipopagc);
-			
+
 			tipopagcs = tipopagcDAO.listar();
-	
+
 			Messages.addGlobalInfo("Tipo de Pagamento removido com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Tipo de Pagamento");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		tipopagc = (TipoPagc) evento.getComponent().getAttributes().get("tipopagcSelecionado");
 	}

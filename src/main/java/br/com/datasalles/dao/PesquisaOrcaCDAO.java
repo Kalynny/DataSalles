@@ -10,26 +10,26 @@ import br.com.datasalles.domain.PesquisaOrcaC;
 import br.com.datasalles.util.HibernateUtil;
 
 public class PesquisaOrcaCDAO extends GenericDAO<PesquisaOrcaC>{
-	
+
 	@SuppressWarnings("rawtypes")
 	public List listarPorData(Date dataInicio, Date dataFim){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
-				try{
-					
-					Criteria consulta = sessao.createCriteria(PesquisaOrcaC.class);
-										
-					consulta.add(Restrictions.ge("dataDoPagamento",dataInicio));
-				     
-				    consulta.add(Restrictions.le("dataDoPagamento",dataFim));
-					
-					List resultado = consulta.list();
-					
-					return resultado;	
-				}catch(RuntimeException erro){
-					throw erro;
-				}finally {
-					sessao.close();
-				}
+		try{
+
+			Criteria consulta = sessao.createCriteria(PesquisaOrcaC.class);
+
+			consulta.add(Restrictions.ge("dataDoPagamento",dataInicio));
+
+			consulta.add(Restrictions.le("dataDoPagamento",dataFim));
+
+			List resultado = consulta.list();
+
+			return resultado;	
+		}catch(RuntimeException erro){
+			throw erro;
+		}finally {
+			sessao.close();
+		}
 	}
 
 }

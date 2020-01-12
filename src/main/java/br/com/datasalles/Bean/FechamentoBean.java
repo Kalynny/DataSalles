@@ -31,53 +31,53 @@ public class FechamentoBean implements Serializable {
 	private Fechamento fechamento;
 	private List<Funcionario> funcionarios;
 	private List<Fechamento> fechaments;
-	
-	
+
+
 	public ScheduleModel getFechamentos() {
 		return fechamentos;
 	}
 	public void setFechamentos(ScheduleModel fechamentos) {
 		this.fechamentos = fechamentos;
 	}
-	
+
 	public Fechamento getFechamento() {
 		return fechamento;
 	}
 	public void setFechamento(Fechamento fechamento) {
 		this.fechamento = fechamento;
 	}
-		
+
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
+
 	public List<Fechamento> getFechaments() {
 		return fechaments;
 	}
 	public void setFechaments(List<Fechamento>fechaments) {
 		this.fechaments = fechaments;
 	}
-	
-	
+
+
 	@PostConstruct
 	public void listar() {
 		fechamentos = new DefaultScheduleModel();
-	
+
 	}
-	
+
 	public void novoAbert(SelectEvent evento) {
-		
+
 		fechamento = new Fechamento();
 		fechamento.setDataFechamento((Date) evento.getObject());
-		
+
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 		funcionarios = funcionarioDAO.listar();
-		
+
 	}
-	
+
 	public void novo() {
 		fechamento = new Fechamento();
 	}
@@ -101,26 +101,26 @@ public class FechamentoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void parametros(ActionEvent event){
 
-		 Date fechamento = (Date) event.getComponent().getAttributes().get("dataFechamento");
-		 BigDecimal valor = (BigDecimal) event.getComponent().getAttributes().get("valorFechamento");
-		 Long funcionario = (Long) event.getComponent().getAttributes().get("funcionario");
-		
-		
-		 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		 org.hibernate.Transaction transacao = null;
-		 
+		Date fechamento = (Date) event.getComponent().getAttributes().get("dataFechamento");
+		BigDecimal valor = (BigDecimal) event.getComponent().getAttributes().get("valorFechamento");
+		Long funcionario = (Long) event.getComponent().getAttributes().get("funcionario");
+
+
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		org.hibernate.Transaction transacao = null;
+
 		try {
 			transacao= sessao.beginTransaction();
-			
+
 			String insert = "INSERT INTO datasalles.fechamento VALUES (null,'"+fechamento+", '"+valor+",'"+funcionario+", );";
-			
+
 			SQLQuery query = sessao.createSQLQuery(insert);
-			
+
 			int result = query.executeUpdate();
-			
+
 			transacao.commit();
 			System.out.println(result);
 
@@ -133,6 +133,6 @@ public class FechamentoBean implements Serializable {
 			Messages.addGlobalInfo("Fechamento do Caixa salvo com sucesso");
 		}
 	}
-	
-			
+
+
 }

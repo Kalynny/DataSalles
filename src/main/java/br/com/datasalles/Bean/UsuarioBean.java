@@ -22,34 +22,34 @@ import br.com.datasalles.domain.Usuario;
 @ViewScoped
 public class UsuarioBean implements Serializable {
 	private Usuario usuario;
-	
+
 	private List<Pessoa> pessoas;
 	private List<Usuario> usuarios;
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
-	
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
+
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
 	}
-	
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
-	
+
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
+
 	@PostConstruct
 	public void listar(){
 		try{
@@ -60,7 +60,7 @@ public class UsuarioBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void novo() {
 		try {
 			usuario = new Usuario();
@@ -75,26 +75,26 @@ public class UsuarioBean implements Serializable {
 
 	public void salvar() {
 		try {
-		
+
 			SimpleHash hash = new SimpleHash("md5", usuario.getSenha() );
 			usuario.setSenha(hash.toHex());
-			
+
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuarioDAO.merge(usuario);
-			
+
 			usuario = new Usuario();
 			usuarios = usuarioDAO.listar("tipo");
-			
+
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
-			
+
 			Messages.addGlobalInfo("Usuário salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o usuário");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento){
 		try {
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
@@ -105,12 +105,12 @@ public class UsuarioBean implements Serializable {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um Usuario");
 			erro.printStackTrace();
 		}	
-		
-		
+
+
 	}
-	
-	
-	
+
+
+
 }
 
 

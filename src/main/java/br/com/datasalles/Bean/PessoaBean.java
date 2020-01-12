@@ -25,16 +25,16 @@ public class PessoaBean implements Serializable {
 	private Estado estado;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
-		
-	
+
+
 	public Estado getEstado() {
 		return estado;
 	}
-	
+
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -66,8 +66,8 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
-	
-	
+
+
 	@PostConstruct
 	public void listar() {
 		try {
@@ -96,12 +96,12 @@ public class PessoaBean implements Serializable {
 	public void editar(ActionEvent evento) {
 		try{
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
-			
+
 			estado = pessoa.getCidade().getEstado();
-			
+
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar("nome");
-			
+
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
 		}catch(RuntimeException erro){
@@ -113,11 +113,11 @@ public class PessoaBean implements Serializable {
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.merge(pessoa);
-			
+
 			pessoas = pessoaDAO.listar("nome");
-			
+
 			pessoa = new Pessoa();
-			
+
 			estado = new Estado();
 
 			EstadoDAO estadoDAO = new EstadoDAO();
@@ -133,10 +133,10 @@ public class PessoaBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 
 	}
-	
-	
 
-public void popular() {
+
+
+	public void popular() {
 		try {
 			if (estado != null) {
 				CidadeDAO cidadeDAO = new CidadeDAO();
@@ -149,6 +149,6 @@ public void popular() {
 			erro.printStackTrace();
 		}
 	}
-	
-	
+
+
 }

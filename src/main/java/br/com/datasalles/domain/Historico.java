@@ -12,14 +12,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Historico extends GenericDomain{
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date horario;	
-	
+
 	@Column(nullable = true)
 	private String observacoes;
-		
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Produto produto;
@@ -47,5 +47,5 @@ public class Historico extends GenericDomain{
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-		
+
 }

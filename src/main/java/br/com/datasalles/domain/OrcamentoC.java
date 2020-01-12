@@ -18,21 +18,21 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class OrcamentoC extends GenericDomain {
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
+
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orcamentoc")
 	private List<ItemOrcaC> itensOrcaC;
@@ -76,6 +76,6 @@ public class OrcamentoC extends GenericDomain {
 	public void setItensOrcaC(List<ItemOrcaC> itensOrcaC) {
 		this.itensOrcaC = itensOrcaC;
 	}
-	
-			
+
+
 }

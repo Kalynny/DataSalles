@@ -20,30 +20,30 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Avaria extends GenericDomain {
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Fornecedor fornecedor;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoAvaria tipoavaria;
-	
+
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "avaria")
 	private List<ItemAvaria>itensAvaria;
-	
+
 	public Date getHorario() {
 		return horario;
 	}
@@ -91,8 +91,8 @@ public class Avaria extends GenericDomain {
 	public void setItensAvaria(List<ItemAvaria> itensAvaria) {
 		this.itensAvaria = itensAvaria;
 	}
-	
-	
-	
-	
+
+
+
+
 }

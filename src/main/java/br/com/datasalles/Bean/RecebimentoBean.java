@@ -17,7 +17,6 @@ import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.CaixaDAO;
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
-import br.com.datasalles.dao.RecebimentoDAO;
 import br.com.datasalles.dao.TipoPagDAO;
 import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Caixa;
@@ -190,7 +189,7 @@ public class RecebimentoBean implements Serializable{
 
 
 	public void receber() {
-		
+
 	}
 
 

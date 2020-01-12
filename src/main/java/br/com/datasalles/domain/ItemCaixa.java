@@ -10,19 +10,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ItemCaixa extends GenericDomain {
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Caixa caixa;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Recebimento recebimento;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Venda venda;
-	
+
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal totalRecebimento;
 
@@ -57,8 +57,8 @@ public class ItemCaixa extends GenericDomain {
 	public void setTotalRecebimento(BigDecimal totalRecebimento) {
 		this.totalRecebimento = totalRecebimento;
 	}
-	
-		
+
+
 }
 
 

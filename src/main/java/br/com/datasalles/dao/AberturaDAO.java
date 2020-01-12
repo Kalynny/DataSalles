@@ -8,7 +8,7 @@ import br.com.datasalles.domain.Abertura;
 import br.com.datasalles.util.HibernateUtil;
 
 public class AberturaDAO extends GenericDAO<Abertura> {
-	
+
 	public Abertura buscar(Date dataAbertura) {
 		Session sessao =  HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
@@ -21,9 +21,9 @@ public class AberturaDAO extends GenericDAO<Abertura> {
 		} finally {
 			sessao.close();
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 }

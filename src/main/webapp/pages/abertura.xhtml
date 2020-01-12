@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-template="/templates/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
 
-<ui:define name="conteudo">
+	<ui:define name="conteudo">
 
-				<h:form>
-					<p:schedule value="#{aberturaBean.aberturas}" timeZone="GMT-3">
-					<p:ajax event="dateSelect" oncomplete="PF('dialogo').show();"
-					listener="#{aberturaBean.novoAbert}"  update=":form:grid"/>	
-					</p:schedule>
-				</h:form>
+		<h:form>
+			<p:schedule value="#{aberturaBean.aberturas}" timeZone="GMT-3">
+				<p:ajax event="dateSelect" oncomplete="PF('dialogo').show();"
+					listener="#{aberturaBean.novoAbert}" update=":form:grid" />
+			</p:schedule>
+		</h:form>
 
-				<p:dialog header="Fluxo de Caixa" resizable="false" 
-				draggable="false" global="true" closable="true" widgetVar="dialogo">
-				<h:form id="form">
+		<p:dialog header="Fluxo de Caixa" resizable="false" draggable="false"
+			global="true" closable="true" widgetVar="dialogo">
+			<h:form id="form">
 				<h:panelGrid columns="2" id="grid">
-												
-				    <p:outputLabel value="Data de Abertura do Caixa"/>
-					<p:inputText value="#{aberturaBean.abertura.dataAbertura}" >
-					<f:convertDateTime timeZone="GMT-3" locale="pt_BR"/>
-				   	</p:inputText>
-									
-					 <p:outputLabel value="Valor da Abertura do Caixa"/>
-					 <p:inputText value="#{aberturaBean.abertura.valorAbertura}">
+
+					<p:outputLabel value="Data de Abertura do Caixa" />
+					<p:inputText value="#{aberturaBean.abertura.dataAbertura}">
+						<f:convertDateTime timeZone="GMT-3" locale="pt_BR" />
+					</p:inputText>
+
+					<p:outputLabel value="Valor da Abertura do Caixa" />
+					<p:inputText value="#{aberturaBean.abertura.valorAbertura}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</p:inputText>
-				
-				
+
+
 					<p:outputLabel value="Funcionario:" />
-						<p:selectOneMenu value="#{aberturaBean.abertura.funcionario}"
+					<p:selectOneMenu value="#{aberturaBean.abertura.funcionario}"
 						converter="omnifaces.SelectItemsConverter" filter="true"
 						filterMatchMode="contains">
 						<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Funcionario" />
-						<f:selectItems value="#{aberturaBean.funcionarios}" var="funcionario"
-						itemValue="#{funcionario}"
-						itemLabel="#{funcionario.pessoa.nome}" />
+							itemLabel="Selecione um Funcionario" />
+						<f:selectItems value="#{aberturaBean.funcionarios}"
+							var="funcionario" itemValue="#{funcionario}"
+							itemLabel="#{funcionario.pessoa.nome}" />
 					</p:selectOneMenu>
-		</h:panelGrid>
+				</h:panelGrid>
 
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{aberturaBean.salvar}"
-					update=":mensagem :form:grid" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{aberturaBean.salvar}"
+						update=":mensagem :form:grid" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
-</ui:define>
+	</ui:define>
 
 </ui:composition>

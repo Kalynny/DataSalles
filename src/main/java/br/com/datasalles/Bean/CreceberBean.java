@@ -16,7 +16,7 @@ import br.com.datasalles.domain.Creceber;
 @ManagedBean
 @ViewScoped
 public class CreceberBean implements Serializable {
-	
+
 	private Creceber creceber;
 	private Cliente cliente;
 	private List<Creceber> creceberes;

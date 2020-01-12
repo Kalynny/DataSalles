@@ -38,7 +38,7 @@
 							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
-					
+
 					<p:column headerText="Data do Vencimento"
 						style="text-align: center; width:100px">
 						<h:outputText value="#{compra.vencimento}">
@@ -136,8 +136,8 @@
 					<p:outputLabel value="Fornecedor do Pedido:" />
 					<h:outputText
 						value="#{pagamentoBean.pagamento.fornecedor.descricao}" />
-
 					<p:outputLabel value="Funcionário:" />
+
 					<h:outputText
 						value="#{pagamentoBean.pagamento.funcionario.pessoa.nome}" />
 				</h:panelGrid>

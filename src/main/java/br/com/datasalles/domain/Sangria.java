@@ -11,14 +11,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Sangria extends GenericDomain {
-	
+
 	@Column (nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSangria;
-	
+
 	@Column (nullable = false, precision= 7, scale=2 )
 	private BigDecimal valorInformado;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
@@ -46,6 +46,6 @@ public class Sangria extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	
-		
+
+
 }

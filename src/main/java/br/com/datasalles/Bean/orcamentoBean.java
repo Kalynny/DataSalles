@@ -26,7 +26,7 @@ import br.com.datasalles.domain.Orcamento;
 @ManagedBean
 @ViewScoped
 public class orcamentoBean implements Serializable {
-	
+
 	private Orcamento orcamento;
 	private List<Produto> produtos;
 	private List<ItemOrca> itensOrca;
@@ -73,7 +73,7 @@ public class orcamentoBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-	
+
 	public List<Orcamento> getOrcamentos() {
 		return orcamentos;
 	}
@@ -123,27 +123,27 @@ public class orcamentoBean implements Serializable {
 
 		calcular();
 	}
-		
+
 	public void subtrair(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-				
+
 		if (produto.getQuantidade()>0) {
-			
+
 			ItemOrca item = null;
 			for (ItemOrca rs : itensOrca) {
 				if (rs.getProduto().equals(produto)) {
 					item = rs;
-					
+
 				}
 			}
-	
+
 			if (item == null) {
 				ItemOrca itemOrca = new ItemOrca();
 				itemOrca.setPrecoParcial(produto.getPreco());
 				itemOrca.setProduto(produto);
 				itemOrca.setQuantidade(new Short("1"));
-				
-	
+
+
 				itensOrca.add(itemOrca);
 			} else {
 				ItemOrca itemOrca = item;
@@ -152,10 +152,10 @@ public class orcamentoBean implements Serializable {
 				}
 				itemOrca.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemOrca.getQuantidade())));
 			}
-			
+
 			calcular();
 		}
-		
+
 	}
 
 	public void remover(ActionEvent evento) {
@@ -189,7 +189,7 @@ public class orcamentoBean implements Serializable {
 			orcamento.setHorario(new Date());
 			orcamento.setCliente(null);
 			orcamento.setFuncionario(null);
-			
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 
@@ -207,10 +207,10 @@ public class orcamentoBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a orcamento");
 				return;
 			}
-			
+
 			OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
 			orcamentoDAO.salvar(orcamento, itensOrca);
-			
+
 			orcamento = new Orcamento();
 			orcamento.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -218,14 +218,14 @@ public class orcamentoBean implements Serializable {
 			produtos = produtoDAO.listar("descricao");
 
 			itensOrca = new ArrayList<>();
-			
+
 			Messages.addGlobalInfo("Orçamento realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a orçamento");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void listar(){
 		OrcamentoDAO dao = new OrcamentoDAO();
 		orcamentos = dao.listar("codigo");

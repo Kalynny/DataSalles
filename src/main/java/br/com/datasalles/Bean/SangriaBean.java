@@ -21,7 +21,7 @@ public class SangriaBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<Sangria> sangrias;
 	private BigDecimal valorInformado;
-			
+
 	public Sangria getSangria() {
 		return sangria;
 	}
@@ -40,7 +40,7 @@ public class SangriaBean implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-		
+
 	public BigDecimal getValorInformado() {
 		return valorInformado;
 	}
@@ -49,7 +49,7 @@ public class SangriaBean implements Serializable {
 	}
 	public void salvar() {
 		try {
-						
+
 			SangriaDAO sangriaDAO = new SangriaDAO();
 			sangriaDAO.merge(sangria);
 
@@ -66,7 +66,7 @@ public class SangriaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	@PostConstruct
 	public void listar() {
 		try {
@@ -77,29 +77,29 @@ public class SangriaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void sacarSangria(){
-		
+
 		sangria = null;
 		try{
-				SangriaDAO sangriaDAO = new SangriaDAO();
-				sangria = sangriaDAO.buscar(1l);
-				
-				if(valorInformado.doubleValue() < sangria.getValorInformado().doubleValue()){
-					
-					sangria.setValorInformado(sangria.getValorInformado().subtract(valorInformado)); 
-					sangriaDAO.editar(sangria);
-				}else{
-					Messages.addGlobalError("Ocorreu um erro ao tentar verificar o sangria");
-					Messages.addGlobalError("Ocorreu um erro ao tentar sacar o sangria no sistema");
-					Messages.addGlobalError("Tente refazer a transação, 'valor a ser sacado não pode ser superior ao informado pelo sistema!'");
-				}
-		
+			SangriaDAO sangriaDAO = new SangriaDAO();
+			sangria = sangriaDAO.buscar(1l);
+
+			if(valorInformado.doubleValue() < sangria.getValorInformado().doubleValue()){
+
+				sangria.setValorInformado(sangria.getValorInformado().subtract(valorInformado)); 
+				sangriaDAO.editar(sangria);
+			}else{
+				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o sangria");
+				Messages.addGlobalError("Ocorreu um erro ao tentar sacar o sangria no sistema");
+				Messages.addGlobalError("Tente refazer a transação, 'valor a ser sacado não pode ser superior ao informado pelo sistema!'");
+			}
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar verificar o sangria");
 			erro.printStackTrace();
 		}
 	}
-	
-				
+
+
 }

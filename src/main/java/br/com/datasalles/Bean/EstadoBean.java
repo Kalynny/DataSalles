@@ -19,9 +19,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
-
-
-
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
@@ -101,7 +98,7 @@ public class EstadoBean implements Serializable {
 	@SuppressWarnings("deprecation")
 	public void impest(){
 		try {
-			
+
 			String caminho = Faces.getRealPath("/reports/estado.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
 
@@ -123,7 +120,7 @@ public class EstadoBean implements Serializable {
 	@SuppressWarnings("deprecation")
 	public void impestrel(){
 		try {
-			
+
 			String caminho = Faces.getRealPath("/reports/estado.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
 

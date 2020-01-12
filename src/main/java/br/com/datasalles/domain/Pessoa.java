@@ -9,55 +9,55 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Pessoa extends GenericDomain {
-	
-	
+
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Cidade cidade;
-	
-	
+
+
 	@Column(length = 50, nullable = false)
 	private String nome;
-	
+
 	@Column(length = 14, nullable = false)
 	private String cpf;
-	
+
 	@Column(length = 12, nullable = false)
 	private String rg;
-	
+
 	@Column(length = 100, nullable = false)
 	private String rua;
-	
+
 	@Column(nullable = false)
 	private Short numero;
-	
+
 	@Column(length = 30, nullable = false)
 	private String bairro;
-	
+
 	@Column(length = 10, nullable = false)
 	private String cep;
-	
+
 	@Column(length = 10, nullable = false)
 	private String complemento;
-		
+
 	@Column(length = 13, nullable = false)
 	private String telefone;
 
 	@Column(length = 14, nullable = false)
 	private String celular;
-	
+
 	@Column(length = 100, nullable = false)
 	private String email;
 
 	public Cidade getCidade() {
 		return cidade;
 	}
-	
+
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
-	
-	
+
+
 	public String getNome() {
 		return nome;
 	}

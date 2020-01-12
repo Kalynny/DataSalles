@@ -12,16 +12,16 @@ import javax.persistence.JoinColumn;
 
 @Entity
 public class PesquisaOrcaC extends GenericDomain{
-		
+
 	@JoinColumn(nullable = false)
 	private Compra compra;
-	
+
 	@Column(nullable = false)
 	private String parcela;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valor;
-	
+
 	@Column(nullable = false)
 	private Date dataDoPagamento;
 
@@ -68,5 +68,5 @@ public class PesquisaOrcaC extends GenericDomain{
 		this.formaDePagamento = formaDePagamento;
 	}
 
-			
+
 }
