@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f372c0e1-22a2-4209-a5d0-d8be346e3d32">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGF0YXNhbGxlcy5hdmFyaWEgLDE4NSwxMDUsMDIxZGI1Y2YtMmM2Yy00YzBiLWIwZjgtZTNhM2Ew
+ZGIyZDJmO2RhdGFzYWxsZXMuaXRlbWF2YXJpYSAsMTUsMjM1LDE0ZDRlYzk4LTY5YTctNDU1ZC1i
+M2EyLTUyYWZlN2VjODgxYTtkYXRhc2FsbGVzLnRpcG9hdmFyaWEgLDM3MywyMjcsZTJmM2VlNTIt
+ODlkMy00MzQ2LTkwZGItOWM5ZmNkMTlkY2RmO2RhdGFzYWxsZXMucGVzc29hICw2NTgsMTUsYTMy
+ZmY4NzQtZmE2MC00MjVmLTlkN2EtNWMzMDRiODE4ZWZkO2RhdGFzYWxsZXMucHJvZHV0byAsMTg1
+LDMyOCwxNjExOTQ1YS01YmZhLTQxNzctOWExOC0zOWQ5ODE2Nzc1NWI7ZGF0YXNhbGxlcy5mdW5j
+aW9uYXJpbyAsNDk1LDEzMiw3NmFkODEzOC01MWE5LTRlMzQtYjIyNy01ZjIyZjdkNWNkNGE7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
+	<parameter name="BANNER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT datasalles.avaria.horario,
+	datasalles.avaria.`precoTotal`,
+	datasalles.produto.descricao,
+	datasalles.itemavaria.quantidade,
+	datasalles.pessoa.nome,
+	datasalles.tipoavaria.descricao,
+	datasalles.itemavaria.`precoParcial`
+FROM datasalles.itemavaria
+	INNER JOIN datasalles.avaria ON 
+	 datasalles.itemavaria.avaria_codigo = datasalles.avaria.codigo 
+	INNER JOIN datasalles.produto ON 
+	 datasalles.itemavaria.produto_codigo = datasalles.produto.codigo 
+	INNER JOIN datasalles.tipoavaria ON 
+	 datasalles.avaria.tipoavaria_codigo = datasalles.tipoavaria.codigo 
+	INNER JOIN datasalles.funcionario ON 
+	 datasalles.avaria.funcionario_codigo = datasalles.funcionario.codigo 
+	INNER JOIN datasalles.pessoa ON 
+	 datasalles.funcionario.pessoa_codigo = datasalles.pessoa.codigo]]>
+	</queryString>
+	<field name="COLUMN_6" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoavaria"/>
+	</field>
+	<field name="horario" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="horario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaria"/>
+	</field>
+	<field name="precoTotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="precoTotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaria"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+	</field>
+	<field name="quantidade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="itemavaria"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
+	</field>
+	<field name="precoParcial" class="java.lang.String"/>
+	<variable name="horario1" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{horario}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="40" width="350" height="41" uuid="88029bda-558b-4e51-ae9b-6894f567130e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Avarias de Produtos]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="100" height="90" uuid="b79054f2-6fa4-4d12-bbc2-06e42636e8d3"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="0" width="120" height="20" uuid="2b65fae4-d82e-4622-acc3-3dcbe99b3af2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="222d4927-d959-44d1-894f-f2c75effb195"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de Avaria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="20" uuid="4588295b-019c-4ff3-ae43-3a1248f105ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9a02255-6e5f-4396-b933-fefe7a2c721d"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="60" height="20" uuid="4eb3105f-f9ee-4b54-b994-d2c2cd8abdc2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff5c7947-00f9-4f00-81be-95182faccdba"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="0" width="80" height="20" uuid="b4bee782-dfa4-4e67-9204-9a52f86a8de5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="688aad36-92cf-4e87-b267-d97b456d1735"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Funcionário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="90" height="20" uuid="81467012-4406-4a76-89aa-dad5113f1ad6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ce927fe5-b4cd-415c-9c1e-a09ba5806bf4"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Preco Parcial]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="194" y="0" width="166" height="20" uuid="cb9509e5-4c33-45c4-b42e-c852ac1e2c2b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="222d4927-d959-44d1-894f-f2c75effb195"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COLUMN_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="130" height="20" uuid="a659c45d-a78b-49c3-9810-992c938501a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9a02255-6e5f-4396-b933-fefe7a2c721d"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="0" width="60" height="20" uuid="229e4beb-881a-48ea-914a-244ff13b7301">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff5c7947-00f9-4f00-81be-95182faccdba"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="100" height="20" uuid="f3496059-39f8-4b24-98cd-ddd3d0a705b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="688aad36-92cf-4e87-b267-d97b456d1735"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="80" height="20" uuid="d7b58147-bae0-4710-bd8b-9be74b0931d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25da605b-69f9-43d2-ac3c-e69cb49d1227"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precoParcial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="3" width="440" height="54" uuid="ff7affd0-c062-4d7d-976e-c98076d878e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: datasalles@datasalles.com.br ]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="63" width="178" height="20" uuid="bfd02ff7-afab-4e72-8643-abcdb45c32d4"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="402" y="63" width="80" height="20" uuid="0bcc1ac3-aaaf-4460-8a52-60068226f204"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" evaluationTime="Report">
+				<reportElement x="482" y="63" width="70" height="20" uuid="c54e4e85-4a89-4047-9b1e-48649789c5cf"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
