@@ -21,12 +21,11 @@
 					paginator="true" value="#{tipoavariaBean.tipoavarias}"
 					var="tipoavaria" rows="6" id="tabela">
 
-					<p:column headerText="Código" sortBy="#{tipoavaria.codigo}">
+					<p:column headerText="Código" style="text-align:center">
 						<h:outputText value="#{tipoavaria.codigo}" />
 					</p:column>
 
-					<p:column headerText="Descrição" sortBy="#{tipoavaria.descricao}"
-						filterBy="#{tipoavaria.descricao}">
+					<p:column headerText="Descrição">
 						<h:outputText value="#{tipoavaria.descricao}" />
 					</p:column>
 

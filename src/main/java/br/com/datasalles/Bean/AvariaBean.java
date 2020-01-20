@@ -9,16 +9,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-import org.primefaces.component.datatable.DataTable;
-
 import br.com.datasalles.dao.FornecedorDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.ProdutoDAO;

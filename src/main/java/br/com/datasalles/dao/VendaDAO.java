@@ -216,7 +216,7 @@ public class VendaDAO extends GenericDAO<Venda> implements GenericImpl {
 		try {
 			Criteria consulta = sessao.createCriteria(Venda.class, "v");
 			consulta.add(Restrictions.eq("v.tipopag.id", Venda.TIPOPAGTO_AVISTA));
-			consulta.addOrder(Order.asc("codigo"));
+			consulta.addOrder(Order.asc("v.codigo"));
 			List<Venda> resultado = consulta.list();
 			return resultado;
 		} catch (RuntimeException erro) {

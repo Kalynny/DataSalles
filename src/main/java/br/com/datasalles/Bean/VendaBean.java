@@ -219,34 +219,40 @@ public class VendaBean implements Serializable {
 	}
 
 	public void subtrair(ActionEvent evento) {
-		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-		if (produto.getQuantidade()>0) {
+		try { 
+			Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			if (produto.getQuantidade()>0) {
 
-			ItemVenda item = null;
-			for (ItemVenda rs : itensVenda) {
-				if (rs.getProduto().equals(produto)) {
-					item = rs;
+				ItemVenda item = null;
+				for (ItemVenda rs : itensVenda) {
+					if (rs.getProduto().equals(produto)) {
+						item = rs;
+					}
 				}
+
+				if (item == null) {
+					ItemVenda itemVenda = new ItemVenda();
+					itemVenda.setPrecoParcial(produto.getPreco());
+					itemVenda.setProduto(produto);
+					itemVenda.setQuantidade(new Short("0"));
+					
+					itensVenda.add(itemVenda);
+				} else {
+					ItemVenda itemVenda = item;
+					if (itemVenda.getQuantidade() != null && itemVenda.getQuantidade()>0) {
+						itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() - 1 + ""));
+					}
+					itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+				}
+
+				calcular();
 			}
 
-			if (item == null) {
-				ItemVenda itemVenda = new ItemVenda();
-				itemVenda.setPrecoParcial(produto.getPreco());
-				itemVenda.setProduto(produto);
-				itemVenda.setQuantidade(new Short("1"));
-
-				itensVenda.add(itemVenda);
-			} else {
-				ItemVenda itemVenda = item;
-				if (itemVenda.getQuantidade() != null && itemVenda.getQuantidade()>0) {
-					itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() - 1 + ""));
-				}
-				itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
-			}
-
-			calcular();
+		}catch (RuntimeException erro) {
+			Messages.addGlobalError("Digite uma Quatidade Maior que Zero");
+			erro.printStackTrace();
 		}
-
+		
 	}
 
 	public void remover(ActionEvent evento) {

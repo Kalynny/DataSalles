@@ -109,7 +109,8 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-
+	
+	
 	public void excluir(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
@@ -150,7 +151,7 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-
+		
 	@SuppressWarnings("deprecation")
 	public void improrel(){
 		try {

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compra" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58f617e5-3d9d-4162-8894-c7316459193e">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGF0YXNhbGxlcy5jb21wcmEgQVMgLDI2LC04LDY5NjRjZTZiLTA4NmEtNDE1ZC04ZjFlLTRjN2M2
+ZTY1NWUzZDtkYXRhc2FsbGVzLnByb2R1dG8gQVMgLDQzOSw2LDQ3M2NlNzA1LTdlNmEtNGVhMy04
+MjlmLTRhNDEzYjg3NWRjZDtkYXRhc2FsbGVzLnRpcG9wYWdjIEFTICw1OTcsMjcyLDU3NzhhNjBj
+LTdkNjQtNDZkOS05ZDA0LTkxOGM0YmMxMGQxNztkYXRhc2FsbGVzLnBlc3NvYSBBUyAsMjUyLDIy
+NSwyYWVmNjc5OC01NTBjLTRlODYtYjg5MC03NWVhZjY0OGRmY2Q7ZGF0YXNhbGxlcy5pdGVtY29t
+cHJhIEFTICwyMzYsMTYsMzdhMDQ4ZjctOGRmMy00ZmE1LTg2N2QtZTZmZDZhN2U5ZjhjO2RhdGFz
+YWxsZXMuZnVuY2lvbmFyaW8gQVMgLDc2LDI3OSwzMmEyYWZlYS0wNTY3LTQ2NzYtOThkYy1kNjNl
+YzI3MGI5OWI7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataSalles"/>
+	<parameter name="BANNER" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT datasalles.compra.atual,
+	datasalles.compra.`precoTotal`,
+	datasalles.compra.vencimento,
+	datasalles.compra.nfcompra,
+	datasalles.compra.pedido,
+	datasalles.produto.descricao,
+	datasalles.itemcompra.`precoParcial`,
+	datasalles.itemcompra.quantidade,
+	datasalles.tipopagc.descricao,
+	datasalles.pessoa.nome
+FROM datasalles.itemcompra
+	INNER JOIN datasalles.compra ON 
+	 datasalles.itemcompra.compra_codigo = datasalles.compra.codigo 
+	INNER JOIN datasalles.funcionario ON 
+	 datasalles.compra.funcionario_codigo = datasalles.funcionario.codigo 
+	INNER JOIN datasalles.produto ON 
+	 datasalles.itemcompra.produto_codigo = datasalles.produto.codigo 
+	INNER JOIN datasalles.tipopagc ON 
+	 datasalles.compra.tipopagc_codigo = datasalles.tipopagc.codigo 
+	INNER JOIN datasalles.pessoa ON 
+	 datasalles.funcionario.pessoa_codigo = datasalles.pessoa.codigo]]>
+	</queryString>
+	<field name="atual" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="atual"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="compra"/>
+	</field>
+	<field name="precoTotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="precoTotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="compra"/>
+	</field>
+	<field name="vencimento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="vencimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="compra"/>
+	</field>
+	<field name="nfcompra" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nfcompra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="compra"/>
+	</field>
+	<field name="pedido" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pedido"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="compra"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+	</field>
+	<field name="precoParcial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="precoParcial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="itemcompra"/>
+	</field>
+	<field name="quantidade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="itemcompra"/>
+	</field>
+	<field name="COLUMN_9" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipopagc"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pessoa"/>
+	</field>
+	<variable name="atual1" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{atual}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="16" width="400" height="50" uuid="8203f59b-8f32-4f25-bc76-9ad88681ef2a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Compras de Produtos]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="61" y="0" width="89" height="80" uuid="72b07d08-805a-430e-b7f0-573057d2a3c4"/>
+				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="74" width="80" height="18" uuid="5a46b3c7-d406-42c2-9c73-5d7db6f9291b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nota Fiscal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="73" width="120" height="18" uuid="ea3a932f-a346-44e9-a73e-77d3de7f9a9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="73" width="59" height="18" uuid="44695fa7-a5c5-4aec-8c11-c009bcd2c256"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="74" width="100" height="18" uuid="b5d1c34c-4ad3-48d3-80c3-c0c4473361e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data da Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="74" width="80" height="18" uuid="fb6a762b-c6c7-4723-a87f-77a83a360d98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ped. Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="75" width="98" height="18" uuid="e810d789-241c-4712-a707-302378e6cadb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total da Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="626" y="75" width="98" height="18" uuid="87c2c02f-e0be-4da0-b0ad-e43f4bc02a88"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Funcionario]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="270" y="2" width="49" height="20" uuid="fad1f173-d6aa-46ca-ab49-d8c21846700e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="2" width="90" height="20" uuid="a4e203dc-d637-4f66-a014-470bb44737cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="2" width="170" height="20" uuid="298fb83a-2742-4978-b9d3-2e545f9774e8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="507" y="2" width="100" height="20" uuid="33a11e14-34af-4485-96d2-72a4e59157f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precoTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="638" y="2" width="114" height="20" uuid="35c04915-87c0-48fc-8e3d-d7fb16a1fbab"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="2" width="50" height="20" uuid="b43a8056-09da-4ecc-93b2-d62409c31740"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{atual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="2" width="80" height="20" uuid="00da809f-a761-4d20-9155-4fc6c3b6bba1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nfcompra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="0" width="440" height="54" uuid="63770ced-5724-45f5-bc24-7e0ba8c7b094"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: datasalles@datasalles.com.br ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="7" y="67" width="178" height="20" uuid="f5af8eca-ead9-47a5-b86a-1fd058c15cf3"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="644" y="67" width="80" height="20" uuid="2752a2ee-c1d2-44c9-a905-a8d1597845e5"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="724" y="67" width="70" height="20" uuid="d7655ce2-4d6c-4804-bcea-76019d9d5210"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -10,6 +10,13 @@
 		<h:form id="formListagem">
 
 			<p:panel header="Sangria do Caixa">
+			<f:facet name="header" style="text-align: center;">
+					<p:outputLabel value="SANGRIA DO CAIXA"
+						style="font-size:100%; margin-right:1040px;" />
+					<p:button value="Voltar" outcome="/pages/movimentacao.xhtml"
+						update="@form" />
+				</f:facet>
+			
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
 					rows="4">
