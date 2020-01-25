@@ -10,13 +10,13 @@
 		<h:form id="formListagem">
 
 			<p:panel header="Sangria do Caixa">
-			<f:facet name="header" style="text-align: center;">
+				<f:facet name="header" style="text-align: center;">
 					<p:outputLabel value="SANGRIA DO CAIXA"
-						style="font-size:100%; margin-right:1040px;" />
-					<p:button value="Voltar" outcome="/pages/movimentacao.xhtml"
-						update="@form" />
+						style="font-size:100%; margin-right:950px;" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{sangriaBean.novo()}" update="@form" />
 				</f:facet>
-			
+
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
 					rows="4">
@@ -29,11 +29,15 @@
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-
+					
 					<p:column headerText="Valor Informado" style="text-align:center">
 						<h:outputText value="#{sangria.valorInformado}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Funcionário" style="text-align: center;">
+						<h:outputText value="#{sangria.funcionario.pessoa.nome}" />
 					</p:column>
 
 					<p:column headerText="Opções" style="text-align:center">
@@ -58,6 +62,16 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 							timeZone="America/Sao_Paulo" />
 					</p:calendar>
+					
+					<p:outputLabel value="Valor do Sistema:" />
+					<p:inputText maxlength="7" size="10"
+						value="#{recebimentoBean.totalGeral}" required="true"
+						requiredMessage="O campo 'Valor Informado' é obrigatório"
+						converterMessage="Informe um valor válido para o campo 'Preço''"
+						validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
+						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:inputText>
 
 					<p:outputLabel value="Valor Informado:" />
 					<p:inputText maxlength="7" size="10"
@@ -68,6 +82,22 @@
 						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</p:inputText>
+					
+					<p:outputLabel for="funcionario" value="Funcionário:" />
+					<p:selectOneMenu id="funcionario"
+						value="#{sangriaBean.sangria.funcionario}"
+						converter="omnifaces.SelectItemsConverter" filter="true"
+						filterMatchMode="contains" required="true"
+						requiredMessage="O campo Funcionário é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um funcionário" />
+						<f:selectItems value="#{sangriaBean.funcionarios}" var="funcionario"
+							itemValue="#{funcionario}"
+							itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
+					</p:selectOneMenu>
+					
+					
+					
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Finalizar"

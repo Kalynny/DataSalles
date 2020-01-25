@@ -22,6 +22,7 @@
 					<p:button value="Voltar" outcome="/pages/movimentacao.xhtml"
 						update="@form" />
 				</f:facet>
+				
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="false" value="#{pagamentoBean.compras}" var="compra"
 					rows="6" paginatorPosition="bottom">
@@ -70,20 +71,10 @@
 					<p:column headerText="Opções" style="text-align:center">
 						<p:commandButton value="Pagar"
 							actionListener="#{pagamentoBean.pagar()}"
-							update=":mensagem :formularioFinalizar:painelFinalizar"
+							update=":formularioFinalizar:painelFinalizar"
 							oncomplete="PF('dialogo').show();">
-							<f:attribute name="pagamentoSelecionado" value="#{pagamento}" />
-							<f:actionListener
-								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-						</p:commandButton>
-
-						<p:commandButton value="Excluir"
-							actionListener="#{pagamentoBean.excluir}"
-							update=":mensagem :formularioFinalizar:painelFinalizar"
-							oncomplete="PF('dialogo').show();">
-							<f:attribute name="pagamentoSelecionado" value="#{pagamento}" />
-							<f:actionListener
-								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							<f:setPropertyActionListener value="#{compra}"
+								target="#{pagamentoBean.compra}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
@@ -93,18 +84,37 @@
 
 				<h:panelGrid id="painelFinalizacao" columns="3">
 
-					<p:outputLabel value="Valor Inicial Caixa: R$" />
-					<h:outputText value="#{pagamentoBean.valorInformado}">
+					<p:outputLabel value="Valor Inicial Caixa:" style="margin-right:30px;" />
+					<p:outputLabel value="R$" style="margin-right: 40px;" />
+					<h:outputText value= "#{pagamentoBean.valorAbertura}" >
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<br />
 					</h:outputText>
-					<br />
-					<p:outputLabel value="Total a Receber: R$" />
-					<h:outputText value="#{pagamentoBean.valorPago}">
+					
+					<p:outputLabel value="Total a Receber:"   />
+					<p:outputLabel value="R$" style="margin-right: 8px;" />
+					<h:outputText value="#{pagamentoBean.valorRecebido}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<br />
 					</h:outputText>
-					<br />
-					<p:outputLabel value="Total Geral: R$" />
-					<h:outputText value="#{pagamentoBean.valorPago}">
+					
+					<p:outputLabel value="Total de Pagamento:"   />
+					<p:outputLabel value="R$" style="margin-right: 8px;" />
+					<h:outputText value="#{pagamentoBean.valorPagamento}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<br />
+					</h:outputText>
+				    
+					<p:outputLabel value="Total de Sangria:" />
+					<p:outputLabel value="R$" style="margin-right: 8px;" />
+					<h:outputText value="#{pagamentoBean.valorSangria}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<br />
+					</h:outputText>
+					
+					<p:outputLabel value="Total Geral do Caixa:" />
+					<p:outputLabel value="R$"  />
+					<h:outputText value="#{pagamentoBean.totalGeral}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
@@ -117,34 +127,34 @@
 			<h:form id="formularioFinalizar">
 				<h:panelGrid id="painelFinalizar" columns="2">
 					<p:outputLabel value="Cod do Pedido: " />
-					<h:outputText value="#{pagamentoBean.pagamento.codigo}" />
+					<h:outputText value="#{pagamentoBean.compra.codigo}" />
 
 					<p:outputLabel value="Data do Pedido: " />
-					<h:outputText value="#{pagamentoBean.pagamento.horario}">
+					<h:outputText value="#{pagamentoBean.compra.atual}">
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 
 					<p:outputLabel value="Valor do Pedido:" maxlength="500" />
-					<h:outputText value="#{pagamentoBean.pagamento.precoTotal}">
+					<h:outputText value="#{pagamentoBean.compra.precoTotal}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
 					<p:outputLabel value="Tipo de Pagam.: " />
-					<h:outputText value="#{pagamentoBean.pagamento.tipopagc.descricao}" />
+					<h:outputText value="#{pagamentoBean.compra.tipopagc.descricao}" />
 
 					<p:outputLabel value="Fornecedor do Pedido:" />
 					<h:outputText
-						value="#{pagamentoBean.pagamento.fornecedor.descricao}" />
+						value="#{pagamentoBean.compra.fornecedor.descricao}" />
 					<p:outputLabel value="Funcionário:" />
 
 					<h:outputText
-						value="#{pagamentoBean.pagamento.funcionario.pessoa.nome}" />
+						value="#{pagamentoBean.compra.funcionario.pessoa.nome}" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{pagamentoBean.finalizarCaixa()}"
+						actionListener="#{pagamentoBean.salvarPagar()}"
 						update=":mensagem :formList :formularioFinalizar "
 						oncomplete="PF('dialogo').hide();" />
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />

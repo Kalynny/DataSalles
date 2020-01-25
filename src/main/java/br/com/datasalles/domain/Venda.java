@@ -18,7 +18,10 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Venda extends GenericDomain {
 
-	public static int TIPOPAGTO_AVISTA = 1;
+	public static long TIPOPAGTO_AVISTA = 1;
+	
+	public static int STATUS_ABERTO = 0;
+	public static int STATUS_PAGO = 1;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -41,10 +44,13 @@ public class Venda extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private TipoPag tipopag;
-
+	
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "venda")
 	private List<ItemVenda> itensVenda;
+	
+	@Column(nullable = false)
+	private int status;
 
 	public Date getHorario() {
 		return horario;
@@ -102,5 +108,12 @@ public class Venda extends GenericDomain {
 		this.itensVenda = itensVenda;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 }

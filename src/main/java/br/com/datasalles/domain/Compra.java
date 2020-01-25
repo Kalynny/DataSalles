@@ -18,10 +18,14 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Compra extends GenericDomain {
 
+	public static long TIPOPAGTO_AVISTA = 1;
+	
+	public static int STATUS_ABERTO = 0;
+	public static int STATUS_PAGO = 1;
+	
 
 	@JoinColumn(nullable = false)
 	private String nfcompra;
-
 
 	@JoinColumn(nullable = false)
 	private String pedido;
@@ -52,6 +56,9 @@ public class Compra extends GenericDomain {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra")
 	private List<ItemCompra>itensCompra;
 
+	@Column(nullable = false)
+	private int status;
+	
 	public String getNfcompra() {
 		return nfcompra;
 	}
@@ -124,5 +131,12 @@ public class Compra extends GenericDomain {
 		this.itensCompra = itensCompra;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 }

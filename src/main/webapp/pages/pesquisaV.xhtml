@@ -17,7 +17,7 @@
 		<h:form>
 			<p:panel header="Pedido de Vendas">
 				<f:facet name="header">
-					<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+					<p:outputLabel value="LISTA DE ORÇAMENTO DE VENDAS"
 						style="margin-right:180px;" />
 					<p:outputLabel value="Data Inicio:" />
 					<p:calendar pattern="    dd/MM/yyyy"
@@ -59,8 +59,8 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Valor"
-						style="width:100px; text-align: center;">
+					<p:column headerText=" Valor  "
+						style="width:50px; text-align: right;">
 						<h:outputText value="#{venda.precoTotal}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
@@ -74,6 +74,12 @@
 						style="width:120px; text-align: center;">
 						<h:outputText value="#{venda.tipopag.descricao}" />
 					</p:column>
+					
+					<p:column headerText="Status do Pagamento"
+						style="width:120px; text-align: center;">
+						<h:outputText value="#{venda.status}" />
+					</p:column>
+					
 
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />

@@ -237,15 +237,18 @@ public class VendaBean implements Serializable {
 					itemVenda.setQuantidade(new Short("0"));
 					
 					itensVenda.add(itemVenda);
-				} else {
+ 				} else {
 					ItemVenda itemVenda = item;
 					if (itemVenda.getQuantidade() != null && itemVenda.getQuantidade()>0) {
 						itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() - 1 + ""));
+						Messages.addGlobalError("Digite uma Quatidade Maior que Zero");
 					}
 					itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 				}
 
 				calcular();
+				Messages.addGlobalError("Digite uma Quatidade Maior que Zero");
+								
 			}
 
 		}catch (RuntimeException erro) {

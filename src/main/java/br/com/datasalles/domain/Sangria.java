@@ -47,5 +47,10 @@ public class Sangria extends GenericDomain {
 		this.funcionario = funcionario;
 	}
 
+	public void setSangria(Sangria sangria) {
+	
+		
+	}
+
 
 }

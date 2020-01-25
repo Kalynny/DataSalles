@@ -18,15 +18,23 @@ import br.com.datasalles.domain.Sangria;
 @ViewScoped
 public class SangriaBean implements Serializable {
 	private Sangria sangria;
+	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
 	private List<Sangria> sangrias;
 	private BigDecimal valorInformado;
-
+	
 	public Sangria getSangria() {
 		return sangria;
 	}
 	public void setSangria(Sangria sangria) {
 		this.sangria = sangria;
+	}
+		
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 	public List<Sangria> getSangrias() {
 		return sangrias;
@@ -47,6 +55,21 @@ public class SangriaBean implements Serializable {
 	public void setValorInformado(BigDecimal valorInformado) {
 		this.valorInformado = valorInformado;
 	}
+	
+	public void novo() {
+		try {
+			sangria = new Sangria();
+
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar();
+			
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
+			erro.printStackTrace();
+		}
+
+	}
+	
 	public void salvar() {
 		try {
 

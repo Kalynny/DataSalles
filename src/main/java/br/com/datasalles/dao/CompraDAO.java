@@ -1,16 +1,16 @@
 package br.com.datasalles.dao;
 
-
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.domain.ItemCompra;
+import br.com.datasalles.domain.Pagamento;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.Compra;
 import br.com.datasalles.domain.Cpagar;
@@ -18,7 +18,7 @@ import br.com.datasalles.util.HibernateUtil;
 
 public class CompraDAO extends GenericDAO<Compra> {
 
-	public void salvar(Compra compra, List<ItemCompra> itensCompra){
+	public void salvar(Compra compra, List<ItemCompra> itensCompra, Pagamento pagamento){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -148,6 +148,43 @@ public class CompraDAO extends GenericDAO<Compra> {
 		}finally {
 			sessao.close();
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Compra> listar() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Compra.class);
+			consulta.addOrder(Order.asc("codigo"));
+			List<Compra> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Compra> listarAvista() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Compra.class, "c");
+			consulta.add(Restrictions.eq("c.tipopagc.id", Compra.TIPOPAGTO_AVISTA));
+			consulta.add(Restrictions.eq("c.status", Compra.STATUS_ABERTO));
+			consulta.addOrder(Order.asc("c.codigo"));
+			List<Compra> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	public void salvar(Compra compra, List<ItemCompra> itens) {
+
+
 	}
 
 

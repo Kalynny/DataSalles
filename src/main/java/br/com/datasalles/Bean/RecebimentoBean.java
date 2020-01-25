@@ -2,22 +2,19 @@ package br.com.datasalles.Bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
-import br.com.datasalles.dao.CaixaDAO;
+import br.com.datasalles.dao.AberturaDAO;
 import br.com.datasalles.dao.ClienteDAO;
 import br.com.datasalles.dao.FuncionarioDAO;
-import br.com.datasalles.dao.TipoPagDAO;
+import br.com.datasalles.dao.PagamentoDAO;
+import br.com.datasalles.dao.RecebimentoDAO;
+import br.com.datasalles.dao.SangriaDAO;
 import br.com.datasalles.dao.VendaDAO;
 import br.com.datasalles.domain.Caixa;
 import br.com.datasalles.domain.Cliente;
@@ -26,7 +23,6 @@ import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.Recebimento;
 import br.com.datasalles.domain.TipoPag;
 import br.com.datasalles.domain.Venda;
-import br.com.datasalles.util.HibernateUtil;
 
 
 @SuppressWarnings("serial")
@@ -45,8 +41,11 @@ public class RecebimentoBean implements Serializable{
 	private List<TipoPag> tipopags;
 	private Venda venda;
 	private Recebimento recebimento;
-	private BigDecimal valorInformado;
+	private BigDecimal valorAbertura;
 	private BigDecimal valorRecebido;
+	private BigDecimal valorPagamento;
+	private BigDecimal valorSangria;
+	private Double totalGeral;
 
 
 	public List<Produto> getProdutos() {
@@ -81,12 +80,12 @@ public class RecebimentoBean implements Serializable{
 		this.tipopag = tipopag;
 	}
 
-	public BigDecimal getValorInformado() {
-		return valorInformado;
+	public BigDecimal getValorAbertura() {
+		return valorAbertura;
 	}
 
-	public void setValorInformado(BigDecimal valorInformado) {
-		this.valorInformado = valorInformado;
+	public void setValorAbertura(BigDecimal valorAbertura) {
+		this.valorAbertura = valorAbertura;
 	}
 
 	public BigDecimal getValorRecebido() {
@@ -153,17 +152,41 @@ public class RecebimentoBean implements Serializable{
 	public void setRecebimento(Recebimento recebimento) {
 		this.recebimento = recebimento;
 	}
+		
+	public BigDecimal getValorPagamento() {
+		return valorPagamento;
+	}
+
+	public void setValorPagamento(BigDecimal valorPagamento) {
+		this.valorPagamento = valorPagamento;
+	}
+
+	public BigDecimal getValorSangria() {
+		return valorSangria;
+	}
+
+	public void setValorSangria(BigDecimal valorSangria) {
+		this.valorSangria = valorSangria;
+	}
+	
+	public Double getTotalGeral() {
+		return totalGeral;
+	}
+
+	public void setTotalGeral(Double totalGeral) {
+		this.totalGeral = totalGeral;
+	}
 
 	@PostConstruct
 	public void listar(){
-		valorInformado = new BigDecimal("0");
+		valorAbertura = new BigDecimal("0");
 		valorRecebido = new BigDecimal("0");
 		try{
 			venda = null;
 			VendaDAO vendaDAO = new VendaDAO();
 			vendas = vendaDAO.listarAvista();
 
-			pegaValorInicial();
+			initValores();
 
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar verificar o Caixa");
@@ -187,195 +210,59 @@ public class RecebimentoBean implements Serializable{
 		}	
 	}
 
+	public void receber() {}
 
-	public void receber() {
-
-	}
-
-
-	public void pegaValorInicial() {
-		carregaValor();
-		//	valorInformado = valorInformado;
-
-		//	valorInformado = new BigDecimal("200.00");
-
-	}
-
-	@SuppressWarnings({ "rawtypes" })
-	private void carregaValor() {
-		BigDecimal valor = null;
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		Transaction tx = null;
-		try{
-			tx = sessao.beginTransaction();
-
-			String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-
-			SQLQuery query = sessao.createSQLQuery(sql);
-			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			List data = query.list();
-
-			for(Object object : data)  {
-				Map row = (Map)object;
-
-				// BigDecimal valor;
-
-				valor = new BigDecimal(row.get("valorAbertura").toString());
-				;
-			}
-			tx.commit();
-
-		}catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
-		}finally {
-			sessao.close();
-			valorInformado = valor;
-
-		}
-	}
-
-
-	@SuppressWarnings({ "rawtypes", "unused" })
-	private BigDecimal carregaValors() {
-		BigDecimal valor = null;
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		Transaction tx = null;
-		try{
-			tx = sessao.beginTransaction();
-
-			String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-
-			SQLQuery query = sessao.createSQLQuery(sql);
-			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-			List data = query.list();
-
-			for(Object object : data)  {
-				Map row = (Map)object;
-
-				// BigDecimal valor;
-
-				valor = new BigDecimal(row.get("valorAbertura").toString());
-
-			}
-			tx.commit();
-
-		}catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
-		}finally {
-			sessao.close();
-			valorInformado = valor;
-
-		}
-		return valor;
-	}
-
-	//	@SuppressWarnings({ "rawtypes" })
-	/*	private BigDecimal carregaValors() {
-			BigDecimal valor = null;
-			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-			Transaction tx = null;
-		      try{
-		         tx = sessao.beginTransaction();
-
-		         String sql = "select valorAbertura from abertura order by dataAbertura desc limit 1";
-
-		         SQLQuery query = sessao.createSQLQuery(sql);
-		         query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		         List data = query.list();
-
-		         for(Object object : data)  {
-		            Map row = (Map)object;
-
-		           // BigDecimal valor;
-
-		            valor = new BigDecimal(row.get("valorAbertura").toString());
-
-		         }
-		         tx.commit();
-
-		      }catch (HibernateException e) {
-		         if (tx!=null) tx.rollback();
-		         e.printStackTrace(); 
-		      }finally {
-		         sessao.close();
-		         valorInformado = valor;
-
-		      }
-		      return valor;
-		} */
-
-	public void salvar() {
+	public void salvarReceber() {
 		try {
-			CaixaDAO caixaDAO = new CaixaDAO();
-			caixaDAO.salvar(caixa);
-
-			caixa = new Caixa();
-
-			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarios = funcionarioDAO.listar("descricao");
-
-			ClienteDAO clienteDAO = new ClienteDAO();
-			clientes = clienteDAO.listar("nome");
-
-			TipoPagDAO tipopagDAO = new TipoPagDAO();
-			tipopags = tipopagDAO.listar("descricao");
-
-			caixas = caixaDAO.listar();
-
-			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
-			erro.printStackTrace();
-		}
-	}
-
-	@SuppressWarnings("unused")
-	public void finalizarCaixa() {
-
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		org.hibernate.Transaction transacao = null;
-
-		try {
-
-			transacao= sessao.beginTransaction();
-
-			String sql = "insert into datasalles.caixa VALUES (null, sysdate(),"+venda.getPrecoTotal()+","+venda.getCliente().getCodigo()+","+venda.getFuncionario().getCodigo()+","+venda.getTipopag().getCodigo()+","+venda.getCodigo()+");";
-
-			SQLQuery query = sessao.createSQLQuery(sql);
-
-			int result = query.executeUpdate();
-
-			transacao.commit();
-			//	System.out.println(result);
-
-		} catch (HibernateException e) {
-			if (transacao != null)
-				transacao.rollback();
-			e.printStackTrace();
-		} finally {
-			sessao.close();
-
-			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
-		}
-	}
-
-	public void excluir(ActionEvent evento) {
-		try {
-			venda = (Venda) evento.getComponent().getAttributes().get("vendaSelecionado");
-
+			
+			Recebimento recebimento = new Recebimento();
+			recebimento.setCliente(venda.getCliente());
+			recebimento.setFuncionario(venda.getFuncionario());
+			recebimento.setHorario(new Date());
+			recebimento.setPrecoTotal(venda.getPrecoTotal());
+			recebimento.setTipopag(venda.getTipopag());
+			recebimento.setVenda(venda);
+			
+			RecebimentoDAO recebimentoDAO = new RecebimentoDAO();
+			recebimentoDAO.salvar(recebimento);
+			
+			venda.setStatus(Venda.STATUS_PAGO);
 			VendaDAO vendaDAO = new VendaDAO();
-			vendaDAO.excluir(venda);
-
-			vendas = vendaDAO.listar();
-
-			Messages.addGlobalInfo("Estado removido com sucesso");
+			vendaDAO.salvar(venda);
+									
+			Messages.addGlobalInfo("Recebimento do Caixa salvo com sucesso");
+			
+			listar();
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Recebimento do Caixa");
 			erro.printStackTrace();
 		}
 	}
 
 
+	public void initValores() {
+		valorAbertura = new AberturaDAO().valorAbertura();
+		valorRecebido = new RecebimentoDAO().valorRecebido();
+		valorPagamento = new PagamentoDAO().valorPagamento();
+		valorSangria = new SangriaDAO().valorSangria();
+		totalGeral = 0d;
+		if(valorAbertura != null) {
+			totalGeral += valorAbertura.doubleValue();
+		}
+		
+		if(valorPagamento != null) {
+			totalGeral -= valorPagamento.doubleValue();
+		}
+		
+		if(valorSangria != null) {
+			totalGeral -= valorSangria.doubleValue();
+		}
+				
+		if(valorRecebido != null) {
+			totalGeral += valorRecebido.doubleValue();
+		}
+		
+	}
+
+	
 }

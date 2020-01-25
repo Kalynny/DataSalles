@@ -33,8 +33,6 @@ public class Pagamento extends GenericDomain{
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;	
 
-
-
 	public Compra getCompra() {
 		return compra;
 	}
