@@ -1,5 +1,6 @@
 package br.com.datasalles.Bean;
 
+//import java.awt.Color;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -241,6 +242,7 @@ public class RecebimentoBean implements Serializable{
 
 
 	public void initValores() {
+						
 		valorAbertura = new AberturaDAO().valorAbertura();
 		valorRecebido = new RecebimentoDAO().valorRecebido();
 		valorPagamento = new PagamentoDAO().valorPagamento();
@@ -263,6 +265,5 @@ public class RecebimentoBean implements Serializable{
 		}
 		
 	}
-
-	
+		
 }

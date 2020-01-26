@@ -30,7 +30,7 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 
 
 	}
-	
+
 	@SuppressWarnings({ "rawtypes" })
 	public BigDecimal valorSangria() {
 		BigDecimal valor = null;
@@ -57,10 +57,10 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 		}finally {
 			sessao.close();
 		}
-		
+
 		return valor;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Sangria> listarPorData(Date dataInicio, Date dataFim){
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
@@ -74,7 +74,5 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 			sessao.close();
 		}
 	}
-	
-
 
 }

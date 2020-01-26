@@ -13,11 +13,11 @@ import javax.persistence.TemporalType;
 public class Sangria extends GenericDomain {
 
 	@Column (nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dataSangria;
 
 	@Column (nullable = false, precision= 7, scale=2 )
-	private BigDecimal valorInformado;
+	private BigDecimal valorSangria;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -30,13 +30,13 @@ public class Sangria extends GenericDomain {
 	public void setDataSangria(Date dataSangria) {
 		this.dataSangria = dataSangria;
 	}
-
-	public BigDecimal getValorInformado() {
-		return valorInformado;
+		
+	public BigDecimal getValorSangria() {
+		return valorSangria;
 	}
 
-	public void setValorInformado(BigDecimal valorInformado) {
-		this.valorInformado = valorInformado;
+	public void setValorSangria(BigDecimal valorSangria) {
+		this.valorSangria = valorSangria;
 	}
 
 	public Funcionario getFuncionario() {

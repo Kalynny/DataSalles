@@ -12,39 +12,41 @@
 			<p:panel header="Sangria do Caixa">
 				<f:facet name="header" style="text-align: center;">
 					<p:outputLabel value="SANGRIA DO CAIXA"
-						style="font-size:100%; margin-right:950px;" />
+						style="font-size:100%; margin-right:1000px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{sangriaBean.novo()}" update="@form" />
+						actionListener="#{sangriaBean.novo()}"
+						update="@form :mensagem :formCadastro:pnCadastro" />
 				</f:facet>
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{sangriaBean.sangrias}" var="sangria"
 					rows="4">
 
-					<p:column headerText="Data Atual"
-						sortBy="#{sangriaBean.sangria.dataSangria}"
-						style="text-align:center">
+					<p:column headerText="Data Atual" style="text-align:center">
 						<h:outputText value="#{sangria.dataSangria}">
-							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
-								timeZone="America/Sao_Paulo" />
+							<f:convertDateTime locale="pt_BR" />
 						</h:outputText>
 					</p:column>
-					
-					<p:column headerText="Valor Informado" style="text-align:center">
-						<h:outputText value="#{sangria.valorInformado}">
+
+					<p:column headerText="Valor da Sangria" style="text-align:center">
+						<h:outputText value="#{sangria.valorSangria}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					
+
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{sangria.funcionario.pessoa.nome}" />
 					</p:column>
 
 					<p:column headerText="Opções" style="text-align:center">
-						<p:commandButton value="Sangria"
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{sangriaBean.editar}"
+							update=":formCadastro:pnCadastro"
 							oncomplete="PF('dialogo').show();">
+							<f:attribute name="sangriaSelecionado" value="#{sangria}" />
 						</p:commandButton>
 					</p:column>
+
 				</p:dataTable>
 			</p:panel>
 		</h:form>
@@ -62,7 +64,7 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 							timeZone="America/Sao_Paulo" />
 					</p:calendar>
-					
+
 					<p:outputLabel value="Valor do Sistema:" />
 					<p:inputText maxlength="7" size="10"
 						value="#{recebimentoBean.totalGeral}" required="true"
@@ -75,34 +77,30 @@
 
 					<p:outputLabel value="Valor Informado:" />
 					<p:inputText maxlength="7" size="10"
-						value="#{sangriaBean.sangria.valorInformado}" required="true"
+						value="#{sangriaBean.sangria.valorSangria}" required="true"
 						requiredMessage="O campo 'Valor Informado' é obrigatório"
 						converterMessage="Informe um valor válido para o campo 'Preço''"
 						validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
 						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</p:inputText>
-					
-					<p:outputLabel for="funcionario" value="Funcionário:" />
-					<p:selectOneMenu id="funcionario"
-						value="#{sangriaBean.sangria.funcionario}"
+
+					<p:outputLabel value="Funcionario:" />
+					<p:selectOneMenu value="#{sangriaBean.sangria.funcionario}"
 						converter="omnifaces.SelectItemsConverter" filter="true"
-						filterMatchMode="contains" required="true"
-						requiredMessage="O campo Funcionário é obrigatório">
+						filterMatchMode="contains">
 						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione um funcionário" />
-						<f:selectItems value="#{sangriaBean.funcionarios}" var="funcionario"
-							itemValue="#{funcionario}"
-							itemLabel="#{funcionario.pessoa.cpf} - #{funcionario.pessoa.nome}" />
+							itemLabel="Selecione um Funcionario" />
+						<f:selectItems value="#{sangriaBean.funcionarios}"
+							var="funcionario" itemValue="#{funcionario}"
+							itemLabel="#{funcionario.pessoa.nome}" />
 					</p:selectOneMenu>
-					
-					
-					
+
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Finalizar"
-						actionListener="#{sangriaBean.sacarSangria()}"
-						oncomplete="PF('dialogo').hide();" update=":formListagem" />
+					<p:commandButton value="Salvar"
+						actionListener="#{sangriaBean.salvar()}"
+						oncomplete="PF('dialogo').hide();" update="@form :mensagem :formCadastro:pnCadastro" />
 					<p:commandButton oncomplete="PF('dialogo').hide();"
 						value="Cancelar" />
 				</h:panelGrid>

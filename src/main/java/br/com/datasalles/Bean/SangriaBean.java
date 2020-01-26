@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.FuncionarioDAO;
 import br.com.datasalles.dao.SangriaDAO;
@@ -21,15 +22,15 @@ public class SangriaBean implements Serializable {
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
 	private List<Sangria> sangrias;
-	private BigDecimal valorInformado;
-	
+	private BigDecimal valorSangria;
+
 	public Sangria getSangria() {
 		return sangria;
 	}
 	public void setSangria(Sangria sangria) {
 		this.sangria = sangria;
 	}
-		
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -49,27 +50,26 @@ public class SangriaBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 
-	public BigDecimal getValorInformado() {
-		return valorInformado;
+	public BigDecimal getValorSangria() {
+		return valorSangria;
 	}
-	public void setValorInformado(BigDecimal valorInformado) {
-		this.valorInformado = valorInformado;
+	public void setValorSangria(BigDecimal valorSangria) {
+		this.valorSangria = valorSangria;
 	}
-	
 	public void novo() {
+
 		try {
 			sangria = new Sangria();
 
-			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarios = funcionarioDAO.listar();
-			
+			FuncionarioDAO funcionariosDAO = new FuncionarioDAO();
+			funcionarios = funcionariosDAO.listar();
+
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar uma nova Sangria");
 			erro.printStackTrace();
 		}
-
 	}
-	
+
 	public void salvar() {
 		try {
 
@@ -108,9 +108,9 @@ public class SangriaBean implements Serializable {
 			SangriaDAO sangriaDAO = new SangriaDAO();
 			sangria = sangriaDAO.buscar(1l);
 
-			if(valorInformado.doubleValue() < sangria.getValorInformado().doubleValue()){
+			if(valorSangria.doubleValue() < sangria.getValorSangria().doubleValue()){
 
-				sangria.setValorInformado(sangria.getValorInformado().subtract(valorInformado)); 
+				sangria.setValorSangria(sangria.getValorSangria().subtract(valorSangria)); 
 				sangriaDAO.editar(sangria);
 			}else{
 				Messages.addGlobalError("Ocorreu um erro ao tentar verificar o sangria");
@@ -124,5 +124,19 @@ public class SangriaBean implements Serializable {
 		}
 	}
 
+	public void editar(ActionEvent evento){
+		try {
+			sangria = (Sangria) evento.getComponent().getAttributes().get("sangriaSelecionado");
+
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar();
+
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
+			erro.printStackTrace();
+		}	
+	}
 
 }
+
+
