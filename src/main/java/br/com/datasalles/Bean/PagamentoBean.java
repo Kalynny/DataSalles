@@ -238,16 +238,6 @@ public class PagamentoBean implements Serializable{
 			CompraDAO compraDAO = new CompraDAO();
 			compraDAO.salvar(compra);
 
-			//Sangria sangria = new Sangria();
-			//sangria.setDataSangria(sangria.getDataSangria());
-			//sangria.setValorInformado(sangria.getValorInformado());
-			//sangria.setFuncionario(sangria.getFuncionario());
-			//sangria.setSangria(sangria);
-
-			//SangriaDAO sangriaDAO = new SangriaDAO();
-			//sangriaDAO.salvar(sangria);
-
-
 			Messages.addGlobalInfo("Pagamento do Caixa salvo com sucesso");
 
 			listar();

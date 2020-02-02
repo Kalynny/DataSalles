@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Sangria extends GenericDomain {
 
-	@Column (nullable = false)
+	@Column (nullable = false, unique = true)
 	@Temporal(TemporalType.DATE)
 	private Date dataSangria;
 
@@ -30,7 +30,7 @@ public class Sangria extends GenericDomain {
 	public void setDataSangria(Date dataSangria) {
 		this.dataSangria = dataSangria;
 	}
-		
+
 	public BigDecimal getValorSangria() {
 		return valorSangria;
 	}
@@ -45,11 +45,6 @@ public class Sangria extends GenericDomain {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
-	}
-
-	public void setSangria(Sangria sangria) {
-	
-		
 	}
 
 

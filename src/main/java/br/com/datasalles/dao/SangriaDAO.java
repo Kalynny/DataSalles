@@ -28,9 +28,8 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 			sessao.close();
 		}
 
-
 	}
-
+	
 	@SuppressWarnings({ "rawtypes" })
 	public BigDecimal valorSangria() {
 		BigDecimal valor = null;
@@ -39,7 +38,7 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 		try{
 			tx = sessao.beginTransaction();
 
-			String sql = "select sum(precoTotal) as total from sangria where dataSangria = CURRENT_DATE group by dataSangria ";
+			String sql = "select valorSangria from sangria where dataSangria = CURRENT_DATE order by dataSangria desc limit 1";
 
 			SQLQuery query = sessao.createSQLQuery(sql);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
@@ -47,7 +46,7 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 
 			for(Object object : data)  {
 				Map row = (Map)object;
-				valor = new BigDecimal(row.get("total").toString());;
+				valor = new BigDecimal(row.get("valorSangria").toString());;
 			}
 			tx.commit();
 
@@ -57,22 +56,9 @@ public class SangriaDAO extends GenericDAO<Sangria> {
 		}finally {
 			sessao.close();
 		}
-
+		
 		return valor;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Sangria> listarPorData(Date dataInicio, Date dataFim){
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
-		try{
-			Criteria consulta = sessao.createCriteria(Sangria.class);
-			consulta.add(Restrictions.between("dataSangria", dataInicio, dataFim));
-			return consulta.list();	
-		}catch(RuntimeException erro){
-			throw erro;
-		}finally {
-			sessao.close();
-		}
-	}
 
 }

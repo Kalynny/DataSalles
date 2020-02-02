@@ -115,7 +115,17 @@ public class CreceberBean implements Serializable {
 	}
 
 	public void editar(ActionEvent evento){
-		creceber = (Creceber) evento.getComponent().getAttributes().get("creceberSelecionado");
+		try {
+			creceber = (Creceber) evento.getComponent().getAttributes().get("creceberSelecionado");
+
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listar();
+
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
+			erro.printStackTrace();
+		}	
 	}
+		
 
 }

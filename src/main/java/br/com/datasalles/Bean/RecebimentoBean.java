@@ -182,6 +182,7 @@ public class RecebimentoBean implements Serializable{
 	public void listar(){
 		valorAbertura = new BigDecimal("0");
 		valorRecebido = new BigDecimal("0");
+		valorSangria = new BigDecimal("0");
 		try{
 			venda = null;
 			VendaDAO vendaDAO = new VendaDAO();

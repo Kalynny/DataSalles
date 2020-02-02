@@ -204,34 +204,40 @@ public class CompraBean implements Serializable {
 	}
 
 	public void subtrair(ActionEvent evento) {
-		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-		if (produto.getQuantidade()>0) {
+		try {
+			Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			if (produto.getQuantidade()>0) {
 
-			ItemCompra item = null;
-			for (ItemCompra rs : itensCompra) {
-				if (rs.getProduto().equals(produto)) {
-					item = rs;
+				ItemCompra item = null;
+				for (ItemCompra rs : itensCompra) {
+					if (rs.getProduto().equals(produto)) {
+						item = rs;
+					}
 				}
+
+				if (item == null) {
+					ItemCompra itemCompra = new ItemCompra();
+					itemCompra.setPrecoParcial(produto.getPreco());
+					itemCompra.setProduto(produto);
+					itemCompra.setQuantidade(new Short("0"));
+
+					itensCompra.add(itemCompra);
+				} else {
+					ItemCompra itemCompra = item;
+					if (itemCompra.getQuantidade() != null && itemCompra.getQuantidade()>0) {
+						itemCompra.setQuantidade(new Short(itemCompra.getQuantidade() - 1 + ""));
+					}
+					itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
+				}
+
+				calcular();
 			}
 
-			if (item == null) {
-				ItemCompra itemCompra = new ItemCompra();
-				itemCompra.setPrecoParcial(produto.getPreco());
-				itemCompra.setProduto(produto);
-				itemCompra.setQuantidade(new Short("1"));
-
-				itensCompra.add(itemCompra);
-			} else {
-				ItemCompra itemCompra = item;
-				if (itemCompra.getQuantidade() != null && itemCompra.getQuantidade()>0) {
-					itemCompra.setQuantidade(new Short(itemCompra.getQuantidade() - 1 + ""));
-				}
-				itemCompra.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemCompra.getQuantidade())));
-			}
-
-			calcular();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Digite uma Quatidade Maior que Zero");
+			erro.printStackTrace();
 		}
-		System.out.println("Digite uma Quatidade Maior que Zero");
+
 	}
 
 
@@ -428,7 +434,7 @@ public class CompraBean implements Serializable {
 	public void editar(ActionEvent evento){
 		compra = (Compra) evento.getComponent().getAttributes().get("compraSelecionado");
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void impestcom(){
 		try {

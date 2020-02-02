@@ -8,7 +8,7 @@
 
 <ui:insert name="metadata" />
 
-<h:head>
+<h:head >
 
 	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputScript library="js" name="scripts.js" />
@@ -34,13 +34,13 @@
 			resizable="false" closable="false" collapsible="false">
 		</p:layoutUnit>
 
-		<p:layoutUnit position="center" resizable="false" closable="false"
-			collapsible="false">
-			<h:form style="font-size: 120%">
+		<p:layoutUnit  position="center" resizable="false" closable="false"
+			collapsible="false" >
+			<h:form style="font-size: 130%" >
 				<p:megaMenu orientation="#{orientacaoBean.orientation}"
-					style="margin-top: 5px; text-align: center; ">
+					style="margin-top: 5px">
 					<p:submenu label="Arquivo">
-						<p:column>
+						<p:column >
 							<p:submenu>
 								<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
 								<p:menuitem value="Sair" outcome="/pages/autenticacao.xhtml" />
@@ -88,7 +88,6 @@
 							</p:submenu>
 						</p:column>
 					</p:submenu>
-
 
 					<p:submenu label="Vendas">
 						<p:column>

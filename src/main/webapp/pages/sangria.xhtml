@@ -14,8 +14,8 @@
 					<p:outputLabel value="SANGRIA DO CAIXA"
 						style="font-size:100%; margin-right:1000px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{sangriaBean.novo()}"
-						update="@form :mensagem :formCadastro:pnCadastro" />
+						actionListener="#{sangriaBean.novoSangria()}"
+						update=":mensagem :formCadastro:pnCadastro" />
 				</f:facet>
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
@@ -24,7 +24,8 @@
 
 					<p:column headerText="Data Atual" style="text-align:center">
 						<h:outputText value="#{sangria.dataSangria}">
-							<f:convertDateTime locale="pt_BR" />
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
 
@@ -41,28 +42,24 @@
 					<p:column headerText="Opções" style="text-align:center">
 						<p:commandButton icon="ui-icon-pencil"
 							actionListener="#{sangriaBean.editar}"
-							update=":formCadastro:pnCadastro"
+							update=":mensagem :formCadastro:pnCadastro"
 							oncomplete="PF('dialogo').show();">
 							<f:attribute name="sangriaSelecionado" value="#{sangria}" />
 						</p:commandButton>
 					</p:column>
-
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 
-		<p:dialog header="Sangria do Caixa" widgetVar="dialogo"
+		<p:dialog header="Sacar Sangria do Caixa" widgetVar="dialogo"
 			draggable="false" resizable="false" global="true" closable="false">
 			<h:form id="formCadastro">
 
 				<h:panelGrid columns="2" id="pnCadastro">
 
 					<p:outputLabel value="Data da Sangria:" />
-					<p:calendar value="#{sangriaBean.sangria.dataSangria}"
-						required="true"
-						requiredMessage="O campo 'Data da Sangria' é obrigatório">
-						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
-							timeZone="America/Sao_Paulo" />
+					<p:calendar value="#{sangriaBean.sangria.dataSangria}" required="true"
+						requiredMessage="O campo 'Data Atual' é obrigatório">
 					</p:calendar>
 
 					<p:outputLabel value="Valor do Sistema:" />
@@ -99,8 +96,8 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{sangriaBean.salvar()}"
-						oncomplete="PF('dialogo').hide();" update="@form :mensagem :formCadastro:pnCadastro" />
+						actionListener="#{sangriaBean.salvar}"
+						oncomplete="PF('dialogo').hide();" update=":mensagem :formCadastro:pnCadastro" />
 					<p:commandButton oncomplete="PF('dialogo').hide();"
 						value="Cancelar" />
 				</h:panelGrid>

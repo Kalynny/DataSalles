@@ -116,7 +116,16 @@ public class CpagarBean implements Serializable {
 	}
 
 	public void editar(ActionEvent evento){
-		cpagar = (Cpagar) evento.getComponent().getAttributes().get("cpagarSelecionado");
-	}
+		try {
+			cpagar = (Cpagar) evento.getComponent().getAttributes().get("cpagarSelecionado");
 
+			FornecedorDAO fornecedorDAO = new FornecedorDAO();
+			fornecedores = fornecedorDAO.listar();
+
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar o caixa");
+			erro.printStackTrace();
+		}	
+	}
+		
 }

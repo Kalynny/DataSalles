@@ -75,38 +75,39 @@
 
 			<p:panel header="Saldo do Caixa">
 
-				<h:panelGrid id="painelFinalizacao" columns="3" >
+				<h:panelGrid id="painelFinalizacao" columns="3" style="text-align:right">
 
-					<p:outputLabel value="Valor Inicial Caixa:" style="margin-right:30px;" />
-					<p:outputLabel value="R$" style="margin-right: 40px;" />
-					<h:outputText value="#{recebimentoBean.valorAbertura}"  >
+					<p:outputLabel value="Valor Inicial Caixa:"
+						style="margin-left:10px;" />
+					<p:outputLabel value="R$" style="margin-right: 58px;" />
+					<h:outputText value="#{recebimentoBean.valorAbertura}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						<br />
 					</h:outputText>
-										
+
 					<p:outputLabel value="Total dos Recebidos:" />
-					<p:outputLabel value="R$" style="margin-right:8px;"/>
-					<h:outputText value="#{recebimentoBean.valorRecebido}" >
+					<p:outputLabel value="R$" style="margin-right:58px;" />
+					<h:outputText value="#{recebimentoBean.valorRecebido}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-						<br />	
+						<br />
 					</h:outputText>
-					
+
 					<p:outputLabel value="Total de Pagamentos:" />
-					<p:outputLabel value="R$ " style="margin-right:8px;" />
+					<p:outputLabel value="R$-" style="margin-right:54px;" />
 					<h:outputText value="#{recebimentoBean.valorPagamento}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						<br />
 					</h:outputText>
-				   
-					<p:outputLabel value="Total de Sangrias:" />
-					<p:outputLabel value="R$ " style="margin-right:8px;"/>
+
+					<p:outputLabel value="Total de Sangrias:" style="margin-left:15px;" />
+					<p:outputLabel value="R$-" style="margin-right:54px;" />
 					<h:outputText value="#{recebimentoBean.valorSangria}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						<br />
 					</h:outputText>
-					
-					<p:outputLabel value="Total Geral do Caixa:"/>
-					<p:outputLabel value="R$ " />
+
+					<p:outputLabel value="Total Geral do Caixa:" />
+					<p:outputLabel value="R$ " style="margin-right:58px;"/>
 					<h:outputText value="#{recebimentoBean.totalGeral}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
@@ -128,7 +129,7 @@
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 
-					<p:outputLabel value="Valor do Pedido:" maxlength="500" />
+					<p:outputLabel value="Valor do Pedido:" maxlength="50" />
 					<h:outputText value="#{recebimentoBean.venda.precoTotal}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
@@ -149,9 +150,7 @@
 						actionListener="#{recebimentoBean.salvarReceber}"
 						update=":mensagem :formList :formularioFinalizar "
 						oncomplete="PF('dialogo').hide();">
-						
-						</p:commandButton>
-						
+					</p:commandButton>
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 			</h:form>
