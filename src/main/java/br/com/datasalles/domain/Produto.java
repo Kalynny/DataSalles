@@ -19,9 +19,6 @@ public class Produto extends GenericDomain {
 	@Column(nullable = false)
 	private Short quantidade;
 
-	@Column(nullable = false)
-	private Short marckup;
-
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal preco;
 
@@ -52,15 +49,6 @@ public class Produto extends GenericDomain {
 	public void setQuantidade(Short quantidade) {
 		this.quantidade = quantidade;
 	}
-
-	public Short getMarckup() {
-		return marckup;
-	}
-
-	public void setMarckup(Short marckup) {
-		this.marckup = marckup;
-	}
-
 	public BigDecimal getPreco() {
 		return preco;
 	}

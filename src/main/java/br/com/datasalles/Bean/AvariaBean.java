@@ -135,34 +135,40 @@ public class AvariaBean implements Serializable {
 
 
 	public void subtrair(ActionEvent evento) {
-		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-		if (produto.getQuantidade()>0) {
-
-
-			ItemAvaria item = null;
-			for (ItemAvaria rs : itensAvaria) {
-				if (rs.getProduto().equals(produto)) {
-					item = rs;
+		try {
+			Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			if (produto.getQuantidade()>0) {
+				Messages.addGlobalError("Informe pelo menos um item para a avaria");
+				
+				ItemAvaria item = null;
+				for (ItemAvaria rs : itensAvaria) {
+					if (rs.getProduto().equals(produto)) {
+						item = rs;
+					}
 				}
-			}
 
-			if (item == null) {
-				ItemAvaria itemAvaria = new ItemAvaria();
-				itemAvaria.setPrecoParcial(produto.getPreco());
-				itemAvaria.setProduto(produto);
-				itemAvaria.setQuantidade(new Short("1"));
+				if (item == null) {
+					ItemAvaria itemAvaria = new ItemAvaria();
+					itemAvaria.setPrecoParcial(produto.getPreco());
+					itemAvaria.setProduto(produto);
+					itemAvaria.setQuantidade(new Short("1"));
 
-				itensAvaria.add(itemAvaria);
-			} else {
-				ItemAvaria itemAvaria = item;
-				if (itemAvaria.getQuantidade() != null && itemAvaria.getQuantidade()>0) {
-					itemAvaria.setQuantidade(new Short(itemAvaria.getQuantidade() - 1 + ""));
+					itensAvaria.add(itemAvaria);
+				} else {
+					ItemAvaria itemAvaria = item;
+					if (itemAvaria.getQuantidade() != null && itemAvaria.getQuantidade()>0) {
+						itemAvaria.setQuantidade(new Short(itemAvaria.getQuantidade() - 1 + ""));
+					}
+					itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
 				}
-				itemAvaria.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
-			}
 
-			calcular();
+				calcular();
+			}
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Quantidade da Avaria insuficiente");
+			erro.printStackTrace();
 		}
+
 	}
 
 	public void remover(ActionEvent evento) {

@@ -43,23 +43,18 @@
 						<h:outputText value="#{produto.quantidade}" />
 					</p:column>
 
-					<p:column headerText="Preço" style="text-align:center">
+					<p:column headerText="Preço" style="text-align:center; width:90px;">
 						<h:outputText value="#{produto.preco}"
 							style="width:60px; text-align:right ">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Marckup %"
-						style="width:80px; text-align:center">
-						<h:outputText value="#{produto.marckup}" />
-					</p:column>
-
 					<p:column headerText="Fornecedor">
 						<h:outputText value="#{produto.fornecedor.descricao}" />
 					</p:column>
 
-					<p:column headerText="Opções" style="text-align:center">
+					<p:column headerText="Opções" style="text-align:center; width:110px;">
 						<p:commandButton icon="ui-icon-trash"
 							actionListener="#{produtoBean.excluir}"
 							update=":mensagem :formListagem:tabela">
@@ -121,12 +116,6 @@
 						validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
 						<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</p:inputText>
-
-					<p:outputLabel value="Marckup:" />
-					<p:inputText maxlength="1" size="10"
-						value="#{produtoBean.produto.marckup}" required="true"
-						requiredMessage="O campo 'Quantidade' é obrigatório">
 					</p:inputText>
 
 					<p:outputLabel value="Fornecedor:" />

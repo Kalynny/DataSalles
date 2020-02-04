@@ -23,7 +23,7 @@
 	<p:layout fullPage="true">
 
 
-		<p:layoutUnit style="text-align:center;" position="north"
+		<p:layoutUnit style="text-align:center;" position="north" 
 			header="SISTEMA DATASALES" resizable="false" closable="false"
 			collapsible="false">
 		</p:layoutUnit>
@@ -36,10 +36,10 @@
 
 		<p:layoutUnit  position="center" resizable="false" closable="false"
 			collapsible="false" >
-			<h:form style="font-size: 130%" >
+			<h:form id="centro" style="font-size: 130%" >
 				<p:megaMenu orientation="#{orientacaoBean.orientation}"
-					style="margin-top: 5px">
-					<p:submenu label="Arquivo">
+					style="margin-top: 5px;" align="center" >
+					<p:submenu label="Arquivo" >
 						<p:column >
 							<p:submenu>
 								<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
@@ -117,7 +117,6 @@
 						</p:column>
 					</p:submenu>
 
-
 					<p:submenu label="Financeiro">
 						<p:column>
 							<p:submenu>
@@ -162,6 +161,5 @@
 			<ui:insert name="conteudo" />
 		</p:layoutUnit>
 	</p:layout>
-
 </h:body>
 </html>

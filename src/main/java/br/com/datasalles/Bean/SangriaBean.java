@@ -58,6 +58,7 @@ public class SangriaBean implements Serializable {
 		try {
 			SangriaDAO sangriaDAO = new SangriaDAO();
 			sangrias = sangriaDAO.listar();
+			
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar a Sangria");
 			erro.printStackTrace();

@@ -92,16 +92,16 @@
 						<br />
 					</h:outputText>
 
-					<p:outputLabel value="Total de Pagamentos:" />
+					<p:outputLabel id= "pag" value="Total de Pagamentos:" />
 					<p:outputLabel value="R$-" style="margin-right:54px;" />
-					<h:outputText value="#{recebimentoBean.valorPagamento}">
+					<h:outputText value="#{recebimentoBean.valorPagamento}" style="color: red;">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						<br />
 					</h:outputText>
 
-					<p:outputLabel value="Total de Sangrias:" style="margin-left:15px;" />
-					<p:outputLabel value="R$-" style="margin-right:54px;" />
-					<h:outputText value="#{recebimentoBean.valorSangria}">
+					<p:outputLabel id="san" value="Total de Sangrias:" style="margin-left:15px;" />
+					<p:outputLabel value="R$-" style="margin-right:54px;"  />
+					<h:outputText value="#{recebimentoBean.valorSangria}" style="color: red;">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						<br />
 					</h:outputText>
