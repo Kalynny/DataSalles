@@ -137,7 +137,7 @@ public class AvariaBean implements Serializable {
 	public void subtrair(ActionEvent evento) {
 		try {
 			Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			if (produto.getQuantidade()>0) {
+			if (produto.getQuantidade() > 1) {
 				Messages.addGlobalError("Informe pelo menos um item para a avaria");
 				
 				ItemAvaria item = null;
@@ -222,7 +222,7 @@ public class AvariaBean implements Serializable {
 	public void salvar() {
 		try {
 			if(avaria.getPrecoTotal().signum() == 0){
-				Messages.addGlobalError("Informe pelo menos um item para a avaria");
+				Messages.addGlobalError("Informe Quantidade Maior que Zero");
 				return;
 			}
 
