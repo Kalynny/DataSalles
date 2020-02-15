@@ -318,7 +318,7 @@ public class VendaBean implements Serializable {
 
 			if(venda.getTipopag().getCodigo() == (1)) {
 				VendaDAO vendaDAO = new VendaDAO();			
-				vendaDAO.salvar(venda, itensVenda, recebimento);
+				vendaDAO.salvar(venda, itensVenda);
 
 				venda = new Venda();
 				venda.setPrecoTotal(new BigDecimal("0.00"));
@@ -337,7 +337,6 @@ public class VendaBean implements Serializable {
 
 				VendaDAO vendaDAO = new VendaDAO();
 				vendaDAO.salvarBoleto(venda, itensVenda);
-				//venda = new Venda();
 				venda.setPrecoTotal(new BigDecimal("0.00"));
 
 				ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -413,11 +412,6 @@ public class VendaBean implements Serializable {
 		try {
 
 			transacao= sessao.beginTransaction();
-
-			//String dataFormatada = sevico.formatData("yyyy/MM/DD",venda.getVencimento());	
-			//String padraoData = " %Y-%m-%d ";
-			//String dataFormatada = new SimpleDateFormat("yyyy-MM-dd").format(venda.getVencimento());
-
 
 			String sql = "insert into creceber VALUES (null,"+venda.getVencimento()+","+venda.getPrecoTotal()+","+venda.getVencimento()+","+venda.getCliente().getCodigo()+","+venda.getTipopag().getCodigo()+");";
 

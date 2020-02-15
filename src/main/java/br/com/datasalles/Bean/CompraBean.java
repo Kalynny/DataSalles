@@ -3,7 +3,6 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -305,7 +304,6 @@ public class CompraBean implements Serializable {
 		this.calcular();
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	public void salvar(ActionEvent event) {
 		try {
 
@@ -313,8 +311,7 @@ public class CompraBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
 				return;
 			}
-			if(compra.getTipopagc().getCodigo().equals(1)) {
-
+			if(compra.getTipopagc().getCodigo() == (1)) {
 				CompraDAO compraDAO = new CompraDAO();			
 				compraDAO.salvar(compra,itensCompra);
 
@@ -331,12 +328,10 @@ public class CompraBean implements Serializable {
 				itensCompra = new ArrayList<>();
 
 				Messages.addGlobalInfo("Compra realizada com sucesso");
-				return;
 			}else{
 
 				CompraDAO compraDAO = new CompraDAO();
 				compraDAO.salvarBoleto(compra,itensCompra);
-				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
 
 				ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -347,7 +342,7 @@ public class CompraBean implements Serializable {
 				tipopagcs = new ArrayList<>();
 
 				itensCompra = new ArrayList<>();
-
+				Messages.addGlobalInfo("Compra realizada com sucesso");
 			}
 
 		} catch (RuntimeException erro) {
@@ -404,14 +399,8 @@ public class CompraBean implements Serializable {
 		try {
 
 			transacao= sessao.beginTransaction();
-
-			//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento());	
-			String padraoData = "%Y-%m-%d";
-			String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(compra.getVencimento());
-
-
-			String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
-
+			String sql = "insert into cpagar VALUES (null,"+compra.getVencimento()+","+compra.getPrecoTotal()+","+compra.getVencimento()+","+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+	
 			SQLQuery query = sessao.createSQLQuery(sql);
 
 			int result = query.executeUpdate();

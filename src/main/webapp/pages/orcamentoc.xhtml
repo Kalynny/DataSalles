@@ -54,12 +54,13 @@
 							update=":formulario:tabelaCesta :formulario:painelFinalizacao">
 							<f:attribute name="produtoSelecionado" value="#{produto}" />
 						</p:commandButton>
-
-
-
 					</p:column>
 				</p:dataTable>
 			</p:panel>
+			
+			<p:remoteCommand name="rc"
+				actionListener="#{orcamentocBean.atualizarPrecoParcial}"
+				update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
 
 			<p:panel header="Produtos do Orçamento de Compras">
 				<p:dataTable id="tabelaCesta"

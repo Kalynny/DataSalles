@@ -241,4 +241,11 @@ public class orcamentocBean implements Serializable {
 		OrcamentoCDAO dao = new OrcamentoCDAO();
 		orcamentocs = dao.listar("codigo");
 	}
+	
+	public void atualizarPrecoParcial(){
+		for(ItemOrcaC itemOrcac : this.itensOrcaC){
+			itemOrcac.setPrecoParcial(itemOrcac.getProduto().getPreco().multiply(new BigDecimal(itemOrcac.getQuantidade())));
+		}
+		this.calcular();
+	}
 }

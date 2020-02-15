@@ -230,4 +230,11 @@ public class orcamentoBean implements Serializable {
 		OrcamentoDAO dao = new OrcamentoDAO();
 		orcamentos = dao.listar("codigo");
 	}
+	
+	public void atualizarPrecoParcial(){
+		for(ItemOrca itemOrca : this.itensOrca){
+			itemOrca.setPrecoParcial(itemOrca.getProduto().getPreco().multiply(new BigDecimal(itemOrca.getQuantidade())));
+		}
+		this.calcular();
+	}
 }

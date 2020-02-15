@@ -70,15 +70,14 @@ public class CpagarBean implements Serializable {
 	public void salvar() {
 		try {
 			CpagarDAO cpagarDAO = new CpagarDAO();
-			System.out.println(cpagarDAO);
 			cpagarDAO.merge(cpagar);
 
+			FornecedorDAO fornecedorDAO = new FornecedorDAO();
+			fornecedores = fornecedorDAO.listar();
 
-			novo();
 			cpagares = cpagarDAO.listar();
 
-
-			Messages.addGlobalInfo("Contas a Pagar salvo com sucesso");
+			Messages.addGlobalInfo("Conta a Pagar salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Contas a Pagar");
 			erro.printStackTrace();
