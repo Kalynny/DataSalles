@@ -29,6 +29,7 @@ public class ProdutoBean implements Serializable {
 	private Produto  produto;
 	private List<Produto> produtos;
 	private List<Fornecedor> fornecedor;
+	
 
 	public Produto getProduto() {
 		return produto;
@@ -53,7 +54,7 @@ public class ProdutoBean implements Serializable {
 	public void setFornecedor(List<Fornecedor> fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-
+		
 
 	@PostConstruct
 	public void listar() {
@@ -173,4 +174,5 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+	
 }

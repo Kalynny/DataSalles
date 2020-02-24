@@ -32,6 +32,8 @@ public class orcamentocBean implements Serializable {
 	private List<Fornecedor> fornecedores;
 	private List<Funcionario> funcionarios;
 	private List<OrcamentoC> orcamentocs;
+	private Produto produto;
+	private Boolean exibir;
 
 	public OrcamentoC getOrcamentoC() {
 		return orcamentoc;
@@ -95,6 +97,22 @@ public class orcamentocBean implements Serializable {
 
 	public void setOrcamentoCs(List<OrcamentoC> orcamentocs) {
 		this.orcamentocs = orcamentocs;
+	}
+	
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+	
+	public Boolean getExibir() {
+		return exibir;
+	}
+
+	public void setExibir(Boolean exibir) {
+		this.exibir = exibir;
 	}
 
 	@PostConstruct
@@ -247,5 +265,25 @@ public class orcamentocBean implements Serializable {
 			itemOrcac.setPrecoParcial(itemOrcac.getProduto().getPreco().multiply(new BigDecimal(itemOrcac.getQuantidade())));
 		}
 		this.calcular();
+	}
+	
+	public void buscarP(){
+		try{
+			ProdutoDAO produtodao = new ProdutoDAO();
+			Produto resultado = produtodao.buscarnome(produto.getDescricao());
+
+			if(resultado == null){
+				Messages.addGlobalWarn("Não existe este Produto Cadastrado");
+				exibir = false;
+			} else{
+				exibir = true;
+				produto = resultado;
+			}
+
+		}catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar buscar o Produto");
+			erro.printStackTrace();
+		}
+
 	}
 }
