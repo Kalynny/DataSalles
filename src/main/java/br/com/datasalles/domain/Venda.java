@@ -19,7 +19,6 @@ import org.hibernate.annotations.FetchMode;
 public class Venda extends GenericDomain {
 
 	public static long TIPOPAGTO_AVISTA = 1;
-	
 	public static int STATUS_ABERTO = 0;
 	public static int STATUS_PAGO = 1;
 

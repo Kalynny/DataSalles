@@ -18,7 +18,7 @@
 			<p:panel header="Pedido de Vendas">
 				<f:facet name="header" style="text-align: center;">
 					<p:outputLabel value="PEDIDO DE VENDAS"
-						style="font-size:100%; margin-right:1060px;" />
+						style="font-size:100%; margin-right:1040px;" />
 					<p:button value="Voltar" outcome="/pages/pesquisaV.xhtml"
 						update="@form" />
 				</f:facet>
@@ -27,11 +27,6 @@
 					emptyMessage="Nenhum registro encontrado." paginator="true"
 					value="#{vendaBean.produtos}" var="produto" rows="5"
 					paginatorPosition="bottom">
-					
-					<p:column headerText="Codigo" style="text-align:center" 
-						sortBy="#{produto.codigo}">
-						<h:outputText value="#{produto.codigo}" />
-					</p:column>
 
 					<p:column headerText="Descrição" sortBy="#{produto.descricao}">
 						<h:outputText value="#{produto.descricao}" />
@@ -82,10 +77,6 @@
 					paginatorPosition="bottom" editable="true" editMode="cell">
 
 					<p:ajax event="cellEdit" oncomplete="rc()" />
-					
-					<p:column headerText="Codigo" style="text-align:center">
-						<h:outputText value="#{itemVenda.produto.codigo}" />
-					</p:column>
 
 					<p:column headerText="Descrição" style="text-align:left">
 						<h:outputText value="#{itemVenda.produto.descricao}" />
@@ -176,7 +167,7 @@
 					<h:outputText value="#{vendaBean.venda.precoTotal}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
-													
+
 					<p:outputLabel for="funcionario" value="Funcionário:" />
 					<p:selectOneMenu id="funcionario"
 						value="#{vendaBean.venda.funcionario}"

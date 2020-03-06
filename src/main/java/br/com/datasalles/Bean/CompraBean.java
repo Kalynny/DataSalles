@@ -3,8 +3,8 @@ package br.com.datasalles.Bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,11 +54,8 @@ public class CompraBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<TipoPagc> tipopagcs;
 	private List<Compra> compras;
-	private Date dataInicio = new Date(System.currentTimeMillis());
-	private Date dataFim  = new Date(System.currentTimeMillis());
-	private BigDecimal valorTotal;
-	
-	
+
+
 	public List<Compra> getCompras() {
 		return compras;
 	}
@@ -121,30 +118,6 @@ public class CompraBean implements Serializable {
 
 	public void setCpagar(Cpagar cpagar) {
 		this.cpagar = cpagar;
-	}
-	
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-	
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
 	}
 
 	public void importarOrcamentoC(OrcamentoC orcamentoc) {
@@ -323,35 +296,6 @@ public class CompraBean implements Serializable {
 		CompraDAO dao = new CompraDAO();
 		compras = dao.listar("codigo");
 	}
-	
-	@PostConstruct  
-	public void listard(){
-		try{
-
-			if(dataInicio==null || dataFim==null){
-				startDatas();
-			}
-
-			valorTotal = new BigDecimal("0");
-			CompraDAO compraDAO = new CompraDAO();			
-			compras = compraDAO.listar();
-			calculaValorTotal();
-
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Estoque Insuficiente");
-			erro.printStackTrace();
-		}
-
-	}
-	
-	public void calculaValorTotal(){
-		valorTotal = new BigDecimal("0");
-		if(compras.size() > 0){
-			for(int i=0; i<compras.size(); i++){
-				valorTotal = valorTotal.add(compras.get(i).getPrecoTotal());
-			}
-		}		
-	}
 
 
 	public void atualizarPrecoParcial(){
@@ -361,6 +305,7 @@ public class CompraBean implements Serializable {
 		this.calcular();
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public void salvar(ActionEvent event) {
 		try {
 
@@ -368,7 +313,8 @@ public class CompraBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
 				return;
 			}
-			if(compra.getTipopagc().getCodigo() == (1)) {
+			if(compra.getTipopagc().getCodigo().equals(1)) {
+
 				CompraDAO compraDAO = new CompraDAO();			
 				compraDAO.salvar(compra,itensCompra);
 
@@ -385,10 +331,12 @@ public class CompraBean implements Serializable {
 				itensCompra = new ArrayList<>();
 
 				Messages.addGlobalInfo("Compra realizada com sucesso");
+				return;
 			}else{
 
 				CompraDAO compraDAO = new CompraDAO();
 				compraDAO.salvarBoleto(compra,itensCompra);
+				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
 
 				ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -399,7 +347,7 @@ public class CompraBean implements Serializable {
 				tipopagcs = new ArrayList<>();
 
 				itensCompra = new ArrayList<>();
-				Messages.addGlobalInfo("Compra realizada com sucesso");
+
 			}
 
 		} catch (RuntimeException erro) {
@@ -456,8 +404,14 @@ public class CompraBean implements Serializable {
 		try {
 
 			transacao= sessao.beginTransaction();
-			String sql = "insert into cpagar VALUES (null,"+compra.getVencimento()+","+compra.getPrecoTotal()+","+compra.getVencimento()+","+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
-	
+
+			//String dataFormatada = sevico.formatData("yyyy/MM/DD",compra.getVencimento());	
+			String padraoData = "%Y-%m-%d";
+			String dataFormatada = new SimpleDateFormat("yyyy/MM/dd").format(compra.getVencimento());
+
+
+			String sql = "insert into cpagar VALUES (null, sysdate(),"+compra.getPrecoTotal()+",DATE_FORMAT("+dataFormatada+","+padraoData+"),"+compra.getFornecedor().getCodigo()+","+compra.getTipopagc().getCodigo()+");";
+
 			SQLQuery query = sessao.createSQLQuery(sql);
 
 			int result = query.executeUpdate();
@@ -503,21 +457,7 @@ public class CompraBean implements Serializable {
 		}
 	}
 
-	@PostConstruct
-	public void init() {
-		startDatas();
-		listar();
-	}
 
-	public void startDatas(){
-		Calendar c1 = Calendar.getInstance();
-		c1.set(Calendar.DAY_OF_MONTH, 1);
-		c1.set(Calendar.HOUR, 0);
-		c1.set(Calendar.MINUTE, 0);
-		c1.set(Calendar.SECOND, 0);
-		dataInicio = c1.getTime();
-		dataFim = new Date();
-	}
 
 
 }

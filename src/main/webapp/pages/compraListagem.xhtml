@@ -16,19 +16,6 @@
 
 		<h:form id="formListagem">
 			<p:panel header="Listagem de Compras">
-				<f:facet name="header">
-					<p:outputLabel value="LISTA DE COMPRAS"
-						style="margin-right:300px;" />
-					<p:outputLabel value="Data Inicio:" />
-					<p:calendar pattern="    dd/MM/yyyy"
-						value="#{compraBean.dataInicio}" style="margin: 0 7px;" />
-					<p:outputLabel value="Data Fim:" />
-					<p:calendar pattern="    dd/MM/yyyy"
-						value="#{compraBean.dataFim}" style="margin: 0 7px;" />
-					<p:commandButton value="Pesquisar" style="margin-right: 310px;"
-						actionListener="#{compraBean.listard}" update="@form" />
-					
-				</f:facet>
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{compraBean.compras}" var="compra"
 					rows="12">
@@ -58,7 +45,9 @@
 
 					</p:column>
 
-					<p:column headerText="Fornecedor">
+					<p:column headerText="Fornecedor"
+						filterBy="#{compra.fornecedor.descricao}"
+						sortBy="#{compra.fornecedor.descricao}">
 						<h:outputText value="#{compra.fornecedor.descricao}" />
 
 					</p:column>

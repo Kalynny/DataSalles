@@ -87,12 +87,14 @@
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{venda.itensVenda}" var="itemVenda">
 
-							<p:column headerText="Codigo do Pedido">
+							<p:column headerText="Codigo do Pedido"
+								style="width:80px; text-align: center;">
 								<h:outputText value="#{itemVenda.venda.codigo}" />
 							</p:column>
 
-							<p:column headerText="Codigo do Produto ">
-								<h:outputText value="#{itemVenda.codigo}" />
+							<p:column headerText="Codigo do Produto "
+								style="width:80px; text-align: center;">
+								<h:outputText value="#{itemVenda.produto.codigo}" />
 							</p:column>
 
 							<p:column headerText="Produto">
