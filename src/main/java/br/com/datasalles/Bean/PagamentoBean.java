@@ -221,7 +221,15 @@ public class PagamentoBean implements Serializable{
 
 	public void salvarPagar() {
 
+		totalGeral = 0d;
+
 		try {
+
+			if(compra.getPrecoTotal().signum() > 0d){
+				Messages.addGlobalError("Saldo insuficiente para Pagamento da Compra");
+				return;
+			
+			}
 
 			Pagamento pagamento = new Pagamento();
 			pagamento.setFornecedor(compra.getFornecedor());
@@ -242,7 +250,7 @@ public class PagamentoBean implements Serializable{
 
 			listar();
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o Receimento do Caixa");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o caixa");
 			erro.printStackTrace();
 		}
 	}
@@ -254,6 +262,7 @@ public class PagamentoBean implements Serializable{
 		valorPagamento = new PagamentoDAO().valorPagamento();
 		valorSangria = new SangriaDAO().valorSangria();
 		totalGeral = 0d;
+
 		if(valorAbertura != null) {
 			totalGeral += valorAbertura.doubleValue();
 		}
