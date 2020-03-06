@@ -23,10 +23,10 @@ public class CompraDAO extends GenericDAO<Compra> {
 		Transaction transacao = null;
 
 		try {
+			
 			transacao = sessao.beginTransaction();
-
-			sessao.save(compra);
-
+			
+			compra = (Compra) sessao.merge(compra);
 			for(int posicao = 0; posicao < itensCompra.size(); posicao++){
 				ItemCompra itemCompra = itensCompra.get(posicao);
 				itemCompra.setCompra(compra);
@@ -38,11 +38,9 @@ public class CompraDAO extends GenericDAO<Compra> {
 
 				if(qtde >= 0){
 					produto.setQuantidade(new Short((qtde) + ""));
-
 					sessao.update(produto);
-
 				}else{
-					throw new RuntimeException("Erro ao atualizar estoque");
+					throw new RuntimeException("Quatidade do Estoque menor que o solicitado");
 				}
 			}
 

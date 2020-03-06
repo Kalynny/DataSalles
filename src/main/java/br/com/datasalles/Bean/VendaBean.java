@@ -337,7 +337,6 @@ public class VendaBean implements Serializable {
 
 				VendaDAO vendaDAO = new VendaDAO();
 				vendaDAO.salvarBoleto(venda, itensVenda);
-				//venda = new Venda();
 				venda.setPrecoTotal(new BigDecimal("0.00"));
 
 				ProdutoDAO produtoDAO = new ProdutoDAO();

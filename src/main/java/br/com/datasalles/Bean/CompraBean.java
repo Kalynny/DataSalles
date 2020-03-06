@@ -34,6 +34,7 @@ import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemCompra;
 import br.com.datasalles.domain.ItemOrcaC;
 import br.com.datasalles.domain.OrcamentoC;
+import br.com.datasalles.domain.Pagamento;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoPagc;
 import br.com.datasalles.util.HibernateUtil;
@@ -54,7 +55,7 @@ public class CompraBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<TipoPagc> tipopagcs;
 	private List<Compra> compras;
-
+	private Pagamento pagamento;
 
 	public List<Compra> getCompras() {
 		return compras;
@@ -118,6 +119,14 @@ public class CompraBean implements Serializable {
 
 	public void setCpagar(Cpagar cpagar) {
 		this.cpagar = cpagar;
+	}
+	
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public void importarOrcamentoC(OrcamentoC orcamentoc) {
@@ -305,7 +314,7 @@ public class CompraBean implements Serializable {
 		this.calcular();
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
+	
 	public void salvar(ActionEvent event) {
 		try {
 
@@ -313,10 +322,11 @@ public class CompraBean implements Serializable {
 				Messages.addGlobalError("Informe pelo menos um item para a compra");
 				return;
 			}
-			if(compra.getTipopagc().getCodigo().equals(1)) {
+			
+			if(compra.getTipopagc().getCodigo() == (1)) {
 
 				CompraDAO compraDAO = new CompraDAO();			
-				compraDAO.salvar(compra,itensCompra);
+				compraDAO.salvar(compra,itensCompra, pagamento);
 
 				compra = new Compra();
 				compra.setPrecoTotal(new BigDecimal("0.00"));
