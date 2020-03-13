@@ -221,14 +221,11 @@ public class PagamentoBean implements Serializable{
 
 	public void salvarPagar() {
 
-		totalGeral = 0d;
-
 		try {
 
-			if(compra.getPrecoTotal().signum() > 0d){
+			if(compra.getPrecoTotal().doubleValue() < totalGeral){
 				Messages.addGlobalError("Saldo insuficiente para Pagamento da Compra");
 				return;
-			
 			}
 
 			Pagamento pagamento = new Pagamento();

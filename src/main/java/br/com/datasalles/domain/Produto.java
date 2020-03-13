@@ -65,6 +65,4 @@ public class Produto extends GenericDomain {
 		this.fornecedor = fornecedor;
 	}
 
-
-
 }

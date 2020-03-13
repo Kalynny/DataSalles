@@ -54,7 +54,9 @@ public class VendaBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private List<TipoPag> tipopags;
 	private List<Venda> vendas;
-
+	private String produtoBusca;
+		
+	
 	public Venda getVenda() {
 		return venda;
 	}
@@ -155,9 +157,6 @@ public class VendaBean implements Serializable {
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar("descricao");
-
 			itensVenda = new ArrayList<>();
 			tipopags = new ArrayList<>();
 
@@ -187,6 +186,11 @@ public class VendaBean implements Serializable {
 	public void listar(){
 		VendaDAO dao = new VendaDAO();
 		vendas = dao.listar("codigo");
+	}
+	
+	public void pesquisaProduto(){
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		produtos = produtoDAO.buscar(produtoBusca);
 	}
 
 	public void adicionar(ActionEvent evento) {
@@ -323,9 +327,8 @@ public class VendaBean implements Serializable {
 				venda = new Venda();
 				venda.setPrecoTotal(new BigDecimal("0.00"));
 
-				ProdutoDAO produtoDAO = new ProdutoDAO();
-				produtos = produtoDAO.listar("descricao");
-
+				produtos = null;
+				
 				@SuppressWarnings("unused")
 				TipoPagDAO tipopagDAO = new TipoPagDAO();
 				tipopags = new ArrayList<>();
@@ -437,6 +440,14 @@ public class VendaBean implements Serializable {
 			Messages.addGlobalInfo("Venda realizada com sucesso!!");
 		}
 
+	}
+
+	public String getProdutoBusca() {
+		return produtoBusca;
+	}
+
+	public void setProdutoBusca(String produtoBusca) {
+		this.produtoBusca = produtoBusca;
 	}	
 
 }
