@@ -17,9 +17,18 @@
 		<h:form id="formulario">
 			<p:panel header="Pedido de Compras">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="PEDIDO DE COMPRAS" style="font-size:100%;" />
-					<p:button value="Voltar" outcome="/pages/pesquisaC.xhtml"
-						update="@form" style="margin-left: 1030px;" />
+					<p:outputLabel value="PEDIDO DE COMPRAS"
+					style="font-size:100%; margin-right:230px;"	/>
+					<f:facet name="header">
+						<p:outputLabel value="PRODUTOS :" />
+						<p:inputText value="#{compraBean.produtoBusca}" size="70"
+							style="margin: 0 9px;" />
+						<p:commandButton value="Pesquisar" style="margin-right: 240px;"
+							actionListener="#{compraBean.pesquisaProduto}" update="@form" />
+						<p:button value="Voltar" outcome="/pages/pesquisaV.xhtml"
+							update="@form" />
+					</f:facet>
+
 				</f:facet>
 
 				<p:dataTable id="tabelaProduto"
@@ -154,7 +163,6 @@
 					<p:inputText value="#{compraBean.compra.nfcompra}">
 					</p:inputText>
 
-
 					<p:outputLabel value="Nº do Pedido de Compra" />
 					<p:inputText value="#{compraBean.compra.pedido}">
 					</p:inputText>
@@ -220,7 +228,5 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-
-
 	</ui:define>
 </ui:composition>
