@@ -20,6 +20,12 @@
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{cpagarBean.cpagares}" var="cpagar"
 					rows="6" id="tabela">
+					
+					<p:column headerText="Codigo"
+						style="width:80px; text-align: center;">
+						<h:outputText value="#{cpagar.codigo}">
+						</h:outputText>
+					</p:column>
 
 					<p:column headerText="Fornecedor">
 						<h:outputText value="#{cpagar.fornecedor.descricao}" />
