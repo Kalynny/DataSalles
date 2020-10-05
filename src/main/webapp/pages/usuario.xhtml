@@ -11,8 +11,8 @@
 		<h:form id="formListagem">
 			<p:panel header="Lista de Usuários">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE CONTAS A RECEBER"
-						style="font-size:100%; margin-right:450px;" />
+					<p:outputLabel value="CADASTRO DE USÚARIOS"
+						style="font-size:100%; margin-right:480px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{usuarioBean.novo}" update="@form">
 						<f:actionListener
@@ -22,7 +22,7 @@
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
-					rows="5">
+					rows="12" style="margin-right:-10px;">
 					<f:facet name="header">
 
 					</f:facet>

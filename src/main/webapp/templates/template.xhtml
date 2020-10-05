@@ -36,7 +36,7 @@
 
 		<p:layoutUnit position="center" resizable="false" closable="false"
 			collapsible="false" >
-			<h:form id="centro" style="font-size: 130%" >
+			<h:form id="centro" style="font-size: 120%" >
 				<p:megaMenu orientation="#{orientacaoBean.orientation}"
 					style="margin-top: 5px;" align="center" id="mega" >
 					<p:submenu label="Arquivo" >
@@ -68,12 +68,21 @@
 					<p:submenu label="Compras">
 						<p:column>
 							<p:submenu>
-								<p:menuitem value="Pedido de Compras"
+								<p:menuitem value="Orçamento de Compras"
 									outcome="/pages/pesquisaOC.xhtml" />
-								<p:menuitem value="Entrada NF de Compras"
-									outcome="/pages/pesquisaC.xhtml" />
+								<p:menuitem value="Pedido de Compras"
+									outcome="/pages/compras.xhtml" />
 								<p:menuitem value="Tipo de Pag. Compras"
 									outcome="/pages/tipopagc.xhtml" />
+							</p:submenu>
+						</p:column>
+					</p:submenu>
+					
+					<p:submenu label="Estoque">
+						<p:column>
+							<p:submenu>
+								<p:menuitem value="Entrada NF de Compras"
+									outcome="/pages/pesquisaC.xhtml" />
 							</p:submenu>
 						</p:column>
 					</p:submenu>

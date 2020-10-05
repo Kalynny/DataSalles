@@ -11,8 +11,8 @@
 		<h:form id="formListagem">
 			<p:panel>
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE PRODUTOS"
-						style="margin-right:480px;" />
+					<p:outputLabel value="CADASTRO DE PRODUTOS"
+						style="margin-right:420px;" />
 					<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
 						oncomplete="PF('dialogo').show();"
 						update=":mensagem :formCadastro:painel">
@@ -25,7 +25,7 @@
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{produtoBean.produtos}" var="produto"
-					rows="10">
+					rows="12" style="margin-right:-10px;">
 					<f:facet name="header">
 
 					</f:facet>

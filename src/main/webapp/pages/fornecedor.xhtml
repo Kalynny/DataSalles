@@ -12,19 +12,18 @@
 
 			<p:panel>
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE FORNECEDORES"
-						style="font-size:100%; margin-right:390px;" />
+					<p:outputLabel value="CADASTRO DE FORNECEDORES"
+						style="font-size:100%; margin-right:400px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{fornecedorBean.novo()}"
 						update=":formCadastro:pnCadastro" />
-					<p:button value="Voltar" outcome="/pages/produto.xhtml" />
 					<p:commandButton value="Imprimir"
 						actionListener="#{fornecedorBean.impfor()}" update="@form" />
 				</f:facet>
 
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{fornecedorBean.fornecedores}"
-					var="fornecedor" rows="10" id="tabela">
+					var="fornecedor" rows="12" id="tabela" style="margin-right:-10px;">
 					<p:column headerText="Código" style="width:40px; text-align:center">
 						<h:outputText value="#{fornecedor.codigo}" />
 					</p:column>

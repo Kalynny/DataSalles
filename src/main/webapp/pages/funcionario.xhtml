@@ -11,7 +11,7 @@
 		<h:form id="formListagem">
 			<p:panel header="Lista de Funcionarios">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE CONTAS A RECEBER"
+					<p:outputLabel value="CADASTRO DE FUNCIONARIOS"
 						style="font-size:100%; margin-right:410px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{funcionarioBean.novo}"
@@ -25,7 +25,7 @@
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{funcionarioBean.funcionarios}"
-					var="funcionario" rows="5">
+					var="funcionario" rows="12" style="margin-right:-10px;">
 
 					<p:column headerText="Nome">
 						<h:outputText value="#{funcionario.pessoa.nome}" />

@@ -11,8 +11,8 @@
 		<h:form id="formListagem">
 			<p:panel header="Lista de Estados">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE ESTADOS"
-						style="font-size:100%; margin-right:470px;" />
+					<p:outputLabel value="CADASTRO DE ESTADOS"
+						style="font-size:100%; margin-right:420px;" />
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{estadoBean.novo()}"
 						update=":formCadastro:pnCadastro" />
@@ -22,7 +22,7 @@
 
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{estadoBean.estados}" var="estado"
-					rows="10" id="tabela">
+					rows="12" style="margin-right:-10px;" id="tabela">
 
 					<p:column headerText="Nome" style="text-align:left">
 						<h:outputText value="#{estado.nome}" />

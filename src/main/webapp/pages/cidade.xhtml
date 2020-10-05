@@ -11,18 +11,20 @@
 		<h:form id="formListagem">
 			<p:panel header="Cidades - Listagem">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE CONTAS A RECEBER"
-						style="font-size:100%; margin-right:460px;" />
+					<p:outputLabel value="CADASTRO DE CIDADES"
+						style="font-size:100%; margin-right:420px;" />
 					<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
 						oncomplete="PF('dialogo').show();" update="@form">
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
+					<p:commandButton value="Imprimir"
+						actionListener="#{clienteBean.impcli()}" update="@form" />
 				</f:facet>
 
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{cidadeBean.cidades}" var="cidade"
-					rows="10">
+					rows="12" style="margin-right:-10px;">
 
 					<p:column headerText="Nome">
 						<h:outputText value="#{cidade.nome}" />
