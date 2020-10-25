@@ -36,17 +36,10 @@
 
 		<p:layoutUnit position="center" resizable="false" closable="false"
 			collapsible="false" >
-			<h:form id="centro" style="font-size: 120%" >
+			<h:form id="centro" style="font-size: 180%" >
 				<p:megaMenu orientation="#{orientacaoBean.orientation}"
 					style="margin-top: 5px;" align="center" id="mega" >
-					<p:submenu label="Arquivo" >
-						<p:column >
-							<p:submenu>
-								<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
-								<p:menuitem value="Sair" outcome="/pages/autenticacao.xhtml" />
-							</p:submenu>
-						</p:column>
-					</p:submenu>
+					
 					<p:submenu label="Cadastros"
 						rendered="#{autenticacaoBean.temPermissoes(['A','G'])}">
 						<p:column>
@@ -111,31 +104,6 @@
 						</p:column>
 					</p:submenu>
 
-					<p:submenu label="Caixa">
-						<p:column>
-							<p:submenu>
-								<p:menuitem value="Abertura do Caixa"
-									outcome="/pages/abertura.xhtml" />
-								<p:menuitem value="Sangria do Caixa"
-									outcome="/pages/sangria.xhtml" />
-								<p:menuitem value="Movimentação de Caixa"
-									outcome="/pages/movimentacao.xhtml" />
-								<p:menuitem value="Fechamento do Caixa"
-									outcome="/pages/fechamento.xhtml" />
-							</p:submenu>
-						</p:column>
-					</p:submenu>
-
-					<p:submenu label="Financeiro">
-						<p:column>
-							<p:submenu>
-								<p:menuitem value="Contas a Pagar" outcome="/pages/cpagar.xhtml" />
-								<p:menuitem value="Contas a Receber"
-									outcome="/pages/creceber.xhtml" />
-							</p:submenu>
-						</p:column>
-					</p:submenu>
-
 					<p:submenu label="Relatorio">
 						<p:column>
 							<p:submenu>
@@ -154,21 +122,18 @@
 							</p:submenu>
 						</p:column>
 					</p:submenu>
-
-					<p:submenu label="Consultas">
+			
+					<p:submenu label="Ajuda">
 						<p:column>
 							<p:submenu>
-								<p:menuitem value="Produtos"
-									outcome="/pages/produtosconsulta.xhtml" />
-								<p:menuitem value="Listagem de Compras"
-									outcome="/pages/compraListagem.xhtml" />
-								<p:menuitem value="Listagem de Vendas"
-									outcome="/pages/vendasListagem.xhtml" />
-								<p:menuitem value="Estoque de Mercadoria"
-									outcome="/pages/estoque.xhtml" />
+								<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
+								<p:menuitem value="Desconectar"
+									outcome="/pages/autenticacao.xhtml" />
 							</p:submenu>
 						</p:column>
 					</p:submenu>
+					
+				
 				</p:megaMenu>
 			</h:form>
 			<ui:insert name="conteudo" />
