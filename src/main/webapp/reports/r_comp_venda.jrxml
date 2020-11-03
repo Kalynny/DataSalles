@@ -46,7 +46,7 @@ WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
 				<text><![CDATA[RECIBO DE VENDA]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="10" y="0" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
+				<reportElement x="10" y="-20" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
 				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 		</band>
@@ -164,7 +164,7 @@ WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="126" splitType="Stretch">
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
 				<reportElement x="300" y="0" width="100" height="20" uuid="d9727711-523e-47c7-8493-65ca51fe1ce2"/>
 				<box>
@@ -220,9 +220,9 @@ WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="32" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="340" y="2" width="109" height="30" uuid="bcf90415-b8a4-46d7-be5c-d256e5c83a06"/>
+				<reportElement x="338" y="-45" width="109" height="30" uuid="bcf90415-b8a4-46d7-be5c-d256e5c83a06"/>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Double"/>
 					<topPen lineWidth="0.0"/>
@@ -236,7 +236,7 @@ WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
 				<text><![CDATA[Valor Total :]]></text>
 			</staticText>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="449" y="0" width="101" height="30" uuid="0e6d49d6-a39c-4975-93a4-d590afab65b9"/>
+				<reportElement x="447" y="-47" width="101" height="30" uuid="0e6d49d6-a39c-4975-93a4-d590afab65b9"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -249,11 +249,32 @@ WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="9" width="178" height="20" uuid="543a29bd-c1a5-40bf-8e79-ef50b4c593e3"/>
+				<reportElement x="2" y="56" width="178" height="20" uuid="543a29bd-c1a5-40bf-8e79-ef50b4c593e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="1" width="440" height="54" uuid="220d4e4c-4f8a-4339-9ce7-1a4341d72393"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rua Campos Sales, 429 - Madalena - Recife/PE  Cep: 50610-400 Fone: (81) 98829-5777    e-mail: datasalles@datasalles.com.br ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="56" width="80" height="20" uuid="6b956b33-ce45-4d75-a7e1-336574c4b282"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="482" y="56" width="70" height="20" uuid="6d192a1f-374f-48bc-8c39-8fe30a158b66"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

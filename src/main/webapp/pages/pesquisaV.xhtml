@@ -69,19 +69,24 @@
 					</p:column>
 
 					<p:column headerText="Tipo de Pagamento"
-						style="width:120px; text-align: center;">
+						style="width:100px; text-align: center;">
 						<h:outputText value="#{venda.tipopag.descricao}" />
 					</p:column>
 					
 					<p:column headerText="Status do Pagamento"
-						style="width:120px; text-align: center;">
+						style="width:90px; text-align: center;">
 						<h:outputText value="#{venda.status}" />
 					</p:column>
 					
-
 					<p:column headerText="Funcionário" style="text-align: center;">
 						<h:outputText value="#{venda.funcionario.pessoa.nome}" />
 					</p:column>
+					
+					<p:column headerText="Imprimir" style="text-align: center;">
+						<p:commandButton value="Imprimir"
+						actionListener="#{vendaBean.imprimirRelatorioVenda()}" update="@form" />
+					</p:column>
+					
 
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
