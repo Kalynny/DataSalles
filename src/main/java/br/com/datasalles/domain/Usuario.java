@@ -54,12 +54,18 @@ public class Usuario extends GenericDomain {
 
 		if(tipo == 'A'){
 			tipoFormatado = "Administrador";
-
-		} else if(tipo == 'B'){
-			tipoFormatado = "Balconista";
-
+			
 		}else if(tipo == 'G'){
 			tipoFormatado = "Gerente";
+			
+		} else if(tipo == 'V'){
+			tipoFormatado = "Vendedor";
+			
+		} else if(tipo == 'C'){
+			tipoFormatado = "Comprador";
+			
+		} else if(tipo == 'E'){
+			tipoFormatado = "Estoquista";
 
 		}
 		return tipoFormatado;

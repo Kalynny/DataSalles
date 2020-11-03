@@ -85,7 +85,7 @@ public class PesquisaCompraBean implements Serializable {
 
 			valorTotal = new BigDecimal("0");
 			CompraDAO compraDAO = new CompraDAO();			
-			compras = compraDAO.listar();
+			compras = compraDAO.listarPorData(dataInicio, dataFim);
 			calculaValorTotal();
 
 		} catch (RuntimeException erro) {

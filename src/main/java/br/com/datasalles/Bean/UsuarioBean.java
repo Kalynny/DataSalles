@@ -67,6 +67,7 @@ public class UsuarioBean implements Serializable {
 
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo usuário");
 			erro.printStackTrace();

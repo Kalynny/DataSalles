@@ -248,7 +248,7 @@ public class orcamentocBean implements Serializable {
 
 			itensOrcaC = new ArrayList<>();
 
-			Messages.addGlobalInfo("Pedido de Compras realizada com sucesso");
+			Messages.addGlobalInfo("Orçamento de Compras realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Pedido de Compras");
 			erro.printStackTrace();
