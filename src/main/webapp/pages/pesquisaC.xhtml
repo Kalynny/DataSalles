@@ -15,7 +15,7 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formCadastro">
-			<p:panel header="Orcamento de Vendas">
+			<p:panel header="Lista de Compras">
 				<f:facet name="header">
 					<p:outputLabel value="LISTA DE PEDIDO DE COMPRAS"
 						style="margin-right:160px;" />
@@ -26,7 +26,7 @@
 					<p:calendar pattern="    dd/MM/yyyy"
 						value="#{pesquisaCompraBean.dataFim}" style="margin: 0 7px;" />
 					<p:commandButton value="Pesquisar" style="margin-right: 310px;"
-						actionListener="#{pesquisaCompraBean.listar}" update="@form" />
+						actionListener="#{pesquisaCompraBean.listar()}" update="@form" />
 					<p:button value="Novo" outcome="/pages/compras.xhtml"
 						update="@form" />
 				</f:facet>

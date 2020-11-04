@@ -139,7 +139,7 @@ public class CompraDAO extends GenericDAO<Compra> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();		
 		try{
 			Criteria consulta = sessao.createCriteria(Compra.class);
-			consulta.add(Restrictions.between("horario", dataInicio, dataFim));
+			consulta.add(Restrictions.between("atual", dataInicio, dataFim));
 			return consulta.list();	
 		}catch(RuntimeException erro){
 			throw erro;

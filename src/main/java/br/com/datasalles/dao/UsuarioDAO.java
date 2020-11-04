@@ -9,9 +9,11 @@ import br.com.datasalles.domain.Usuario;
 import br.com.datasalles.util.HibernateUtil;
 
 public class UsuarioDAO extends GenericDAO<Usuario> {
-
+	
+	Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+	
 	public Usuario autenticar(String cpf, String senha){
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		
 		try{
 			Criteria consulta = sessao.createCriteria(Usuario.class);
 			consulta.createAlias("pessoa", "p");

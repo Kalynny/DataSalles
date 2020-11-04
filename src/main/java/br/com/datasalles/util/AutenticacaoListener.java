@@ -32,10 +32,7 @@ public class AutenticacaoListener implements PhaseListener{
 				Faces.navigate("/pages/autenticacao.xhtml");
 				return;
 			}
-		
 		}
-		
-		
 	}
 
 	@Override

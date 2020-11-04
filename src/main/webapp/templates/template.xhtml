@@ -123,8 +123,7 @@
 						<p:column>
 							<p:submenu>
 								<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
-								<p:menuitem value="Desconectar"
-									outcome="/pages/autenticacao.xhtml" />
+								<p:menuitem actionListener="#{autenticacaoBean.sair()}" value="Desconectar" />
 							</p:submenu>
 						</p:column>
 					</p:submenu>

@@ -89,7 +89,7 @@ public class PesquisaCompraBean implements Serializable {
 			calculaValorTotal();
 
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Estoque Insuficiente");
+			Messages.addGlobalError("Listagem Invalida");
 			erro.printStackTrace();
 		}
 

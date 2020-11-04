@@ -70,9 +70,20 @@ public class AutenticacaoBean {
 		return false;
 	}
 
-	public String sair() {
-		usuarioLogado = null;
-		return "/pages/autenticacao.xhtml?faces-redirect=true";
+	public void sair() {
+		try {
+			System.out.println("entrou");
+			usuario = new Usuario();
+			usuario.setPessoa(new Pessoa());
+			
+			usuarioLogado = usuario;
+			Faces.setSessionAttribute("autenticacaoBean", null);
+			Faces.redirect("./pages/autenticacao.xhtml");
+
+		} catch (IOException erro) {
+			erro.printStackTrace();
+			Messages.addGlobalError(erro.getMessage());
+		}
 	}
 
 }
