@@ -13,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -376,34 +375,16 @@ public class VendaBean implements Serializable {
 	@SuppressWarnings("deprecation")
 	public void imprimir(){
 		try {
-			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent ("formListagem:tabela");
-			Map<String, Object> filtros = tabela.getFilters();
-
-			String estNome = (String) filtros.get("nome");
-			String estSigla = (String) filtros.get("sigla");
-
-			String caminho = Faces.getRealPath("/reports/estado.jasper");
-			String banner = Faces.getRealPath("/resources/img/Logo1.png");
+			
+			String caminho = Faces.getRealPath("/reports/Relvenda.jasper");
+			String banner = Faces.getRealPath("/resources/img/Logo.png");
 
 			Map<String, Object> parametros = new HashMap<>();
 
 			parametros.put("BANNER",banner);
 
-			if (estNome == null) {
-				parametros.put("NOME_ESTADO", "%%");
-			} else {
-				parametros.put("NOME_ESTADO", "%" + estNome + "%");
-			}
-			if (estSigla == null) {
-				parametros.put("SIGLA_ESTADO", "%%");
-			} else {
-				parametros.put("SIGLA_ESTADO", "%" + estSigla + "%");
-			}
-
 			Connection conexao = HibernateUtil.getConexao();
-
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
-
 			JasperViewer view = new JasperViewer(relatorio, false);
 			view.show();
 
@@ -480,9 +461,11 @@ public class VendaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+		                                                                                                                               
+	@SuppressWarnings("unused")
 	public String buscaCodigoVenda() {
 		String codVenda = null;
+		
 		int i = 0;
 		String select = null;
 				
@@ -503,10 +486,7 @@ public class VendaBean implements Serializable {
 	            i++; 
 	         }
 	         transacao.commit();
-			
-			
-			
-			
+				
 		} catch (HibernateException e) {
 			if (transacao != null)
 				transacao.rollback();
