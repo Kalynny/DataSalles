@@ -249,7 +249,7 @@ public class AvariaBean implements Serializable {
 	public void improava(){
 		try {
 
-			String caminho = Faces.getRealPath("/reports/avaria.jasper");
+			String caminho = Faces.getRealPath("/reports/Relavaria.jasper");
 			String banner = Faces.getRealPath("/resources/img/Logo.png");
 
 			Map<String, Object> parametros = new HashMap<>();

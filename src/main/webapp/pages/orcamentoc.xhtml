@@ -11,7 +11,7 @@
 		<h:form id="formulario">
 			<p:panel>
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="ORÇAMENTO DE COMPRAS" style="font-size:100%;" />
+					<p:outputLabel value="PEDIDO DE COMPRAS" style="font-size:100%;" />
 					<p:button value="Voltar" outcome="/pages/pesquisaOC.xhtml"
 						update="@form" style="margin-left: 995px;" />
 				</f:facet>
@@ -62,7 +62,7 @@
 				actionListener="#{orcamentocBean.atualizarPrecoParcial}"
 				update=":formulario:tabelaCesta :formulario:painelFinalizacao" />
 
-			<p:panel header="Produtos do Orçamento de Compras">
+			<p:panel header="Produtos do Pedido de Compras">
 				<p:dataTable id="tabelaCesta"
 					emptyMessage="Nenhum registro encontrado." paginator="true"
 					value="#{orcamentocBean.itensOrcaC}" var="itemOrcaC" rows="5"
@@ -138,7 +138,7 @@
 			</p:panel>
 		</h:form>
 
-		<p:dialog header="Finalizar Orcamento de Compras" widgetVar="dialogo"
+		<p:dialog header="Finalizar Pedido de Compras" widgetVar="dialogo"
 			draggable="false" resizable="false" global="true" closable="false">
 			<h:form id="formularioFinalizar">
 				<h:panelGrid id="painelFinalizar" columns="2">

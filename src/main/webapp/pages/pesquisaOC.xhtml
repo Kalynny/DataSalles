@@ -14,16 +14,16 @@
 		<h:form>
 			<p:panel columns="2" header="Pedido de Compras">
 				<f:facet name="header" style="text-align: center;">
-					<p:outputLabel value="LISTA DE ORÇAMENTO DE COMPRAS"
+					<p:outputLabel value="LISTA DE PEDIDO DE COMPRAS"
 						style="margin-right:200px;" />
 					<p:outputLabel value="Data Inicio:" />
 					<p:calendar pattern="     dd/MM/yyyy"
 						value="#{pesquisaOrcaCBean.dataInicio}" style="margin: 0 7px;" />
 					<p:outputLabel value="Data Fim:" />
-					<p:calendar pattern="     dd/MM/yyyy"
+					<p:calendar pattern="  dd/MM/yyyy"
 						value="#{pesquisaOrcaCBean.dataFim}" style="margin: 0 7px;" />
 					<p:commandButton value="Pesquisar" style="margin-right: 170px;"
-						actionListener="#{pesquisaOrcaCBean.listar}" update="@form" />
+						actionListener="#{pesquisaOrcaCBean.listar}" update="@form"/>
 					<p:button value="Novo" outcome="/pages/orcamentoc.xhtml"
 						update="@form" />
 				</f:facet>

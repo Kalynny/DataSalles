@@ -11,21 +11,23 @@
 		<defaultValueExpression><![CDATA[$P{BANNER}]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT `venda`.`precoTotal` total,
- 	   `pessoa`.`nome` nome,
-       `venda`.`horario` date,
-       `venda`.`codigo` cod 
- FROM `venda`, `pessoa`, `cliente`                
-WHERE 
-	 cliente.codigo = venda.cliente_codigo 
-	 AND cliente.codigo = pessoa.codigo	 
-	
-ORDER BY venda.codigo]]>
+		<![CDATA[SELECT `produto`.`descricao` descricao,
+ 	   `avaria`.`precoTotal` total,
+ 	   `tipoavaria`.`descricao` tipo,
+ 	   `avaria`.`horario` date, 
+ 	   `avaria`.`codigo` cod 
+FROM `avaria`, `tipoavaria`, `produto` ,`fornecedor`, `itemavaria`
+WHERE `avaria`.codigo = `itemavaria`.`codigo`
+    and `fornecedor`.`codigo` = `avaria`.`fornecedor_codigo`
+    and `tipoavaria`.`codigo` = `avaria`.`tipoavaria_codigo`
+    and `itemavaria`.`produto_codigo` = `produto`.`codigo`
+ORDER BY avaria.codigo  ]]>
 	</queryString>
 	<field name="date" class="java.util.Date"/>
 	<field name="total" class="java.math.BigDecimal"/>
-	<field name="nome" class="java.lang.String"/>
 	<field name="cod" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
 	<variable name="SOMAR" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
@@ -36,7 +38,7 @@ ORDER BY venda.codigo]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="30" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatorio de Vendas]]></text>
+				<text><![CDATA[Relatorio de Avaria]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="0" y="0" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
@@ -45,7 +47,7 @@ ORDER BY venda.codigo]]>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="550" height="19" uuid="1da7693f-85cc-4429-aa25-01888d0c8bdc"/>
 				<box>
@@ -59,20 +61,20 @@ ORDER BY venda.codigo]]>
 				<text><![CDATA[Produtos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="20" width="70" height="19" uuid="96e4f929-a0ec-4a9f-b612-f5a9d48ea299"/>
+				<reportElement x="490" y="20" width="60" height="19" uuid="96e4f929-a0ec-4a9f-b612-f5a9d48ea299"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="80" height="19" uuid="96d6a729-86ab-4d2f-9cf9-4d41a0e2aad6"/>
+				<reportElement x="0" y="20" width="40" height="19" uuid="96d6a729-86ab-4d2f-9cf9-4d41a0e2aad6"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0"/>
@@ -80,37 +82,52 @@ ORDER BY venda.codigo]]>
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cod. da Venda]]></text>
+				<text><![CDATA[Cod. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="19" width="300" height="20" uuid="756b5816-887d-4f35-858f-185c46462a42"/>
+				<reportElement x="299" y="19" width="191" height="20" uuid="756b5816-887d-4f35-858f-185c46462a42"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nome Cliente:]]></text>
+				<text><![CDATA[Tipo Avaria]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="18" width="100" height="21" uuid="f38238a8-c56c-43ec-bb8b-e8555ead2de5">
+				<reportElement x="40" y="18" width="100" height="21" uuid="f38238a8-c56c-43ec-bb8b-e8555ead2de5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9dc6701e-af9c-48e5-8e6f-0b520ec38f30"/>
 				</reportElement>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="19" width="160" height="20" uuid="03049b21-8e75-49e9-8284-f767386dfef1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Opaque" x="0" y="2" width="552" height="17" backcolor="#B8E2FC" uuid="f631df9f-972a-4732-a5cd-ddd9dcda120a">
 					<printWhenExpression><![CDATA[($V{REPORT_COUNT} % 2) !=0]]></printWhenExpression>
@@ -120,7 +137,7 @@ ORDER BY venda.codigo]]>
 				</graphicElement>
 			</rectangle>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="2" y="1" width="78" height="20" uuid="1cb2ce65-f66f-4cfb-9197-63fd7f962395"/>
+				<reportElement x="2" y="1" width="38" height="20" uuid="1cb2ce65-f66f-4cfb-9197-63fd7f962395"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -133,20 +150,20 @@ ORDER BY venda.codigo]]>
 				<textFieldExpression><![CDATA[$F{cod}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="180" y="0" width="300" height="20" uuid="39f46a9d-9ae2-448d-a1e7-d76c3333a785"/>
+				<reportElement x="299" y="0" width="191" height="20" uuid="39f46a9d-9ae2-448d-a1e7-d76c3333a785"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="0.0"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
-				<reportElement x="482" y="1" width="70" height="18" uuid="3633e84f-008f-4bcd-8ebf-c25b46bc6080">
+				<reportElement x="490" y="1" width="62" height="18" uuid="3633e84f-008f-4bcd-8ebf-c25b46bc6080">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8fb0ccad-4b2b-4149-9d21-0449a5433f4f"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -155,13 +172,26 @@ ORDER BY venda.codigo]]>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyyy">
-				<reportElement x="80" y="0" width="100" height="21" uuid="55cd6f2a-454a-48bd-a101-92c1e77e1984">
+				<reportElement x="40" y="0" width="100" height="21" uuid="55cd6f2a-454a-48bd-a101-92c1e77e1984">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9dc6701e-af9c-48e5-8e6f-0b520ec38f30"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="140" y="1" width="160" height="20" uuid="a61d0b57-7ed8-4b15-8452-66be1e9d0c68"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

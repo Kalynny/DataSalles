@@ -11,16 +11,14 @@
 		<defaultValueExpression><![CDATA[$P{BANNER}]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT `venda`.`precoTotal` total,
- 	   `pessoa`.`nome` nome,
-       `venda`.`horario` date,
-       `venda`.`codigo` cod 
- FROM `venda`, `pessoa`, `cliente`                
+		<![CDATA[SELECT `compra`.`precoTotal` total,
+ 	   `fornecedor`.`descricao` nome,
+       `compra`.`atual` date,
+       `compra`.`codigo` cod 
+ FROM `compra`, `fornecedor`                
 WHERE 
-	 cliente.codigo = venda.cliente_codigo 
-	 AND cliente.codigo = pessoa.codigo	 
-	
-ORDER BY venda.codigo]]>
+	 fornecedor.codigo = compra.fornecedor_codigo 
+ORDER BY compra.codigo]]>
 	</queryString>
 	<field name="date" class="java.util.Date"/>
 	<field name="total" class="java.math.BigDecimal"/>
@@ -36,7 +34,7 @@ ORDER BY venda.codigo]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="30" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatorio de Vendas]]></text>
+				<text><![CDATA[Relatorio de Compras]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="0" y="0" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
@@ -82,7 +80,7 @@ ORDER BY venda.codigo]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Cod. da Venda]]></text>
+				<text><![CDATA[Cod. da Compra]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="19" width="300" height="20" uuid="756b5816-887d-4f35-858f-185c46462a42"/>
@@ -95,7 +93,7 @@ ORDER BY venda.codigo]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nome Cliente:]]></text>
+				<text><![CDATA[Nome Fornecedor:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="80" y="18" width="100" height="21" uuid="f38238a8-c56c-43ec-bb8b-e8555ead2de5">

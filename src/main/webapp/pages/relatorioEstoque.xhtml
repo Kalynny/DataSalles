@@ -12,7 +12,7 @@
 		<h:outputScript library="js" name="scripts.js" />
 		<p:toolbar>
 			<f:facet name="left">
-				<h:outputText value="Relatório de Compras" />
+				<h:outputText value="Relatório de Estoque" />
 			</f:facet>
 		</p:toolbar>
 
@@ -31,11 +31,11 @@
 
 		<div align="center">
 			<h:panelGrid>
-				<p:graphicImage style="width: 150px;" library="img"
-					name="compras.png" />
+				<p:graphicImage style="width: 190px;" library="img"
+					name="estoque11.png" />
 				<h:form id="tabela">
-					<p:commandButton value="Pedido de Compras"
-						actionListener="#{compraBean.imprimir}" style="width: 180px;"
+					<p:commandButton value="Estoque de Produtos"
+						actionListener="#{produtoBean.imprimir}" style="width: 180px;"
 						update="@form" />
 
 				</h:form>

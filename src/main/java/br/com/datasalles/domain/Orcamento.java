@@ -20,7 +20,7 @@ import org.hibernate.annotations.FetchMode;
 public class Orcamento extends GenericDomain {
 
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date horario;
 
 	@Column(nullable = false, precision = 7, scale = 2)
