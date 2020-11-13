@@ -19,15 +19,15 @@
 				<f:facet name="header" style="text-align: center;">
 					<p:outputLabel value="PEDIDO DE VENDAS"
 						style="font-size:100%; margin-right:230px;" />
-				<f:facet name="header">
-					<p:outputLabel value="PRODUTOS :" />
-					<p:inputText value="#{vendaBean.produtoBusca}" size="70" style="margin: 0 9px;" />
-					<p:commandButton value="Pesquisar" style="margin-right: 135px;"
-						actionListener="#{vendaBean.pesquisaProduto}" update="@form" />
-					<p:button value="Voltar" outcome="/pages/pesquisaV.xhtml"
-						update="@form"/>
-				</f:facet>
-					
+					<f:facet name="header">
+						<p:outputLabel value="PRODUTOS :" />
+						<p:inputText value="#{vendaBean.produtoBusca}" size="70"
+							style="margin: 0 9px;" />
+						<p:commandButton value="Pesquisar" style="margin-right: 240px;"
+							actionListener="#{vendaBean.pesquisaProduto}" update="@form" />
+						<p:button value="Voltar" outcome="/pages/pesquisaV.xhtml"
+							update="@form" />
+					</f:facet>
 				</f:facet>
 
 				<p:dataTable id="tabelaProduto"
@@ -168,7 +168,6 @@
 					<p:calendar id="vencimento" value="#{vendaBean.venda.vencimento}"
 						required="true"
 						requiredMessage="O campo 'vencimento' é obrigatório" size="14" />
-
 
 					<p:outputLabel value="Total: R$" />
 					<h:outputText value="#{vendaBean.venda.precoTotal}">

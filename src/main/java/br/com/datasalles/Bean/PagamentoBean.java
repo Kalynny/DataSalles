@@ -220,10 +220,10 @@ public class PagamentoBean implements Serializable{
 
 
 	public void salvarPagar() {
+		
+				try {
 
-		try {
-
-			if(compra.getPrecoTotal().doubleValue() < totalGeral){
+			if(compra.getPrecoTotal().doubleValue() >= totalGeral){
 				Messages.addGlobalError("Saldo insuficiente para Pagamento da Compra");
 				return;
 			}

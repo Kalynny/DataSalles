@@ -56,6 +56,7 @@ public class CompraBean implements Serializable {
 	private List<TipoPagc> tipopagcs;
 	private List<Compra> compras;
 	private Pagamento pagamento;
+	private String produtoBusca;
 
 	public List<Compra> getCompras() {
 		return compras;
@@ -127,6 +128,14 @@ public class CompraBean implements Serializable {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+		
+	public String getProdutoBusca() {
+		return produtoBusca;
+	}
+
+	public void setProdutoBusca(String produtoBusca) {
+		this.produtoBusca = produtoBusca;
 	}
 
 	public void importarOrcamentoC(OrcamentoC orcamentoc) {
@@ -447,6 +456,11 @@ public class CompraBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void pesquisaProduto(){
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		produtos = produtoDAO.buscar(produtoBusca);
 	}
 
 
