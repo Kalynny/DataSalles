@@ -15,9 +15,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
@@ -366,6 +369,9 @@ public class CompraBean implements Serializable {
 				tipopagcs = new ArrayList<>();
 
 				itensCompra = new ArrayList<>();
+				Messages.addGlobalInfo("Compra realizada com sucesso");
+				
+				imprimirRelatorioCompra();
 
 			}
 
@@ -458,12 +464,68 @@ public class CompraBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void imprimirRelatorioCompra(){
+		try {
+			String codVenda = buscaCodigoCompra();
+			int codVendaInt = Integer.parseInt(codVenda);
+
+			String caminho = Faces.getRealPath("/reports/r_comp_venda.jasper"); // caminho do relatorio quando tiver pronto
+			String banner = Faces.getRealPath("/resources/img/Logo.png"); // imagem passada para o relatorio
+
+			Map<String, Object> parametros = new HashMap<>();
+			parametros.put("BANNER",banner);
+			parametros.put("CODCOMPRA", codVendaInt); //codigo da venda
+			
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
+
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+	
 	public void pesquisaProduto(){
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		produtos = produtoDAO.buscar(produtoBusca);
 	}
+	
+	@SuppressWarnings("unused")
+	public String buscaCodigoCompra() {
+		String codCompra = null;
+		
+		int i = 0;
+		String select = null;
+				
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction transacao = null;
+		try {
+			transacao= sessao.beginTransaction();
+			select = " SELECT max(codigo) codigo FROM compra ";
+			SQLQuery query = sessao.createSQLQuery(select);
+			
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List data = query.list();
 
-
-
+	         for(Object object : data)  {
+	            Map row = (Map)object;
+	            codCompra = row.get("codigo").toString();
+	            
+	            i++; 
+	         }
+	         transacao.commit();
+				
+		} catch (HibernateException e) {
+			if (transacao != null)
+				transacao.rollback();
+			e.printStackTrace();
+		} finally {
+			sessao.close();
+		}
+		return codCompra;
+	}
 
 }
