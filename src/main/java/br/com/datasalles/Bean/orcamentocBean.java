@@ -233,7 +233,7 @@ public class orcamentocBean implements Serializable {
 	public void salvar() {
 		try {
 			if(orcamentoc.getPrecoTotal().signum() == 0){
-				Messages.addGlobalError("Informe pelo menos um item para a Orcamento de Compras");
+				Messages.addGlobalError("Informe pelo menos um item para o Pedido de Compras");
 				return;
 			}
 
@@ -248,7 +248,7 @@ public class orcamentocBean implements Serializable {
 
 			itensOrcaC = new ArrayList<>();
 
-			Messages.addGlobalInfo("Orçamento de Compras realizada com sucesso");
+			Messages.addGlobalInfo("Pedido de Compras realizada com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o Pedido de Compras");
 			erro.printStackTrace();

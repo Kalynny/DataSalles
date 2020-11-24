@@ -15,7 +15,7 @@
 					<p:outputLabel value="CADASTRO DE PESSOAS"
 						style="font-size:100%; margin-right:485px;" />
 					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
-						oncomplete="PF('dialogo').show();" update="@form">
+						oncomplete="PF('dialogo').show();" update=":mensagem :formCadastro:painel">
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
@@ -75,12 +75,12 @@
 						requiredMessage="O campo 'Nome' é obrigatório" />
 
 					<p:outputLabel for="rg" value="RG:" />
-					<p:inputMask id="rg" mask="99.999.999-9" size="10"
+					<p:inputMask id="rg" mask="99.999.999" size="10"
 						value="#{pessoaBean.pessoa.rg}" required="true"
 						requiredMessage="O campo 'RG' é obrigatório" />
 
 					<p:outputLabel for="cpf" value="CPF:" />
-					<p:inputMask id="cpf" mask="999.999.999-99" size="10"
+					<p:inputMask id="cpf" mask="999.999.999-99" size="14"
 						value="#{pessoaBean.pessoa.cpf}" required="true"
 						requiredMessage="O campo 'CPF' é obrigatório">
 					</p:inputMask>

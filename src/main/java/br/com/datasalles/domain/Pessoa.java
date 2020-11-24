@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 
 @Entity
 public class Pessoa extends GenericDomain {
@@ -19,6 +21,7 @@ public class Pessoa extends GenericDomain {
 	@Column(length = 50, nullable = false)
 	private String nome;
 
+	@CPF(message = "CPF Inválido, Favor Digitar um CPF Valido")
 	@Column(length = 14, nullable = false)
 	private String cpf;
 

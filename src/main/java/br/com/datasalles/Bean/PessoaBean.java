@@ -87,6 +87,7 @@ public class PessoaBean implements Serializable {
 			estados = estadoDAO.listar("nome");
 
 			cidades = new ArrayList<Cidade>();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
@@ -149,6 +150,5 @@ public class PessoaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-
 
 }

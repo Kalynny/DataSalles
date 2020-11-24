@@ -24,7 +24,7 @@
 					<p:outputLabel value="Data Fim:" />
 					<p:calendar pattern="    dd/MM/yyyy"
 						value="#{pesquisaVendaBean.dataFim}" style="margin: 0 9px;" />
-					<p:commandButton value="Pesquisar" style="margin-right: 230px;"
+					<p:commandButton value="Pesquisar" style="margin-right: 260px;"
 						actionListener="#{pesquisaVendaBean.listar}" update="@form" />
 					<p:button value="Novo" outcome="/pages/vendas.xhtml" update="@form" />
 				</f:facet>
@@ -83,7 +83,7 @@
 					
 					<p:column headerText="Imprimir" style="text-align: center;">
 						<p:commandButton value="Imprimir"
-						actionListener="#{vendaBean.imprimir()}" update="@form" />
+						actionListener="#{vendaBean.imprimirRelatorioVenda()}" update="@form" />
 					</p:column>
 					
 
