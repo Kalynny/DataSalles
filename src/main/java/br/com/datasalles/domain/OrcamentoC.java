@@ -25,6 +25,8 @@ public class OrcamentoC extends GenericDomain {
 
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal precoTotal;
+	
+	
 
 	@ManyToOne
 	private Fornecedor fornecedor;
@@ -76,6 +78,6 @@ public class OrcamentoC extends GenericDomain {
 	public void setItensOrcaC(List<ItemOrcaC> itensOrcaC) {
 		this.itensOrcaC = itensOrcaC;
 	}
-
+	
 
 }

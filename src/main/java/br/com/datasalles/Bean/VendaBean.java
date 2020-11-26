@@ -496,4 +496,28 @@ public class VendaBean implements Serializable {
 		}
 		return codVenda;
 	}
+	
+	@SuppressWarnings("deprecation")
+	public void imprimirRelatorioVenda(String id){
+		try {
+			String codVenda = id;
+			int codVendaInt = Integer.parseInt(codVenda);
+
+			String caminho = Faces.getRealPath("/reports/r_comp_venda.jasper"); // caminho do relatorio quando tiver pronto
+			String banner = Faces.getRealPath("/resources/img/Logo.png"); // imagem passada para o relatorio
+
+			Map<String, Object> parametros = new HashMap<>();
+			parametros.put("BANNER",banner);
+			parametros.put("CODVENDA", codVendaInt); //codigo da venda 
+			
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
+
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
 }
