@@ -11,7 +11,8 @@
 		</f:metadata>
 	</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="msg">
+			<p:growl id="msg"/>
 			<p:panel columns="2" header="Pedido de Compras">
 				<f:facet name="header" style="text-align: center;">
 					<p:outputLabel value="LISTA DE PEDIDO DE COMPRAS"
@@ -58,9 +59,18 @@
 						<h:outputText value="#{orcac.funcionario.pessoa.nome}" />
 					</p:column>
 					<p:column headerText="" style="text-align: center;">
-						<p:commandButton value="Import"
-							action="#{pesquisaOrcaCBean.importarOrcamentoC(orcac.codigo)}" />
+						<p:commandButton value="Import" style="margin: 0 50px;"
+							action="#{pesquisaOrcaCBean.importarOrcamentoC(orcac.codigo)}" 
+							update="@form"/>
+										
+					<p:commandButton icon="ui-icon-print" style="font-size: 1px;"
+							actionListener="#{orcamentocBean.imprimirRelatorioCompra(orcac.codigo)}"
+							update="@form"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="orcamentoc" value="#{orcamentoc}" />
+						</p:commandButton>
 					</p:column>
+					
 					<p:rowExpansion>
 						<p:dataTable emptyMessage="Nenhum registro encontrado."
 							value="#{orcac.itensOrcaC}" var="itemorcac">

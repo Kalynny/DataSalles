@@ -25,7 +25,8 @@
 WHERE `venda`.codigo = `itemvenda`.`venda_codigo`
   AND `itemvenda`.`produto_codigo` =  `produto`.`codigo`
   and `cliente`.`codigo` = `venda`.`cliente_codigo`
-  and `cliente`.`codigo` = `pessoa`.`codigo`
+  and  `pessoa`.`codigo`= `cliente`.`codigo`
+  and   `pessoa`.`codigo` = `venda`.`cliente_codigo`  
   AND `Venda`.codigo =  $P{CODVENDA}]]>
 	</queryString>
 	<field name="date" class="java.lang.String"/>

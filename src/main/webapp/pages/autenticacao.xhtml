@@ -18,16 +18,16 @@
 		resizable="false" global="true" visible="true">
 		<h:form>
 			<div align="center">
-				<p:graphicImage style="width: 200px;" library="img" name="Logo.png" />
+				<p:graphicImage style="width: 180px;" library="img" name="Logo.png" />
 			</div>
 			<h:panelGrid columns="2">
 				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputMask id="cpf" mask="999.999.999-99" size="20"
+				<p:inputMask id="cpf" mask="999.999.999-99" size="14"
 					required="true" requiredMessage="O campo CPF é obrigatório"
 					value="#{autenticacaoBean.usuario.pessoa.cpf}" />
 
 				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" maxlength="8" size="20" required="true"
+				<p:password id="senha" maxlength="8" size="14" required="true"
 					requiredMessage="O campo Senha é obrigatório"
 					value="#{autenticacaoBean.usuario.senha}" />
 			</h:panelGrid>

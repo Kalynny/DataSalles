@@ -7,30 +7,27 @@
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="562"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="425"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasalles"/>
-	<parameter name="CODVENDA" class="java.lang.Integer"/>
 	<parameter name="LOGO" class="java.awt.Image"/>
 	<parameter name="BANNER" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{BANNER}]]></defaultValueExpression>
 	</parameter>
+	<parameter name="CODORCAMENTOC" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$P{CODORCAMENTOC}]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT
-    `produto`.`descricao` descricao,
-    `compra`.`precoTotal` total,
-    `itemcompra`.`quantidade` quantidade,
-    `itemcompra`.`precoParcial` parcial,
-    `fornecedor`.`descricao` nome,
-    `compra`.`atual` DATE,
-    `compra`.`codigo` cod,
-    `produto`.`preco`
-FROM
-    `compra`,
-    `itemcompra`,
-    `produto`,
-    `funcionario`,
-    `fornecedor`
-WHERE
-    `compra`.codigo = `itemcompra`.`compra_codigo` AND `itemcompra`.`produto_codigo` = `produto`.`codigo` AND `fornecedor`.`codigo` = `compra`.`fornecedor_codigo`
-  AND `Venda`.codigo =  $P{CODVENDA}]]>
+		<![CDATA[SELECT `produto`.`descricao` descricao,
+ 			 `orcamentoc`.`precoTotal` total,
+ 			   `itemorcac`.`quantidade` quantidade,
+ 			     `itemorcac`.`precoParcial` parcial,
+ 			    `fornecedor`.`descricao` nome
+ 			     ,`orcamentoc`.`horario` date 
+ 			     ,`orcamentoc`.`codigo` cod 
+                 , `produto`.`preco`
+ FROM `orcamentoc`, `itemorcac`, `produto`, `fornecedor`
+WHERE `orcamentoc`.codigo = `itemorcac`.`orcamentoc_codigo`
+  AND `itemorcac`.`produto_codigo` =  `produto`.`codigo`
+  and `fornecedor`.`codigo` = `orcamentoc`.`fornecedor_codigo`
+    AND `Orcamentoc`.codigo =  $P{CODORCAMENTOC}]]>
 	</queryString>
 	<field name="date" class="java.lang.String"/>
 	<field name="total" class="java.math.BigDecimal"/>
@@ -47,10 +44,10 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="30" isBold="true"/>
 				</textElement>
-				<text><![CDATA[RECIBO DE COMPRA]]></text>
+				<text><![CDATA[PEDIDO DE COMPRAS]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="-20" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
+				<reportElement x="10" y="-20" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
 				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 		</band>
@@ -65,7 +62,7 @@ WHERE
 				<text><![CDATA[Nome Fornecedor:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="406" y="0" width="93" height="20" uuid="96d6a729-86ab-4d2f-9cf9-4d41a0e2aad6"/>
+				<reportElement x="410" y="0" width="86" height="20" uuid="96d6a729-86ab-4d2f-9cf9-4d41a0e2aad6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -85,7 +82,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{cod}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="90" y="0" width="260" height="20" uuid="39f46a9d-9ae2-448d-a1e7-d76c3333a785"/>
+				<reportElement x="93" y="0" width="270" height="20" uuid="39f46a9d-9ae2-448d-a1e7-d76c3333a785"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -168,7 +165,7 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="126" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Opaque" x="0" y="2" width="552" height="17" backcolor="#B8E2FC" uuid="f631df9f-972a-4732-a5cd-ddd9dcda120a">
 					<printWhenExpression><![CDATA[($V{REPORT_COUNT} % 2) !=0]]></printWhenExpression>
@@ -231,10 +228,23 @@ WHERE
 			</textField>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="79" splitType="Stretch">
+	<columnFooter>
+		<band height="32">
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="451" y="0" width="101" height="30" uuid="0e6d49d6-a39c-4975-93a4-d590afab65b9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="338" y="-45" width="109" height="30" uuid="bcf90415-b8a4-46d7-be5c-d256e5c83a06"/>
+				<reportElement x="345" y="0" width="109" height="30" uuid="bcf90415-b8a4-46d7-be5c-d256e5c83a06"/>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Double"/>
 					<topPen lineWidth="0.0"/>
@@ -247,19 +257,10 @@ WHERE
 				</textElement>
 				<text><![CDATA[Valor Total :]]></text>
 			</staticText>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="447" y="-47" width="101" height="30" uuid="0e6d49d6-a39c-4975-93a4-d590afab65b9"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="79" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="2" y="56" width="178" height="20" uuid="543a29bd-c1a5-40bf-8e79-ef50b4c593e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

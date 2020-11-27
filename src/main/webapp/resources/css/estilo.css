@@ -10,6 +10,10 @@
 	width: 85px
 }
 
+.ui-icon-trash .ui-icon-pencil .ui-icon-print .ui-icon {
+  font-size: 26px !important;
+}
+
 .ui-content {
 	font-size: 85% !important;
 }

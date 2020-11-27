@@ -24,12 +24,10 @@
 					<p:outputLabel value="Data Fim:" />
 					<p:calendar pattern="    dd/MM/yyyy"
 						value="#{pesquisaVendaBean.dataFim}" style="margin: 0 9px;" />
-					<p:commandButton value="Pesquisar" style="margin-right: 175px;"
+					<p:commandButton value="Pesquisar" style="margin-right: 260px;"
 						actionListener="#{pesquisaVendaBean.listar}" update="@form" />
 					<p:button value="Novo" outcome="/pages/vendas.xhtml" update="@form" />
-					
-					<p:commandButton value="Imprimir" actionListener="#{vendaBean.imprimirRelatorioVenda()}" update="@form" />
-					
+										
 				</f:facet>
 				<p:dataTable emptyMessage="Nenhum registro encontrado."
 					paginator="true" value="#{pesquisaVendaBean.vendas}" var="venda"
@@ -111,8 +109,8 @@
 							</p:column>
 						</p:dataTable>
 					</p:rowExpansion>
-					<p:column headerText="Acao">
-						<p:commandButton value="Imprimir" actionListener="#{vendaBean.imprimirRelatorioVenda(venda.codigo)}" update="@form" />
+					<p:column headerText="Imprimir">
+						<p:commandButton value="Imprimir" style="margin-left: 55px;" actionListener="#{vendaBean.imprimirRelatorioVenda(venda.codigo)}" update="@form" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>

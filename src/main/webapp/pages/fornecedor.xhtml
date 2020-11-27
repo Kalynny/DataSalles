@@ -59,7 +59,8 @@
 						<p:commandButton icon="ui-icon-pencil"
 							actionListener="#{fornecedorBean.editar}"
 							update=":formCadastro:pnCadastro"
-							oncomplete="PF('dialogo').show();">
+							oncomplete="PF('dialogo').show();"
+							style="width:100px">
 							<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
 						</p:commandButton>
 

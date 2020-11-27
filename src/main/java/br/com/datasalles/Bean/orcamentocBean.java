@@ -363,6 +363,30 @@ public class orcamentocBean implements Serializable {
 		return codOrcamentoC;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void imprimirRelatorioCompra(String id){
+		try {
+			String codOrcamentoC = id;
+			int codOrcamentoCInt = Integer.parseInt(codOrcamentoC);
+
+			String caminho = Faces.getRealPath("/reports/r_comp_compra.jasper"); // caminho do relatorio quando tiver pronto
+			String banner = Faces.getRealPath("/resources/img/Logo.png"); // imagem passada para o relatorio
+
+			Map<String, Object> parametros = new HashMap<>();
+			parametros.put("BANNER",banner);
+			parametros.put("CODORCAMENTOC", codOrcamentoCInt); //codigo da Orcamentoc 
+			
+			Connection conexao = HibernateUtil.getConexao();
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho,parametros, conexao);
+			JasperViewer view = new JasperViewer(relatorio, false);
+			view.show();
+
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+	}
+	
 	
 	
 }

@@ -5,17 +5,19 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.jboss.logging.Message;
 import org.omnifaces.util.Messages;
 import br.com.datasalles.dao.OrcamentoCDAO;
 import br.com.datasalles.domain.OrcamentoC;
@@ -103,12 +105,13 @@ public class PesquisaOrcaCBean implements Serializable {
 		}
 
 	}
-
+	
 	public String importarOrcamentoC(Long codigo) {
+		
 		if(importIsTrue(codigo)==false) {			
 			return "compras.xhtml?orcamentoc="+codigo+"&faces-redirect=true";
 		}else {
-			Messages.addGlobalError("Pedido Já Importado");
+			Messages.addGlobalError ("Pedido de Compras Já Importado");
 			return "pesquisaOC.xhtm&faces-redirect=true";
 		}	
 	}
@@ -136,8 +139,10 @@ public class PesquisaOrcaCBean implements Serializable {
 				if (transacao != null)
 					transacao.rollback();
 				e.printStackTrace();
+				
 			} finally {
 				sessao.close();
+				
 			}
 		
 		return retorno;
