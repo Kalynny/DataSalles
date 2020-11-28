@@ -106,7 +106,7 @@ public class ProdutoBean implements Serializable {
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o produto");
+			Messages.addFlashGlobalInfo("Código de Barras já Cadastrado no Sistema");
 			erro.printStackTrace();
 		}
 	}

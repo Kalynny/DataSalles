@@ -62,7 +62,7 @@ public class FornecedorBean implements Serializable {
 
 			Messages.addGlobalInfo("Fornecedor salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o estado");
+			Messages.addGlobalInfo("Fornecedor já Cadastrado em nosso Sistema");
 			erro.printStackTrace();
 		}
 	}

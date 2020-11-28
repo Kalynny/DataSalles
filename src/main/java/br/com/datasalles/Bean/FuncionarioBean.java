@@ -100,7 +100,7 @@ public class FuncionarioBean implements Serializable {
 
 			Messages.addGlobalInfo("Funcionario salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o funcionario");
+			Messages.addGlobalInfo("Funcionario já Cadastrado em nosso Sistema");
 			erro.printStackTrace();
 		}
 	}

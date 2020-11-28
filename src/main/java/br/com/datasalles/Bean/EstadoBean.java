@@ -56,7 +56,7 @@ public class EstadoBean implements Serializable {
 
 			Messages.addGlobalInfo("Estado salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o estado");
+			Messages.addGlobalInfo("Estado já Cadastrado em nosso Sistema");
 			erro.printStackTrace();
 		}
 	}

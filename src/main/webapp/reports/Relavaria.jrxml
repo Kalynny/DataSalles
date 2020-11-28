@@ -11,17 +11,22 @@
 		<defaultValueExpression><![CDATA[$P{BANNER}]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT `produto`.`descricao` descricao,
- 	   `avaria`.`precoTotal` total,
- 	   `tipoavaria`.`descricao` tipo,
- 	   `avaria`.`horario` date, 
- 	   `avaria`.`codigo` cod 
-FROM `avaria`, `tipoavaria`, `produto` ,`fornecedor`, `itemavaria`
-WHERE `avaria`.codigo = `itemavaria`.`codigo`
-    and `fornecedor`.`codigo` = `avaria`.`fornecedor_codigo`
-    and `tipoavaria`.`codigo` = `avaria`.`tipoavaria_codigo`
-    and `itemavaria`.`produto_codigo` = `produto`.`codigo`
-ORDER BY avaria.codigo  ]]>
+		<![CDATA[SELECT
+    `produto`.`descricao` descricao,
+    `avaria`.`precoTotal` total,
+    `tipoavaria`.`descricao` tipo,
+    `avaria`.`horario` DATE,
+    `avaria`.`codigo` cod
+FROM
+    `avaria`,
+    `tipoavaria`,
+    `produto`,
+    `itemavaria`
+WHERE `avaria`.codigo = `itemavaria`.`avaria_codigo`
+AND `tipoavaria`.`codigo` = `avaria`.`tipoavaria_codigo` 
+AND `itemavaria`.`produto_codigo` = `produto`.`codigo`
+ORDER BY
+    avaria.codigo]]>
 	</queryString>
 	<field name="date" class="java.util.Date"/>
 	<field name="total" class="java.math.BigDecimal"/>

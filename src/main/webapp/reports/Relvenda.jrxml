@@ -28,21 +28,21 @@ ORDER BY venda.codigo]]>
 	<variable name="SOMAR" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
-	<title>
-		<band height="106" splitType="Stretch">
+	<pageHeader>
+		<band height="113">
 			<staticText>
-				<reportElement positionType="Float" x="120" y="19" width="390" height="60" uuid="db2499c1-60a7-4f59-bc46-a434ea299e21"/>
+				<reportElement positionType="Float" x="138" y="26" width="390" height="60" uuid="db2499c1-60a7-4f59-bc46-a434ea299e21"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="30" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatorio de Vendas]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="0" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
+				<reportElement x="10" y="4" width="120" height="99" uuid="778a74cc-6ec0-486e-a4fc-2985a028ebd1"/>
 				<imageExpression><![CDATA[$P{BANNER}]]></imageExpression>
 			</image>
 		</band>
-	</title>
+	</pageHeader>
 	<columnHeader>
 		<band height="40" splitType="Stretch">
 			<staticText>
