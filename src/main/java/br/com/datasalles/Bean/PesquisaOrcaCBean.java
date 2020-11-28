@@ -111,7 +111,7 @@ public class PesquisaOrcaCBean implements Serializable {
 		if(importIsTrue(codigo)==false) {			
 			return "compras.xhtml?orcamentoc="+codigo+"&faces-redirect=true";
 		}else {
-			Messages.addGlobalError ("Pedido de Compras Já Importado");
+			Messages.addGlobalInfo("Pedido de Compras Já Importado");
 			return "pesquisaOC.xhtm&faces-redirect=true";
 		}	
 	}

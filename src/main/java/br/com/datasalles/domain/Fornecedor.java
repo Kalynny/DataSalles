@@ -2,6 +2,7 @@ package br.com.datasalles.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 
 @Entity
@@ -13,6 +14,7 @@ public class Fornecedor extends GenericDomain {
 	@Column(length=50, nullable=false )
 	private String nfantasia;
 
+	@CNPJ (message = "CNPJ Inválido, Favor Digitar um CNPJ Valido")
 	@Column(length = 18, nullable = false, unique = true )
 	private String cnpj;
 

@@ -50,7 +50,7 @@
 					<p:column headerText="Opções" style="text-align:center">
 						<p:commandButton icon="ui-icon-trash"
 							actionListener="#{fornecedorBean.excluir}"
-							update=":mensagem :formListagem:tabela">
+							update=":mensagem :formListagem:tabela" style="width:50px">
 							<p:confirm header="Confirmação"
 								message="Deseja excluir o fornecedor?" icon="ui-icon-alert" />
 							<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
@@ -60,7 +60,7 @@
 							actionListener="#{fornecedorBean.editar}"
 							update=":formCadastro:pnCadastro"
 							oncomplete="PF('dialogo').show();"
-							style="width:100px">
+							style="width:50px">
 							<f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
 						</p:commandButton>
 

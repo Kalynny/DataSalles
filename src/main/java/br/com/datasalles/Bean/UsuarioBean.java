@@ -10,12 +10,18 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.omnifaces.util.Messages;
 
 import br.com.datasalles.dao.PessoaDAO;
 import br.com.datasalles.dao.UsuarioDAO;
 import br.com.datasalles.domain.Pessoa;
 import br.com.datasalles.domain.Usuario;
+import br.com.datasalles.util.HibernateUtil;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -76,7 +82,7 @@ public class UsuarioBean implements Serializable {
 
 	public void salvar() {
 		try {
-
+			
 			SimpleHash hash = new SimpleHash("md5", usuario.getSenha() );
 			usuario.setSenha(hash.toHex());
 
@@ -88,10 +94,11 @@ public class UsuarioBean implements Serializable {
 
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
-
+				
+			
 			Messages.addGlobalInfo("Usuário salvo com sucesso");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o usuário");
+			Messages.addGlobalInfo("Usuario já Cadastrado");
 			erro.printStackTrace();
 		}
 	}
@@ -109,8 +116,6 @@ public class UsuarioBean implements Serializable {
 
 
 	}
-
-
 
 }
 

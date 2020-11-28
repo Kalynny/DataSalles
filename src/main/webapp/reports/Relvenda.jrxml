@@ -18,8 +18,7 @@
  FROM `venda`, `pessoa`, `cliente`                
 WHERE 
 	 cliente.codigo = venda.cliente_codigo 
-	 AND cliente.codigo = pessoa.codigo	 
-	
+	 AND  `cliente`.`pessoa_codigo` = pessoa.codigo	 
 ORDER BY venda.codigo]]>
 	</queryString>
 	<field name="date" class="java.util.Date"/>
