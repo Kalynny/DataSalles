@@ -23,6 +23,7 @@ import br.com.datasalles.dao.AvariaDAO;
 import br.com.datasalles.domain.Fornecedor;
 import br.com.datasalles.domain.Funcionario;
 import br.com.datasalles.domain.ItemAvaria;
+import br.com.datasalles.domain.ItemVenda;
 import br.com.datasalles.domain.Produto;
 import br.com.datasalles.domain.TipoAvaria;
 import br.com.datasalles.util.HibernateUtil;
@@ -243,6 +244,13 @@ public class AvariaBean implements Serializable {
 			Messages.addGlobalError("Quantidade da Avaria insuficiente");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void atualizarPrecoParcial(){
+		for(ItemAvaria itemAvaria : this.itensAvaria){
+			itemAvaria.setPrecoParcial(itemAvaria.getProduto().getPreco().multiply(new BigDecimal(itemAvaria.getQuantidade())));
+		}
+		this.calcular();
 	}
 
 	@SuppressWarnings("deprecation")
