@@ -11,7 +11,7 @@
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/datasalles</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">root</property>
+		<property name="connection.password"></property>
 
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>

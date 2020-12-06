@@ -81,17 +81,6 @@
 						</p:column>
 					</p:submenu>
 
-					<p:submenu label="Avaria">
-						<p:column>
-							<p:submenu>
-								<p:menuitem value="Avaria de Mercadoria"
-									outcome="/pages/pesquisaA.xhtml" />
-								<p:menuitem value="Tipo de Avaria"
-									outcome="/pages/tipoavaria.xhtml" />
-							</p:submenu>
-						</p:column>
-					</p:submenu>
-
 					<p:submenu label="Vendas">
 						<p:column>
 							<p:submenu>
@@ -101,6 +90,17 @@
 									outcome="/pages/pesquisaV.xhtml" />
 								<p:menuitem value="Tipo de Pag. Vendas"
 									outcome="/pages/tipopag.xhtml" />
+							</p:submenu>
+						</p:column>
+					</p:submenu>
+					
+					<p:submenu label="Avaria">
+						<p:column>
+							<p:submenu>
+								<p:menuitem value="Avaria de Mercadoria"
+									outcome="/pages/pesquisaA.xhtml" />
+								<p:menuitem value="Tipo de Avaria"
+									outcome="/pages/tipoavaria.xhtml" />
 							</p:submenu>
 						</p:column>
 					</p:submenu>
@@ -131,7 +131,6 @@
 						</p:column>
 					</p:submenu>
 					
-				
 				</p:megaMenu>
 			</h:form>
 			<ui:insert name="conteudo" />

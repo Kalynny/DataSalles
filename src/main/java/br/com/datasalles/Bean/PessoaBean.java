@@ -126,7 +126,7 @@ public class PessoaBean implements Serializable {
 
 			cidades = new ArrayList<>();
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a pessoa");
+			Messages.addGlobalError("Pessao já cadastrada no nosso Sistema");
 			erro.printStackTrace();
 		}
 	}

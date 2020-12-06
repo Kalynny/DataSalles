@@ -1,15 +1,15 @@
 package br.com.datasalles.Bean;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-
 import br.com.datasalles.dao.UsuarioDAO;
 import br.com.datasalles.domain.Pessoa;
 import br.com.datasalles.domain.Usuario;
@@ -87,3 +87,4 @@ public class AutenticacaoBean {
 	}
 
 }
+
